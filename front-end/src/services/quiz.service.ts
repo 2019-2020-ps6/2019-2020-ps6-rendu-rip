@@ -49,12 +49,18 @@ export class QuizService {
   this.http.post<Quiz>(this.quizUrl, quiz, this.httpOptions).subscribe(() => this.setQuizzesFromUrl());
 }
 
-
+/*
   deleteQuiz(quiz : Quiz){
     this.quizzes.splice(this.quizzes.indexOf(quiz),1);
     this.reindex();
     this.quizzes$.next(this.quizzes);
   }
+  */
+ deleteQuiz(quiz: Quiz) {
+  const urlWithId = this.quizUrl + '/' + quiz.id;
+  this.http.delete<Quiz>(urlWithId, this.httpOptions).subscribe(() => this.setQuizzesFromUrl());
+}
+
 
   reindex(){
     for (var i = 0; i < this.quizzes.length; i++) {
