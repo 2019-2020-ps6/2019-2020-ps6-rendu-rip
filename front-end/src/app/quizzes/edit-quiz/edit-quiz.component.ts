@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';import { QuizService } from '../../../services/quiz.service';
+import { ActivatedRoute } from '@angular/router'; import { QuizService } from '../../../services/quiz.service';
 import { Quiz } from '../../../models/quiz.model';
 
 @Component({
@@ -8,7 +8,7 @@ import { Quiz } from '../../../models/quiz.model';
   styleUrls: ['./edit-quiz.component.scss']
 })
 export class EditQuizComponent implements OnInit {
-  quizSelected : Quiz;
+  quizSelected: Quiz;
 
   constructor(private route: ActivatedRoute, public quizService: QuizService) {
    }
@@ -21,10 +21,13 @@ export class EditQuizComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.quizService.quizzes$.
     subscribe(quizzes => {
-      let list = quizzes.filter(quiz => quiz.id==(id));
-      if(list.length>0)this.quizSelected = list[0];
+      // tslint:disable-next-line: triple-equals
+      const list = quizzes.filter(quiz => quiz.id == (id));
+      if (list.length > 0) {
+        this.quizSelected = list[0];
+      }
       console.log(this.quizSelected);
     }
-    )
+    );
   }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Quiz } from '../models/quiz.model';
 import { QUIZ_LIST } from '../mocks/quiz-list.mock';
-import {HttpClient} from'@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { serverUrl, httpOptionsBase } from '../configs/server.config';
 
 @Injectable({
@@ -14,13 +14,13 @@ export class QuizService {
    * https://angular.io/docs/ts/latest/tutorial/toh-pt4.html
    */
 
-   /**
-    * The list of quiz.
-    * The list is retrieved from the mock.
-    */
+  /**
+   * The list of quiz.
+   * The list is retrieved from the mock.
+   */
   private quizzes: Quiz[] = QUIZ_LIST;
-  //private quizUrl = ' http://localhost:9428/api/quizzes';
-  
+  // private quizUrl = ' http://localhost:9428/api/quizzes';
+
   private quizUrl = serverUrl + '/quizzes';
   private httpOptions = httpOptionsBase;
 
@@ -30,9 +30,9 @@ export class QuizService {
    * Naming convention: Add '$' at the end of the variable name to highlight it as an Observable.
    */
   public quizzes$: BehaviorSubject<Quiz[]> = new BehaviorSubject(this.quizzes);
-  
 
-  constructor(private http : HttpClient) {
+
+  constructor(private http: HttpClient) {
     this.setQuizzesFromUrl();
   }
 
@@ -45,44 +45,43 @@ export class QuizService {
     this.quizzes$.next(this.quizzes);
   }
   */
- addQuiz(quiz: Quiz) {
-  this.http.post<Quiz>(this.quizUrl, quiz, this.httpOptions).subscribe(() => this.setQuizzesFromUrl());
-}
-
-/*
-  deleteQuiz(quiz : Quiz){
-    this.quizzes.splice(this.quizzes.indexOf(quiz),1);
-    this.reindex();
-    this.quizzes$.next(this.quizzes);
+  addQuiz(quiz: Quiz) {
+    this.http.post<Quiz>(this.quizUrl, quiz, this.httpOptions).subscribe(() => this.setQuizzesFromUrl());
   }
-  */
- deleteQuiz(quiz: Quiz) {
-  const urlWithId = this.quizUrl + '/' + quiz.id;
-  this.http.delete<Quiz>(urlWithId, this.httpOptions).subscribe(() => this.setQuizzesFromUrl());
-}
 
-
-  reindex(){
-    for (var i = 0; i < this.quizzes.length; i++) {
-      this.quizzes[i].id=i.toString();
+  /*
+    deleteQuiz(quiz : Quiz){
+      this.quizzes.splice(this.quizzes.indexOf(quiz),1);
+      this.reindex();
+      this.quizzes$.next(this.quizzes);
+    }
+    */
+  deleteQuiz(quiz: Quiz) {
+    const urlWithId = this.quizUrl + '/' + quiz.id;
+    this.http.delete<Quiz>(urlWithId, this.httpOptions).subscribe(() => this.setQuizzesFromUrl());
   }
-}
 
-  setQuizzes(quizzes:Quiz[]){
+
+  reindex() {
+    for (let i = 0; i < this.quizzes.length; i++) {
+      this.quizzes[i].id = i.toString();
+    }
+  }
+
+  setQuizzes(quizzes: Quiz[]) {
     this.quizzes = quizzes;
     this.quizzes$.next(this.quizzes);
-   
+
   }
-  setQuizzesFromUrl(){
-    this.http.get<Quiz[]>(this.quizUrl).subscribe((quizzes) =>  this.setQuizzes(quizzes));
-  
+  setQuizzesFromUrl() {
+    this.http.get<Quiz[]>(this.quizUrl).subscribe((quizzes) => this.setQuizzes(quizzes));
+
   }
 
   /*
   setQuizzesFromUrl(){
     this.http.get<{quizzes : Quiz[]}>(this.quizUrl).subscribe((quizzes) =>  this.setQuizzes(quizzes.quizzes));
-  
   }
   */
-  
+
 }

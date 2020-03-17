@@ -1,24 +1,24 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import{QuizListComponent} from './quizzes/quiz-list/quiz-list.component'
-import{EditQuizComponent} from './quizzes/edit-quiz/edit-quiz.component'
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { QuizListComponent } from './quizzes/quiz-list/quiz-list.component';
+import { EditQuizComponent } from './quizzes/edit-quiz/edit-quiz.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 
 
 
-const routes: Routes= [
-    {path:'',redirectTo :'/quiz-list',pathMatch : 'full'},
-    {path: 'user',component:UserListComponent},
-    {path: 'quiz-list', component: QuizListComponent},
-    {path: 'edit-quiz/:id', component: EditQuizComponent},
+const routes: Routes = [
+    { path: '', redirectTo: '/quiz-list', pathMatch: 'full' },
+    { path: 'user', component: UserListComponent },
+    { path: 'quiz-list', component: QuizListComponent },
+    { path: 'edit-quiz/:id', component: EditQuizComponent },
 ];
 
 @NgModule({
-    imports:[RouterModule.forRoot(routes)],
-    exports:[RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 
-export class AppRoutingModule{
+export class AppRoutingModule {
 
 }
 

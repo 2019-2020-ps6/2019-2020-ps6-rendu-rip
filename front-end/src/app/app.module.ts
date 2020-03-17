@@ -7,16 +7,16 @@ import { QuizListComponent } from './quizzes/quiz-list/quiz-list.component';
 import { QuizComponent } from './quizzes/quiz/quiz.component';
 import { HeaderComponent } from './header/header.component';
 import { QuizFormComponent } from './quizzes/quiz-form/quiz-form.component';
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { EditQuizComponent } from './quizzes/edit-quiz/edit-quiz.component';
 import { AppRoutingModule } from './app.routing.module';
 import { QuestionsComponent } from './quizzes/questions/questions.component';
 import { QuestionFormComponent } from './quizzes/question-form/question-form.component';
 import { QuestionListComponent } from './quizzes/question-list/question-list.component';
 import { AnswerFormComponent } from './quizzes/answer-form/answer-form.component';
-import {UserListComponent} from './users/user-list/user-list.component';
-import {UserComponent} from './users/user/user.component';
-import {UserFormComponent} from './users/user-form/user-form.component';
+import { UserListComponent } from './users/user-list/user-list.component';
+import { UserComponent } from './users/user/user.component';
+import { UserFormComponent } from './users/user-form/user-form.component';
 
 @NgModule({
   declarations: [

@@ -10,25 +10,27 @@ import { Question } from 'src/models/question.model';
 })
 export class QuestionFormComponent implements OnInit {
 
-  questionForm : FormGroup;
+  questionForm: FormGroup;
 
-  constructor(public formBuilder: FormBuilder, public questionService : QuestionService) {
+  constructor(public formBuilder: FormBuilder, public questionService: QuestionService) {
     this.initializeQuestionForm();
    }
 
-   private initializeQuestionForm(){
-     this.questionForm =this.formBuilder.group({
-       label:['']
-     })
+   private initializeQuestionForm() {
+     this.questionForm = this.formBuilder.group({
+       label: ['']
+     });
    }
   ngOnInit() {
   }
 
 
-  createQuestion(){
-    const questionToCreate : Question = this.questionForm.getRawValue() as Question;
-    questionToCreate.answers=[];
-    if(!questionToCreate.label)questionToCreate.label='Question inconnue'
+  createQuestion() {
+    const questionToCreate: Question = this.questionForm.getRawValue() as Question;
+    questionToCreate.answers = [];
+    if (!questionToCreate.label) {
+      questionToCreate.label = 'Question inconnue';
+    }
     this.questionService.addQuestion(questionToCreate);
     this.questionForm.reset();
   }
