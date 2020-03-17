@@ -13,14 +13,15 @@ import { Quiz } from '../../../models/quiz.model';
 export class QuizFormComponent implements OnInit {
 
   public quizForm: FormGroup;
-  public THEME_LIST : String[];
+  // tslint:disable-next-line: ban-types
+  public THEME_LIST: String[];
 
   constructor(public formBuilder: FormBuilder, public quizService: QuizService) {
     // Form creation
     this.quizForm = this.formBuilder.group({
       name: [''],
       theme: [''],
-      creationDate : new Date()
+      creationDate: new Date()
     });
     this.THEME_LIST= ["Sport","Actor","Autres"];
   }

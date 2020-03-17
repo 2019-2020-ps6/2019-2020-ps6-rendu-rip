@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { QuizService } from '../../../services/quiz.service';
+
 import { Quiz } from '../../../models/quiz.model';
 import { QUIZ_LIST } from '../../../mocks/quiz-list.mock';
 
@@ -11,7 +12,7 @@ import { QUIZ_LIST } from '../../../mocks/quiz-list.mock';
   styleUrls: ['./edit-quiz.component.scss']
 })
 export class EditQuizComponent implements OnInit {
-  quizSelected : Quiz;
+  quizSelected: Quiz;
 
   constructor(private route: ActivatedRoute, public quizService: QuizService) {
     this.quizService.quizSelected$.subscribe((quiz) => this.quizSelected = quiz);

@@ -20,10 +20,10 @@ export class QuestionFormComponent implements OnInit {
     this.initializeQuestionForm();
    }
 
-   private initializeQuestionForm(){
-     this.questionForm =this.formBuilder.group({
-       label:['']
-     })
+   private initializeQuestionForm() {
+     this.questionForm = this.formBuilder.group({
+       label: ['']
+     });
    }
   ngOnInit() {
   }

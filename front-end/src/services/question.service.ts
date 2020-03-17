@@ -30,7 +30,7 @@ import { Quiz } from 'src/models/quiz.model';
   public questions$: BehaviorSubject<Question[]> = new BehaviorSubject(this.questions);
   /*
   addQuestion(question: Question) {
-    question.id=this.questions.length;
+    question.id = this.questions.length;
     this.questions.push(question);
     this.questions$.next(this.questions);
   }
@@ -71,6 +71,6 @@ import { Quiz } from 'src/models/quiz.model';
     this.quizId = quiz.id;
     this.questions = quiz.questions;
     this.questions$.next(this.questions);
-   
+
   }
-  }
+}

@@ -16,7 +16,7 @@ import { Question } from '../models/question.model';
      id : '0'
  };
 
- export const QUESTION_SPORT: Question = {
+export const QUESTION_SPORT: Question = {
     label: 'Qui est l\'homme le plus rapide',
     answers: [
         {
@@ -36,12 +36,12 @@ export const QUIZ_LIST: Quiz[] = [
         name: 'Acteurs', // What's happening if I change this value..?
         theme: 'Actor',
         questions: [QUESTION_ACTOR],
-        id:'0',
+        id: '0',
     },
     {
         name: 'Sportifs',
         theme: 'Sport',
         questions: [QUESTION_SPORT],
-        id:'1',
+        id: '1',
     }
 ];

@@ -18,7 +18,7 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
   }
 
-  deleteUser(user : User){
+  deleteUser(user: User) {
     this.userService.deleteUser(user);
   }
 }
