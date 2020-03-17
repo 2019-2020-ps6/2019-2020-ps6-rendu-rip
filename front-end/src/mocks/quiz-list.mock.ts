@@ -13,7 +13,7 @@ import { Question } from '../models/question.model';
              isCorrect: true,
          }
      ],
-     id : 0
+     id : '0'
  };
 
  export const QUESTION_SPORT: Question = {
@@ -28,7 +28,7 @@ import { Question } from '../models/question.model';
             isCorrect: true,
         }
     ],
-    id : 0 
+    id : '0' 
 };
 
 export const QUIZ_LIST: Quiz[] = [

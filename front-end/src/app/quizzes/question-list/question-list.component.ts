@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { Question } from '../../../models/question.model';
-import { QuestionService } from 'src/services/question.service';
+import { Quiz } from 'src/models/quiz.model';
+import { QuizService } from 'src/services/quiz.service';
 
 @Component({
   selector: 'app-question-list',
@@ -9,16 +10,18 @@ import { QuestionService } from 'src/services/question.service';
 })
 export class QuestionListComponent implements OnInit {
   @Input()
-  public questionList: Question[];
-  constructor(public questionService : QuestionService) {
-    this.questionService.questions$.subscribe((question) => this.questionList = question);
+  quiz: Quiz;
+  constructor(public quizService : QuizService) {
+
    }
   ngOnInit() {
-    this.questionService.setQuestions(this.questionList);
+    console.log(this.quiz);
+    //this.questionService.questions$.subscribe((question) => this.quiz.questions = question);
+    //this.questionService.setQuestions(this.quiz);
   }
 
   deleteQuestion(question :Question){
-    this.questionService.deleteQuestion(question);
+    this.quizService.deleteQuestion(this.quiz, question);
   }
 
 }

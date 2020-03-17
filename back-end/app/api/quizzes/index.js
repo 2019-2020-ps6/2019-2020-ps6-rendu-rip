@@ -9,7 +9,7 @@ const router = new Router()
 
 router.get('/:quizId', (req, res) => {
   try {
-    res.status(200).json({...Quiz.getById(req.params.quizId),question: Question.get().filter(question => question.quizId == parseInt(req.params.quizId))})
+    res.status(200).json({...Quiz.getById(req.params.quizId),questions: Question.get().filter(question => question.quizId == parseInt(req.params.quizId))})
     //console.log(req.params.quizId);
   } catch (err) {
     res.status(500).json(err)
