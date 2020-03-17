@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Quiz } from '../models/quiz.model';
 import { QUIZ_LIST } from '../mocks/quiz-list.mock';
 import {HttpClient} from'@angular/common/http';
+import { serverUrl, httpOptionsBase } from '../configs/server.config';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,10 @@ export class QuizService {
     * The list is retrieved from the mock.
     */
   private quizzes: Quiz[] = QUIZ_LIST;
-  private quizUrl = ' http://localhost:9428/api/quizzes';
+  //private quizUrl = ' http://localhost:9428/api/quizzes';
+  
+  private quizUrl = serverUrl + '/quizzes';
+  private httpOptions = httpOptionsBase;
 
 
   /**
@@ -32,7 +36,7 @@ export class QuizService {
     this.setQuizzesFromUrl();
   }
 
-  
+  /*
   addQuiz(quiz: Quiz) {
     // You need here to update the list of quiz and then update our observable (Subject) with the new list
     // More info: https://angular.io/tutorial/toh-pt6#the-searchterms-rxjs-subject
@@ -40,6 +44,10 @@ export class QuizService {
     this.quizzes.push(quiz);
     this.quizzes$.next(this.quizzes);
   }
+  */
+ addQuiz(quiz: Quiz) {
+  this.http.post<Quiz>(this.quizUrl, quiz, this.httpOptions).subscribe(() => this.setQuizzesFromUrl());
+}
 
 
   deleteQuiz(quiz : Quiz){
