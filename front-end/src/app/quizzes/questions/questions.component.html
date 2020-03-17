@@ -1,0 +1,17 @@
+
+<div class="card">
+    Question n°{{question.id}} :
+    {{question.label}}
+    <br>
+    Réponses : 
+    <div class="question" *ngFor="let answer of question.answers">
+        <div *ngIf="answer">{{answer.value}}  -> {{answer.isCorrect}} 
+            <button id = "editAnswer" class="button" (click)="editAnswer(answer)"><i class="fas fa-edit"></i></button>
+            <div *ngIf="show && answer==answerSelected"><app-answer-form [question]=question [answerInit]= answerSelected (answerAdded)="reset($event)"></app-answer-form></div>
+            <button id = "supprAnswer" class="button" (click)="supprAnswer(answer)"><i class="fas fa-trash"></i></button>
+        </div>
+    </div>
+    <button id = "createAnswer" class="button-card" (click)="createAnswer()"> Ajouter une réponse </button>
+    <div *ngIf="show && !answerSelected"><app-answer-form [question]=question (answerAdded)="reset($event)"></app-answer-form></div>
+    <button id = "deleteQuestion" class="button-card" (click)="deleteQuestion()"> Supprimer la question</button>
+</div>

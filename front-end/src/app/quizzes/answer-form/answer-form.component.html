@@ -1,0 +1,15 @@
+{{addAnswer()}}
+<form [formGroup]="answerForm">
+<label>
+    Réponse
+    <input type="text" [formControlName]="'value'">
+    <br>
+    Correct
+    <input type="checkbox" [formControlName]="'isCorrect'"> 
+    <br>
+    <button id = "submitAnswer" class="button-card" (click)="submitAnswer()">Valider
+    </button>
+    <button id = "cancelAnswer" class="button-card" (click)="cancelAnswer()">Annuler
+    </button>
+</label>
+</form>

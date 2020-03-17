@@ -1,0 +1,11 @@
+<div class="card">
+<h3>Créer une nouvelle question :</h3>
+<form [formGroup]="questionForm">
+<label>
+    Intitulé de la question : 
+    <input type="text" [formControlName]="'label'">
+    <br>
+    <button id = "createQuestion" class="button-card" (click)="createQuestion()"> Créer</button>
+</label>
+</form>
+</div>
