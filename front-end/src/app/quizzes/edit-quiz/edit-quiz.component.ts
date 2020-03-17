@@ -20,6 +20,11 @@ export class EditQuizComponent implements OnInit {
   getId(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.quizService.quizzes$.
-    subscribe(quizzes => this.quizSelected = quizzes[(+id)]);
+    subscribe(quizzes => {
+      let list = quizzes.filter(quiz => quiz.id==(id));
+      if(list.length>0)this.quizSelected = list[0];
+      console.log(this.quizSelected);
+    }
+    )
   }
 }

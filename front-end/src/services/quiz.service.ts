@@ -18,7 +18,7 @@ export class QuizService {
     * The list is retrieved from the mock.
     */
   private quizzes: Quiz[] = QUIZ_LIST;
-  private quizUrl = ' https://api.myjson.com/bins/13ajhy';
+  private quizUrl = ' http://localhost:9428/api/quizzes';
 
 
   /**
@@ -32,7 +32,7 @@ export class QuizService {
     this.setQuizzesFromUrl();
   }
 
-
+  
   addQuiz(quiz: Quiz) {
     // You need here to update the list of quiz and then update our observable (Subject) with the new list
     // More info: https://angular.io/tutorial/toh-pt6#the-searchterms-rxjs-subject
@@ -40,6 +40,7 @@ export class QuizService {
     this.quizzes.push(quiz);
     this.quizzes$.next(this.quizzes);
   }
+
 
   deleteQuiz(quiz : Quiz){
     this.quizzes.splice(this.quizzes.indexOf(quiz),1);
@@ -58,11 +59,16 @@ export class QuizService {
     this.quizzes$.next(this.quizzes);
    
   }
+  setQuizzesFromUrl(){
+    this.http.get<Quiz[]>(this.quizUrl).subscribe((quizzes) =>  this.setQuizzes(quizzes));
+  
+  }
 
-
+  /*
   setQuizzesFromUrl(){
     this.http.get<{quizzes : Quiz[]}>(this.quizUrl).subscribe((quizzes) =>  this.setQuizzes(quizzes.quizzes));
   
   }
+  */
   
 }

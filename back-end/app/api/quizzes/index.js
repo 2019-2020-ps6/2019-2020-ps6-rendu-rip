@@ -20,7 +20,6 @@ router.get('/:quizId', (req, res) => {
 router.get('/', (req, res) => {
   try {
     res.status(200).json(Quiz.get().map(quiz => ({...quiz,questions:Question.get().filter(question => question.quizId==parseInt(quiz.id))})))
-    console.log(quiz.id)
   } catch (err) {
     res.status(500).json(err)
   }
