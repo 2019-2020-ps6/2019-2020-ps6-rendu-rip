@@ -5,6 +5,7 @@ import { QUIZ_LIST } from '../mocks/quiz-list.mock';
 import { HttpClient } from '@angular/common/http';
 import { serverUrl, httpOptionsBase } from '../configs/server.config';
 import { Question } from 'src/models/question.model';
+import { Answer } from 'src/models/answer.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,18 +21,21 @@ export class QuizService {
     * The list is retrieved from the mock.
     */
   private quizzes: Quiz[];
-  //private quizUrl = ' http://localhost:9428/api/quizzes';
-  
+  // private quizUrl = ' http://localhost:9428/api/quizzes';
+
   private quizUrl = serverUrl + '/quizzes';
   private httpOptions = httpOptionsBase;
   public quizSelected$: Subject<Quiz> = new Subject();
   private questionsPath = 'questions';
+  private answersPath = 'answers';
+
 
   /**
    * Observable which contains the list of the quiz.
    * Naming convention: Add '$' at the end of the variable name to highlight it as an Observable.
    */
   public quizzes$: BehaviorSubject<Quiz[]> = new BehaviorSubject(this.quizzes);
+
 
 
   constructor(private http: HttpClient) {
@@ -49,6 +53,14 @@ export class QuizService {
   */
   addQuiz(quiz: Quiz) {
     this.http.post<Quiz>(this.quizUrl, quiz, this.httpOptions).subscribe(() => this.setQuizzesFromUrl());
+  }
+
+  addAnswer(quiz: Quiz, question: Question, answerToAdd: Answer) {
+    const answerUrl = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id + '/' + this.answersPath + '/';
+    console.log('l\'url est : ', answerUrl);
+    this.http.post<Answer>(answerUrl, answerToAdd, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
+
+    console.log('la réponse a été rajouté avec succès !');
   }
 
   /*
@@ -87,15 +99,25 @@ export class QuizService {
     });
     console.log(this.quizSelected$);
   }
-    addQuestion(quiz : Quiz, question: Question){
+    addQuestion(quiz: Quiz, question: Question) {
       const questionUrl = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath;
       this.http.post<Question>(questionUrl, question, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
     }
-  
-    deleteQuestion(quiz : Quiz , question: Question) {
+
+    deleteQuestion(quiz: Quiz , question: Question) {
       const questionUrl = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id;
       this.http.delete<Question>(questionUrl, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
     }
+
+  getAnswers(quiz: Quiz, question: Question) {
+    const url = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id;
+    const result = this.http.get<Answer>(url, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
+
+    console.log('le resultat est: ', result);
+    return result;
+  }
+
+
 
 
   /*

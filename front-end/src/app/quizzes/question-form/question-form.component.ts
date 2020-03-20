@@ -13,10 +13,10 @@ import { Quiz } from 'src/models/quiz.model';
 export class QuestionFormComponent implements OnInit {
 
   @Input()
-  quiz:Quiz;
-  questionForm : FormGroup;
+  quiz: Quiz;
+  questionForm: FormGroup;
 
-  constructor(public formBuilder: FormBuilder, public quizService : QuizService) {
+  constructor(public formBuilder: FormBuilder, public quizService: QuizService) {
     this.initializeQuestionForm();
    }
 
@@ -29,10 +29,10 @@ export class QuestionFormComponent implements OnInit {
   }
 
 
-  createQuestion(){
-    const questionToCreate : Question = this.questionForm.getRawValue() as Question;
-    questionToCreate.answers=[];
-    if(!questionToCreate.label)questionToCreate.label='Question inconnue'
+  createQuestion() {
+    const questionToCreate: Question = this.questionForm.getRawValue() as Question;
+    questionToCreate.answers = [];
+    if (!questionToCreate.label) {questionToCreate.label = 'Question inconnue';}
     this.quizService.addQuestion(this.quiz, questionToCreate);
     this.questionForm.reset();
   }

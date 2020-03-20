@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Form, FormArray, FormGroup } from '@angular/forms';
 import { Answer } from 'src/models/answer.model';
 import { Question } from 'src/models/question.model';
+import { Quiz } from 'src/models/quiz.model';
+import { QuizService } from 'src/services/quiz.service';
 
 @Component({
   selector: 'app-answer-form',
@@ -12,6 +14,8 @@ export class AnswerFormComponent implements OnInit {
 
   answerForm: FormGroup;
   @Input()
+  quiz: Quiz;
+  @Input()
   question: Question;
   @Input()
   answerInit: Answer;
@@ -20,7 +24,7 @@ export class AnswerFormComponent implements OnInit {
   answerAdded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
-  constructor(public formBuilder: FormBuilder) {
+  constructor(public formBuilder: FormBuilder, public quizService: QuizService) {
   }
 
   private initializeAnswerForm() {
@@ -41,16 +45,25 @@ export class AnswerFormComponent implements OnInit {
     this.initializeAnswerForm();
   }
 
-  private createAnswer() {
-    return this.formBuilder.group({
+  createAnswer() {
+   return this.formBuilder.group({
       value: '',
       isCorrect: false,
     });
   }
 
-  addAnswer() {
+  addAnswer(answerToCreate: Answer) {
     // (<HTMLInputElement> document.getElementById("createAnswer")).disabled = this.showLabel;
     this.createAnswer();
+  }
+
+  addAnser_toServer(answerToCreate: Answer): void{
+    if (!answerToCreate.value) {
+      answerToCreate.value = 'reponse inconnu !';
+     } else {
+       this.quizService.addAnswer(this.quiz, this.question, answerToCreate);
+       this.answerForm.reset();
+     }
   }
 
   submitAnswer() {
@@ -70,6 +83,7 @@ export class AnswerFormComponent implements OnInit {
           this.question.answers[i] = answerToCreate;
           this.answerForm.reset();
           this.answerAdded.emit(false);
+          this.addAnser_toServer(answerToCreate);
         }
       }
     }

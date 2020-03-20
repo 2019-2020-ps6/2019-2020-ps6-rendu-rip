@@ -1,7 +1,7 @@
 import { Quiz } from '../models/quiz.model';
 import { Question } from '../models/question.model';
 
- export const QUESTION_ACTOR: Question = {
+export const QUESTION_ACTOR: Question = {
      label: 'Jean Gabin a joué dans...',
      answers: [
          {
@@ -13,7 +13,7 @@ import { Question } from '../models/question.model';
              isCorrect: true,
          }
      ],
-     id : '0'
+     id : 0
  };
 
 export const QUESTION_SPORT: Question = {
@@ -28,7 +28,7 @@ export const QUESTION_SPORT: Question = {
             isCorrect: true,
         }
     ],
-    id : '0' 
+    id : 0
 };
 
 export const QUIZ_LIST: Quiz[] = [

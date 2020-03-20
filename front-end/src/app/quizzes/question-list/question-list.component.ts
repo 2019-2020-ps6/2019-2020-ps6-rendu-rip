@@ -11,17 +11,16 @@ import { QuizService } from 'src/services/quiz.service';
 export class QuestionListComponent implements OnInit {
   @Input()
   quiz: Quiz;
-  constructor(public quizService : QuizService) {
+  constructor(public quizService: QuizService) {
 
    }
   ngOnInit() {
     console.log(this.quiz);
-    //this.questionService.questions$.subscribe((question) => this.quiz.questions = question);
-    //this.questionService.setQuestions(this.quiz);
+    // this.questionService.questions$.subscribe((question) => this.quiz.questions = question);
+    // this.questionService.setQuestions(this.quiz);
   }
 
-  deleteQuestion(question :Question){
+  deleteQuestion(question: Question) {
     this.quizService.deleteQuestion(this.quiz, question);
   }
-
 }

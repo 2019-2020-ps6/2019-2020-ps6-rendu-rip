@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Question } from '../../../models/Question.model';
 import { Answer } from '../../../models/answer.model';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-questions',
@@ -12,15 +13,20 @@ export class QuestionsComponent implements OnInit {
   answerSelected: Answer;
   show: boolean;
 
+
   @Input()
   question: Question;
-
+  questionForm: FormGroup;
 
   @Output()
   questionDeleted: EventEmitter<Question> = new EventEmitter<Question>();
+  AnswerPrinted: EventEmitter<Answer> = new EventEmitter<Answer>();
 
 
   public answers: Answer[];
+
+  public CorectAnswer: Answer;
+
   constructor() { }
 
   ngOnInit() {
@@ -47,5 +53,14 @@ export class QuestionsComponent implements OnInit {
   }
   switchShow(show: boolean) {
     this.show = show;
+  }
+
+  printCorrectAnswer() {
+    this.answers.forEach(element => {
+      if (element.isCorrect) {
+        this.AnswerPrinted.emit();
+        this.CorectAnswer = element;
+      }
+    });
   }
 }
