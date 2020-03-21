@@ -20,7 +20,7 @@ const filterAnswersFromQuestion = (questionId) => {
 const getAnswerFromQuestion = (quizId, questionId, answerId) => {
     const question = getQuestionFromQuiz(quizId, questionId)
     const answer = Answer.getById(answerId)
-    if (answer.questionId !== question.id) throw new NotFoundError(`${answer.name} id=${answerId} was not found for ${question.name} id=${question.id} : not found`)
+    if (parseInt(answer.questionId) !== parseInt(question.id)) throw new NotFoundError(`${answer.name} id=${answerId} was not found for ${question.name} id=${question.id} : not found`)
     return answer
 }
 

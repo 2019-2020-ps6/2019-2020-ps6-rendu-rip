@@ -57,33 +57,26 @@ export class AnswerFormComponent implements OnInit {
     this.createAnswer();
   }
 
-  addAnser_toServer(answerToCreate: Answer): void{
-    if (!answerToCreate.value) {
-      answerToCreate.value = 'reponse inconnu !';
-     } else {
-       this.quizService.addAnswer(this.quiz, this.question, answerToCreate);
-       this.answerForm.reset();
-     }
-  }
-
   submitAnswer() {
     // (<HTMLInputElement> document.getElementById("createAnswer")).disabled = this.showLabel;
     const answerToCreate: Answer = this.answerForm.getRawValue() as Answer;
-
+    console.log(this.quiz)
     if (this.answerInit == null) {
       if (!answerToCreate.isCorrect) { answerToCreate.isCorrect = false; }
       if (!answerToCreate.value) { answerToCreate.value = 'Aucune idée'; }
       this.question.answers.push(answerToCreate);
+      this.quizService.addAnswer(this.quiz, this.question, answerToCreate);
       this.answerForm.reset();
       this.answerAdded.emit(false);
     } else {
       for (let i = 0; i < this.question.answers.length; i++) {
         // tslint:disable-next-line: triple-equals
         if (this.question.answers[i] == this.answerInit) {
+          answerToCreate.id = this.answerInit.id;
           this.question.answers[i] = answerToCreate;
+          this.quizService.updateAnswer(this.quiz,this.question,answerToCreate);
           this.answerForm.reset();
           this.answerAdded.emit(false);
-          //this.addAnser_toServer(answerToCreate);
         }
       }
     }

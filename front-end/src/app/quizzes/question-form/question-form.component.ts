@@ -18,6 +18,8 @@ export class QuestionFormComponent implements OnInit {
 
   constructor(public formBuilder: FormBuilder, public quizService: QuizService) {
     this.initializeQuestionForm();
+    console.log("question form")
+    console.log(this.quiz)
    }
 
    private initializeQuestionForm() {

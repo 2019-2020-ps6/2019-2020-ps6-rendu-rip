@@ -27,7 +27,7 @@ const getQuestionFromQuiz = (quizId, questionId) => {
     const quiz = Quiz.getById(quizId)
     const quizIdInt = parseInt(quizId, 10)
     const question = Question.getById(questionId)
-    if (question.quizId !== quizIdInt) throw new NotFoundError(`${question.name} id=${questionId} was not found for ${quiz.name} id=${quiz.id} : not found`)
+    if (parseInt(question.quizId) !== quizIdInt) throw new NotFoundError(`${question.name} id=${questionId} was not found for ${quiz.name} id=${quiz.id} : not found`)
     return question
 }
 
