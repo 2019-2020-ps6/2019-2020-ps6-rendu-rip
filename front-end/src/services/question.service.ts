@@ -49,7 +49,7 @@ import { Quiz } from 'src/models/quiz.model';
 
   */
 
-
+  /*
  setSelectedQuiz(quizId: string) {
   const urlWithId = this.quizUrl + '/' + quizId;
   this.http.get<Quiz>(urlWithId).subscribe((quiz) => {
@@ -67,11 +67,12 @@ import { Quiz } from 'src/models/quiz.model';
     console.log(quiz.id);
     this.http.delete<Question>(questionUrl, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
   }
+  
 
   setQuestions(quiz: Quiz) {
     this.quizId = quiz.id;
     this.questions = quiz.questions;
     this.questions$.next(this.questions);
 
-  }
+  }*/
 }

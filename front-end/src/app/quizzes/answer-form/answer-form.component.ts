@@ -83,7 +83,7 @@ export class AnswerFormComponent implements OnInit {
           this.question.answers[i] = answerToCreate;
           this.answerForm.reset();
           this.answerAdded.emit(false);
-          this.addAnser_toServer(answerToCreate);
+          //this.addAnser_toServer(answerToCreate);
         }
       }
     }

@@ -5,5 +5,5 @@ module.exports = new BaseModel('Answer', {
   type: Joi.string(),
   value: Joi.string().required(),
   isCorrect: Joi.boolean().required(),
-  questionId: Joi.string()
+  questionId: Joi.number()
 })

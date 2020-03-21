@@ -1,60 +1,56 @@
 const { Router } = require('express')
 
 const { Quiz } = require('../../models')
-const {Question} = require('../../models')
-
-const QuestionRouteur = require('./questions')
+const manageAllErrors = require('../../utils/routes/error-management')
+const QuestionsRouter = require('./questions')
+const { buildQuizz, buildQuizzes } = require('./manager')
 
 const router = new Router()
 
-router.get('/:quizId', (req, res) => {
-  try {
-    res.status(200).json({...Quiz.getById(req.params.quizId),questions: Question.get().filter(question => question.quizId == parseInt(req.params.quizId))})
-    //console.log(req.params.quizId);
-  } catch (err) {
-    res.status(500).json(err)
-  }
-})
-
+router.use('/:quizId/questions', QuestionsRouter)
 
 router.get('/', (req, res) => {
   try {
-    res.status(200).json(Quiz.get().map(quiz => ({...quiz,questions:Question.get().filter(question => question.quizId==parseInt(quiz.id))})))
+    const quizzes = buildQuizzes()
+    res.status(200).json(quizzes)
   } catch (err) {
-    res.status(500).json(err)
+    manageAllErrors(res, err)
   }
 })
 
-
-router.delete('/:quizId', (req, res) => {
+router.get('/:quizId', (req, res) => {
   try {
-    res.status(200).json(Quiz.delete(req.params.quizId))
+    const quizz = buildQuizz(req.params.quizId)
+    res.status(200).json(quizz)
   } catch (err) {
-    res.status(500).json(err)
+    manageAllErrors(res, err)
   }
 })
-
-router.put('/:quizId', (req, res) => {
-  try {
-    res.status(200).json(Quiz.update(req.params.quizId,req.body))
-  } catch (err) {
-    res.status(500).json(err)
-  }
-})
-
 
 router.post('/', (req, res) => {
   try {
     const quiz = Quiz.create({ ...req.body })
     res.status(201).json(quiz)
   } catch (err) {
-    if (err.name === 'ValidationError') {
-      res.status(400).json(err.extra)
-    } else {
-      res.status(500).json(err)
-    }
+    manageAllErrors(res, err)
   }
 })
 
-router.use('/:quizId/questions',QuestionRouteur);
+router.put('/:quizId', (req, res) => {
+  try {
+    res.status(200).json(Quiz.update(req.params.quizId, req.body))
+  } catch (err) {
+    manageAllErrors(res, err)
+  }
+})
+
+router.delete('/:quizId', (req, res) => {
+  try {
+    Quiz.delete(req.params.quizId)
+    res.status(204).end()
+  } catch (err) {
+    manageAllErrors(res, err)
+  }
+})
+
 module.exports = router

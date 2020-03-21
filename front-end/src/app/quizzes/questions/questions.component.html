@@ -14,11 +14,11 @@
     <button id = "createAnswer" class="button-card" (click)="createAnswer()"> Ajouter une réponse </button>
     <div *ngIf="show && !answerSelected"><app-answer-form [question]=question (answerAdded)="reset($event)"></app-answer-form></div>
     <button id = "deleteQuestion" class="button-card" (click)="deleteQuestion()"> Supprimer la question</button>
-    <button id = "printCorrAnswer" class="button-card" (click)="printCorrectAnswer()">
+    <!--<button id = "printCorrAnswer" class="button-card" (click)="printCorrectAnswer()">
         Bonne réponse
         {{ CorectAnswer.value }}
         
-    </button>
+    
 
-    <span *ngIf="CorectAnswer"> {{ CorectAnswer.value }} </span>
+    <span *ngIf="CorectAnswer"> {{ CorectAnswer.value }} </span>-->
 </div>

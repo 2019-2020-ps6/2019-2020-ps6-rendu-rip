@@ -13,7 +13,7 @@ export const QUESTION_ACTOR: Question = {
              isCorrect: true,
          }
      ],
-     id : 0
+     id : '0'
  };
 
 export const QUESTION_SPORT: Question = {
@@ -28,7 +28,7 @@ export const QUESTION_SPORT: Question = {
             isCorrect: true,
         }
     ],
-    id : 0
+    id : '0'
 };
 
 export const QUIZ_LIST: Quiz[] = [
