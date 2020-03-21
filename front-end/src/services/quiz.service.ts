@@ -74,15 +74,17 @@ export class QuizService {
   }
 
   setQuiz(quiz:Quiz){
-    console.log(quiz);
+    //console.log(quiz);
     this.quizSelected$.next(quiz);
   }
   setSelectedQuiz(quizId: string) {
     const urlWithId = this.quizUrl + '/' + quizId;
-    console.log(urlWithId)
+    //console.log(urlWithId)
     this.http.get<Quiz>(urlWithId).subscribe((quiz) => this.setQuiz(quiz));
     //console.log(this.quizSelected$);
   }
+
+  
 
   addQuiz(quiz: Quiz) {
     this.http.post<Quiz>(this.quizUrl, quiz, this.httpOptions).subscribe(() => this.setQuizzesFromUrl());
@@ -92,6 +94,9 @@ export class QuizService {
     const urlWithId = this.quizUrl + '/' + quiz.id;
     this.http.delete<Quiz>(urlWithId, this.httpOptions).subscribe(() => this.setQuizzesFromUrl());
   }
+
+
+
 
   addQuestion(quiz: Quiz, question: Question) {
     const questionUrl = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath;

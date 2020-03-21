@@ -2,38 +2,23 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../models/user.model';
 import {HttpClient} from '@angular/common/http';
-
+import { serverUrl, httpOptionsBase } from '../configs/server.config';
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  /**
-   * Services Documentation:
-   * https://angular.io/docs/ts/latest/tutorial/toh-pt4.html
-   */
-
-   /**
-    * The list of quiz.
-    * The list is retrieved from the mock.
-    */
   private users: User[] = [];
-  // private quizUrl = ' https://api.myjson.com/bins/13ajhy';
+  private userUrl = serverUrl + '/users';
 
-
-  /**
-   * Observable which contains the list of the quiz.
-   * Naming convention: Add '$' at the end of the variable name to highlight it as an Observable.
-   */
+  private httpOptions = httpOptionsBase;
   public users$: BehaviorSubject<User[]> = new BehaviorSubject(this.users);
 
-  constructor(private http: HttpClient) {
-    // this.setQuizzesFromUrl();
+  constructor(private http: HttpClient) { 
+    this.setUsersFromUrl()
   }
 
-
+  /*
   addUser(user: User) {
-    // You need here to update the list of quiz and then update our observable (Subject) with the new list
-    // More info: https://angular.io/tutorial/toh-pt6#the-searchterms-rxjs-subject
     user.id = (this.users.length).toString();
     this.users.push(user);
     this.users$.next(this.users);
@@ -49,19 +34,29 @@ export class UserService {
     for (let i = 0; i < this.users.length; i++) {
       this.users[i].id = i.toString();
   }
-}
+  
+}*/
 
   setUsers(users: User[]) {
     this.users = users;
     this.users$.next(this.users);
-
   }
 
-/*
-  setQuizzesFromUrl(){
-    this.http.get<{quizzes : Quiz[]}>(this.quizUrl).subscribe((quizzes) =>  this.setQuizzes(quizzes.quizzes));
-
+  setUsersFromUrl() {
+    this.http.get<User[]>(this.userUrl).subscribe((users) => this.setUsers(users));
   }
-  */
+
+  addUser(user: User) {
+    this.http.post<User>(this.userUrl, user, this.httpOptions).subscribe(() => this.setUsersFromUrl());
+  }
+
+  deleteUser(user: User) {
+    const urlWithId = this.userUrl + '/' + user.id;
+    this.http.delete<User>(urlWithId, this.httpOptions).subscribe(() => this.setUsersFromUrl());
+  }
+  updateUser(user: User) {
+    const urlWithId = this.userUrl + '/' + user.id;
+    this.http.put<User>(urlWithId, user, this.httpOptions).subscribe(() => this.setUsersFromUrl());
+  }
 
 }
