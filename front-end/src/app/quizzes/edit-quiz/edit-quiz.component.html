@@ -1,3 +1,4 @@
+<div *ngIf ="quizSelected" >
 <h1>
  Nom du quiz : {{quizSelected.name}}
 </h1>
@@ -5,4 +6,5 @@
     Thème : {{quizSelected.theme}}
 </h2>
 <app-question-list [quiz] = "quizSelected"></app-question-list>
+</div>
 

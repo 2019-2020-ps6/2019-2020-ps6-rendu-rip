@@ -17,6 +17,9 @@ import { AnswerFormComponent } from './quizzes/answer-form/answer-form.component
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserComponent } from './users/user/user.component';
 import { UserFormComponent } from './users/user-form/user-form.component';
+import {QuestionWidgetComponent} from './quiz-sequence/question-widget/question-widget.component';
+import {AnswerWidgetComponent} from './quiz-sequence/answer-widget/answer-widget.component';
+import {AnswerListWidgetComponent} from './quiz-sequence/answer-list-widget/answer-list-widget.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { UserFormComponent } from './users/user-form/user-form.component';
     AnswerFormComponent,
     UserListComponent,
     UserComponent,
-    UserFormComponent
+    UserFormComponent,
+    QuestionWidgetComponent,
+    AnswerWidgetComponent,
+    AnswerListWidgetComponent
   ],
   imports: [
     BrowserModule,

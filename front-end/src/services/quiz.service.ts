@@ -25,7 +25,6 @@ export class QuizService {
 
   private quizUrl = serverUrl + '/quizzes';
   private httpOptions = httpOptionsBase;
-  public quizSelected$: Subject<Quiz> = new Subject();
   private questionsPath = 'questions';
   private answersPath = 'answers';
 
@@ -35,6 +34,7 @@ export class QuizService {
    * Naming convention: Add '$' at the end of the variable name to highlight it as an Observable.
    */
   public quizzes$: BehaviorSubject<Quiz[]> = new BehaviorSubject(this.quizzes);
+  public quizSelected$: Subject<Quiz> = new Subject();
 
 
 
@@ -74,14 +74,11 @@ export class QuizService {
   }
 
   setQuiz(quiz:Quiz){
-    //console.log(quiz);
     this.quizSelected$.next(quiz);
   }
   setSelectedQuiz(quizId: string) {
     const urlWithId = this.quizUrl + '/' + quizId;
-    //console.log(urlWithId)
     this.http.get<Quiz>(urlWithId).subscribe((quiz) => this.setQuiz(quiz));
-    //console.log(this.quizSelected$);
   }
 
   

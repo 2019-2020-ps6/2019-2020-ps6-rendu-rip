@@ -1,0 +1,10 @@
+
+<div *ngIf = "quizSelected">
+
+{{quizSelected.name}}
+<div class="card" *ngFor = "let question of questions" >
+    {{question.label}}
+    <app-answer-list-widget [answers] = "question.answers" ></app-answer-list-widget>
+    <br>
+</div>
+</div>
