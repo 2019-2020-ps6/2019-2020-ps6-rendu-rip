@@ -1,8 +1,8 @@
-<div class="card" *ngFor = "let answer of answers" >
+<div class="answers_listing" *ngFor = "let answer of answers" >
     <app-answer-widget [answer] = "answer" (selected) = "selectAnswer($event)"></app-answer-widget>
 </div>
 <div *ngIf = "answerSelected">
-    <div class="given_answer">Votre réponse:<br> 
+    <div class="given_answer">Votre réponse:<br>
         {{answerSelected.value}}
     </div>
     <div class="right_answer">Réponse:<br>

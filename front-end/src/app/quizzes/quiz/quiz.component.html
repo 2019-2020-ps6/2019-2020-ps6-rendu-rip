@@ -1,23 +1,16 @@
 <div class="card">
     <i *ngIf ="quiz.theme==='Actor'" class="fab fa-affiliatetheme" ></i>
     <i *ngIf ="quiz.theme==='Sport'" class="fab fa-accessible-icon"></i>
-    <h1>
-        Nom : {{quiz.name}}
-    </h1>
-    <h2> 
-        Thème: {{quiz.theme}}
-    </h2>
+    <h1>{{quiz.name}}</h1>
+    <h2>Thème: {{quiz.theme}}</h2>
 
-    <div>
-        Nombre de questions : {{quiz.questions.length}}<br>
-    </div>
+    <div>Nombre de questions : {{quiz.questions.length}}<br></div>
     
     <div class = "creationDate" *ngIf = "quiz.creationDate">
         Date de création : {{quiz.creationDate | date}}<br>
     </div>
-    <button><a routerLink= "/quiz-sequence/{{quiz.id}}"> Jouer Quiz</a></button>
+    <button class="button-card" routerLink= "/quiz-sequence/{{quiz.id}}">Jouer Quiz</button>
+    <br>
+    <button class="button-card" routerLink= "/edit-quiz/{{quiz.id}}">Modifier</button>
     <button class="button-card" (click)="deleteQuiz()">Supprimer</button>
-    <nav>
-        <a routerLink= "/edit-quiz/{{quiz.id}}"> Editer le quiz n°{{quiz.id}}</a>
-    </nav>
 </div>

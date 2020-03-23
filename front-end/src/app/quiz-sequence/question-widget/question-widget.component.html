@@ -1,11 +1,11 @@
-<button><a routerLink= "/customers">Retour</a></button>
+<button class="button-card" routerLink= "/customers">Retour</button>
 
 <div *ngIf = "quizSelected">
-
-{{quizSelected.name}}
-<div class="card" *ngFor = "let question of questions" >
-    {{question.label}}
-    <app-answer-list-widget [answers] = "question.answers" ></app-answer-list-widget>
+    {{quizSelected.name}}
     <br>
-</div>
+    <div class="card" *ngFor = "let question of questions; let i = index" >
+        {{question.label}}
+        <br>
+        <app-answer-list-widget [answers] = "question.answers" ></app-answer-list-widget>
+    </div>
 </div>
