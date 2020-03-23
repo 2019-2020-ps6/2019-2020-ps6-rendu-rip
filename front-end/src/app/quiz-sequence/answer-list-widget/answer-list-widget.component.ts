@@ -11,9 +11,6 @@ export class AnswerListWidgetComponent implements OnInit {
 
   @Input()
   answers: Answer[];
-  /*@Output()
-  selected: EventEmitter<Answer> = new EventEmitter<Answer>();
-  */
 
   answerSelected : Answer;
   rightAnswer : Answer;

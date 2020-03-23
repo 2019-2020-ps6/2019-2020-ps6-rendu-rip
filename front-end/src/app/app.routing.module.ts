@@ -8,7 +8,8 @@ import { QuizListCustomersComponent } from './quizzes/quiz-list-customers/quiz-l
 import { EditQuizComponent } from './quizzes/edit-quiz/edit-quiz.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { QuestionWidgetComponent } from './quiz-sequence/question-widget/question-widget.component';
-
+import { QuizSummaryComponent } from './quiz-sequence/quiz-summary/quiz-summary.component';
+import { QuizEndComponent } from './quiz-sequence/quiz-end/quiz-end.component';
 
 
 const routes: Routes = [
@@ -16,12 +17,17 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'staff', component: StaffComponent },
     { path: 'customers', component: CustomersComponent },
+    { path: 'staff/quiz-list-staff', component: QuizListStaffComponent },
+    { path: 'edit-quiz/:id', component: EditQuizComponent },
+    //{ path: 'edit-quiz/:id', component: EditQuizComponent }, --> specifier plusieurs routes pour modifier depuis plusieurs endroits
+    //ET bouton 'Retour' revenir au bon endroit
+    { path: 'user', component: UserListComponent },
+    
+    { path: 'customers/quiz-list-customers', component: QuizListCustomersComponent },
     //{ path: 'customers/:id/quiz-list-customers', component: CustomerComponent }, --> page avec liste quiz d'un accueilli
-    { path: 'user', component: UserListComponent },//staff/user? --> staff/customers-list?
-    { path: 'quiz-list-staff', component: QuizListStaffComponent },
-    { path: 'quiz-list-customers', component: QuizListCustomersComponent },
-    { path: 'edit-quiz/:id', component: EditQuizComponent },//staff/edit-quiz/:id?
-    { path: 'quiz-sequence/:id', component:QuestionWidgetComponent},//?
+    { path: 'quiz-sequence/:id', component: QuestionWidgetComponent},
+    { path: 'quiz-sequence/:id/quiz-summary', component: QuizSummaryComponent },
+    { path: 'quiz-sequence/:id/quiz-end', component: QuizEndComponent }
 ];
 
 @NgModule({

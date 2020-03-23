@@ -1,7 +1,7 @@
 <button class="button-card" routerLink= "/customers">Retour</button>
 
-<div *ngIf = "quizSelected">
-    {{quizSelected.name}}
+<div *ngIf = "quiz">
+    {{quiz.name}}
     <br>
     <div class="card" *ngFor = "let question of questions; let i = index" >
         {{question.label}}
@@ -9,3 +9,5 @@
         <app-answer-list-widget [answers] = "question.answers" ></app-answer-list-widget>
     </div>
 </div>
+
+<button class="button-card" routerLink= "./quiz-summary">Suite</button>

@@ -1,6 +1,8 @@
 <div class="answers_listing" *ngFor = "let answer of answers" >
     <app-answer-widget [answer] = "answer" (selected) = "selectAnswer($event)"></app-answer-widget>
 </div>
+
+<!-- other page with only Question + answer selected + right answer -->
 <div *ngIf = "answerSelected">
     <div class="given_answer">Votre réponse:<br>
         {{answerSelected.value}}

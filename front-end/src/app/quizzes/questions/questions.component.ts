@@ -38,7 +38,7 @@ export class QuestionsComponent implements OnInit {
   }
   supprAnswer(answer: Answer) {
     this.answers.splice(this.answers.indexOf(answer), 1);
-    this.quizService.deleteAnswer(this.quiz,this.question,answer);
+    this.quizService.deleteAnswer(this.quiz, this.question, answer);
     
   }
   editAnswer(answer: Answer) {

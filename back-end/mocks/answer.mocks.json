@@ -9,7 +9,7 @@
   {
     "type": "ok",
     "value": "tennant",
-    "isCorrect": "false",
+    "isCorrect": false,
     "questionId": "1583739223672",
     "id": 1584352057073
   },

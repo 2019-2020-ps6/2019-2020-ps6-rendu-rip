@@ -1,0 +1,17 @@
+<button class="button-card" routerLink= "/customers">Retour</button>
+
+<div *ngIf = "quiz">
+    {{quiz.name}}
+    <br>
+    <div class="card" *ngFor = "let question of questions; let i = index" >
+        {{question.label}}
+        <br>
+        <br>
+        <div *ngFor = "let answer of question.answers" >
+            <!-- only display right answer-->
+            <div *ngIf = "answer.isCorrect">{{answer.value}}</div>
+        </div>
+    </div>
+</div>
+
+<button class="button-card" routerLink= "../quiz-end">Suite</button>
