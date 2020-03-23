@@ -92,5 +92,10 @@
     "label": "Question1",
     "quizId": 1584967171131,
     "id": 1584967183511
+  },
+  {
+    "label": "Question sans right answer",
+    "quizId": 1584967171131,
+    "id": 1584967492070
   }
 ]
