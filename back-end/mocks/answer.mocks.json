@@ -84,5 +84,35 @@
     "isCorrect": false,
     "questionId": 1584781099015,
     "id": 1584897052535
+  },
+  {
+    "value": "reponse1",
+    "isCorrect": true,
+    "questionId": 1584781212374,
+    "id": 1584950768542
+  },
+  {
+    "value": "ok",
+    "isCorrect": false,
+    "questionId": 1584771332484,
+    "id": 1584957554661
+  },
+  {
+    "value": "mais non!",
+    "isCorrect": false,
+    "questionId": 1584771332484,
+    "id": 1584957559016
+  },
+  {
+    "value": "right",
+    "isCorrect": true,
+    "questionId": 1584771332484,
+    "id": 1584957566206
+  },
+  {
+    "value": "rep1",
+    "isCorrect": true,
+    "questionId": 1584959731374,
+    "id": 1584959738885
   }
 ]

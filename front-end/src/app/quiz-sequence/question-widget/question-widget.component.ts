@@ -15,6 +15,7 @@ export class QuestionWidgetComponent implements OnInit {
 
 
   questions: Question[];
+
   /* @Output()
   answerSelected: EventEmitter<boolean> = new EventEmitter<boolean>();*/
 

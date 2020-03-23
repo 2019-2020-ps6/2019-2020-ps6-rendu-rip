@@ -20,6 +20,9 @@ import { UserFormComponent } from './users/user-form/user-form.component';
 import {QuestionWidgetComponent} from './quiz-sequence/question-widget/question-widget.component';
 import {AnswerWidgetComponent} from './quiz-sequence/answer-widget/answer-widget.component';
 import {AnswerListWidgetComponent} from './quiz-sequence/answer-list-widget/answer-list-widget.component';
+import { HomeComponent } from './start/home/home.component';
+import { StaffComponent } from './start/staff/staff.component';
+import { CustomersComponent } from './start/customers/customers.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import {AnswerListWidgetComponent} from './quiz-sequence/answer-list-widget/answ
     UserFormComponent,
     QuestionWidgetComponent,
     AnswerWidgetComponent,
-    AnswerListWidgetComponent
+    AnswerListWidgetComponent,
+    HomeComponent,
+    StaffComponent,
+    CustomersComponent
   ],
   imports: [
     BrowserModule,
