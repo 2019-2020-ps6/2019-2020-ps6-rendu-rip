@@ -3,11 +3,11 @@ import { QuizService } from '../../../services/quiz.service';
 import { Quiz } from '../../../models/quiz.model';
 
 @Component({
-  selector: 'app-quiz-list',
-  templateUrl: './quiz-list.component.html',
-  styleUrls: ['./quiz-list.component.scss']
+  selector: 'app-quiz-list-customers',
+  templateUrl: './quiz-list-customers.component.html',
+  styleUrls: ['./quiz-list-customers.component.scss']
 })
-export class QuizListComponent implements OnInit {
+export class QuizListCustomersComponent implements OnInit {
 
   public quizList: Quiz[] = [];
 
@@ -18,11 +18,8 @@ export class QuizListComponent implements OnInit {
   ngOnInit() {
   }
 
-  quizSelected(selected: boolean) {
+ /* quizSelected(selected: boolean) {
     console.log('event received from child:', selected);
-  }
-  deleteQuiz(quiz: Quiz) {
-    console.log('event deleted from child:', quiz.name);
-    this.quizService.deleteQuiz(quiz);
-  }
+  }*/
+
 }

@@ -3,7 +3,7 @@
 <br>
 <app-user-form></app-user-form>
 <div class="user-list">
-    <div class="user" *ngFor="let user of userList">
+    <div class="card user" *ngFor="let user of userList">
         <app-user [user]="user" (userDeleted) = "deleteUser($event)"></app-user>
     </div>
 </div>

@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { QuizListComponent } from './quizzes/quiz-list/quiz-list.component';
+import { QuizListStaffComponent } from './quizzes/quiz-list-staff/quiz-list-staff.component';
+import { QuizListCustomersComponent } from './quizzes/quiz-list-customers/quiz-list-customers.component';
 import { QuizComponent } from './quizzes/quiz/quiz.component';
 import { HeaderComponent } from './header/header.component';
 import { QuizFormComponent } from './quizzes/quiz-form/quiz-form.component';
@@ -27,7 +28,8 @@ import { CustomersComponent } from './start/customers/customers.component';
 @NgModule({
   declarations: [
     AppComponent,
-    QuizListComponent,
+    QuizListStaffComponent,
+    QuizListCustomersComponent,
     QuizComponent,
     HeaderComponent,
     QuizFormComponent,

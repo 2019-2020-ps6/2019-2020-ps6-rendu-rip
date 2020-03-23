@@ -1,0 +1,8 @@
+<div class="quiz-list">
+    <div class="card quiz" *ngFor="let quiz of quizList">
+        <app-quiz [quiz]="quiz" (quizSelected)="quizSelected($event)" (quizDeleted) = "deleteQuiz($event)"></app-quiz>
+        <button class="button-card" routerLink= "/edit-quiz/{{quiz.id}}">Modifier</button>
+        <button class="button-card" (click)="deleteQuiz(quiz)">Supprimer</button>
+    </div>
+</div>
+
