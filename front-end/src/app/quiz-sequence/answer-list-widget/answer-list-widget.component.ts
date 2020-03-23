@@ -16,18 +16,26 @@ export class AnswerListWidgetComponent implements OnInit {
   */
 
   answerSelected : Answer;
+  rightAnswer : Answer;
 
   constructor() { }
 
   ngOnInit() {
+    this.setRightAnswer();
   }
 
   selectAnswer(answer : Answer) {
     this.answerSelected = answer;
   }
 
-
-
-
+  setRightAnswer() {
+    for (let index = 0; index < this.answers.length; index++) {
+      const curAns = this.answers[index];
+      if(curAns.isCorrect){
+        this.rightAnswer = curAns;
+        break;
+      }  
+    }
+  }
 
 }

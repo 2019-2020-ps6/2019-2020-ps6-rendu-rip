@@ -23,9 +23,5 @@ export class AnswerWidgetComponent implements OnInit {
   answerSelected() {
     this.selected.emit(this.answer);
   }
-
-
-
-
-
+  
 }

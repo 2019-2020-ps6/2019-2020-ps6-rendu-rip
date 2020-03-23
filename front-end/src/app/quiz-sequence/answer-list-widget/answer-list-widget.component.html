@@ -2,5 +2,10 @@
     <app-answer-widget [answer] = "answer" (selected) = "selectAnswer($event)"></app-answer-widget>
 </div>
 <div *ngIf = "answerSelected">
-    Votre réponse est {{answerSelected.value}}
+    <div class="given_answer">Votre réponse:<br> 
+        {{answerSelected.value}}
+    </div>
+    <div class="right_answer">Réponse:<br>
+        {{rightAnswer.value}}
+    </div>
 </div>
