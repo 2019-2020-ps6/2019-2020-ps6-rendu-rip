@@ -93,7 +93,9 @@ export class QuizService {
     this.http.delete<Quiz>(urlWithId, this.httpOptions).subscribe(() => this.setQuizzesFromUrl());
   }
 
-
+  changeQuestion(){
+    
+  }
 
 
   addQuestion(quiz: Quiz, question: Question) {

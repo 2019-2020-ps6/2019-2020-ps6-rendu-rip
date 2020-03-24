@@ -26,6 +26,7 @@ import { StaffComponent } from './start/staff/staff.component';
 import { CustomersComponent } from './start/customers/customers.component';
 import { QuizSummaryComponent } from './quiz-sequence/quiz-summary/quiz-summary.component';
 import { QuizEndComponent } from './quiz-sequence/quiz-end/quiz-end.component';
+import { DisplayRightAnswerComponent } from './quiz-sequence/display-right-answer/display-right-answer.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { QuizEndComponent } from './quiz-sequence/quiz-end/quiz-end.component';
     StaffComponent,
     CustomersComponent,
     QuizSummaryComponent,
-    QuizEndComponent
+    QuizEndComponent,
+    DisplayRightAnswerComponent
   ],
   imports: [
     BrowserModule,

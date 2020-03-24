@@ -11,12 +11,14 @@ import { QuizService } from 'src/services/quiz.service';
 })
 export class QuizSummaryComponent implements OnInit {
   quiz : Quiz;
-  questions: Question[];
+  questions: Question[] = [];
+  currentQuestionToDisplay : Question;
 
   constructor(private route: ActivatedRoute, public quizService: QuizService) {
     this.quizService.quizSelected$.subscribe((quiz) => {
       this.quiz = quiz
-      if(quiz.questions) this.questions = quiz.questions;
+      if(quiz.questions) this.questions = quiz.questions.map(e => ({ ... e }));
+      this.changeQuestionToDisplay();
     });
   }
 
@@ -24,6 +26,13 @@ export class QuizSummaryComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.quizService.setSelectedQuiz(id);
   }
+
+  changeQuestionToDisplay(){
+    if(this.questions.length>0){
+      this.currentQuestionToDisplay = this.questions.pop();
+    }
+  }
+  
 
 }
 

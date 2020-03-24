@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { Question } from 'src/models/question.model';
 import { Answer } from 'src/models/answer.model';
 
@@ -23,6 +23,10 @@ export class AnswerListWidgetComponent implements OnInit {
 
   selectAnswer(answer : Answer) {
     this.answerSelected = answer;
+  }
+
+  ngOnChanges(){
+    this.reset();
   }
 
   reset(){

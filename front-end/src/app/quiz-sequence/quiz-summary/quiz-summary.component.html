@@ -3,15 +3,11 @@
 <div *ngIf = "quiz">
     {{quiz.name}}
     <br>
-    <div class="card" *ngFor = "let question of questions; let i = index" >
-        {{question.label}}
-        <br>
-        <br>
-        <div *ngFor = "let answer of question.answers" >
-            <!-- only display right answer-->
-            <div *ngIf = "answer.isCorrect">{{answer.value}}</div>
-        </div>
-    </div>
+    <app-display-right-answer [question] = "currentQuestionToDisplay"></app-display-right-answer>
 </div>
-
-<button class="button-card" routerLink= "../quiz-end">Suite</button>
+<div *ngIf = "questions.length!==0">
+    <button class="button-card" (click) = "changeQuestionToDisplay()">Suite</button>
+</div>
+<div *ngIf = "questions.length===0"> 
+    <button class="button-card" routerLink= "../quiz-end">Fin</button>
+</div>

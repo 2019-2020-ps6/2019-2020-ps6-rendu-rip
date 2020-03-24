@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, ViewChild } from '@angular/core';
 import { Question } from 'src/models/question.model';
 import { Quiz } from 'src/models/quiz.model';
 import { ActivatedRoute } from '@angular/router';
 import { QuizService } from 'src/services/quiz.service';
 import { BehaviorSubject } from 'rxjs';
+import { AnswerListWidgetComponent } from '../answer-list-widget/answer-list-widget.component';
 
 @Component({
   selector: 'app-question-widget',
@@ -25,7 +26,6 @@ export class QuestionWidgetComponent implements OnInit {
       this.quiz = quiz
       if(quiz.questions) {
         this.questions = quiz.questions.map(e => ({ ... e }));
-        console.log(this.questions);
         this.changeQuestion();
       }
     });
@@ -39,8 +39,8 @@ export class QuestionWidgetComponent implements OnInit {
   changeQuestion(){
     if(this.questions.length>0){
     this.currentQuestion = this.questions.pop();
-    console.log(this.currentQuestion);
     this.questionsDone.push(this.currentQuestion);
+    
     }
   }
 

@@ -1,0 +1,4 @@
+{{question.label}}
+<div *ngFor = "let answer of question.answers" >
+    <div *ngIf = "answer.isCorrect">{{answer.value}}</div>
+</div>
