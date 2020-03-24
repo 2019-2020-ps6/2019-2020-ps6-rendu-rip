@@ -3,11 +3,16 @@
 <div *ngIf = "quiz">
     {{quiz.name}}
     <br>
-    <div class="card" *ngFor = "let question of questions; let i = index" >
-        {{question.label}}
-        <br>
-        <app-answer-list-widget [answers] = "question.answers" ></app-answer-list-widget>
-    </div>
+    {{currentQuestion.label}}
+    <app-answer-list-widget [answers] = "currentQuestion.answers" ></app-answer-list-widget>
+
+<div *ngIf = "questions.length!==0">
+<button class="button-card" (click) = "changeQuestion()">Suite</button>
+</div>
+<div *ngIf = "questions.length===0"> 
+    <button class="button-card" routerLink= "./quiz-summary">Suite</button>
 </div>
 
-<button class="button-card" routerLink= "./quiz-summary">Suite</button>
+<!--<button class="button-card" routerLink= "./quiz-summary">Suite</button>-->
+
+</div>

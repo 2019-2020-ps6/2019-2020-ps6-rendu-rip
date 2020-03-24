@@ -25,6 +25,10 @@ export class AnswerListWidgetComponent implements OnInit {
     this.answerSelected = answer;
   }
 
+  reset(){
+    this.setRightAnswer();
+    this.answerSelected = null;
+  }
   setRightAnswer() {
     for (let index = 0; index < this.answers.length; index++) {
       const curAns = this.answers[index];

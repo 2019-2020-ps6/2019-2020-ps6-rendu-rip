@@ -35,6 +35,8 @@ export class QuizService {
    */
   public quizzes$: BehaviorSubject<Quiz[]> = new BehaviorSubject(this.quizzes);
   public quizSelected$: Subject<Quiz> = new Subject();
+  public currentQuestionNumber$ : BehaviorSubject<number> = new BehaviorSubject(0);
+  public currentQuestionNumber : number = 0;
 
 
 
@@ -82,7 +84,6 @@ export class QuizService {
   }
 
   
-
   addQuiz(quiz: Quiz) {
     this.http.post<Quiz>(this.quizUrl, quiz, this.httpOptions).subscribe(() => this.setQuizzesFromUrl());
   }

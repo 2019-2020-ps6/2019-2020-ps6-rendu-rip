@@ -1,3 +1,4 @@
+{{reset()}}
 <div class="answers_listing" *ngFor = "let answer of answers" >
     <app-answer-widget [answer] = "answer" (selected) = "selectAnswer($event)"></app-answer-widget>
 </div>
@@ -8,6 +9,7 @@
         {{answerSelected.value}}
     </div>
     <div class="right_answer">Réponse:<br>
+        {{setRightAnswer()}}
         {{rightAnswer.value}}
     </div>
 </div>
