@@ -50,7 +50,10 @@ export class QuizFormComponent implements OnInit {
       reader.readAsDataURL(file);
       reader.onload = () => {
         this.ImageName = file.name + " " + file.type;
-        this.ImagePreview = 'data:image/png' + ';base64,' + reader.result.split(',')[1];
+        this.ImagePreview = 'data:image/png' + ';base64,' + (reader.result as string).split(',')[1];
+        //(<string>reader.result).split
+        //or
+        //(reader.result as string).split
         console.log(this.ImageName);
         console.log(this.ImagePreview);
       };
