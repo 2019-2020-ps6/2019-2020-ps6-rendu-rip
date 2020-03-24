@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { QuizService } from '../../../services/quiz.service';
 import { Quiz } from '../../../models/quiz.model';
@@ -16,7 +17,10 @@ export class QuizFormComponent implements OnInit {
   // tslint:disable-next-line: ban-types
   public THEME_LIST: String[];
 
-  constructor(public formBuilder: FormBuilder, public quizService: QuizService) {
+  ImageName: string;
+  ImagePreview: string
+
+  constructor(public formBuilder: FormBuilder, public quizService: QuizService, private sanitizer: DomSanitizer) {
     // Form creation
     this.quizForm = this.formBuilder.group({
       name: [''],
@@ -37,6 +41,24 @@ export class QuizFormComponent implements OnInit {
     //console.log('Add quiz: ', quizToCreate);
     this.quizService.addQuiz(quizToCreate);
 
+  }
+
+  onChangeFile(event) {
+    let reader = new FileReader();
+    if (event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.ImageName = file.name + " " + file.type;
+        this.ImagePreview = 'data:image/png' + ';base64,' + reader.result.split(',')[1];
+        console.log(this.ImageName);
+        console.log(this.ImagePreview);
+      };
+    }
+  }
+  sanitize(url: string) {
+    //return url;
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
 }

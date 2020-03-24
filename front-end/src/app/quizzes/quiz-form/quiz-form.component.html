@@ -1,8 +1,15 @@
 <div class="card">
   <h2>Créer un nouveau quiz</h2>
   <form class="quiz-form" [formGroup]="quizForm">
+    <label for="name">
+      Nom
+      <br>
+      <input class="input-custom" type="text" id="name" [formControlName]="'name'">
+    </label>
+    <br>
     <label for="theme">
-      Thème <br>
+      Thème
+      <br>
       <select name = "Thème" id = "theme" [formControlName] = "'theme'"> 
         <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
           {{current_theme}}
@@ -10,11 +17,14 @@
       </select>
     </label>
     <br>
-    <label for="title">
-      Titre <br>
-      <input class="input-custom" type="text" id="name" [formControlName]="'name'">
+    <label for="image">
+      Charger une image
+      <br>
+      <input type="file" accept="image/*" (change)="onChangeFile($event)">
+      <div class="image" *ngIf="ImagePreview">
+          <img [src]="sanitize(ImagePreview)" alt="quiz image" style="width:50%">
+      </div>
     </label>
-    <br>
     <br>
     <button type="submit" class="button-card" (click)="addQuiz()">Créer</button>
   </form>
