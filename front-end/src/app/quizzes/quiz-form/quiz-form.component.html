@@ -22,6 +22,7 @@
       <br>
       <input type="file" accept="image/*" (change)="onChangeFile($event)">
       <div class="image" *ngIf="ImagePreview">
+          <!--sanitize necessary otherwise throw security error-->
           <img [src]="sanitize(ImagePreview)" alt="quiz image" style="width:50%">
       </div>
     </label>
