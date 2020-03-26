@@ -8,8 +8,10 @@ module.exports = (cb) => {
   const app = express()
   app.disable('x-powered-by')
   app.use(cors())
-  app.use(bodyParser.json({}))
-  app.use(morgan('[:date[iso]] :method :url :status :response-time ms - :res[content-length]'))
+  //app.use(bodyParser.json({}))
+  //app.use(morgan('[:date[iso]] :method :url :status :response-time ms - :res[content-length]'))
+  app.use(bodyParser.json({ limit: '10mb' }));
+  app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
   app.use('/api', api)
   app.use('*', (req, res) => res.status(404).end())
   const server = app.listen(process.env.PORT || 9428, () => cb && cb(server))

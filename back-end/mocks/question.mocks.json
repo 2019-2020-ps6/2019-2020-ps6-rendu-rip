@@ -1,11 +1,5 @@
 [
   {
-    "label": "Quel est le 10e Docteur",
-    "quizId": "1583739103866",
-    "answers": [],
-    "id": 1583739223672
-  },
-  {
     "label": "hello",
     "answers": [],
     "quizId": "undefined",
@@ -72,11 +66,6 @@
     "label": "Question inconnue",
     "quizId": 1584454842993,
     "id": 1584785685088
-  },
-  {
-    "label": "comment s'appelle son vaisseau spatial ?",
-    "quizId": 1583739103866,
-    "id": 1584788448797
   },
   {
     "label": "Question inconnue",

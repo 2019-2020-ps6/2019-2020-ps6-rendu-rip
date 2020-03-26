@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { QuizService } from '../../../services/quiz.service';
 
 import { Quiz } from '../../../models/quiz.model';
-import { QUIZ_LIST } from '../../../mocks/quiz-list.mock';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -14,18 +14,19 @@ import { QUIZ_LIST } from '../../../mocks/quiz-list.mock';
 export class EditQuizComponent implements OnInit {
   quizSelected: Quiz;
 
-  constructor(private route: ActivatedRoute, public quizService: QuizService) {
-    //if (!this.quizSelected) {this.quizSelected = QUIZ_LIST[0] ; }
+  constructor(private route: ActivatedRoute, public quizService: QuizService, private sanitizer: DomSanitizer) {
     
    }
 
   ngOnInit() {
-    // this.getId();
     this.quizService.quizSelected$.subscribe((quiz) => this.quizSelected = quiz);
     const id = this.route.snapshot.paramMap.get('id');
-    //console.log(typeof id)
     this.quizService.setSelectedQuiz(id);
-    //console.log(this.quizSelected);
+  }
+
+  sanitize(url: string) {
+    if(!url) url = this.quizService.imageByDefault();
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
   /*getId(): void {
