@@ -24,8 +24,7 @@ export class QuizFormComponent implements OnInit {
     // Form creation
     this.quizForm = this.formBuilder.group({
       name: [''],
-      theme: [''],
-      creationDate: new Date(), 
+      theme: ['']
     });
     this.THEME_LIST= ["Sport","Actor","Autres"];
   }
@@ -37,15 +36,16 @@ export class QuizFormComponent implements OnInit {
     const quizToCreate: Quiz = this.quizForm.getRawValue() as Quiz;
     if(!quizToCreate.theme)quizToCreate.theme = 'Autres';
     if(!quizToCreate.name)quizToCreate.name = 'Pas de nom de quiz';
-    if(!quizToCreate.image||this.ImagePreview)quizToCreate.image=this.quizService.imageByDefault()
+    quizToCreate.creationDate = new Date();
+    if(!this.ImagePreview)quizToCreate.image=this.quizService.imageByDefault()
     else quizToCreate.image = this.ImagePreview;
     quizToCreate.questions =  [];
-    //console.log(quizToCreate.image);
     //console.log('Add quiz: ', quizToCreate);
+    console.log(quizToCreate.image);
     this.quizService.addQuiz(quizToCreate);
     this.quizForm.reset()
     this.ImagePreview = null;
-    //this.ImageName = null;
+    this.ImageName = null;
 
   }
 
