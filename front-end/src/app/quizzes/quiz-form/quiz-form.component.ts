@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ViewChildren, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -14,7 +14,6 @@ import { Quiz } from '../../../models/quiz.model';
 export class QuizFormComponent implements OnInit {
 
   public quizForm: FormGroup;
-  // tslint:disable-next-line: ban-types
   public THEME_LIST: String[];
 
   ImageName: string;
@@ -24,12 +23,19 @@ export class QuizFormComponent implements OnInit {
     // Form creation
     this.quizForm = this.formBuilder.group({
       name: [''],
-      theme: ['']
+      theme: [''],
+      image: ['']
     });
     this.THEME_LIST= ["Sport","Actor","Autres"];
   }
-
+  
   ngOnInit() {
+  }
+
+  reset(){
+    this.quizForm.reset()
+    this.ImagePreview = null;
+    this.ImageName = null;
   }
 
   addQuiz() {
@@ -40,13 +46,8 @@ export class QuizFormComponent implements OnInit {
     if(!this.ImagePreview)quizToCreate.image=this.quizService.imageByDefault()
     else quizToCreate.image = this.ImagePreview;
     quizToCreate.questions =  [];
-    //console.log('Add quiz: ', quizToCreate);
-    console.log(quizToCreate.image);
     this.quizService.addQuiz(quizToCreate);
-    this.quizForm.reset()
-    this.ImagePreview = null;
-    this.ImageName = null;
-
+    this.reset();
   }
 
   onChangeFile(event) {

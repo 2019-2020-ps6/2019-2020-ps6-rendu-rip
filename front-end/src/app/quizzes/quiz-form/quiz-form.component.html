@@ -20,7 +20,7 @@
     <label for="image">
       Charger une image
       <br>
-      <input type="file" accept="image/*" (change)="onChangeFile($event)">
+      <input type="file" accept="image/*" (change)="onChangeFile($event)" [formControlName] = "'image'" id = "image">
       <div class="image" *ngIf="ImagePreview">
           <!--sanitize necessary otherwise throw security error-->
           <img [src]="sanitize(ImagePreview)" alt="quiz image" style="width:50%">
@@ -28,6 +28,7 @@
     </label>
     <br>
     <button type="submit" class="button-card" (click)="addQuiz()">Créer</button>
+    <button type="submit" class="button-card" (click)="reset()">Annuler</button>
   </form>
 </div>
 <!-- Uncomment below to see your form structure and how it changes-->
