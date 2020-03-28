@@ -1,1 +1,28 @@
-@import '../../../styles/card.scss';
+@import "../../../styles/variables.scss";
+
+#home{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+.button-home{
+  display: inline-block;
+  background-color: $white;
+  border: solid 1px $blue;
+  color: $blue;
+  font-weight: bold;
+  font-size: 100px;
+  padding: 0.5em 1em;
+  width: 100%;
+  height: 350px;
+  line-height: 50px;
+  vertical-align: middle;
+  text-align: center;
+  //margin-left:auto;
+  //margin-right: auto;
+  //width: 6em;
+}
+
+.button-home:hover {
+    cursor: pointer;
+  }
