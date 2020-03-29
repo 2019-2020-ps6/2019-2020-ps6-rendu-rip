@@ -284,6 +284,7 @@
     "id": 1585389532785
   },
   {
+<<<<<<< Updated upstream
     "value": "sgb",
     "isCorrect": false,
     "questionId": 1584950689498,
@@ -300,5 +301,29 @@
     "isCorrect": true,
     "questionId": 1584950689498,
     "id": 1585492449030
+=======
+    "value": "Koch",
+    "isCorrect": false,
+    "questionId": 1585481659998,
+    "id": 1585481686351
+  },
+  {
+    "value": "Julia",
+    "isCorrect": true,
+    "questionId": 1585481659998,
+    "id": 1585481699491
+  },
+  {
+    "value": "Mandelbrot",
+    "isCorrect": false,
+    "questionId": 1585481659998,
+    "id": 1585481712181
+  },
+  {
+    "value": "SecondRep",
+    "isCorrect": false,
+    "questionId": 1584950689498,
+    "id": 1585488732898
+>>>>>>> Stashed changes
   }
 ]
