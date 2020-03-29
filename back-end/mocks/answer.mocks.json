@@ -284,24 +284,6 @@
     "id": 1585389532785
   },
   {
-<<<<<<< Updated upstream
-    "value": "sgb",
-    "isCorrect": false,
-    "questionId": 1584950689498,
-    "id": 1585489155378
-  },
-  {
-    "value": "gshngn",
-    "isCorrect": false,
-    "questionId": 1584950689498,
-    "id": 1585492260846
-  },
-  {
-    "value": "nrgnzn",
-    "isCorrect": true,
-    "questionId": 1584950689498,
-    "id": 1585492449030
-=======
     "value": "Koch",
     "isCorrect": false,
     "questionId": 1585481659998,
@@ -324,6 +306,5 @@
     "isCorrect": false,
     "questionId": 1584950689498,
     "id": 1585488732898
->>>>>>> Stashed changes
   }
 ]
