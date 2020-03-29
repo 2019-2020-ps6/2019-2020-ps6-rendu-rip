@@ -12,6 +12,9 @@ import { QuizService } from 'src/services/quiz.service';
 })
 export class AnswerFormComponent implements OnInit {
 
+  uniqueCorrectAnswer = false; // uniqueCorrectAnswer === true <=> there is at least 1 correct Answer !
+
+
   answerForm: FormGroup;
   @Input()
   quiz: Quiz;
@@ -42,6 +45,7 @@ export class AnswerFormComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.unicAnswer();
     this.initializeAnswerForm();
   }
 
@@ -55,6 +59,7 @@ export class AnswerFormComponent implements OnInit {
   addAnswer(answerToCreate: Answer) {
     // (<HTMLInputElement> document.getElementById("createAnswer")).disabled = this.showLabel;
     this.createAnswer();
+
   }
 
   submitAnswer() {
@@ -86,6 +91,15 @@ export class AnswerFormComponent implements OnInit {
   cancelAnswer() {
     this.answerForm.reset();
     this.answerAdded.emit(false);
+  }
+
+  unicAnswer(): void {
+
+    this.question.answers.forEach(element => {
+      if (element.isCorrect === true) {
+        this.uniqueCorrectAnswer = true;
+      }
+    });
   }
 
 
