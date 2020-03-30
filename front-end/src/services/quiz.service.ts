@@ -30,6 +30,7 @@ export class QuizService {
   }
 
   getServerUrl(): string {
+    console.log(serverUrl);
     return serverUrl;
   }
 
@@ -45,7 +46,7 @@ export class QuizService {
   }
 
   //not ok... --> so directly called in component.ts
-  imageByDefault(): Img {
+  /*imageByDefault(): Img {
     //TODO: req from server
     let image_res = {} as Img;
     const dft_img_id = "1";
@@ -57,7 +58,7 @@ export class QuizService {
     });
     console.log(image_res);
     return image_res;
-  }
+  }*/
 
   setQuiz(quiz:Quiz){
     this.quizSelected$.next(quiz);

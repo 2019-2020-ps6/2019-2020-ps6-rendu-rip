@@ -1,8 +1,9 @@
 import { Answer } from './answer.model';
 
 export interface Question {
+    id: string;
     label: string;
     answers: Answer[];
-    id: string;
     quizId?: string;
+    imageId?: string;
 }

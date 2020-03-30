@@ -6,5 +6,5 @@ export interface Quiz {
     theme?: string;
     questions: Question[];
     creationDate?: Date;
-    image?: string;
+    imageId?: string;
 }

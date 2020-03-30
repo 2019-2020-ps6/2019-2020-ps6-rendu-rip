@@ -1,6 +1,7 @@
 export interface Answer {
-    type?: string;
+    id?:string;//why '?'
+    type?: string;//type???
     value: string;
     isCorrect: boolean;
-    id?:string;
+    imageId?: string;
 }
