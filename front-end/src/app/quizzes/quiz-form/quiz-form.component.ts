@@ -50,17 +50,13 @@ export class QuizFormComponent implements OnInit {
   }
 
   addQuiz() {
-    //console.log("Quiz: fill in quiz...");
-    //this.quizFillIn();
-    //console.log(this.quizToCreate);
-    //const imgId = (this.imagePreview)? this.saveImage() : null;
+    let quiz: Quiz = this.quizFillIn();
     if(this.imagePreview){
-      console.log("Quiz: prepare to create image...");
-      this.saveImage();
+      console.log("Quiz: save with image...");
+      this.saveWithImage(quiz);
     }
     else{
-      this.quizFillIn();
-      console.log("Quiz: prepare to create quiz...");
+      console.log("Quiz: save...");
       this.quizService.addQuiz(this.quizToCreate);
     }
     this.reset();
@@ -75,58 +71,25 @@ export class QuizFormComponent implements OnInit {
     //quizToCreate.questions = [];
   }
 
-  saveImage() {
-    let quiz: Quiz = this.quizFillIn();
+  saveWithImage(quiz: Quiz) {
+    //let quiz: Quiz = this.quizFillIn();
     let imgToSave = {} as Img;
     imgToSave.name = this.imageName;
     imgToSave.url = this.imagePreview;
     const url = this.quizService.getServerUrl() + '/images/quizzes';
-    const quizUrl = this.quizService.getServerUrl() + '/quizzes';
+    //const quizUrl = this.quizService.getServerUrl() + '/quizzes';
     
+    //chained requests
     this.http.post<Img>(url, imgToSave, this.quizService.getHttpOptions()).subscribe(img =>{
-      //this.quizToCreate.imageId = img.id;
       quiz.imageId = (img.id).toString(); //: Quiz = this.quizFillIn();
       console.log("quiz filled in map");
       console.log(quiz);
-      this.quizService.addQuiz(quiz);
+      this.quizService.addQuiz(quiz);//mieux car met à jour observable
       /*this.http.post<Quiz>(quizUrl, quiz, this.quizService.getHttpOptions()).subscribe(q =>{
         console.log("final res");
         console.log(q);
       });*/
     });
-
-    //EXAMPLE CHAINING REQ
-    /*this.http.get('/api/people/1').subscribe(character => {
-      this.http.get(character.homeworld).subscribe(homeworld => {
-        character.homeworld = homeworld;
-        this.loadedCharacter = character;
-      });
-    });*/
-
-
-    /*this.http.post<Img>(url, imgToSave, this.quizService.getHttpOptions())
-    .pipe(map(img => {
-        //this.quizToCreate.imageId = img.id;
-        quiz.imageId = img.id;
-        console.log("quiz filled in map");
-        console.log(quiz);
-        return quiz;
-      }),
-      mergeMap(quiz => this.http.post<Quiz>(quizUrl, quiz, this.quizService.getHttpOptions())))
-    .subscribe();/*(quiz: Quiz) => {
-      console.log(quiz);
-    })*/
-    /*this.http.post<Img>(url, imgToSave, this.quizService.getHttpOptions()).subscribe((img) => {
-      console.log("Quiz: image saving..." + img.id);
-      this.quizToCreate.imageId = img.id;
-      //this.quizService.addQuiz(this.quizToCreate);
-      this.http.post<Quiz>(quizUrl, this.quizToCreate, this.quizService.getHttpOptions()).subscribe((quiz) => {
-        console.log("Quiz: quiz saving...");
-        console.log(quiz);
-        //this.setQuizzesFromUrl();
-      });
-    });
-    //return idToRet;*/
   }
   
   onChangeFile(event) {
@@ -137,16 +100,13 @@ export class QuizFormComponent implements OnInit {
       reader.onload = () => {
         this.imageName = file.name + " " + file.type;
         this.imagePreview = 'data:image;base64,' + (reader.result as string).split(',')[1];
-        //(<string>reader.result).split
-        //or
-        //(reader.result as string).split
+        //(<string>reader.result).split or (reader.result as string).split
         console.log(this.imageName);
-        //console.log(this.ImagePreview);
       };
     }
   }
+
   sanitize(url: string) {
-    //return url;
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
