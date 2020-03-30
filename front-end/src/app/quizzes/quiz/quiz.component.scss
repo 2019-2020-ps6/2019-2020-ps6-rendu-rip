@@ -19,12 +19,20 @@ i {
     max-width: 250px;
 }
 
+.frame{
+    height: 120px;//à revoir
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: dashed;
+    border-color:  rgb(243, 58, 144);
+}
+
 .thumbnail {
+    object-fit: cover;
     display: block; 
     margin-left: auto;
-    margin-right: auto; 
-    width: 80%;//--> pour que s'adapte à taille du contenant
-    //--> contenant qui s'adapte à taille de la fenetre
-    //width: 200px;
-    //height: 200px;
+    margin-right: auto;
+    height: 100%;//80px;
+    width: 100%;//100px
 }
