@@ -1,1 +1,13 @@
 @import '../../../styles/card.scss';
+
+.box{
+    margin-top: 20px;
+    height: 80%;//à revoir
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 20px;
+    border-style: solid;
+    border-color:  rgb(243, 58, 144);
+    text-align: center;
+}

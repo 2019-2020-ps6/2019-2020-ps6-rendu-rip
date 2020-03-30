@@ -1,18 +1,17 @@
 <button class="button-card" routerLink= "/customers">Retour</button>
 
-<div *ngIf = "quiz">
-{{quiz.name}}
-<br>
-{{currentQuestion.label}}
-<app-answer-list-widget [answers] = "currentQuestion.answers"></app-answer-list-widget>
+<div class="box" *ngIf = "quiz">
+    <h2>-{{quiz.name}}-</h2>
+    <br>
+    {{currentQuestion.label}}
+    <app-answer-list-widget [answers] = "currentQuestion.answers"></app-answer-list-widget>
+    <br>
+    <div *ngIf = "questions.length!==0">
+    <button class="button-card" (click) = "changeQuestion()">Suite</button>
+    </div>
+    <div *ngIf = "questions.length===0"> 
+        <button class="button-card" routerLink= "./quiz-summary">Suite</button>
+    </div>
 
-<div *ngIf = "questions.length!==0">
-<button class="button-card" (click) = "changeQuestion()">Suite</button>
-</div>
-<div *ngIf = "questions.length===0"> 
-    <button class="button-card" routerLink= "./quiz-summary">Suite</button>
-</div>
-
-<!--<button class="button-card" routerLink= "./quiz-summary">Suite</button>-->
-
+    <!--<button class="button-card" routerLink= "./quiz-summary">Suite</button>-->
 </div>
