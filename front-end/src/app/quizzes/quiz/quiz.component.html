@@ -3,7 +3,7 @@
     <!---<i *ngIf ="quiz.theme==='Sport'" class="fab fa-accessible-icon"></i>-->
     <h1>{{quiz.name}}</h1>
     <h2>{{quiz.theme}}</h2>
-    <img class="thumbnail" [src]="sanitize(img64)" alt="quiz image" style="display: block; margin-left: auto; margin-right: auto; width:80%;">
+    <img class="thumbnail" [src]="sanitize(image.url)" alt="quiz image" style="display: block; margin-left: auto; margin-right: auto; width:80%;">
     <div class="">{{quiz.questions.length}} questions</div>
     <div class = "date" *ngIf = "quiz.creationDate">{{quiz.creationDate | date}}</div>
 </div>

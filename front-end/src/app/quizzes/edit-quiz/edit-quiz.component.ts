@@ -71,7 +71,7 @@ export class EditQuizComponent implements OnInit {
   }
 
   sanitize(url: string) {
-    if(!url) url = this.quizService.imageByDefault();
+    if(!url) url = this.quizService.imageByDefault().url;
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 

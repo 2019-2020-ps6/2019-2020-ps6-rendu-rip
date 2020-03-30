@@ -43,7 +43,7 @@ export class QuizFormComponent implements OnInit {
     if(!quizToCreate.theme)quizToCreate.theme = 'Autres';
     if(!quizToCreate.name)quizToCreate.name = 'Pas de nom de quiz';
     quizToCreate.creationDate = new Date();
-    if(!this.ImagePreview)quizToCreate.image=this.quizService.imageByDefault()
+    if(!this.ImagePreview)quizToCreate.image = this.quizService.imageByDefault().url;
     else quizToCreate.image = this.ImagePreview;
     quizToCreate.questions =  [];
     this.quizService.addQuiz(quizToCreate);
