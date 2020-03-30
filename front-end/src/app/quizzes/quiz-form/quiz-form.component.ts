@@ -72,13 +72,10 @@ export class QuizFormComponent implements OnInit {
   }
 
   saveWithImage(quiz: Quiz) {
-    //let quiz: Quiz = this.quizFillIn();
     let imgToSave = {} as Img;
     imgToSave.name = this.imageName;
     imgToSave.url = this.imagePreview;
     const url = this.quizService.getServerUrl() + '/images/quizzes';
-    //const quizUrl = this.quizService.getServerUrl() + '/quizzes';
-    
     //chained requests
     this.http.post<Img>(url, imgToSave, this.quizService.getHttpOptions()).subscribe(img =>{
       quiz.imageId = (img.id).toString(); //: Quiz = this.quizFillIn();

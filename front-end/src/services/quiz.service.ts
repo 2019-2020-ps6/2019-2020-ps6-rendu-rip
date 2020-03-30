@@ -55,15 +55,28 @@ export class QuizService {
 
   addQuiz(quiz: Quiz) {
     this.http.post<Quiz>(this.quizUrl, quiz, this.httpOptions).subscribe((quiz) => {
-      console.log("Quiz: adding quiz...");
+      console.log("Quiz: quiz added");
       console.log(quiz);
+      this.setQuizzesFromUrl();
+    });
+  }
+
+  updateQuiz(quizOld: Quiz, quizNew: Quiz) {
+    const url = this.quizUrl + '/' + quizOld.id;
+    this.http.put<Quiz>(url, quizNew, this.httpOptions).subscribe(quiz => {
+      console.log("Quiz: quiz updated");
+      console.log(quiz);
+      this.setQuiz(quiz);
       this.setQuizzesFromUrl();
     });
   }
 
   deleteQuiz(quiz: Quiz) {
     const url = this.quizUrl + '/' + quiz.id;
-    this.http.delete<Quiz>(url, this.httpOptions).subscribe(() => this.setQuizzesFromUrl());
+    this.http.delete<Quiz>(url, this.httpOptions).subscribe(() => {
+      console.log("Quiz: quiz deleted");
+      this.setQuizzesFromUrl();
+    });
   }
 
   addQuestion(quiz: Quiz, question: Question) {
@@ -73,7 +86,7 @@ export class QuizService {
 
   deleteQuestion(quiz: Quiz , question: Question) {
     const url = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id;
-    this.http.delete<Question>(url, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
+    this.http.delete<Question>(url, this.httpOptions).subscribe(() =>  this.setSelectedQuiz(quiz.id));
   }
 
   addAnswer(quiz: Quiz, question: Question, answerToAdd: Answer) {
@@ -81,22 +94,14 @@ export class QuizService {
     this.http.post<Answer>(url, answerToAdd, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
   }
 
-  deleteAnswer(quiz: Quiz, question: Question, answerToDelete: Answer) {
-    const url = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id + '/' + this.answersPath + '/' + answerToDelete.id;
-    this.http.delete<Answer>(url, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
-  }
-
   updateAnswer(quiz: Quiz, question: Question, answerToUpdate: Answer) {
     const url = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id + '/' + this.answersPath + '/' + answerToUpdate.id;
     this.http.put<Answer>(url, answerToUpdate, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
   }
 
-  updateQuiz(quizOld: Quiz, quizNew: Quiz) {
-    const url = this.quizUrl + '/' + quizOld.id;
-    this.http.put<Quiz>(url, quizNew, this.httpOptions).subscribe(quiz => {
-      this.setQuiz(quiz);
-      this.setQuizzesFromUrl();
-    });//(newQuiz) => this.setSelectedQuiz(newQuiz.id));
+  deleteAnswer(quiz: Quiz, question: Question, answerToDelete: Answer) {
+    const url = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id + '/' + this.answersPath + '/' + answerToDelete.id;
+    this.http.delete<Answer>(url, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
   }
 
 //::::::::::::::::::::::::IMAGE FAILURE:::::::::::::::::::::::://

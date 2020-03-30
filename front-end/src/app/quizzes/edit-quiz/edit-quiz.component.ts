@@ -20,7 +20,11 @@ export class EditQuizComponent implements OnInit {
   quizForm: FormGroup;
   editionMode: Boolean = false;
 
+  //already existing
   image: Img;
+
+  //form
+  imgName: string;
   imgUrl: string;
 
   constructor(private route: ActivatedRoute, public quizService: QuizService, private sanitizer: DomSanitizer, public formBuilder: FormBuilder) {}
@@ -29,7 +33,6 @@ export class EditQuizComponent implements OnInit {
     this.quizService.quizSelected$.subscribe((quiz) => this.onQuizSelected(quiz));
     const id = this.route.snapshot.paramMap.get('id');
     this.quizService.setSelectedQuiz(id);
-    //this.loadImage();
   }
 
   private onQuizSelected(quiz: Quiz) {
@@ -68,36 +71,47 @@ export class EditQuizComponent implements OnInit {
 
   updateQuiz() {
     let quizUpdated: Quiz = this.quizForm.getRawValue() as Quiz;
-    /*if(this.imgUrl!=null && this.image.url !== this.imgUrl) {
-      const id = this.saveImage();
-      quizUpdated.imageId = id;
-    }*/
+    if(this.imgUrl) {
+      if(!this.quiz.imageId){
+        console.log("Quiz: saving with image");
+        this.saveWithImage(quizUpdated);
+      } 
+      else if(this.imgUrl !== this.image.url) {
+        console.log("Quiz: saving with updated image...");
+        this.saveWithImageUpdate(quizUpdated);
+      }
+      this.editionMode = false;
+      return;
+    }
+    if(this.quiz.imageId) quizUpdated.imageId = this.quiz.imageId;
+    console.log("Quiz: saving...");
     this.quizService.updateQuiz(this.quiz, quizUpdated);
     this.editionMode = false;
   }
 
-  /*let quiz: Quiz = this.quizFillIn();
-    if(this.imagePreview){
-      console.log("Quiz: save with image...");
-      this.saveWithImage(quiz);
-    }
-    else{
-      console.log("Quiz: save...");
-      this.quizService.addQuiz(this.quizToCreate);
-    }*/
-
-  /*saveImage(){
+  saveWithImage(quiz: Quiz) {
     let imgToSave = {} as Img;
-    //imgToSave.name = this.ImageName;
+    imgToSave.name = this.imgName;
     imgToSave.url = this.imgUrl;
-    let idToRet;
-    const url = this.quizService.getServerUrl() + "/images/quizzes";
-    this.quizService.getHttpClient().post<Img>(url, imgToSave, this.quizService.getHttpOptions()).subscribe((img) => {
-      console.log("Quiz: saving image...");
-      idToRet = img.id;
+    const url = this.quizService.getServerUrl() + '/images/quizzes';
+    //chained requests
+    this.quizService.getHttpClient().post<Img>(url, imgToSave, this.quizService.getHttpOptions()).subscribe(img => {
+      quiz.imageId = (img.id).toString(); //: Quiz = this.quizFillIn();
+      this.quizService.updateQuiz(this.quiz, quiz);
     });
-    return idToRet;
-  }*/
+  }
+
+  saveWithImageUpdate(quiz: Quiz) {
+    let imgToSave = {} as Img;
+    imgToSave.name = this.imgName;
+    imgToSave.url = this.imgUrl;
+    const url = this.quizService.getServerUrl() + '/images/quizzes';
+    //chained requests
+    this.quizService.getHttpClient().post<Img>(url, imgToSave, this.quizService.getHttpOptions()).subscribe(img => {
+      quiz.imageId = (img.id).toString(); //: Quiz = this.quizFillIn();
+      this.quizService.updateQuiz(this.quiz, quiz);
+    });
+  }
 
   onChangeFile(event) {
     let reader = new FileReader();
@@ -105,7 +119,10 @@ export class EditQuizComponent implements OnInit {
       let file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
+        this.imgName = file.name + " " + file.type;
         this.imgUrl = 'data:image;base64,' + (reader.result as string).split(',')[1];
+        //(<string>reader.result).split or (reader.result as string).split
+        console.log(this.imgName);
       };
     }
   }
