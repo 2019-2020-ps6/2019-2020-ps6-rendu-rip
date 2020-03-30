@@ -20,10 +20,10 @@
     <label for="image">
       Charger une image
       <br>
-      <input type="file" accept="image/*" (change)="onChangeFile($event)" [formControlName] = "'image'" id = "image">
-      <div class="image" *ngIf="ImagePreview">
+      <input type="file" accept="image/*" (change)="onChangeFile($event)" id="image"><!--[formControlName] = "'image'" id = "image">-->
+      <div class="image" *ngIf="imagePreview">
           <!--sanitize necessary otherwise throw security error-->
-          <img [src]="sanitize(ImagePreview)" alt="quiz image" style="width:50%">
+          <img [src]="sanitize(imagePreview)" alt="quiz image" style="width:50%">
       </div>
     </label>
     <br>

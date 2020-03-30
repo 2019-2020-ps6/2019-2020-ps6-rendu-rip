@@ -29,10 +29,11 @@ export class QuizService {
     this.setQuizzesFromUrl();
   }
 
-  getServerUrl(): string {
-    console.log(serverUrl);
-    return serverUrl;
-  }
+  getHttpClient(): HttpClient { return this.http; }
+
+  getServerUrl(): string { return serverUrl; }
+
+  getHttpOptions(): Object { return this.httpOptions; }
 
   setQuizzes(quizzes: Quiz[]) {
     this.quizzes = quizzes;
@@ -65,48 +66,51 @@ export class QuizService {
   }
 
   setSelectedQuiz(quizId: string) {
-    const urlWithId = this.quizUrl + '/' + quizId;
-    this.http.get<Quiz>(urlWithId).subscribe((quiz) => this.setQuiz(quiz));
+    const url = this.quizUrl + '/' + quizId;
+    this.http.get<Quiz>(url).subscribe((quiz) => this.setQuiz(quiz));
   }
 
   addQuiz(quiz: Quiz) {
-    this.http.post<Quiz>(this.quizUrl, quiz, this.httpOptions).subscribe(() => this.setQuizzesFromUrl());
+    this.http.post<Quiz>(this.quizUrl, quiz, this.httpOptions).subscribe((quiz) => {
+      console.log("Quiz: adding quiz...");
+      console.log(quiz);
+      this.setQuizzesFromUrl();
+    });
   }
 
   deleteQuiz(quiz: Quiz) {
-    const urlWithId = this.quizUrl + '/' + quiz.id;
-    this.http.delete<Quiz>(urlWithId, this.httpOptions).subscribe(() => this.setQuizzesFromUrl());
+    const url = this.quizUrl + '/' + quiz.id;
+    this.http.delete<Quiz>(url, this.httpOptions).subscribe(() => this.setQuizzesFromUrl());
   }
 
   addQuestion(quiz: Quiz, question: Question) {
-    const questionUrl = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath;
-    this.http.post<Question>(questionUrl, question, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
+    const url = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath;
+    this.http.post<Question>(url, question, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
   }
 
   deleteQuestion(quiz: Quiz , question: Question) {
-    const questionUrl = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id;
-    this.http.delete<Question>(questionUrl, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
+    const url = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id;
+    this.http.delete<Question>(url, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
   }
 
   addAnswer(quiz: Quiz, question: Question, answerToAdd: Answer) {
-    const answerUrl = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id + '/' + this.answersPath + '/';
-    this.http.post<Answer>(answerUrl, answerToAdd, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
+    const url = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id + '/' + this.answersPath + '/';
+    this.http.post<Answer>(url, answerToAdd, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
   }
 
   deleteAnswer(quiz: Quiz, question: Question, answerToDelete: Answer) {
-    const answerUrl = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id + '/' + this.answersPath + '/' + answerToDelete.id;
-    this.http.delete<Answer>(answerUrl, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
+    const url = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id + '/' + this.answersPath + '/' + answerToDelete.id;
+    this.http.delete<Answer>(url, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
   }
 
   updateAnswer(quiz: Quiz, question: Question, answerToUpdate: Answer) {
-    const answerUrl = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id + '/' + this.answersPath + '/' + answerToUpdate.id;
-    this.http.put<Answer>(answerUrl,answerToUpdate, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
+    const url = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id + '/' + this.answersPath + '/' + answerToUpdate.id;
+    this.http.put<Answer>(url, answerToUpdate, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
   }
 
-  updateQuiz(quizToUpdate: Quiz, changes: {name: String, theme: String, image?: String}) {
-    const answerUrl = this.quizUrl + '/' + quizToUpdate.id;
-    console.log(changes);
-    this.http.put<Answer>(answerUrl,changes, this.httpOptions).subscribe((newQuiz) => this.setSelectedQuiz(newQuiz.id));
+  updateQuiz(quizOld: Quiz, quizNew: Quiz) {
+    const url = this.quizUrl + '/' + quizOld.id;
+    this.http.put<Quiz>(url, quizNew, this.httpOptions).subscribe((newQuiz) => this.setSelectedQuiz(newQuiz.id));
   }
 
 

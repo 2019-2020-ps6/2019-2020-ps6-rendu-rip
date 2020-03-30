@@ -34,7 +34,9 @@ export class QuizComponent implements OnInit {
   loadImage(){
     this.image = {} as Img;
     const id = this.quiz.imageId;
-    const url = this.quizService.getServerUrl() + "/images/" + ((id == null)? "default/1" : id);
+    const url = this.quizService.getServerUrl() 
+      + "/images/" 
+      + ((id == null)? "default/1" : "quizzes/" + id);
     this.http.get<Img>(url).subscribe((img) => {
       console.log("Quiz: image charging...");
       this.image.url = img.url;

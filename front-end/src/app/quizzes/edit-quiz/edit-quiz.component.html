@@ -1,10 +1,10 @@
 <button class="button-card" routerLink= "/staff">Retour</button>
 <button class="button-card" routerLink= "/home">Home</button>
-<div *ngIf ="quizSelected" >
+<div *ngIf ="quiz" >
     
     <div *ngIf="!editionMode">
-        <h1>Nom du quiz : {{quizSelected.name}}</h1>
-        <h2>Thème : {{quizSelected.theme}}</h2>
+        <h1>Nom du quiz : {{quiz.name}}</h1>
+        <h2>Thème : {{quiz.theme}}</h2>
         <button id = "editQuizName" class="button" (click)="editionMode=true">Modifier</button>
     </div>
 
@@ -20,7 +20,7 @@
         </form>
     </div>
     
-    <img [src]="sanitize(quizSelected.image)" alt="quiz image" style="display: block; margin-left: auto; margin-right: auto; width:80%;">
-    <app-question-list [quiz] = "quizSelected"></app-question-list>
+    <img class = "thumbnail" [src]="sanitize(imgUrl)" alt="quiz image">
+    <app-question-list [quiz] = "quiz"></app-question-list>
 </div>
 
