@@ -2,69 +2,59 @@
   {
     "theme": "Sportifs",
     "name": "Bonjour",
-    "id": 1582018073558,
-    "questions": []
+    "id": 1582018073558
   },
   {
     "theme": "Acteurs",
     "name": "Docteurs",
-    "id": 1583739103866,
-    "questions": []
+    "id": 1583739103866
   },
   {
     "name": "Pas de nom de quiz",
     "theme": "Autres",
     "creationDate": "2020-03-17T14:20:28.518Z",
-    "questions": [],
     "id": 1584454842993
   },
   {
     "name": "NewQuiz!!",
     "theme": "Actor",
     "creationDate": "2020-03-23T12:39:22.944Z",
-    "questions": [],
     "id": 1584967171131
   },
   {
     "name": "Legumes",
     "theme": "Autres",
     "creationDate": "2020-03-23T21:07:33.174Z",
-    "questions": [],
     "id": 1584997706362
   },
   {
     "name": "Ski",
     "theme": "Sport",
     "creationDate": "2020-03-23T21:15:29.085Z",
-    "questions": [],
     "id": 1584998138230
   },
   {
     "name": "Test",
     "theme": "Sport",
     "creationDate": "2020-03-24T15:33:38.522Z",
-    "questions": [],
     "id": 1585064040016
   },
   {
     "name": "Pas de nom de quiz",
     "theme": "Autres",
     "creationDate": "2020-03-26T14:19:46.397Z",
-    "questions": [],
     "id": 1585232405486
   },
   {
     "name": "Pas de nom de quiz",
     "theme": "Autres",
     "creationDate": "2020-03-26T15:00:55.931Z",
-    "questions": [],
     "id": 1585234957540
   },
   {
     "name": "Pas de nom de quiz",
     "theme": "Autres",
     "creationDate": "2020-03-26T15:00:55.931Z",
-    "questions": [],
     "id": 1585235002540
   }
 ]
