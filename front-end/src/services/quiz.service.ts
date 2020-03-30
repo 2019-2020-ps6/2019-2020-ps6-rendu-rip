@@ -38,28 +38,11 @@ export class QuizService {
   setQuizzes(quizzes: Quiz[]) {
     this.quizzes = quizzes;
     this.quizzes$.next(this.quizzes);
-
   }
 
   setQuizzesFromUrl() {
     this.http.get<Quiz[]>(this.quizUrl).subscribe((quizzes) => this.setQuizzes(quizzes));
-
   }
-
-  //not ok... --> so directly called in component.ts
-  /*imageByDefault(): Img {
-    //TODO: req from server
-    let image_res = {} as Img;
-    const dft_img_id = "1";
-    const url = this.quizUrl + '/images/' + dft_img_id;
-    //this.http.get<Quiz>(url).subscribe((quiz) => this.setQuiz(quiz));
-    this.http.get<Img>(url).subscribe((img) => {
-      console.log("OOOOOOOKKKKKKKKKKKKK");
-      image_res.url = img.url;
-    });
-    console.log(image_res);
-    return image_res;
-  }*/
 
   setQuiz(quiz:Quiz){
     this.quizSelected$.next(quiz);
@@ -110,14 +93,30 @@ export class QuizService {
 
   updateQuiz(quizOld: Quiz, quizNew: Quiz) {
     const url = this.quizUrl + '/' + quizOld.id;
-    this.http.put<Quiz>(url, quizNew, this.httpOptions).subscribe((newQuiz) => this.setSelectedQuiz(newQuiz.id));
+    this.http.put<Quiz>(url, quizNew, this.httpOptions).subscribe(quiz => {
+      this.setQuiz(quiz);
+      this.setQuizzesFromUrl();
+    });//(newQuiz) => this.setSelectedQuiz(newQuiz.id));
   }
 
+//::::::::::::::::::::::::IMAGE FAILURE:::::::::::::::::::::::://
+  //not ok... --> so directly called in component.ts
+  /*imageByDefault(): Img {
+    //TODO: req from server
+    let image_res = {} as Img;
+    const dft_img_id = "1";
+    const url = this.quizUrl + '/images/' + dft_img_id;
+    //this.http.get<Quiz>(url).subscribe((quiz) => this.setQuiz(quiz));
+    this.http.get<Img>(url).subscribe((img) => {
+      console.log("OOOOOOOKKKKKKKKKKKKK");
+      image_res.url = img.url;
+    });
+    console.log(image_res);
+    return image_res;
+  }*/
 
-  /*
-  setQuizzesFromUrl(){
-    this.http.get<{quizzes : Quiz[]}>(this.quizUrl).subscribe((quizzes) =>  this.setQuizzes(quizzes.quizzes));
-  }
+
+ //::::::::::::::::::::::::FRONT END:::::::::::::::::::::::://
   /*
   addQuiz(quiz: Quiz) {
     // You need here to update the list of quiz and then update our observable (Subject) with the new list

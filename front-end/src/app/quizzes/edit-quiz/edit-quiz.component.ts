@@ -53,7 +53,7 @@ export class EditQuizComponent implements OnInit {
   }
 
   private initQuizForm() {
-    if (this.quiz != null) {
+    if (this.quiz != null) {//precaution??, à priori si le quiz a été clicked on c'est qu'il existe...
       this.quizForm = this.formBuilder.group({
         name: this.quiz.name,
         theme: this.quiz.theme
@@ -75,6 +75,16 @@ export class EditQuizComponent implements OnInit {
     this.quizService.updateQuiz(this.quiz, quizUpdated);
     this.editionMode = false;
   }
+
+  /*let quiz: Quiz = this.quizFillIn();
+    if(this.imagePreview){
+      console.log("Quiz: save with image...");
+      this.saveWithImage(quiz);
+    }
+    else{
+      console.log("Quiz: save...");
+      this.quizService.addQuiz(this.quizToCreate);
+    }*/
 
   /*saveImage(){
     let imgToSave = {} as Img;
