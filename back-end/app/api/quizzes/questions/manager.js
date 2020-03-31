@@ -1,4 +1,5 @@
 const { Quiz, Question } = require('../../../models')
+const {deleteAnswerFromQuestion} = require('./answers/manager')
 
 /**
  * Questions Manager.
@@ -31,7 +32,16 @@ const getQuestionFromQuiz = (quizId, questionId) => {
     return question
 }
 
+const deleteQuestionFromQuiz = (quizId) => {
+    questions = filterQuestionsFromQuizz(quizId);
+    questions.forEach(element => {
+      deleteAnswerFromQuestion(element.id)
+      Question.delete(element.id)
+    });
+}
+
 module.exports = {
     filterQuestionsFromQuizz,
-    getQuestionFromQuiz
+    getQuestionFromQuiz,
+    deleteQuestionFromQuiz
 }

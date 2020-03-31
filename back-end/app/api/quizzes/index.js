@@ -1,10 +1,10 @@
 const { Router } = require('express')
 
-const { Quiz, DefaultImage } = require('../../models')
+const { Quiz, Question, DefaultImage } = require('../../models')
 const manageAllErrors = require('../../utils/routes/error-management')
 const QuestionsRouter = require('./questions')
 const { buildQuizz, buildQuizzes } = require('./manager')
-const { filterQuestionsFromQuizz} = require('./questions/manager')
+const { deleteQuestionFromQuiz} = require('./questions/manager')
 
 const router = new Router()
 
@@ -47,11 +47,8 @@ router.put('/:quizId', (req, res) => {
 
 router.delete('/:quizId', (req, res) => {
   try {
+    deleteQuestionFromQuiz(req.params.quizId)
     Quiz.delete(req.params.quizId)
-    //questions = filterQuestionsFromQuizz(req.params.quizId);
-    //questions.forEach(element => {
-    //  Question.delete(element.id)//Attention on ne peux pas récupere les id
-    //}); 
     res.status(204).end()
   } catch (err) {
     manageAllErrors(res, err)

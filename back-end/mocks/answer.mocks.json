@@ -372,5 +372,23 @@
     "isCorrect": false,
     "questionId": 1585645889439,
     "id": 1585645910571
+  },
+  {
+    "value": "à supprimer",
+    "isCorrect": false,
+    "questionId": 1585655429727,
+    "id": 1585655436619
+  },
+  {
+    "value": "dzdz",
+    "isCorrect": false,
+    "questionId": 1585655448753,
+    "id": 1585655451826
+  },
+  {
+    "value": "yes",
+    "isCorrect": true,
+    "questionId": 1585655429727,
+    "id": 1585655458361
   }
 ]

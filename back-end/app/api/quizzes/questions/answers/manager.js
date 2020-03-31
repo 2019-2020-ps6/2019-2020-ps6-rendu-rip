@@ -24,7 +24,15 @@ const getAnswerFromQuestion = (quizId, questionId, answerId) => {
     return answer
 }
 
+const deleteAnswerFromQuestion = (questionId) =>{
+    answers = filterAnswersFromQuestion(questionId);
+    answers.forEach(element => {
+        Answer.delete(element.id)
+    });
+}
+
 module.exports = {
     getAnswerFromQuestion,
-    filterAnswersFromQuestion
+    filterAnswersFromQuestion,
+    deleteAnswerFromQuestion
 }
