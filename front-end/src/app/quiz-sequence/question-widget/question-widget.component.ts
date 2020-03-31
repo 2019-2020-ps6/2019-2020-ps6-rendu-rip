@@ -18,6 +18,7 @@ export class QuestionWidgetComponent implements OnInit {
   // questionsDone: Question[] = [];
   
   currentQuestion : Question;
+  noMoreQuestion: boolean = false;
 
   /* @Output()
   answerSelected: EventEmitter<boolean> = new EventEmitter<boolean>();*/
@@ -31,7 +32,6 @@ export class QuestionWidgetComponent implements OnInit {
       }
     });
   }
-
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.quizService.setSelectedQuiz(id);
@@ -39,15 +39,22 @@ export class QuestionWidgetComponent implements OnInit {
 
   onSelectedAnswer(answerSelected: Answer) {
     
-    console.log(answerSelected);
+    //console.log(answerSelected);
     this.changeQuestion();
   }
+
+  done():boolean{
+      return this.noMoreQuestion;
+  }
+
 
   changeQuestion(){
     if(this.questions.length>0){
     this.currentQuestion = this.questions.pop();
     // this.questionsDone.push(this.currentQuestion);
-    
+    }
+    else if (this.questions.length==0){
+      this.noMoreQuestion = true;
     }
   }
 

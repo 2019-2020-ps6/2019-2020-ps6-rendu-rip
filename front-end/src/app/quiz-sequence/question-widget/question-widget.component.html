@@ -3,22 +3,13 @@
 <div class="box" *ngIf = "quiz">
     <h2>-{{quiz.name}}-</h2>
 <br>
-{{currentQuestion.label}}
-<app-answer-list-widget [answers] = "currentQuestion.answers" (selected) = "onSelectedAnswer($event)">
-    
-</app-answer-list-widget>
 
-<div *ngIf = "questions.length!==0">
-    
-
-<!--<button class="button-card" (click) = "changeQuestion()">Suite</button>-->
-
+<div *ngIf = "currentQuestion">
+    <h4>{{currentQuestion.label}}</h4>
+    <app-answer-list-widget [answers] = "currentQuestion.answers" (selected) = "onSelectedAnswer($event)"></app-answer-list-widget>
 </div>
-<div *ngIf = "questions.length===0"> 
-    <button class="button-card" routerLink= "./quiz-summary">Suite</button>
-</div>
+<button *ngIf="done()" class="button-card" routerLink= "./quiz-summary">Suite</button>
 
 <!--<button class="button-card" routerLink= "./quiz-summary">Suite</button>-->
-
-    <!--<button class="button-card" routerLink= "./quiz-summary">Suite</button>-->
-</div>
+<!--<button class="button-card" routerLink= "./quiz-summary">Suite</button>-->
+<!--<button class="button-card" (click) = "changeQuestion()">Suite</button>-->
