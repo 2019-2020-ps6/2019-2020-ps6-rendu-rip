@@ -13,6 +13,8 @@ import { Answer } from 'src/models/answer.model';
   styleUrls: ['./question-widget.component.scss']
 })
 export class QuestionWidgetComponent implements OnInit {
+  TIME_OUT_VALUE: number = 10000; // 10000 ms == 10s
+
   quiz : Quiz;
   questions: Question[];
   // questionsDone: Question[] = [];
@@ -35,6 +37,7 @@ export class QuestionWidgetComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.quizService.setSelectedQuiz(id);
+    
   }
 
   onSelectedAnswer(answerSelected: Answer) {
@@ -50,6 +53,7 @@ export class QuestionWidgetComponent implements OnInit {
 
   changeQuestion(){
     if(this.questions.length>0){
+      this.startTimer();
     this.currentQuestion = this.questions.pop();
     // this.questionsDone.push(this.currentQuestion);
     }
@@ -58,6 +62,17 @@ export class QuestionWidgetComponent implements OnInit {
     }
   }
 
-  
+  onTimeOut(){
+    console.log('due to time out ... moved on to next question!')
+    this.changeQuestion();
+  }
 
+  startTimer(){
+    setTimeout(() => {
+      this.changeQuestion();
+    }, this.TIME_OUT_VALUE);
+  }
+   
 }
+
+

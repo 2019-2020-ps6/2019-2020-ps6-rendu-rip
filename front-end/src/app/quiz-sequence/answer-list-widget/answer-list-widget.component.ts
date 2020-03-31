@@ -24,12 +24,14 @@ export class AnswerListWidgetComponent implements OnInit {
     this.setRightAnswer();
   }
 
-  selectAnswer(answer : Answer) {
+  selectAnswer(answer: Answer) {
     this.answerSelected = answer;
     this.selected.emit(answer);
   }
 
-  ngOnChanges(){
+
+
+  ngOnChanges() {
     this.reset();
   }
 
@@ -43,7 +45,7 @@ export class AnswerListWidgetComponent implements OnInit {
       if(curAns.isCorrect){
         this.rightAnswer = curAns;
         break;
-      }  
+      }
     }
   }
 
