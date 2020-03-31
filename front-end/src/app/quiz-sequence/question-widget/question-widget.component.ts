@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { QuizService } from 'src/services/quiz.service';
 import { BehaviorSubject } from 'rxjs';
 import { AnswerListWidgetComponent } from '../answer-list-widget/answer-list-widget.component';
+import { Answer } from 'src/models/answer.model';
 
 @Component({
   selector: 'app-question-widget',
@@ -14,7 +15,7 @@ import { AnswerListWidgetComponent } from '../answer-list-widget/answer-list-wid
 export class QuestionWidgetComponent implements OnInit {
   quiz : Quiz;
   questions: Question[];
-  questionsDone: Question[] = [];
+  // questionsDone: Question[] = [];
   
   currentQuestion : Question;
 
@@ -36,10 +37,16 @@ export class QuestionWidgetComponent implements OnInit {
     this.quizService.setSelectedQuiz(id);
   }
 
+  onSelectedAnswer(answerSelected: Answer) {
+    
+    console.log(answerSelected);
+    this.changeQuestion();
+  }
+
   changeQuestion(){
     if(this.questions.length>0){
     this.currentQuestion = this.questions.pop();
-    this.questionsDone.push(this.currentQuestion);
+    // this.questionsDone.push(this.currentQuestion);
     
     }
   }

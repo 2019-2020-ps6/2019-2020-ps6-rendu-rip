@@ -1,5 +1,5 @@
 <div class="answers_listing" *ngFor = "let answer of answers" >
-    <app-answer-widget [answer] = "answer" (selected) = "selectAnswer($event)"></app-answer-widget>
+    <app-answer-widget [answer] = "answer" (selected) = "selectAnswer($event)" ></app-answer-widget>
 </div>
 
 <div *ngIf = "answerSelected">

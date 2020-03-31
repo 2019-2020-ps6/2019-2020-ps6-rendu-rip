@@ -143,5 +143,20 @@
     "label": "Ha ha",
     "quizId": 1585589016403,
     "id": 1585589026338
+  },
+  {
+    "label": "Qui est le personnage de Gauche",
+    "quizId": 1585645244818,
+    "id": 1585645267942
+  },
+  {
+    "label": "Quelle est la capitale des U.S",
+    "quizId": 1585645244818,
+    "id": 1585645410941
+  },
+  {
+    "label": "question 1",
+    "quizId": 1585645879266,
+    "id": 1585645889439
   }
 ]

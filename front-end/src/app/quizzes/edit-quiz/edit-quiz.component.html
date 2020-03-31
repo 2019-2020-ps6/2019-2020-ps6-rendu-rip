@@ -5,14 +5,14 @@
     <div *ngIf="!editionMode">
         <h1>Nom du quiz : {{quiz.name}}</h1>
         <h2>Thème : {{quiz.theme}}</h2>
-        <div class="frame"><img class = "thumbnail" [src]="sanitize(imgUrl)" alt="quiz image"></div>
+        <div *ngIf="imgUrl" class="frame"><img class = "thumbnail" [src]="sanitize(imgUrl)" alt="quiz image"></div>
         <button id = "editQuizName" class="button" (click)="editionMode=true">Modifier</button>
     </div>
     <div *ngIf="editionMode">
         <form class="quiz-form" [formGroup]="quizForm">
             <h1>Nom du quiz : <input class="input-custom" type="text" id="name" [formControlName]="'name'"></h1>
             <h2>Thème :  <input class="input-custom" type="text" id="theme" [formControlName]="'theme'"></h2>
-            <div class="frame"><img class = "thumbnail" [src]="sanitize(imgUrl)" alt="quiz image"></div>
+            <div *ngIf="imgUrl" class="frame"><img class = "thumbnail" [src]="sanitize(imgUrl)" alt="quiz image"></div>
             <input type="file" accept="image/*" (change)="onChangeFile($event)" id = "image">
             <br>
             <button id = "confirmEdit" class="button" (click)="updateQuiz()">Valider</button>

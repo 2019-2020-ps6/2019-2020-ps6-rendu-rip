@@ -51,8 +51,9 @@ export class EditQuizComponent implements OnInit {
     this.quizService.getHttpClient().get<Img>(url).subscribe((img) => {
       console.log("Quiz: image charging...");
       this.image.url = img.url;
+      this.imgUrl = this.image.url;
     });
-    this.imgUrl = this.image.url;
+    // this.imgUrl = this.image.url;
   }
 
   private initQuizForm() {
@@ -128,7 +129,7 @@ export class EditQuizComponent implements OnInit {
   }
 
   sanitize(url: string) {
-    if(!url) url = this.image.url;
+    // if(!url) url = this.image.url;
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 }

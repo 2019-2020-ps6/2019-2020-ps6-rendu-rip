@@ -12,6 +12,9 @@ export class AnswerListWidgetComponent implements OnInit {
   @Input()
   answers: Answer[];
 
+  @Output()
+  selected: EventEmitter<Answer> = new EventEmitter<Answer>();
+
   answerSelected : Answer;
   rightAnswer : Answer;
 
@@ -23,6 +26,7 @@ export class AnswerListWidgetComponent implements OnInit {
 
   selectAnswer(answer : Answer) {
     this.answerSelected = answer;
+    this.selected.emit(answer);
   }
 
   ngOnChanges(){
