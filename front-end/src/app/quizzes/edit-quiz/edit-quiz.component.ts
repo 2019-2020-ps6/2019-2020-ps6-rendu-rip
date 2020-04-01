@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { QuizService } from '../../../services/quiz.service';
-
-import { Quiz } from '../../../models/quiz.model';
-import { DomSanitizer } from '@angular/platform-browser';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Img } from 'src/models/image.model';
 
-//maybe pas beau de le mettre ici mais... plus simple^^ (pour chargement image)
-import { HttpClient } from '@angular/common/http';
+import { QuizService } from '../../../services/quiz.service';
+import { Quiz } from '../../../models/quiz.model';
+import { Img } from 'src/models/image.model';
+import { ImageService } from 'src/services/image.service';
+import { SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-quiz',
   templateUrl: './edit-quiz.component.html',
   styleUrls: ['./edit-quiz.component.scss']
 })
+
 export class EditQuizComponent implements OnInit {
   quiz: Quiz;
   quizForm: FormGroup;
@@ -27,7 +26,7 @@ export class EditQuizComponent implements OnInit {
   imgName: string;
   imgUrl: string;
 
-  constructor(private route: ActivatedRoute, public quizService: QuizService, private sanitizer: DomSanitizer, public formBuilder: FormBuilder) {}
+  constructor(private route: ActivatedRoute, public imageService: ImageService, public quizService: QuizService, public formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.quizService.quizSelected$.subscribe((quiz) => this.onQuizSelected(quiz));
@@ -45,19 +44,11 @@ export class EditQuizComponent implements OnInit {
   loadImage(){
     this.image = {} as Img;
     const id = this.quiz.imageId;
-    const url = this.quizService.getServerUrl() 
-      + "/images/" 
-      + ((id == null)? "default/1" : "quizzes/" + id);
-    this.quizService.getHttpClient().get<Img>(url).subscribe((img) => {
-      console.log("Quiz: image charging...");
-      this.image.url = img.url;
-      this.imgUrl = this.image.url;
-    });
-    // this.imgUrl = this.image.url;
+    this.imageService.loadQuizImage(this.image, id);
   }
 
   private initQuizForm() {
-    if (this.quiz != null) {//precaution??, à priori si le quiz a été clicked on c'est qu'il existe...
+    /*if (this.quiz != null) {//precaution??, à priori si le quiz a été 'clicked on' c'est qu'il existe...
       this.quizForm = this.formBuilder.group({
         name: this.quiz.name,
         theme: this.quiz.theme
@@ -67,51 +58,62 @@ export class EditQuizComponent implements OnInit {
         name: "",
         theme: "Autres"
       });
-    }
+    }*/
+    this.editionMode = true;
+    if(this.quiz == null) console.log("Quiz: intiQuizForm ... got 'null'!!");
+    this.quizForm = this.formBuilder.group({
+      name: this.quiz.name,
+      theme: this.quiz.theme
+    });
+  }
+
+  reset(){
+    this.editionMode = false;
+    this.imgUrl = null;
+    this.quizForm = null;
   }
 
   updateQuiz() {
-    let quizUpdated: Quiz = this.quizForm.getRawValue() as Quiz;
-    if(this.imgUrl) {
-      if(!this.quiz.imageId){
-        console.log("Quiz: saving with image");
-        this.saveWithImage(quizUpdated);
-      } 
-      else if(this.imgUrl !== this.image.url) {
-        console.log("Quiz: saving with updated image...");
-        this.saveWithImageUpdate(quizUpdated);
-      }
-      this.editionMode = false;
-      return;
+    const quizToSave: Quiz = this.quizFillIn();
+    const imgToSave: Img = this.imgFillIn();
+    const newTxt = this.txtHasChanged(quizToSave);
+    const newImg = this.imgHasChanged(imgToSave);
+    //sans changement d'image
+    if(newTxt && !newImg) {//update quiz
+      console.log(quizToSave);
+      this.quizService.updateQuiz(quizToSave);
+    }//avec image
+    else if(newImg) {
+      //in any case: create image + update quiz
+      this.quizService.updateQuizWithImage(quizToSave, imgToSave);
     }
-    if(this.quiz.imageId) quizUpdated.imageId = this.quiz.imageId;
-    console.log("Quiz: saving...");
-    this.quizService.updateQuiz(this.quiz, quizUpdated);
     this.editionMode = false;
   }
 
-  saveWithImage(quiz: Quiz) {
-    let imgToSave = {} as Img;
-    imgToSave.name = this.imgName;
-    imgToSave.url = this.imgUrl;
-    const url = this.quizService.getServerUrl() + '/images/quizzes';
-    //chained requests
-    this.quizService.getHttpClient().post<Img>(url, imgToSave, this.quizService.getHttpOptions()).subscribe(img => {
-      quiz.imageId = (img.id).toString(); //: Quiz = this.quizFillIn();
-      this.quizService.updateQuiz(this.quiz, quiz);
-    });
+  txtHasChanged(quiz: Quiz): boolean {
+    return quiz.name !== this.quiz.name || quiz.theme !== this.quiz.theme;
   }
 
-  saveWithImageUpdate(quiz: Quiz) {
-    let imgToSave = {} as Img;
-    imgToSave.name = this.imgName;
-    imgToSave.url = this.imgUrl;
-    const url = this.quizService.getServerUrl() + '/images/quizzes';
-    //chained requests
-    this.quizService.getHttpClient().post<Img>(url, imgToSave, this.quizService.getHttpOptions()).subscribe(img => {
-      quiz.imageId = (img.id).toString(); //: Quiz = this.quizFillIn();
-      this.quizService.updateQuiz(this.quiz, quiz);
-    });
+  imgHasChanged(img: Img): boolean {
+    return img.url && img.url !== this.image.url;
+  }
+
+  quizFillIn(): Quiz {
+    const formValues: Quiz = this.quizForm.getRawValue() as Quiz;
+    let quiz: Quiz = {} as Quiz;
+    quiz.id = this.quiz.id;
+    quiz.name = (formValues.name)? formValues.name : 'Sans nom';
+    quiz.theme = (formValues.theme)? formValues.theme : 'Autres';
+    quiz.creationDate = new Date();
+    if(this.quiz.imageId) quiz.imageId = this.quiz.imageId;
+    return quiz;
+  }
+
+  imgFillIn(): Img {
+    let image = {} as Img;
+    image.name = this.imgName;
+    image.url = this.imgUrl;
+    return image;
   }
 
   onChangeFile(event) {
@@ -128,8 +130,7 @@ export class EditQuizComponent implements OnInit {
     }
   }
 
-  sanitize(url: string) {
-    // if(!url) url = this.image.url;
-    return this.sanitizer.bypassSecurityTrustUrl(url);
+  displayImage() {
+    return this.imageService.sanitize(this.imgUrl? this.imgUrl : this.image.url);
   }
 }

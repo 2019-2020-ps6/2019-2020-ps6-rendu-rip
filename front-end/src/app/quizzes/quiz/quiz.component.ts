@@ -1,17 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Quiz } from '../../../models/quiz.model';
 import { Img } from '../../../models/image.model';
-import { DomSanitizer } from '@angular/platform-browser';
 import { QuizService } from 'src/services/quiz.service';
-
-//maybe pas beau de le mettre ici mais... plus simple^^ (pour chargement image)
-import { HttpClient } from '@angular/common/http';
+import { ImageService } from 'src/services/image.service';
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.scss']
 })
+
 export class QuizComponent implements OnInit {
 
   @Input()
@@ -24,7 +22,7 @@ export class QuizComponent implements OnInit {
   @Output()
   quizDeleted: EventEmitter<Quiz> = new EventEmitter<Quiz>();
 
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer, public quizService : QuizService) {}
+  constructor(public imageService : ImageService, public quizService : QuizService) {}
 
   ngOnInit() {
     this.loadImage();
@@ -34,13 +32,7 @@ export class QuizComponent implements OnInit {
   loadImage(){
     this.image = {} as Img;
     const id = this.quiz.imageId;
-    const url = this.quizService.getServerUrl() 
-      + "/images/" 
-      + ((id == null)? "default/1" : "quizzes/" + id);
-    this.http.get<Img>(url).subscribe((img) => {
-      console.log("Quiz: image charging...");
-      this.image.url = img.url;
-    });
+    this.imageService.loadQuizImage(this.image, id);
   }
 
   selectQuiz() {
@@ -51,9 +43,7 @@ export class QuizComponent implements OnInit {
     this.quizDeleted.emit(this.quiz);
   }
 
-  //bypass security --> sinon pb ne s'affiche pas...
   sanitize(url: string) {
-    return this.sanitizer.bypassSecurityTrustUrl(url);
+    return this.imageService.sanitize(url);
   }
-  
 }

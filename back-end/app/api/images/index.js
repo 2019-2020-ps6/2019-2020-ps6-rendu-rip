@@ -6,8 +6,9 @@ const manageAllErrors = require('../../utils/routes/error-management')
 
 const router = new Router()
 
-//------------------default
-router.get('/default', (req, res) => {
+//------------------default images------------------//
+//:::::::::::get all default images
+router.get('/', (req, res) => {
   try {
     const dflt_img = DefaultImage.get();
     res.status(200).json(dflt_img)
@@ -16,17 +17,19 @@ router.get('/default', (req, res) => {
   }
 })
 
-router.get('/default/:id', (req, res) => {
+//:::::::::::get one default image - id = idImg
+router.get('/:idImg', (req, res) => {
   try {
-    const dflt_img = DefaultImage.getById(req.params.id);
+    const dflt_img = DefaultImage.getById(req.params.idImg);
     res.status(200).json(dflt_img)
   } catch (err) {
     manageAllErrors(res, err)
   }
 })
 
-//------------------quizzes
-router.get('/quizzes', (req, res) => {
+//------------------quiz images------------------//
+//:::::::::::get all quiz images
+router.get('/quiz', (req, res) => {
   try {
     const imgs = QuizImage.get();
       res.status(200).json(imgs)
@@ -35,16 +38,18 @@ router.get('/quizzes', (req, res) => {
   }
 })
 
-router.get('/quizzes/:id', (req, res) => {
+//:::::::::::get one quiz image - id = imgId
+router.get('/quiz/:imgId', (req, res) => {
   try {
-    const img = QuizImage.getById(req.params.id);
+    const img = QuizImage.getById(req.params.imgId);
     res.status(200).json(img)
   } catch (err) {
     manageAllErrors(res, err)
 	}
 })
 
-router.post('/quizzes', (req, res) => {
+//:::::::::::create a new quiz image
+router.post('/quiz', (req, res) => {
   try {
     const img = QuizImage.create({...req.body});
     res.status(201).json(img)
@@ -53,25 +58,28 @@ router.post('/quizzes', (req, res) => {
   }
 })
 
-router.put('/quizzes/:id', (req, res) => {
+//:::::::::::modify one quiz image - id = imgId
+router.put('/quiz/:imgId', (req, res) => {
   try {
-    res.status(201).json(QuizImage.update(req.params.id, req.body))
+    res.status(201).json(QuizImage.update(req.params.imgId, req.body))
   } catch (err) {
     manageAllErrors(res, err)
   }
 })
 
-router.delete('/quizzes/:id', (req, res) => {
+//:::::::::::delete one quiz image - id = imgId
+router.delete('/quiz/:imgId', (req, res) => {
   try {
-    QuizImage.delete(req.params.id)
+    QuizImage.delete(req.params.imgId)
     res.status(204).end();
   } catch (err) {
     manageAllErrors(res, err)
   }
 })
 
-//------------------questions
-router.get('/questions', (req, res) => {
+//------------------question images------------------//
+//:::::::::::get all question images
+router.get('/question', (req, res) => {
   try {
     const imgs = QuizImage.get();
       res.status(200).json(imgs)
@@ -80,16 +88,18 @@ router.get('/questions', (req, res) => {
   }
 })
 
-router.get('/questions/:id', (req, res) => {
+//:::::::::::get one question image - id = idImg
+router.get('/question/:imgId', (req, res) => {
   try {
-    const img = QuizImage.getById(req.params.id);
+    const img = QuizImage.getById(req.params.imgId);
     res.status(200).json(img)
   } catch (err) {
     manageAllErrors(res, err)
 	}
 })
 
-router.post('/questions', (req, res) => {
+//:::::::::::create a new question image
+router.post('/question', (req, res) => {
   try {
     const img = QuestionImage.create({...req.body});
     res.status(201).json(img)
@@ -98,25 +108,28 @@ router.post('/questions', (req, res) => {
   }
 })
 
-router.put('/questions/:id', (req, res) => {
+//:::::::::::modify one question image - id = imgId
+router.put('/question/:imgId', (req, res) => {
   try {
-    res.status(201).json(QuestionImage.update(req.params.id, req.body))
+    res.status(201).json(QuestionImage.update(req.params.imgId, req.body))
   } catch (err) {
     manageAllErrors(res, err)
   }
 })
 
-router.delete('/questions/:id', (req, res) => {
+//:::::::::::delete one question image - id = imgId
+router.delete('/question/:imgId', (req, res) => {
   try {
-    QuestionImage.delete(req.params.id)
+    QuestionImage.delete(req.params.imgId)
     res.status(204).end();
   } catch (err) {
     manageAllErrors(res, err)
   }
 })
 
-//------------------answers
-router.get('/answers', (req, res) => {
+//------------------answer images------------------//
+//:::::::::::get all answer images
+router.get('/answer', (req, res) => {
   try {
     const imgs = QuizImage.get();
       res.status(200).json(imgs)
@@ -125,16 +138,18 @@ router.get('/answers', (req, res) => {
   }
 })
 
-router.get('/answers/:id', (req, res) => {
+//:::::::::::get one answer image - id = imgId
+router.get('/answer/:id', (req, res) => {
   try {
-    const img = QuizImage.getById(req.params.id);
+    const img = QuizImage.getById(req.params.imgId);
     res.status(200).json(img)
   } catch (err) {
     manageAllErrors(res, err)
 	}
 })
 
-router.post('/answers', (req, res) => {
+//:::::::::::create a new answer image
+router.post('/answer', (req, res) => {
   try {
     const img = AnswerImage.create({...req.body});
     res.status(201).json(img)
@@ -143,17 +158,19 @@ router.post('/answers', (req, res) => {
   }
 })
 
-router.put('/answers/:id', (req, res) => {
+//:::::::::::modify one answer image - id = imgId
+router.put('/answer/:imgId', (req, res) => {
   try {
-    res.status(201).json(AnswerImage.update(req.params.id, req.body))
+    res.status(201).json(AnswerImage.update(req.params.imgId, req.body))
   } catch (err) {
     manageAllErrors(res, err)
   }
 })
 
-router.delete('/answers/:id', (req, res) => {
+//:::::::::::delete one answer image - id = imgId
+router.delete('/answer/:imgId', (req, res) => {
   try {
-    AnswerImage.delete(req.params.id)
+    AnswerImage.delete(req.params.imgId)
     res.status(204).end();
   } catch (err) {
     manageAllErrors(res, err)
@@ -161,8 +178,9 @@ router.delete('/answers/:id', (req, res) => {
 })
 
 
-//------------------users
-router.get('/users', (req, res) => {
+//------------------user images------------------//
+//:::::::::::get all user images
+router.get('/user', (req, res) => {
   try {
     const imgs = QuizImage.get();
       res.status(200).json(imgs)
@@ -171,16 +189,18 @@ router.get('/users', (req, res) => {
   }
 })
 
-router.get('/users/:id', (req, res) => {
+//:::::::::::get one user image - id = imgId
+router.get('/user/:imgId', (req, res) => {
   try {
-    const img = QuizImage.getById(req.params.id);
+    const img = QuizImage.getById(req.params.imgId);
     res.status(200).json(img)
   } catch (err) {
     manageAllErrors(res, err)
 	}
 })
 
-router.post('/users', (req, res) => {
+//:::::::::::create a new user image
+router.post('/user', (req, res) => {
   try {
     const img = UserImage.create({...req.body});
     res.status(201).json(img)
@@ -189,17 +209,19 @@ router.post('/users', (req, res) => {
   }
 })
 
-router.put('/users/:id', (req, res) => {
+//:::::::::::modify one user image - id = imgId
+router.put('/user/:imgId', (req, res) => {
   try {
-    res.status(201).json(UserImage.update(req.params.id, req.body))
+    res.status(201).json(UserImage.update(req.params.imgId, req.body))
   } catch (err) {
     manageAllErrors(res, err)
   }
 })
 
-router.delete('/users/:id', (req, res) => {
+//:::::::::::delete one user image - id = imgId
+router.delete('/user/:imgId', (req, res) => {
   try {
-    UserImage.delete(req.params.id)
+    UserImage.delete(req.params.imgId)
     res.status(204).end();
   } catch (err) {
     manageAllErrors(res, err)

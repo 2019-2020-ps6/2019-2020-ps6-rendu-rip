@@ -10,6 +10,7 @@ import { Img } from 'src/models/image.model';
 @Injectable({
   providedIn: 'root'
 })
+
 export class QuizService {
 
   private quizzes: Quiz[];
@@ -61,9 +62,20 @@ export class QuizService {
     });
   }
 
-  updateQuiz(quizOld: Quiz, quizNew: Quiz) {
-    const url = this.quizUrl + '/' + quizOld.id;
-    this.http.put<Quiz>(url, quizNew, this.httpOptions).subscribe(quiz => {
+  addQuizWithImage(quiz: Quiz, image: Img) {
+    const url = serverUrl + '/images/quiz';
+    //chained requests
+    this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
+      quiz.imageId = (img.id).toString();
+      console.log("Quiz: creating with image...");
+      console.log(quiz);
+      this.addQuiz(quiz);//met à jour observable
+    });
+  }
+
+  updateQuiz(quiz: Quiz) {
+    const url = this.quizUrl + '/' + quiz.id;
+    this.http.put<Quiz>(url, quiz, this.httpOptions).subscribe(quiz => {
       console.log("Quiz: quiz updated");
       console.log(quiz);
       this.setQuiz(quiz);
@@ -71,10 +83,21 @@ export class QuizService {
     });
   }
 
+  updateQuizWithImage(quiz: Quiz, image: Img){
+    const url = serverUrl + '/images/quiz';
+    //chained requests
+    this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
+      quiz.imageId = (img.id).toString();
+      console.log("Quiz: saving with image...");
+      console.log(quiz);
+      this.updateQuiz(quiz);//met à jour observable
+    });
+  }
+
   deleteQuiz(quiz: Quiz) {
     const url = this.quizUrl + '/' + quiz.id;
     this.http.delete<Quiz>(url, this.httpOptions).subscribe(() => {
-      console.log("Quiz: quiz deleted");
+      console.log("Quiz: deleted");
       this.setQuizzesFromUrl();
     });
   }
@@ -103,50 +126,4 @@ export class QuizService {
     const url = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id + '/' + this.answersPath + '/' + answerToDelete.id;
     this.http.delete<Answer>(url, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
   }
-
-//::::::::::::::::::::::::IMAGE FAILURE:::::::::::::::::::::::://
-  //not ok... --> so directly called in component.ts
-  /*imageByDefault(): Img {
-    //TODO: req from server
-    let image_res = {} as Img;
-    const dft_img_id = "1";
-    const url = this.quizUrl + '/images/' + dft_img_id;
-    //this.http.get<Quiz>(url).subscribe((quiz) => this.setQuiz(quiz));
-    this.http.get<Img>(url).subscribe((img) => {
-      console.log("OOOOOOOKKKKKKKKKKKKK");
-      image_res.url = img.url;
-    });
-    console.log(image_res);
-    return image_res;
-  }*/
-
-
- //::::::::::::::::::::::::FRONT END:::::::::::::::::::::::://
-  /*
-  addQuiz(quiz: Quiz) {
-    // You need here to update the list of quiz and then update our observable (Subject) with the new list
-    // More info: https://angular.io/tutorial/toh-pt6#the-searchterms-rxjs-subject
-    quiz.id=(this.quizzes.length).toString();
-    this.quizzes.push(quiz);
-    this.quizzes$.next(this.quizzes);
-  }
-  deleteQuiz(quiz : Quiz){
-    this.quizzes.splice(this.quizzes.indexOf(quiz),1);
-    this.reindex();
-    this.quizzes$.next(this.quizzes);
-  }
-  reindex() {
-  for (let i = 0; i < this.quizzes.length; i++) {
-    this.quizzes[i].id = i.toString();
-    }
-  }
-getAnswers(quiz: Quiz, question: Question) {
-  const url = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id;
-  const result = this.http.get<Answer>(url, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
-
-  console.log('le resultat est: ', result);
-  return result;
-}
-    */
-
 }

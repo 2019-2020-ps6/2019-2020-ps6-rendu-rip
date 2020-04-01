@@ -1,15 +1,10 @@
 import { Component, OnInit, Input, ViewChild, ViewChildren, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 
 import { QuizService } from '../../../services/quiz.service';
 import { Quiz } from '../../../models/quiz.model';
 import { Img } from 'src/models/image.model';
-
-import { map, mergeMap } from 'rxjs/operators';
-
-//maybe pas beau de le mettre ici mais... plus simple^^ (pour sauvegarde image)
-import { HttpClient } from '@angular/common/http';
+import { ImageService } from 'src/services/image.service';
 
 @Component({
   selector: 'app-quiz-form',
@@ -25,68 +20,51 @@ export class QuizFormComponent implements OnInit {
   imageName: string;
   imagePreview: string;
 
-  private quizToCreate: Quiz;
-
-  constructor(public formBuilder: FormBuilder, public quizService: QuizService, 
-    private sanitizer: DomSanitizer, private http: HttpClient) {
+  constructor(public formBuilder: FormBuilder, public imageService: ImageService, public quizService: QuizService) {
     // Form creation
     this.quizForm = this.formBuilder.group({
       name: [''],
       theme: [''],
-      //image: ['']
     });
     this.THEME_LIST= ["Sport","Actor","Autres"];
   }
   
-  ngOnInit() {
-    this.quizToCreate = {} as Quiz;
-  }
+  ngOnInit() {}
 
   reset(){
     this.quizForm.reset()
-    this.quizToCreate = {} as Quiz;
     this.imagePreview = null;
     this.imageName = null;
   }
 
   addQuiz() {
-    let quiz: Quiz = this.quizFillIn();
+    let quizToSave: Quiz = this.quizFillIn();
     if(this.imagePreview){
+      let imgToSave: Img = this.imgFillIn();
       console.log("Quiz: save with image...");
-      this.saveWithImage(quiz);
+      this.quizService.addQuizWithImage(quizToSave, imgToSave);
     }
     else{
       console.log("Quiz: save...");
-      this.quizService.addQuiz(this.quizToCreate);
+      this.quizService.addQuiz(quizToSave);
     }
     this.reset();
   }
 
   quizFillIn(): Quiz {
     const formValues: Quiz = this.quizForm.getRawValue() as Quiz;
-    this.quizToCreate.name = (formValues.name)? formValues.name : 'Sans nom';
-    this.quizToCreate.theme = (formValues.theme)? formValues.theme : 'Autres';
-    this.quizToCreate.creationDate = new Date();
-    return this.quizToCreate;
-    //quizToCreate.questions = [];
+    let quiz: Quiz = {} as Quiz;
+    quiz.name = (formValues.name)? formValues.name : 'Sans nom';
+    quiz.theme = (formValues.theme)? formValues.theme : 'Autres';
+    quiz.creationDate = new Date();
+    return quiz;
   }
 
-  saveWithImage(quiz: Quiz) {
-    let imgToSave = {} as Img;
-    imgToSave.name = this.imageName;
-    imgToSave.url = this.imagePreview;
-    const url = this.quizService.getServerUrl() + '/images/quizzes';
-    //chained requests
-    this.http.post<Img>(url, imgToSave, this.quizService.getHttpOptions()).subscribe(img =>{
-      quiz.imageId = (img.id).toString(); //: Quiz = this.quizFillIn();
-      console.log("quiz filled in map");
-      console.log(quiz);
-      this.quizService.addQuiz(quiz);//mieux car met à jour observable
-      /*this.http.post<Quiz>(quizUrl, quiz, this.quizService.getHttpOptions()).subscribe(q =>{
-        console.log("final res");
-        console.log(q);
-      });*/
-    });
+  imgFillIn(): Img {
+    let image = {} as Img;
+    image.name = this.imageName;
+    image.url = this.imagePreview;
+    return image;
   }
   
   onChangeFile(event) {
@@ -104,7 +82,6 @@ export class QuizFormComponent implements OnInit {
   }
 
   sanitize(url: string) {
-    return this.sanitizer.bypassSecurityTrustUrl(url);
+    return this.imageService.sanitize(url);
   }
-
 }
