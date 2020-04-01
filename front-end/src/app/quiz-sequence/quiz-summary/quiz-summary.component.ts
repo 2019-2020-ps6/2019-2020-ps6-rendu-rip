@@ -12,27 +12,32 @@ import { QuizService } from 'src/services/quiz.service';
 export class QuizSummaryComponent implements OnInit {
   quiz : Quiz;
   questions: Question[] = [];
-  currentQuestionToDisplay : Question;
+  currentQuestion : Question;
+  TIME_OUT_VALUE: number = 5000; // 10000 ms == 10s
 
   constructor(private route: ActivatedRoute, public quizService: QuizService) {
     this.quizService.quizSelected$.subscribe((quiz) => {
       this.quiz = quiz
       if(quiz.questions) this.questions = quiz.questions.map(e => ({ ... e }));
-      this.changeQuestionToDisplay();
+      this.nextQuestion();
     });
   }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.quizService.setSelectedQuiz(id);
+    this.startTimer()
   }
 
-  changeQuestionToDisplay(){
+  nextQuestion(){
     if(this.questions.length>0){
-      this.currentQuestionToDisplay = this.questions.pop();
+      this.currentQuestion = this.questions.pop();
+      this.startTimer();
     }
   }
-  
+
+  //passage automatique à la question suivante après avoir lu la réponse
+  startTimer = () => setTimeout(() => this.nextQuestion(), this.TIME_OUT_VALUE);
 
 }
 

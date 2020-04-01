@@ -11,18 +11,15 @@ export class AnswerWidgetComponent implements OnInit {
 
   @Input()
   answer: Answer;
+
   @Output()
   selected: EventEmitter<Answer> = new EventEmitter<Answer>();
 
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   answerSelected() {
-     this.selected.emit(this.answer);
-
+    this.selected.emit(this.answer);
   }
-
 }
