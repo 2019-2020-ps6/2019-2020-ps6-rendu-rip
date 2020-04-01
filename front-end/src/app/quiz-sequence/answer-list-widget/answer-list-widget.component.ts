@@ -27,8 +27,8 @@ export class AnswerListWidgetComponent implements OnInit {
 
   displayAns: boolean;
 
-  private timer: NodeJS.Timer;
-  private timerRes: NodeJS.Timer;
+  private timer: any;//NodeJS.Timer;
+  private timerRes: any;//NodeJS.Timer;
 
   constructor() { }
 
@@ -86,7 +86,7 @@ export class AnswerListWidgetComponent implements OnInit {
   toggleAnswer = () => this.displayAns = !this.displayAns;
 
   //to stop timer and clear treatment
-  stop = (timer: NodeJS.Timer) => {
+  stop = (timer: any) => {//NodeJS.Timer) => {
     if (timer) {
       clearTimeout(timer);
       timer = null;

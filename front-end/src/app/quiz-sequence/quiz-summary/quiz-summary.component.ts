@@ -15,7 +15,7 @@ export class QuizSummaryComponent implements OnInit {
   currentQuestion : Question;
   TIME_OUT_VALUE: number = 5000; // 10000 ms == 10s
 
-  private timer: NodeJS.Timer;
+  private timer: any;//NodeJS.Timer;
 
   constructor(private route: ActivatedRoute, public quizService: QuizService) {
     this.quizService.quizSelected$.subscribe((quiz) => {
@@ -42,7 +42,7 @@ export class QuizSummaryComponent implements OnInit {
   startTimer = () => setTimeout(() => this.nextQuestion(), this.TIME_OUT_VALUE);
 
   //to stop timer and clear treatment
-  stop = (timer: NodeJS.Timer) => {
+  stop = (timer: any) => {//NodeJS.Timer) => {
     if (timer) {
       clearTimeout(timer);
       timer = null;
