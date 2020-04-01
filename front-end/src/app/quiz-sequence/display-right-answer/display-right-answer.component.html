@@ -1,4 +1,6 @@
-<h4>{{question.label}}</h4>
-<div *ngFor = "let answer of question.answers" >
-    <div *ngIf = "answer.isCorrect">{{answer.value}}</div>
+<div>
+    <h4>{{question.label}}</h4>
+    <div *ngFor = "let answer of question.answers" >
+        <div *ngIf = "answer.isCorrect">{{answer.value}}</div>
+    </div>
 </div>

@@ -13,55 +13,34 @@ import { Answer } from 'src/models/answer.model';
   styleUrls: ['./question-widget.component.scss']
 })
 export class QuestionWidgetComponent implements OnInit {
-  //TIME_OUT_VALUE: number = 10000; // 10000 ms == 10s
 
   quiz : Quiz;
   questions: Question[];
-  
   currentQuestion : Question;
-  noMoreQuestion: boolean = false;
 
   @Output()
   showAnswer: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private route: ActivatedRoute, public quizService: QuizService) {
     this.quizService.quizSelected$.subscribe((quiz) => {
-      this.quiz = quiz
+      this.quiz = quiz;
       if(quiz.questions) {
         this.questions = quiz.questions.map(e => ({ ... e }));
         this.changeQuestion();
       }
     });
   }
+
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.quizService.setSelectedQuiz(id);
   }
 
-  onSelectedAnswer(answerSelected: Answer) {
-    console.log(answerSelected);
-  }
+  onSelectedAnswer = (answerSelected: Answer) => console.log(answerSelected);
 
-  onNext(){
-    this.changeQuestion();
-  }
+  onNext = () => this.changeQuestion();
 
-  changeQuestion(){
-    this.currentQuestion = this.questions.pop();
-    //this.startTimer();
-  }
-
-  onTimeOut(){
-    console.log('due to time out ... moved on to next question!')
-    this.changeQuestion();
-  }
-
-  /*startTimer(){
-    setTimeout(() => {
-      this.changeQuestion();
-    }, this.TIME_OUT_VALUE);
-  }*/
-   
+  changeQuestion = () => this.currentQuestion = this.questions.pop();
 }
 
 

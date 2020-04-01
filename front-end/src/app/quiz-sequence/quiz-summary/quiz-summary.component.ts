@@ -15,9 +15,11 @@ export class QuizSummaryComponent implements OnInit {
   currentQuestion : Question;
   TIME_OUT_VALUE: number = 5000; // 10000 ms == 10s
 
+  private timer: NodeJS.Timer;
+
   constructor(private route: ActivatedRoute, public quizService: QuizService) {
     this.quizService.quizSelected$.subscribe((quiz) => {
-      this.quiz = quiz
+      this.quiz = quiz;
       if(quiz.questions) this.questions = quiz.questions.map(e => ({ ... e }));
       this.nextQuestion();
     });
@@ -26,18 +28,26 @@ export class QuizSummaryComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     this.quizService.setSelectedQuiz(id);
-    this.startTimer()
   }
 
   nextQuestion(){
+    this.stop(this.timer);
     if(this.questions.length>0){
       this.currentQuestion = this.questions.pop();
-      this.startTimer();
+      this.timer = this.startTimer();
     }
   }
 
   //passage automatique à la question suivante après avoir lu la réponse
   startTimer = () => setTimeout(() => this.nextQuestion(), this.TIME_OUT_VALUE);
+
+  //to stop timer and clear treatment
+  stop = (timer: NodeJS.Timer) => {
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+  }
 
 }
 

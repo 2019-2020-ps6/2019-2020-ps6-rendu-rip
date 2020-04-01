@@ -1,1 +1,19 @@
 @import '../../../styles/card.scss';
+
+.box-small{
+    margin-top: 10px;
+    height: 40%;//à revoir
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 5px;
+    border-style: solid;
+    border-color:  rgb(179, 11, 89);
+    text-align: center;
+}
+
+/*.next-button{
+    float: right;
+    margin-top: 10%;
+    margin-right: 5%;
+}*/

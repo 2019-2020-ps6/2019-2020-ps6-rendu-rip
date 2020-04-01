@@ -1,24 +1,25 @@
-<div *ngIf="!displayAns; elseBlock">
-<div class="answers_listing" *ngFor = "let answer of answers" >
-    <app-answer-widget [answer] = "answer" (selected) = "onAnswerSelected($event)" ></app-answer-widget>
-</div>
+<div *ngIf="!displayAns; elseBlock" class="box-small">
+    <div class="answers_listing" *ngFor = "let answer of answers" >
+        <app-answer-widget [answer] = "answer" (selected) = "onAnswerSelected($event)" ></app-answer-widget>
+    </div>
 </div>
 
 <!--<ng-template #elseBlock>-->
 <div *ngIf="displayAns">
-    <div *ngIf="answerSelected!=null; else elseBlock">
-        <div class="given_answer">Votre réponse:<br>
-            {{answerSelected.value}}
+    <div class="box-small">
+        <div *ngIf="answerSelected!=null; else elseBlock">
+            <div class="given_answer">Votre réponse:<br>
+                {{answerSelected.value}}
+            </div>
+            <div class="right_answer">Réponse:<br>
+                {{rightAnswer.value}}
+            </div>
         </div>
-        <div class="right_answer">Réponse:<br>
-            {{rightAnswer.value}}
-        </div>
+        <ng-template #elseBlock>
+            <div class="right_answer">Réponse:<br>
+                {{rightAnswer.value}}
+            </div>
+        </ng-template>
     </div>
-    <ng-template #elseBlock>
-        <div class="right_answer">Réponse:<br>
-            {{rightAnswer.value}}
-        </div>
-    </ng-template>
-    <button class="button-card" (click) = "nextQuestion()">Suivant</button>
+    <button class="button-card next-button" (click) = "nextQuestion()">Suivant</button>
 </div>
-<!--</ng-template>-->

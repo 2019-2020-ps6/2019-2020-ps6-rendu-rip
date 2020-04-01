@@ -9,7 +9,7 @@
         <button class="button-card" (click) = "nextQuestion()">Suite</button>
     </div>
     <ng-template #elseBlock>
-        <div *ngIf = "questions.length===0">
+        <div>
             <button class="button-card" routerLink= "../quiz-end">Fin</button>
         </div>
     </ng-template>
