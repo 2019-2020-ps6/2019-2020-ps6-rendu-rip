@@ -78,7 +78,8 @@ export class QuizService {
     this.http.put<Quiz>(url, quiz, this.httpOptions).subscribe(quiz => {
       console.log("Quiz: quiz updated");
       console.log(quiz);
-      this.setQuiz(quiz);
+      //this.setQuiz(quiz); --> pb
+      this.setSelectedQuiz(quiz.id);//for now -- mais après mettre à jour autrement --> pour éviter rechargement infos sur page (pas beau) 
       this.setQuizzesFromUrl();
     });
   }

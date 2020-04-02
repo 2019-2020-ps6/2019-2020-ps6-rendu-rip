@@ -2,23 +2,26 @@
 <button class="button-card" routerLink= "/home">Home</button>
 <div *ngIf ="quiz" >
     
-    <div *ngIf="!editionMode">
+    <div *ngIf="!editionMode; else elseBlock">
         <h1>Nom du quiz : {{quiz.name}}</h1>
         <h2>Thème : {{quiz.theme}}</h2>
         <div *ngIf="image.url" class="frame"><img class = "thumbnail" [src]="displayImage()" alt="quiz image"></div>
         <button id = "editQuizName" class="button" (click)="initQuizForm()">Modifier</button>
     </div>
-    <div *ngIf="editionMode">
-        <form class="quiz-form" [formGroup]="quizForm">
+    <ng-template #elseBlock>
+    <div>
+        <form class="quiz-form" [formGroup]="quizForm" (ngSubmit)="updateQuiz()">
             <h1>Nom du quiz : <input class="input-custom" type="text" id="name" [formControlName]="'name'"></h1>
             <h2>Thème :  <input class="input-custom" type="text" id="theme" [formControlName]="'theme'"></h2>
             <div *ngIf="image.url" class="frame"><img class = "thumbnail" [src]="displayImage()" alt="quiz image"></div>
             <input type="file" accept="image/*" (change)="onChangeFile($event)" id = "image">
             <br>
-            <button id = "confirmEdit" class="button" (click)="updateQuiz()">Valider</button>
-            <button id = "cancel" class="button" (click)="reset()">Annuler</button>
+            <!--<button type="submit" id = "confirmEdit" class="button" (click)="updateQuiz()">Valider</button>-->
+            <button type="submit" id = "confirmEdit" class="button">Valider</button>
+            <button type="button" id = "cancel" class="button" (click)="reset()">Annuler</button>
         </form>
     </div>
-    <app-question-list [quiz] = "quiz"></app-question-list>
+    </ng-template>
+    <app-question-list [quiz] = "quiz"></app-question-list><!--ou quizIdBackup le temps que chargement effectif du quiz -->
 </div>
 

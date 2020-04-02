@@ -17,7 +17,7 @@ import { SafeUrl } from '@angular/platform-browser';
 export class EditQuizComponent implements OnInit {
   quiz: Quiz;
   quizForm: FormGroup;
-  editionMode: Boolean = false;
+  editionMode: Boolean;
 
   //already existing
   image: Img;
@@ -32,11 +32,11 @@ export class EditQuizComponent implements OnInit {
     this.quizService.quizSelected$.subscribe((quiz) => this.onQuizSelected(quiz));
     const id = this.route.snapshot.paramMap.get('id');
     this.quizService.setSelectedQuiz(id);
+    this.editionMode = false;
   }
 
   private onQuizSelected(quiz: Quiz) {
     this.quiz = quiz;
-    this.initQuizForm();
     this.loadImage();
   }
 
@@ -48,23 +48,12 @@ export class EditQuizComponent implements OnInit {
   }
 
   private initQuizForm() {
-    /*if (this.quiz != null) {//precaution??, à priori si le quiz a été 'clicked on' c'est qu'il existe...
-      this.quizForm = this.formBuilder.group({
-        name: this.quiz.name,
-        theme: this.quiz.theme
-      });
-    } else {
-      this.quizForm = this.formBuilder.group({
-        name: "",
-        theme: "Autres"
-      });
-    }*/
-    this.editionMode = true;
     if(this.quiz == null) console.log("Quiz: intiQuizForm ... got 'null'!!");
     this.quizForm = this.formBuilder.group({
       name: this.quiz.name,
       theme: this.quiz.theme
     });
+    this.editionMode = true;
   }
 
   reset(){
@@ -74,6 +63,7 @@ export class EditQuizComponent implements OnInit {
   }
 
   updateQuiz() {
+    this.editionMode = false;
     const quizToSave: Quiz = this.quizFillIn();
     const imgToSave: Img = this.imgFillIn();
     const newTxt = this.txtHasChanged(quizToSave);
@@ -87,7 +77,6 @@ export class EditQuizComponent implements OnInit {
       //in any case: create image + update quiz
       this.quizService.updateQuizWithImage(quizToSave, imgToSave);
     }
-    this.editionMode = false;
   }
 
   txtHasChanged(quiz: Quiz): boolean {
