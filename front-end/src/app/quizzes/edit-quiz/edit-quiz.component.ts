@@ -70,7 +70,6 @@ export class EditQuizComponent implements OnInit {
     const newImg = this.imgHasChanged(imgToSave);
     //sans changement d'image
     if(newTxt && !newImg) {//update quiz
-      console.log(quizToSave);
       this.quizService.updateQuiz(quizToSave);
     }//avec image
     else if(newImg) {

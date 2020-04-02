@@ -1,17 +1,14 @@
-{{addAnswer()}}
 <form [formGroup]="answerForm">
 <label>
     Réponse
     <input type="text" [formControlName]="'value'">
     
     <br>
-  <span *ngIf="uniqueCorrectAnswer === false ">
+  <span *ngIf="!aRightAnswerIsAlreadyPresent || isSetToRight()">
     Correct
     <input type="checkbox" [formControlName]="'isCorrect'"> 
-   </span>
+  </span>
 
-
-    <!--<input type="checkbox" [formControlName]="'isCorrect'"> -->
     <br>
     <button id = "submitAnswer" class="button-card" (click)="submitAnswer()">Valider
     </button>

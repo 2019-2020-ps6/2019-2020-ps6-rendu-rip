@@ -15,9 +15,6 @@ export class QuestionListComponent implements OnInit {
 
    }
   ngOnInit() {
-    console.log(this.quiz);
-    // this.questionService.questions$.subscribe((question) => this.quiz.questions = question);
-    // this.questionService.setQuestions(this.quiz);
   }
 
   deleteQuestion(question: Question) {

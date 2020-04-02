@@ -1,6 +1,6 @@
 const { Router } = require('express')
 
-const { Quiz, Question, DefaultImage } = require('../../models')
+const { Quiz } = require('../../models')
 const manageAllErrors = require('../../utils/routes/error-management')
 const QuestionsRouter = require('./questions')
 const { buildQuizz, buildQuizzes } = require('./manager')

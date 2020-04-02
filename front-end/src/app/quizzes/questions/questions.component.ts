@@ -24,12 +24,9 @@ export class QuestionsComponent implements OnInit {
 
   @Output()
   questionDeleted: EventEmitter<Question> = new EventEmitter<Question>();
-  AnswerPrinted: EventEmitter<Answer> = new EventEmitter<Answer>();
 
 
   public answers: Answer[];
-
-  public CorectAnswer: Answer;
 
   constructor(public quizService:QuizService) { }
 
@@ -37,10 +34,9 @@ export class QuestionsComponent implements OnInit {
     this.answers = this.question.answers;
   }
   supprAnswer(answer: Answer) {
-    this.answers.splice(this.answers.indexOf(answer), 1);
     this.quizService.deleteAnswer(this.quiz, this.question, answer);
-    
   }
+  
   editAnswer(answer: Answer) {
     this.answerSelected = answer;
     this.switchShow(true);
@@ -59,14 +55,5 @@ export class QuestionsComponent implements OnInit {
   }
   switchShow(show: boolean) {
     this.show = show;
-  }
-
-  printCorrectAnswer() {
-    this.answers.forEach(element => {
-      if (element.isCorrect) {
-        this.AnswerPrinted.emit();
-        this.CorectAnswer = element;
-      }
-    });
   }
 }

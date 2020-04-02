@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, Form, FormArray, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Answer } from 'src/models/answer.model';
 import { Question } from 'src/models/question.model';
 import { Quiz } from 'src/models/quiz.model';
@@ -11,8 +11,6 @@ import { QuizService } from 'src/services/quiz.service';
   styleUrls: ['./answer-form.component.scss']
 })
 export class AnswerFormComponent implements OnInit {
-
-  uniqueCorrectAnswer = false; // uniqueCorrectAnswer === true <=> there is at least 1 correct Answer !
 
 
   answerForm: FormGroup;
@@ -27,11 +25,17 @@ export class AnswerFormComponent implements OnInit {
   answerAdded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
+  aRightAnswerIsAlreadyPresent : boolean = false;
+  
   constructor(public formBuilder: FormBuilder, public quizService: QuizService) {
   }
 
+  ngOnInit() {
+    this.rightAnswerPresent();
+    this.initializeAnswerForm();
+  }
+
   private initializeAnswerForm() {
-    // console.log(this.answerInit);
     if (this.answerInit != null) {
       this.answerForm = this.formBuilder.group({
         value: [this.answerInit.value],
@@ -44,41 +48,19 @@ export class AnswerFormComponent implements OnInit {
       });
     }
   }
-  ngOnInit() {
-    this.unicAnswer();
-    this.initializeAnswerForm();
-  }
-
-  createAnswer() {
-   return this.formBuilder.group({
-      value: '',
-      isCorrect: false,
-    });
-  }
-
-  addAnswer(answerToCreate: Answer) {
-    // (<HTMLInputElement> document.getElementById("createAnswer")).disabled = this.showLabel;
-    this.createAnswer();
-
-  }
 
   submitAnswer() {
-    // (<HTMLInputElement> document.getElementById("createAnswer")).disabled = this.showLabel;
     const answerToCreate: Answer = this.answerForm.getRawValue() as Answer;
-    console.log(this.quiz)
     if (this.answerInit == null) {
       if (!answerToCreate.isCorrect) { answerToCreate.isCorrect = false; }
       if (!answerToCreate.value) { answerToCreate.value = 'Aucune idée'; }
-      this.question.answers.push(answerToCreate);
       this.quizService.addAnswer(this.quiz, this.question, answerToCreate);
       this.answerForm.reset();
       this.answerAdded.emit(false);
     } else {
       for (let i = 0; i < this.question.answers.length; i++) {
-        // tslint:disable-next-line: triple-equals
         if (this.question.answers[i] == this.answerInit) {
           answerToCreate.id = this.answerInit.id;
-          this.question.answers[i] = answerToCreate;
           this.quizService.updateAnswer(this.quiz,this.question,answerToCreate);
           this.answerForm.reset();
           this.answerAdded.emit(false);
@@ -93,13 +75,17 @@ export class AnswerFormComponent implements OnInit {
     this.answerAdded.emit(false);
   }
 
-  unicAnswer(): void {
-
+  rightAnswerPresent() {
     this.question.answers.forEach(element => {
       if (element.isCorrect === true) {
-        this.uniqueCorrectAnswer = true;
+        this.aRightAnswerIsAlreadyPresent = true;
       }
     });
+  }
+
+  isSetToRight() : boolean{
+      if(this.answerInit==null) return false;
+      return this.answerInit.isCorrect;
   }
 
 

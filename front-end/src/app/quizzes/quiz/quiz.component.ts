@@ -17,9 +17,6 @@ export class QuizComponent implements OnInit {
   image: Img;
 
   @Output()
-  quizSelected: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  @Output()
   quizDeleted: EventEmitter<Quiz> = new EventEmitter<Quiz>();
 
   constructor(public imageService : ImageService, public quizService : QuizService) {}
@@ -34,11 +31,6 @@ export class QuizComponent implements OnInit {
     const id = this.quiz.imageId;
     this.imageService.loadQuizImage(this.image, id);
   }
-
-  selectQuiz() {
-    this.quizSelected.emit(true);
-  }
-  
   deleteQuiz() {
     this.quizDeleted.emit(this.quiz);
   }

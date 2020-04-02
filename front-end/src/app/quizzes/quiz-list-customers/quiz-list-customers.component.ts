@@ -12,7 +12,7 @@ export class QuizListCustomersComponent implements OnInit {
   public quizList: Quiz[] = [];
 
   constructor(public quizService: QuizService) {
-    this.quizService.quizzes$.subscribe((quiz) => this.quizList = quiz);
+    this.quizService.quizzes$.subscribe((quizzes) => this.quizList = quizzes);
   }
 
   ngOnInit() {

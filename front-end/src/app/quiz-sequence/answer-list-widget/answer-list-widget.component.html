@@ -11,12 +11,12 @@
             <div class="given_answer">Votre réponse:<br>
                 {{answerSelected.value}}
             </div>
-            <div class="right_answer">Réponse:<br>
+            <div *ngIf = "rightAnswer" class="right_answer">Réponse:<br>
                 {{rightAnswer.value}}
             </div>
         </div>
         <ng-template #elseBlock>
-            <div class="right_answer">Réponse:<br>
+            <div *ngIf = "rightAnswer" class="right_answer">Réponse:<br>
                 {{rightAnswer.value}}
             </div>
         </ng-template>
