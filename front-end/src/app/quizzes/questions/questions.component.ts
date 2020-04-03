@@ -74,7 +74,7 @@ export class QuestionsComponent implements OnInit {
       return true;
     }
     if(this.answers.length!=4){
-      this.errorMessage = "Il faudrait 4 questions."
+      this.errorMessage = "Il faudrait 4 réponses."
       this.theQuestionIsInvalid.emit(true);
       return true;
     }

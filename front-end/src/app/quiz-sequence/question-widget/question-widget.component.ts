@@ -26,6 +26,7 @@ export class QuestionWidgetComponent implements OnInit {
       this.quiz = quiz;
       if(quiz.questions) {
         this.questions = quiz.questions.map(e => ({ ... e }));
+        this.questions.reverse();
         this.changeQuestion();
       }
     });

@@ -21,6 +21,7 @@ export class QuizSummaryComponent implements OnInit {
     this.quizService.quizSelected$.subscribe((quiz) => {
       this.quiz = quiz;
       if(quiz.questions) this.questions = quiz.questions.map(e => ({ ... e }));
+      this.questions.reverse();
       this.nextQuestion();
     });
   }

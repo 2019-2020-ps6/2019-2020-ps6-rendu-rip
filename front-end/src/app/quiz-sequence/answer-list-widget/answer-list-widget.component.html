@@ -14,6 +14,9 @@
             <div *ngIf = "rightAnswer" class="right_answer">Réponse:<br>
                 {{rightAnswer.value}}
             </div>
+            <div *ngIf = "!rightAnswer">Réponse:<br><!--A enlever ^^-->
+                 TOUS!!!
+            </div>
         </div>
         <ng-template #elseBlock>
             <div *ngIf = "rightAnswer" class="right_answer">Réponse:<br>

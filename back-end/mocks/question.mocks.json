@@ -60,16 +60,6 @@
     "id": 1584785685088
   },
   {
-    "label": "Question1",
-    "quizId": 1584967171131,
-    "id": 1584967183511
-  },
-  {
-    "label": "Question sans right answer",
-    "quizId": 1584967171131,
-    "id": 1584967492070
-  },
-  {
     "label": "Ne",
     "quizId": 1584977201738,
     "id": 1584977207806
@@ -78,26 +68,6 @@
     "label": "mock",
     "quizId": 1584978774030,
     "id": 1584978854114
-  },
-  {
-    "label": "Allô?",
-    "quizId": 1583739103866,
-    "id": 1584997532603
-  },
-  {
-    "label": "Quel est l'intru?",
-    "quizId": 1584997706362,
-    "id": 1584997723721
-  },
-  {
-    "label": "Orange?",
-    "quizId": 1584997706362,
-    "id": 1584997813522
-  },
-  {
-    "label": "Tache beaucoup",
-    "quizId": 1584997706362,
-    "id": 1584997965204
   },
   {
     "label": "Yo",
@@ -128,11 +98,6 @@
     "label": "De quelle fractale s'git-t-il ?",
     "quizId": 1585481613145,
     "id": 1585481659998
-  },
-  {
-    "label": "Ha ha",
-    "quizId": 1585589016403,
-    "id": 1585589026338
   },
   {
     "label": "Qui est le personnage de Gauche",
@@ -285,18 +250,58 @@
     "id": 1585655061199
   },
   {
-    "label": "Test answer",
-    "quizId": 1583739103866,
-    "id": 1585830167930
+    "label": "Quel animal pond des oeux",
+    "quizId": 1585934736906,
+    "id": 1585934857659
   },
   {
-    "label": "Question inconnue",
-    "quizId": 1582018073558,
-    "id": 1585833697376
+    "label": "Qui est la femelle du canard ?",
+    "quizId": 1585934736906,
+    "id": 1585935083595
   },
   {
-    "label": "Question inconnue",
-    "quizId": 1585589016403,
-    "id": 1585836177252
+    "label": "Qui aime la boue ?",
+    "quizId": 1585934736906,
+    "id": 1585935214428
+  },
+  {
+    "label": "Qui ne fait pas de bruit ?",
+    "quizId": 1585934736906,
+    "id": 1585935368198
+  },
+  {
+    "label": "Question1",
+    "quizId": 1585935512680,
+    "id": 1585935686651
+  },
+  {
+    "label": "Question2",
+    "quizId": 1585935512680,
+    "id": 1585935692442
+  },
+  {
+    "label": "Question3",
+    "quizId": 1585935512680,
+    "id": 1585935694934
+  },
+  {
+    "label": "En quelle année est apparue cette musique ?",
+    "quizId": 1585935848333,
+    "id": 1585936430347
+  },
+  {
+    "label": "Qui est le chanteur de Nirvana",
+    "quizId": 1585935848333,
+    "id": 1585936672674
+  },
+  {
+    "label": "Dans quel groupe sont les frères Young ?",
+    "quizId": 1585935848333,
+    "id": 1585936786249
+  },
+  {
+    "label": "Qui est le meilleur groupe ?",
+    "quizId": 1585935848333,
+    "id": 1585936931540
   }
 ]
