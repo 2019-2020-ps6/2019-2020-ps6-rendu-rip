@@ -39,6 +39,7 @@ export class QuizFormComponent implements OnInit {
 
   addQuiz() {
     let quizToSave: Quiz = this.quizFillIn();
+    if(!quizToSave) return;
     if(this.imagePreview){
       let imgToSave: Img = this.imgFillIn();
       console.log("Quiz: save with image...");
@@ -54,8 +55,18 @@ export class QuizFormComponent implements OnInit {
   quizFillIn(): Quiz {
     const formValues: Quiz = this.quizForm.getRawValue() as Quiz;
     let quiz: Quiz = {} as Quiz;
-    quiz.name = (formValues.name)? formValues.name : 'Sans nom';
-    quiz.theme = (formValues.theme)? formValues.theme : 'Autres';
+    if(!formValues.name) {
+      window.alert("Veuillez donner un nom au quiz")
+      return null;
+    }
+    else if(!formValues.theme){
+      window.alert("Veuillez donner un thème au quiz")
+      return null;
+    }
+    quiz.name = formValues.name;
+    quiz.theme = formValues.theme;
+    //quiz.name = (formValues.name)? formValues.name : 'Sans nom';
+    //quiz.theme = (formValues.theme)? formValues.theme : 'Autres';
     quiz.creationDate = new Date();
     return quiz;
   }

@@ -34,7 +34,11 @@ export class QuestionFormComponent implements OnInit {
   createQuestion() {
     const questionToCreate: Question = this.questionForm.getRawValue() as Question;
     questionToCreate.answers = [];
-    if (!questionToCreate.label) {questionToCreate.label = 'Question inconnue';}
+    //if (!questionToCreate.label) {questionToCreate.label = 'Question inconnue';}
+    if (!questionToCreate.label) {
+      window.alert("Veuillez mettre une question")
+      return;
+    }
     this.quizService.addQuestion(this.quiz, questionToCreate);
     this.questionForm.reset();
   }

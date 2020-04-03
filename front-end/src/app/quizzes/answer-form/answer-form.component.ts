@@ -51,19 +51,25 @@ export class AnswerFormComponent implements OnInit {
 
   submitAnswer() {
     const answerToCreate: Answer = this.answerForm.getRawValue() as Answer;
+    if (!answerToCreate.value) { 
+      window.alert("Veuillez mettre une réponse.")
+      return
+    }
     if (this.answerInit == null) {
       if (!answerToCreate.isCorrect) { answerToCreate.isCorrect = false; }
-      if (!answerToCreate.value) { answerToCreate.value = 'Aucune idée'; }
+      //if (!answerToCreate.value) { answerToCreate.value = 'Aucune idée'; }
       this.quizService.addAnswer(this.quiz, this.question, answerToCreate);
       this.answerForm.reset();
       this.answerAdded.emit(false);
-    } else {
+    } 
+    else {
       for (let i = 0; i < this.question.answers.length; i++) {
         if (this.question.answers[i] == this.answerInit) {
           answerToCreate.id = this.answerInit.id;
           this.quizService.updateAnswer(this.quiz,this.question,answerToCreate);
           this.answerForm.reset();
           this.answerAdded.emit(false);
+          break;
         }
       }
     }

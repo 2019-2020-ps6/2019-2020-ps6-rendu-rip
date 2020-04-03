@@ -1,5 +1,6 @@
 <app-question-form [quiz] = "quiz"></app-question-form>
 <br>Liste des questions : 
+<div class = "errorMessage" *ngIf = "quiz.questions.length==0">Veuillez ajouter au moins une question</div>
 <div class="question-list"> 
 <div class="question" *ngFor="let question of quiz.questions">
   <app-questions [quiz]  = "quiz" [question] = "question" (questionDeleted) = "deleteQuestion($event)"></app-questions>

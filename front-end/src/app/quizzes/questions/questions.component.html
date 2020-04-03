@@ -1,6 +1,9 @@
 
 <div class="card">
-    Question n°{{question.id}} :
+    <!--Question n°{{question.id}} :-->
+    <div class = "errorMessage" *ngIf = "questionInvalid()">
+        {{errorMessage}}
+    </div>
     {{question.label}}
     <br>
     Réponses : 

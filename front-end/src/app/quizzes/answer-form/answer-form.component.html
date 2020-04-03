@@ -2,19 +2,18 @@
 <label>
     Réponse
     <input type="text" [formControlName]="'value'">
-    
-    <br>
-  <span *ngIf="!aRightAnswerIsAlreadyPresent || isSetToRight()">
+  
+  <div *ngIf="!aRightAnswerIsAlreadyPresent || isSetToRight()">
     Correct
     <input type="checkbox" [formControlName]="'isCorrect'"> 
-  </span>
-
-    <br>
-    <button id = "submitAnswer" class="button-card" (click)="submitAnswer()">Valider
-    </button>
-    <button id = "cancelAnswer" class="button-card" (click)="cancelAnswer()">Annuler
-    </button>
-    <br>
+  </div>
+  <div *ngIf="aRightAnswerIsAlreadyPresent && !isSetToRight()">
+    Correct
+    <input type="checkbox" disabled="true">
+  </div>
+  <button id = "submitAnswer" class="button-card" (click)="submitAnswer()">Valider</button>
+  <button id = "cancelAnswer" class="button-card" (click)="cancelAnswer()">Annuler</button>
+  <br>
     
 </label>
 </form>

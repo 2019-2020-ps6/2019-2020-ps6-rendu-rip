@@ -14,6 +14,7 @@ export class QuestionsComponent implements OnInit {
 
   answerSelected: Answer;
   show: boolean;
+  errorMessage : String;
 
 
   @Input()
@@ -24,6 +25,8 @@ export class QuestionsComponent implements OnInit {
 
   @Output()
   questionDeleted: EventEmitter<Question> = new EventEmitter<Question>();
+  @Output()
+  theQuestionIsInvalid : EventEmitter<boolean> = new EventEmitter<boolean>();//non utilisé, servira peut-être à mettre un tag incomplet à un quiz, (pas testé non plus^^)
 
 
   public answers: Answer[];
@@ -55,5 +58,25 @@ export class QuestionsComponent implements OnInit {
   }
   switchShow(show: boolean) {
     this.show = show;
+  }
+  questionInvalid(){
+    if(!this.answers|| this.answers.length==0){
+      this.errorMessage = "Il n'y a pas de réponses possibles."
+      this.theQuestionIsInvalid.emit(true);
+      return true;
+    }
+    var oneRightAnswer = false
+    this.answers.forEach(element =>{
+      if(element.isCorrect) oneRightAnswer = true; })
+    if(!oneRightAnswer){
+      this.errorMessage = "Il n'y a pas de réponse correcte."
+      this.theQuestionIsInvalid.emit(true);
+      return true;
+    }
+    if(this.answers.length!=4){
+      this.errorMessage = "Il faudrait 4 questions."
+      this.theQuestionIsInvalid.emit(true);
+      return true;
+    }
   }
 }
