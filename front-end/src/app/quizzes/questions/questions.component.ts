@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Question } from '../../../models/Question.model';
 import { Answer } from '../../../models/answer.model';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Quiz } from 'src/models/quiz.model';
 import { QuizService } from 'src/services/quiz.service';
 
@@ -14,12 +14,13 @@ export class QuestionsComponent implements OnInit {
 
   answerSelected: Answer;
   show: boolean;
+  showFormQuestion : boolean;
   errorMessage : String;
+  questionForm: FormGroup;
 
 
   @Input()
   question: Question;
-  questionForm: FormGroup;
   @Input()
   quiz: Quiz;
 
@@ -31,10 +32,34 @@ export class QuestionsComponent implements OnInit {
 
   public answers: Answer[];
 
-  constructor(public quizService:QuizService) { }
+  constructor(public formBuilder: FormBuilder, public quizService:QuizService) { }
 
   ngOnInit() {
     this.answers = this.question.answers;
+  }
+
+  initializeQuestionForm() {
+    this.questionForm = this.formBuilder.group({
+      label : [this.question.label]
+    });
+  }
+
+  submitQuestionLabel() {
+    const questionToUpdate: Question = this.questionForm.getRawValue() as Question;
+    if (!questionToUpdate.label) { 
+      window.alert("Veuillez remplir la question.")
+      return;
+    }
+    this.question.label = questionToUpdate.label;
+    this.quizService.updateQuestion(this.quiz,this.question);
+    this.questionForm.reset();
+    this.showFormQuestion = false;
+  } 
+
+
+  cancelQuestionLabel() {
+    this.questionForm.reset();
+    this.showFormQuestion=false;
   }
   supprAnswer(answer: Answer) {
     this.quizService.deleteAnswer(this.quiz, this.question, answer);
@@ -43,6 +68,11 @@ export class QuestionsComponent implements OnInit {
   editAnswer(answer: Answer) {
     this.answerSelected = answer;
     this.switchShow(true);
+  }
+
+  editLabelQuestion(){
+    this.initializeQuestionForm();
+    this.showFormQuestion =true;
   }
 
   deleteQuestion() {
@@ -59,6 +89,9 @@ export class QuestionsComponent implements OnInit {
   switchShow(show: boolean) {
     this.show = show;
   }
+
+
+
   questionInvalid(){
     if(!this.answers|| this.answers.length==0){
       this.errorMessage = "Il n'y a pas de réponses possibles."

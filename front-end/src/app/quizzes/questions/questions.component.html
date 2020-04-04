@@ -4,7 +4,16 @@
     <div class = "errorMessage" *ngIf = "questionInvalid()">
         {{errorMessage}}
     </div>
-    {{question.label}}
+    {{question.label}} <button id = "editLabelQuestion" class="button" (click)="editLabelQuestion()"><i class="fas fa-edit"></i></button>
+    <div *ngIf="showFormQuestion ">
+        <form [formGroup]="questionForm">
+         <input type="text" [formControlName]="'label'">
+         <button id = "submitQuestion" class="button-card" (click)="submitQuestionLabel()">Valider</button>
+         <button id = "cancel" class="button-card" (click)="cancelQuestionLabel()">Annuler</button>
+        </form>
+    </div>
+    
+    
     <br>
     Réponses : 
     <div class="question" *ngFor="let answer of question.answers">
@@ -16,6 +25,8 @@
             <button id = "supprAnswer" class="button" (click)="supprAnswer(answer)"><i class="fas fa-trash"></i></button>
         </div>
     </div>
+    
+    
     <button id = "createAnswer" class="button-card" (click)="createAnswer()"> Ajouter une réponse </button>
     <div *ngIf="show && !answerSelected">
         <app-answer-form [quiz] = "quiz" [question]="question" (answerAdded)="reset($event)"></app-answer-form>
