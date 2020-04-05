@@ -17,76 +17,85 @@ export class AnswerListWidgetComponent implements OnInit {
   @Output()
   next: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-
-  TIME_OUT_VALUE: number = 10000; // 10000 ms == 10s
-  TIME_OUT_ANS_VALUE: number = 5000; // 10000 ms == 10s
-
   answerSelected : Answer;
-  rightAnswer : Answer;
+  display: number;
 
-  displayAns: boolean;
+  TIME_OUT_FOR_CHOSING_ANSWER: number = 10000;
+  TIME_OUT_DISPLAY_COMPARAISON: number = 2000;
+  TIME_OUT_DISPLAY_RIGHT_ANSWER: number = 5000;
 
-  private timer: any;//NodeJS.Timer;
-  private timerRes: any;//NodeJS.Timer;
+  SHOW_ANSWER_TO_CHOOSE: number = 0;
+  SHOW_ANSWER_COMPARAISON: number = 1;
+  SHOW_RIGHT_ANSWER: number = 2;
+
+  private timerToChooseAnswer: any;
+  private timerDisplayComparaison: any;
+  private timerDisplayRightAnswer: any;
 
   constructor() { }
 
   ngOnInit() {
     this.init();
   }
-
+  ngOnChanges(){
+    this.init();
+  }
+  //fonction appelée à chaque changement de question
   init(){
-    this.displayAns = false;
-    this.answerSelected = null;
-    this.timer = this.startTimer();
+    this.answerSelected = null;//on réinitialise les timers et variables
+    this.stop(this.timerToChooseAnswer);
+    this.stop(this.timerDisplayComparaison);
+    this.stop(this.timerDisplayRightAnswer);
+    this.display = this.SHOW_ANSWER_TO_CHOOSE;// on affiche le choix des réponses
+    this.timerToChooseAnswer = this.startTimerToChooseAnswer();//on lance le timer correspondant
   }
 
-  setRightAnswer() {
-    this.rightAnswer =null;
-    for (let index = 0; index < this.answers.length; index++) {
-      const curAns = this.answers[index];
-      if(curAns.isCorrect){
-        this.rightAnswer = curAns;
-        break;
-      }
-    }
-  }
-
-  //réponse sélectionnée
+  //Si une réponse est sélectionnée
   onAnswerSelected(answer: Answer) {
-    this.stop(this.timer);
-    this.setRightAnswer();
+    this.stop(this.timerToChooseAnswer);
+    this.timerDisplayComparaison = this.startTimerDisplayComparaison();//on lance le timer de la comparaison
     this.answerSelected = answer;
-    this.selected.emit(answer);
-    this.timerRes = this.startResTimer();//lancement du passage automatique (à la question suivante)
-    this.displayAns = true;//affichage réponse donnée VS réponse attendue
+    this.selected.emit(answer);//on renvoit la réponse choisie
+    this.display = this.SHOW_ANSWER_COMPARAISON;//affichage réponse donnée VS réponse attendue
   }
 
+  //Timer pour choisir
+  startTimerToChooseAnswer = () => setTimeout(() => {//à la fin du timeOut :
+    this.display = this.SHOW_ANSWER_COMPARAISON; //on affiche la suite
+    this.timerDisplayComparaison = this.startTimerDisplayComparaison();// on lance le timer suivant
+  }
+  , this.TIME_OUT_FOR_CHOSING_ANSWER);
+
+  //timer pour afficher la comparaison
+  startTimerDisplayComparaison = () => setTimeout(() => {// à la fin du timeOut
+      this.display = this.SHOW_RIGHT_ANSWER;// on affiche la bonne réponse
+      this.timerDisplayRightAnswer = this.startTimerDisplayRightAnswer();// on lance le timer correspondant
+  }
+  , this.TIME_OUT_DISPLAY_COMPARAISON);
+
+  //skip le timer de la comparaison
+  skipComparaison(){
+    this.stop(this.timerDisplayComparaison);
+    this.display = this.SHOW_RIGHT_ANSWER;
+    this.timerDisplayRightAnswer = this.startTimerDisplayRightAnswer();
+  }
+
+  //timer pour afficher que la bonne réponse
+  startTimerDisplayRightAnswer = () => setTimeout(() => {// à la fin du timeout
+    this.nextQuestion();// on demande à passer à la question suivante
+    }
+    ,this.TIME_OUT_DISPLAY_RIGHT_ANSWER);
+
+  //passage à la question
   nextQuestion(){
-    this.stop(this.timerRes);
-    if(this.answerSelected == null) this.selected.emit(null);//pour que soit intercept et sache --> rep enregistrée dans bd: null si non rep --> perte focus
+    this.stop(this.timerDisplayRightAnswer);
+    if(this.answerSelected === null) this.selected.emit(null);//pour que soit intercept et sache --> rep enregistrée dans bd: null si non rep --> perte focus
     this.next.emit(true);
     this.init();
   }
 
-  //n'a pas répondu --> passe à la réponse directement (permet de recapter attention)
-  startTimer = () => setTimeout(() => {
-    if(!this.displayAns){//au cas où timer zombie
-      this.setRightAnswer();
-      this.toggleAnswer();
-      this.startResTimer();
-    }
-  }, this.TIME_OUT_VALUE);
-
-  //passage automatique à la question suivante après avoir lu la réponse
-  startResTimer = () => setTimeout(() => {
-    if(this.displayAns) this.nextQuestion()}, //au cas où timer zombie
-    this.TIME_OUT_ANS_VALUE);
-
-  toggleAnswer = () => this.displayAns = !this.displayAns;
-
   //to stop timer and clear treatment
-  stop = (timer: any) => {//NodeJS.Timer) => {
+  stop = (timer: any) => {
     if (timer) {
       clearTimeout(timer);
       timer = null;

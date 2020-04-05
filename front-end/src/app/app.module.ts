@@ -27,6 +27,7 @@ import { CustomersComponent } from './start/customers/customers.component';
 import { QuizSummaryComponent } from './quiz-sequence/quiz-summary/quiz-summary.component';
 import { QuizEndComponent } from './quiz-sequence/quiz-end/quiz-end.component';
 import { DisplayRightAnswerComponent } from './quiz-sequence/display-right-answer/display-right-answer.component';
+import { DisplayRightVersusAnswerSelectedComponent } from './quiz-sequence/display-right-versus-answer-selected/display-right-versus-answer-selected.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { DisplayRightAnswerComponent } from './quiz-sequence/display-right-answe
     CustomersComponent,
     QuizSummaryComponent,
     QuizEndComponent,
-    DisplayRightAnswerComponent
+    DisplayRightAnswerComponent,
+    DisplayRightVersusAnswerSelectedComponent
   ],
   imports: [
     BrowserModule,

@@ -37,7 +37,7 @@ export class QuestionWidgetComponent implements OnInit {
     this.quizService.setSelectedQuiz(id);
   }
 
-  onSelectedAnswer = (answerSelected: Answer) => console.log(answerSelected);
+  onSelectedAnswer = (answerSelected: Answer) => console.log("");
 
   onNext = () => this.changeQuestion();
 

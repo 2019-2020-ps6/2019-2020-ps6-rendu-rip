@@ -1,28 +1,15 @@
-<div *ngIf="!displayAns; elseBlock" class="box-small">
-    <div class="answers_listing" *ngFor = "let answer of answers" >
+<div *ngIf="display === SHOW_ANSWER_TO_CHOOSE">
+    <div class="answers_listing" *ngFor = "let answer of answers">
         <app-answer-widget [answer] = "answer" (selected) = "onAnswerSelected($event)" ></app-answer-widget>
     </div>
 </div>
 
-<!--<ng-template #elseBlock>-->
-<div *ngIf="displayAns">
-    <div class="box-small">
-        <div *ngIf="answerSelected!=null; else elseBlock">
-            <div class="given_answer">Votre réponse:<br>
-                {{answerSelected.value}}
-            </div>
-            <div *ngIf = "rightAnswer" class="right_answer">Réponse:<br>
-                {{rightAnswer.value}}
-            </div>
-            <div *ngIf = "!rightAnswer">Réponse:<br><!--A enlever ^^-->
-                 TOUS!!!
-            </div>
-        </div>
-        <ng-template #elseBlock>
-            <div *ngIf = "rightAnswer" class="right_answer">Réponse:<br>
-                {{rightAnswer.value}}
-            </div>
-        </ng-template>
-    </div>
+<div *ngIf="display === SHOW_ANSWER_COMPARAISON">
+    <app-display-right-versus-answer-selected [answerSelected] = "answerSelected" [answers] = "answers"></app-display-right-versus-answer-selected>
+    <button class="button-card next-button" (click) = "skipComparaison()">Suivant</button>
+</div>
+
+<div *ngIf="display === SHOW_RIGHT_ANSWER ">
+    <app-display-right-answer [answers]=answers></app-display-right-answer>
     <button class="button-card next-button" (click) = "nextQuestion()">Suivant</button>
 </div>

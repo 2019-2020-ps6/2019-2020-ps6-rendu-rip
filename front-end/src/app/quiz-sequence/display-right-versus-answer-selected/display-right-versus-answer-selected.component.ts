@@ -1,29 +1,28 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Question } from 'src/models/question.model';
 import { Answer } from 'src/models/answer.model';
 
 @Component({
-  selector: 'app-display-right-answer',
-  templateUrl: './display-right-answer.component.html',
-  styleUrls: ['./display-right-answer.component.scss']
+  selector: 'app-display-right-versus-answer-selected',
+  templateUrl: './display-right-versus-answer-selected.component.html',
+  styleUrls: ['./display-right-versus-answer-selected.component.scss']
 })
-export class DisplayRightAnswerComponent implements OnInit {
-  
+export class DisplayRightVersusAnswerSelectedComponent implements OnInit {
+
   @Input()
-  answers: Answer[];
+  answerSelected:Answer;
+  @Input()
+  answers:Answer[];
 
-  rightAnswer:Answer;
-
-  constructor() { }
+  rightAnswer : Answer;
+  constructor() {}
 
   ngOnInit() {
     this.setRightAnswer();
   }
-
   ngOnChanges(){
     this.setRightAnswer()
   }
- 
+
   setRightAnswer() {
     this.rightAnswer =null;
     if(!this.answers)return;
@@ -35,5 +34,6 @@ export class DisplayRightAnswerComponent implements OnInit {
       }
     }
   }
+
 
 }

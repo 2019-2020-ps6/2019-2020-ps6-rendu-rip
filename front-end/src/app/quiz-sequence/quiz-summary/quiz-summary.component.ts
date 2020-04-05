@@ -13,9 +13,9 @@ export class QuizSummaryComponent implements OnInit {
   quiz : Quiz;
   questions: Question[] = [];
   currentQuestion : Question;
-  TIME_OUT_VALUE: number = 5000; // 10000 ms == 10s
+  TIME_OUT_DISPLAY_RIGHT_ANSWER: number = 5000; 
 
-  private timer: any;//NodeJS.Timer;
+  private timerDisplayRightAnswer: any;
 
   constructor(private route: ActivatedRoute, public quizService: QuizService) {
     this.quizService.quizSelected$.subscribe((quiz) => {
@@ -32,15 +32,15 @@ export class QuizSummaryComponent implements OnInit {
   }
 
   nextQuestion(){
-    this.stop(this.timer);
+    this.stop(this.timerDisplayRightAnswer);
     if(this.questions.length>0){
       this.currentQuestion = this.questions.pop();
-      this.timer = this.startTimer();
+      this.timerDisplayRightAnswer = this.startTimerDisplayRightAnswer();
     }
   }
 
   //passage automatique à la question suivante après avoir lu la réponse
-  startTimer = () => setTimeout(() => this.nextQuestion(), this.TIME_OUT_VALUE);
+  startTimerDisplayRightAnswer = () => setTimeout(() => this.nextQuestion(), this.TIME_OUT_DISPLAY_RIGHT_ANSWER);
 
   //to stop timer and clear treatment
   stop = (timer: any) => {//NodeJS.Timer) => {
