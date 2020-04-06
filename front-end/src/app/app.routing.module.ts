@@ -17,11 +17,11 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'staff', component: StaffComponent },
     { path: 'customers', component: CustomersComponent },
-    { path: 'staff/quiz-list-staff', component: QuizListStaffComponent },
+    { path: 'staff/quiz-list', component: QuizListStaffComponent },
     { path: 'edit-quiz/:id', component: EditQuizComponent },
     //{ path: 'edit-quiz/:id', component: EditQuizComponent }, --> specifier plusieurs routes pour modifier depuis plusieurs endroits
     //ET bouton 'Retour' revenir au bon endroit
-    { path: 'user', component: UserListComponent },
+    { path: 'staff/user-list', component: UserListComponent },
     
     { path: 'customers/quiz-list-customers', component: QuizListCustomersComponent },
     //{ path: 'customers/:id/quiz-list-customers', component: CustomerComponent }, --> page avec liste quiz d'un accueilli

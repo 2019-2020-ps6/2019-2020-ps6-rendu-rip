@@ -351,15 +351,9 @@
   },
   {
     "value": "Réponse 2-C",
-    "isCorrect": false,
+    "isCorrect": true,
     "questionId": 1585935692442,
     "id": 1585935768692
-  },
-  {
-    "value": "Réponse 2-D",
-    "isCorrect": false,
-    "questionId": 1585935692442,
-    "id": 1585935774575
   },
   {
     "value": "1800",
@@ -462,5 +456,11 @@
     "isCorrect": true,
     "questionId": 1585935694934,
     "id": 1585989335228
+  },
+  {
+    "value": "nn",
+    "isCorrect": false,
+    "questionId": 1585935686651,
+    "id": 1586165900846
   }
 ]

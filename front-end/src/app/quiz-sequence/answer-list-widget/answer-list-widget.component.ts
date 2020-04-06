@@ -25,11 +25,11 @@ export class AnswerListWidgetComponent implements OnInit {
   TIME_OUT_DISPLAY_RIGHT_ANSWER: number = 5000;
 
   SHOW_ANSWER_TO_CHOOSE: number = 0;
-  SHOW_ANSWER_COMPARAISON: number = 1;
+  SHOW_ANSWER_COMPARISON: number = 1;
   SHOW_RIGHT_ANSWER: number = 2;
 
   private timerToChooseAnswer: any;
-  private timerDisplayComparaison: any;
+  private timerDisplayComparison: any;
   private timerDisplayRightAnswer: any;
 
   constructor() { }
@@ -44,7 +44,7 @@ export class AnswerListWidgetComponent implements OnInit {
   init(){
     this.answerSelected = null;//on réinitialise les timers et variables
     this.stop(this.timerToChooseAnswer);
-    this.stop(this.timerDisplayComparaison);
+    this.stop(this.timerDisplayComparison);
     this.stop(this.timerDisplayRightAnswer);
     this.display = this.SHOW_ANSWER_TO_CHOOSE;// on affiche le choix des réponses
     this.timerToChooseAnswer = this.startTimerToChooseAnswer();//on lance le timer correspondant
@@ -53,29 +53,29 @@ export class AnswerListWidgetComponent implements OnInit {
   //Si une réponse est sélectionnée
   onAnswerSelected(answer: Answer) {
     this.stop(this.timerToChooseAnswer);
-    this.timerDisplayComparaison = this.startTimerDisplayComparaison();//on lance le timer de la comparaison
+    this.timerDisplayComparison = this.startTimerDisplayComparison();//on lance le timer de la Comparison
     this.answerSelected = answer;
     this.selected.emit(answer);//on renvoit la réponse choisie
-    this.display = this.SHOW_ANSWER_COMPARAISON;//affichage réponse donnée VS réponse attendue
+    this.display = this.SHOW_ANSWER_COMPARISON;//affichage réponse donnée VS réponse attendue
   }
 
   //Timer pour choisir
   startTimerToChooseAnswer = () => setTimeout(() => {//à la fin du timeOut :
-    this.display = this.SHOW_ANSWER_COMPARAISON; //on affiche la suite
-    this.timerDisplayComparaison = this.startTimerDisplayComparaison();// on lance le timer suivant
+    this.display = this.SHOW_ANSWER_COMPARISON; //on affiche la suite
+    this.timerDisplayComparison = this.startTimerDisplayComparison();// on lance le timer suivant
   }
   , this.TIME_OUT_FOR_CHOSING_ANSWER);
 
   //timer pour afficher la comparaison
-  startTimerDisplayComparaison = () => setTimeout(() => {// à la fin du timeOut
+  startTimerDisplayComparison = () => setTimeout(() => {// à la fin du timeOut
       this.display = this.SHOW_RIGHT_ANSWER;// on affiche la bonne réponse
       this.timerDisplayRightAnswer = this.startTimerDisplayRightAnswer();// on lance le timer correspondant
   }
   , this.TIME_OUT_DISPLAY_COMPARAISON);
 
   //skip le timer de la comparaison
-  skipComparaison(){
-    this.stop(this.timerDisplayComparaison);
+  skipComparison() {
+    this.stop(this.timerDisplayComparison);
     this.display = this.SHOW_RIGHT_ANSWER;
     this.timerDisplayRightAnswer = this.startTimerDisplayRightAnswer();
   }
