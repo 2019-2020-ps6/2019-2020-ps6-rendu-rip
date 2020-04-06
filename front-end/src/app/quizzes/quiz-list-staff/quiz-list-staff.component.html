@@ -6,7 +6,8 @@
 <app-quiz-form class="quiz-form"></app-quiz-form>
 <div class="quiz-list">
     <div class="card quiz" *ngFor="let quiz of quizList">
-        <button class="button-card delete" (click)="deleteQuiz(quiz)">Supprimer</button>
+        <button class="button-card delete" (click)="deleteQuiz(quiz)">
+            <i class="fas fa-times"></i></button>
         <button class="button-card quiz" routerLink= "/edit-quiz/{{quiz.id}}">
             <app-quiz [quiz]="quiz" (quizDeleted) = "deleteQuiz($event)"></app-quiz>
         </button>

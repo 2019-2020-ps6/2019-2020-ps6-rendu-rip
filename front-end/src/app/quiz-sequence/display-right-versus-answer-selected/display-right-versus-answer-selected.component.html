@@ -1,16 +1,15 @@
-<div class="box-small">
-    <div *ngIf="answerSelected !==null; else elseBlock">
-        <div class="given_answer">Votre réponse:<br>
+<div class="box">
+    <div *ngIf="answerSelected !==null; else elseBlock" class="box-answers">
+        <div class="answer-li">Votre réponse:<br>
             {{answerSelected.value}}
         </div>
-        <div *ngIf = "rightAnswer" class="right_answer">
-            Réponse:
-            <br>
+        <hr>
+        <div *ngIf = "rightAnswer" class="answer-li">Réponse:<br>
             {{rightAnswer.value}}
         </div>
-        <div *ngIf = "!rightAnswer">Réponse:<br><!--A enlever ^^-->
-             TOUS!!!
-        </div>
+        <!--<div *ngIf = "!rightAnswer">Réponse:<br><!--A enlever ^^-->
+            <!-- TOUS!!!
+        </div>-->
     </div>
     <ng-template #elseBlock>
         <app-display-right-answer [answers]=answers></app-display-right-answer>

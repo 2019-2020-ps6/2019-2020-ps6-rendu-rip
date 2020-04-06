@@ -1,0 +1,15 @@
+.box-answers {
+    height: 50%;
+    width: 40%;
+    margin: auto;
+    padding: 1em;
+    border-style: solid;
+    border-color:  rgb(179, 11, 89);
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.answer-li {
+    margin: auto;
+}

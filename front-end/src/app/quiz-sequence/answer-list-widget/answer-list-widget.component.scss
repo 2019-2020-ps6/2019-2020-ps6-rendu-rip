@@ -1,15 +1,19 @@
 @import '../../../styles/card.scss';
 
-.box-small{
-    margin-top: 10px;
-    height: 40%;//à revoir
+.box-answers {
+    height: 50%;
     width: 40%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-bottom: 5px;
+    margin: auto;
+    padding: 1em;
     border-style: solid;
     border-color:  rgb(179, 11, 89);
+    display: flex;
+    flex-wrap: wrap;
     text-align: center;
+}
+
+.answer-li {
+    margin: auto;
 }
 
 /*.next-button{
