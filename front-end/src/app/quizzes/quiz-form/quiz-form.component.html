@@ -15,18 +15,27 @@
     <div class="frame image" *ngIf="imagePreview">
       <img class="thumbnail" [src]="displayImage()" alt="quiz image">
     </div>
-    <div class="label"><label for="imageWeb" class="button-card">Internet</label></div>
+    <div class="label"><label for="modal-imageWeb" class="button-card">Internet</label></div>
     <div class="label"><label for="image64" class="button-card">Cet appareil</label></div>
-    <div class="label"><label for="imageDB" class="button-card">Banque d'images</label></div>
+    <div class="label"><label for="modal-imageDB" class="button-card">Banque d'images</label></div>
 
-    <button type="button" class="hidden" id="imageWeb">Internet</button>
-    <button type="button" class="hidden" id="imageDB">Banque d'images</button>
-    <input type="file" class="hidden" accept="image/*" (change)="onChangeFile($event)" id="image64">
+
+    <!-- modal -->
+    MODAL!<br>
+    <label for="url">Coller l'adresse de l'image:</label><br>
+    <input class="input-custom" type="text" id="url" #url><!-- # for referencing url.value -->
+    <button type="button" class="button-card" id="imageWeb" (click)="onChangeUrl(url.value)">Ok</button>
+
+
+    <button type="button" class="hidden" id="modal-imageWeb" (click)="on">Internet</button>
+    <button type="button" class="hidden" id="modal-imageDB" (click)="on">Banque d'images</button>
+    <input type="file" class="hidden" id="image64" (change)="onChangeFile($event)" accept="image/*">
+
     <!--  for those who obviously didn't know...
     'press enter' triggers the 'submit' button/input action...
     so only ONE submit button of course + has to be THE SUBMIT button
     AND NOT THE 'cancel' one... the rest is just 'simple' buttons
-    by default, input: type="submit" so careful! give an explicit type -->
+    default type="submit" so careful! give an explicit type -->
     <!-- this below is the submit button (and the only one) -> submit the form -->
     <div class="buttons-bottom">
       <button type="submit" class="button-card" (click)="addQuiz()">Créer</button>

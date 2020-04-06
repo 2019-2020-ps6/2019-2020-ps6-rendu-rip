@@ -92,6 +92,13 @@ export class QuizFormComponent implements OnInit {
     }
   }
 
+  onChangeUrl(url: string){
+    this.imageName = "image web";
+    this.imagePreview = url;
+    console.log(this.imageName);
+    console.log(this.imagePreview);
+  }
+
   displayImage() {
     //sanitize necessary otherwise throw security error
     return this.imageService.sanitize(this.imagePreview);
