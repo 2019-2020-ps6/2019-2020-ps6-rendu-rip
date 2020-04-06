@@ -92,7 +92,8 @@ export class QuizFormComponent implements OnInit {
     }
   }
 
-  sanitize(url: string) {
-    return this.imageService.sanitize(url);
+  displayImage() {
+    //sanitize necessary otherwise throw security error
+    return this.imageService.sanitize(this.imagePreview);
   }
 }

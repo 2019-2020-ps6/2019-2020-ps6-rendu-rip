@@ -1,35 +1,36 @@
 <div class="card">
   <h2>Créer un nouveau quiz</h2>
   <form class="quiz-form" [formGroup]="quizForm">
-    <label for="name">
-      Nom
-      <br>
-      <input class="input-custom" type="text" id="name" [formControlName]="'name'">
-    </label>
+    <label for="name">Nom</label><br>
+    <input class="input-custom" type="text" id="name" [formControlName]="'name'">
     <br>
-    <label for="theme">
-      Thème
-      <br>
-      <select name = "Thème" id = "theme" [formControlName] = "'theme'"> 
-        <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
-          {{current_theme}}
-        </option>
-      </select>
-    </label>
+    <label for="theme">Thème</label><br>
+    <select name = "Thème" id = "theme" [formControlName] = "'theme'"> 
+      <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
+        {{current_theme}}
+      </option>
+    </select>
     <br>
-    <label for="image">
-      Charger une image
-      <br>
-      <input type="file" accept="image/*" (change)="onChangeFile($event)" id="image"><!--[formControlName] = "'image'" id = "image">-->
-      <div class="image" *ngIf="imagePreview">
-          <!--sanitize necessary otherwise throw security error-->
-          <img [src]="sanitize(imagePreview)" alt="quiz image" style="width:50%">
-      </div>
-    </label>
-    <br>
-    <button type="submit" class="button-card" (click)="addQuiz()">Créer</button>
-    <button type="submit" class="button-card" (click)="reset()">Annuler</button>
+    Charger une image depuis:
+    <div class="frame image" *ngIf="imagePreview">
+      <img class="thumbnail" [src]="displayImage()" alt="quiz image">
+    </div>
+    <div class="label"><label for="imageWeb" class="button-card">Internet</label></div>
+    <div class="label"><label for="image64" class="button-card">Cet appareil</label></div>
+    <div class="label"><label for="imageDB" class="button-card">Banque d'images</label></div>
+
+    <button type="button" class="hidden" id="imageWeb">Internet</button>
+    <button type="button" class="hidden" id="imageDB">Banque d'images</button>
+    <input type="file" class="hidden" accept="image/*" (change)="onChangeFile($event)" id="image64">
+    <!--  for those who obviously didn't know...
+    'press enter' triggers the 'submit' button/input action...
+    so only ONE submit button of course + has to be THE SUBMIT button
+    AND NOT THE 'cancel' one... the rest is just 'simple' buttons
+    by default, input: type="submit" so careful! give an explicit type -->
+    <!-- this below is the submit button (and the only one) -> submit the form -->
+    <div class="buttons-bottom">
+      <button type="submit" class="button-card" (click)="addQuiz()">Créer</button>
+      <button type="button" class="button-card" (click)="reset()">Annuler</button>
+    </div>
   </form>
 </div>
-<!-- Uncomment below to see your form structure and how it changes-->
-<!--<br><br>{{quizForm.getRawValue() | json}}-->

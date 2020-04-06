@@ -1,7 +1,8 @@
 <button class="button-card" routerLink= "/staff">Retour</button>
 <button class="button-card" routerLink= "/home">Home</button>
 <br>
-<app-quiz-form></app-quiz-form>
+<!-- put in bootstrap modal -->
+<app-quiz-form class="quiz-form"></app-quiz-form>
 <div class="quiz-list">
     <div class="card quiz" *ngFor="let quiz of quizList">
         <app-quiz [quiz]="quiz" (quizDeleted) = "deleteQuiz($event)"></app-quiz>

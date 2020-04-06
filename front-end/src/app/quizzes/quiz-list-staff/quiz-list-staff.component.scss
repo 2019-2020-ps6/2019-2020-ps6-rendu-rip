@@ -1,4 +1,11 @@
 @import '../../../styles/card.scss';
+
+.quiz-form {
+  //float: left;
+}
+
 .quiz-list {
-  //display: flex;
+  display: flex;
+  flex-wrap: wrap;
+  //float: right;
 }

@@ -1,4 +1,6 @@
 @import '../../../styles/card.scss';
+
 .quiz-list {
-  //display: flex;
+  display: flex;
+  flex-wrap: wrap;
 }

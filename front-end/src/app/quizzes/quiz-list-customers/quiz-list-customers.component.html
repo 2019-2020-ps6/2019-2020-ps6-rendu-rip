@@ -1,7 +1,5 @@
 <div class="quiz-list">
-    <div class="card quiz" *ngFor="let quiz of quizList">
-        <button class="button-card" routerLink= "/quiz-sequence/{{quiz.id}}">
+    <button class="card button-card" *ngFor="let quiz of quizList" routerLink= "/quiz-sequence/{{quiz.id}}">
         <app-quiz [quiz]="quiz"></app-quiz>
-        </button>
-    </div>
+    </button>
 </div>
