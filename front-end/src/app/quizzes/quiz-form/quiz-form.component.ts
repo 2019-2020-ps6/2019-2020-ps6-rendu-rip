@@ -16,17 +16,19 @@ export class QuizFormComponent implements OnInit {
 
   public quizForm: FormGroup;
   public THEME_LIST: String[];
+  show: boolean;
 
   imageName: string;
   imagePreview: string;
 
   constructor(public formBuilder: FormBuilder, public imageService: ImageService, public quizService: QuizService) {
     // Form creation
+    this.show = false;
     this.quizForm = this.formBuilder.group({
       name: [''],
       theme: [''],
     });
-    this.THEME_LIST= ["Sport","Actor","Autres"];
+    this.THEME_LIST= ["Sport","Actor"];
   }
   
   ngOnInit() {}
@@ -103,4 +105,20 @@ export class QuizFormComponent implements OnInit {
     //sanitize necessary otherwise throw security error
     return this.imageService.sanitize(this.imagePreview);
   }
+
+
+
+
+  onClicked(): void {
+    this.show = true;
+  }
+
+  resetAppearing(show: boolean): void {
+    this.switchShow(show);
+  }
+  switchShow(show: boolean) {
+    this.show = show;
+  }
+
+
 }

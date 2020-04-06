@@ -4,12 +4,22 @@
     <label for="name">Nom</label><br>
     <input class="input-custom" type="text" id="name" [formControlName]="'name'">
     <br>
-    <label for="theme">Thème</label><br>
-    <select name = "Thème" id = "theme" [formControlName] = "'theme'"> 
-      <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
-        {{current_theme}}
-      </option>
-    </select>
+    <label for="theme">
+      Thème
+      <br>
+      <select name = "Thème" id = "theme" [formControlName] = "'theme'"> 
+        <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
+          {{current_theme}}
+          
+        </option>
+       
+      </select>
+      
+      <button (click)="onClicked()">Autres... </button>
+        <div *ngIf="show"><app-add-thems-form [THEME_LIST] = "THEME_LIST" (themeAdded) = "resetAppearing($event)"></app-add-thems-form></div>
+      
+
+    </label>
     <br>
     Charger une image depuis:
     <div class="frame image" *ngIf="imagePreview">

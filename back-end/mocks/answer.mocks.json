@@ -188,6 +188,7 @@
     "id": 1585645438386
   },
   {
+<<<<<<< Updated upstream
     "value": "reponse 1",
     "isCorrect": false,
     "questionId": 1585645889439,
@@ -207,6 +208,9 @@
   },
   {
     "value": "à supprimer",
+=======
+    "value": "poireau",
+>>>>>>> Stashed changes
     "isCorrect": false,
     "questionId": 1585655429727,
     "id": 1585655436619
@@ -404,6 +408,7 @@
     "id": 1585936724510
   },
   {
+<<<<<<< Updated upstream
     "value": "Metallica",
     "isCorrect": false,
     "questionId": 1585936786249,
@@ -411,6 +416,9 @@
   },
   {
     "value": "Iron Maiden",
+=======
+    "value": "patate",
+>>>>>>> Stashed changes
     "isCorrect": false,
     "questionId": 1585936786249,
     "id": 1585936813413
@@ -418,6 +426,7 @@
   {
     "value": "AC/DC",
     "isCorrect": true,
+<<<<<<< Updated upstream
     "questionId": 1585936786249,
     "id": 1585936832144
   },
@@ -462,5 +471,9 @@
     "isCorrect": false,
     "questionId": 1585935686651,
     "id": 1586165900846
+=======
+    "questionId": 1584997965204,
+    "id": 1585835668237
+>>>>>>> Stashed changes
   }
 ]

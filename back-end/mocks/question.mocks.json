@@ -70,6 +70,21 @@
     "id": 1584978854114
   },
   {
+    "label": "Quel est l'intru?",
+    "quizId": 1584997706362,
+    "id": 1584997723721
+  },
+  {
+    "label": "Orange?",
+    "quizId": 1584997706362,
+    "id": 1584997813522
+  },
+  {
+    "label": "Tache beaucoup",
+    "quizId": 1584997706362,
+    "id": 1584997965204
+  },
+  {
     "label": "Yo",
     "quizId": 1585389491103,
     "id": 1585389525947
@@ -250,6 +265,7 @@
     "id": 1585655061199
   },
   {
+<<<<<<< Updated upstream
     "label": "Quel animal pond des œufs ?",
     "quizId": 1585934736906,
     "id": 1585934857659
@@ -258,6 +274,11 @@
     "label": "Qui est la femelle du canard ?",
     "quizId": 1585934736906,
     "id": 1585935083595
+=======
+    "label": "Question inconnue",
+    "quizId": 1582018073558,
+    "id": 1585833697376
+>>>>>>> Stashed changes
   },
   {
     "label": "Qui aime la boue ?",

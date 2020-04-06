@@ -1,0 +1,10 @@
+<form [formGroup]="themeForm">
+    <label>
+        Nouveau Thème
+        <input type="text" [formControlName]="'valueToAdd'">
+
+    </label>
+    <button (click) = "okClicked()">Ok</button>  <button (click) = "cancelClicked()">Annuler</button>
+    <br>
+    <button (click) = "addToDataBaseClicked()">Ajouter à la liste déroulante</button>
+</form>
