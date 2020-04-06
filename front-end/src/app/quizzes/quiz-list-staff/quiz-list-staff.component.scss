@@ -9,3 +9,18 @@
   flex-wrap: wrap;
   //float: right;
 }
+
+.quiz {
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.button-quiz:hover {
+  cursor: pointer;
+}
+
+.delete {
+  align-self: flex-end;
+}
