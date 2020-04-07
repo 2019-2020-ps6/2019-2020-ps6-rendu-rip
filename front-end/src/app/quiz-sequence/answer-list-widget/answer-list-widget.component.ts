@@ -32,7 +32,12 @@ export class AnswerListWidgetComponent implements OnInit {
   private timerDisplayComparison: any;
   private timerDisplayRightAnswer: any;
 
-  constructor() { }
+  constructor() {
+    // Copy answers / Nécessaire pour le pop des questions
+    if(this.answers) {
+      this.answers = this.answers.map(e => ({ ... e }));
+    }
+  }
 
   ngOnInit() {
     this.init();
@@ -53,6 +58,16 @@ export class AnswerListWidgetComponent implements OnInit {
   //Si une réponse est sélectionnée
   onAnswerSelected(answer: Answer) {
     this.stop(this.timerToChooseAnswer);
+
+    // Debut: Code pour pop les questions
+    if (answer.isCorrect==false && this.answers.length>2) {
+      // On laisse la réponse erronée et la réponse vraie
+      this.answers = this.answers.filter(a => a.isCorrect==true || a.id!==answer.id)
+      this.timerToChooseAnswer = this.startTimerToChooseAnswer();//on relance le timer correspondant
+      return
+    }
+    // Fin: Code pour pop les questions
+
     this.timerDisplayComparison = this.startTimerDisplayComparison();//on lance le timer de la Comparison
     this.answerSelected = answer;
     this.selected.emit(answer);//on renvoit la réponse choisie

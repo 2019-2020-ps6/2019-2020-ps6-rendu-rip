@@ -1,5 +1,5 @@
 <div class="box">
-    <div *ngIf="answerSelected !==null; else elseBlock" class="box-answers">
+    <div *ngIf="answerSelected !==null && answerSelected!=rightAnswer; else elseBlock" class="box-answers">
         <div class="answer-li">Votre réponse:<br>
             {{answerSelected.value}}
         </div>
