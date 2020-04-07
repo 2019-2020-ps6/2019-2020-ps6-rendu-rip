@@ -110,7 +110,10 @@ export class QuizFormComponent implements OnInit {
 
 
   onClicked(): void {
-    this.show = true;
+    if (this.show === false) {
+      this.show = true;
+    } else { this.show = false; }
+
   }
 
   resetAppearing(show: boolean): void {
