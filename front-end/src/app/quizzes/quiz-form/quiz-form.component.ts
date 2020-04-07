@@ -112,7 +112,9 @@ export class QuizFormComponent implements OnInit {
   onClicked(): void {
     if (this.show === false) {
       this.show = true;
-    } else { this.show = false; }
+    } else {
+      this.show = false;
+    }
 
   }
 

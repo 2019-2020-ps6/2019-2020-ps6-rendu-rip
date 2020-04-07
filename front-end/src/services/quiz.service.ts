@@ -20,6 +20,7 @@ export class QuizService {
   private httpOptions = httpOptionsBase;
   private questionsPath = 'questions';
   private answersPath = 'answers';
+  
 
   public quizzes$: BehaviorSubject<Quiz[]> = new BehaviorSubject(this.quizzes);
   public quizSelected$: Subject<Quiz> = new Subject();
@@ -132,4 +133,10 @@ export class QuizService {
     const url = this.quizUrl + '/' + quiz.id + '/' + this.questionsPath + '/' + question.id + '/' + this.answersPath + '/' + answerToDelete.id;
     this.http.delete<Answer>(url, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
   }
+
+ 
+
+
+
+
 }
