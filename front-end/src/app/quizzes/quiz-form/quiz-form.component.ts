@@ -5,6 +5,8 @@ import { QuizService } from '../../../services/quiz.service';
 import { Quiz } from '../../../models/quiz.model';
 import { Img } from 'src/models/image.model';
 import { ImageService } from 'src/services/image.service';
+import { ThemeService } from 'src/services/theme.service';
+import { Theme } from 'src/models/theme.model';
 
 @Component({
   selector: 'app-quiz-form',
@@ -15,20 +17,24 @@ import { ImageService } from 'src/services/image.service';
 export class QuizFormComponent implements OnInit {
 
   public quizForm: FormGroup;
-  public THEME_LIST: String[];
-  show: boolean;
-
+  public THEME_LIST: string[];
+  
+  showThemeForm: boolean;
   imageName: string;
   imagePreview: string;
 
-  constructor(public formBuilder: FormBuilder, public imageService: ImageService, public quizService: QuizService) {
+  constructor(public formBuilder: FormBuilder, public imageService: ImageService, public quizService: QuizService, public themeService: ThemeService) {
     // Form creation
-    this.show = false;
+    this.showThemeForm = false;
     this.quizForm = this.formBuilder.group({
       name: [''],
       theme: [''],
     });
-    this.THEME_LIST= ["Sport","Actor"];
+    this.THEME_LIST= [];
+    this.themeService.themes$.subscribe((themes) =>{
+        this.THEME_LIST =[];
+        for(var i =0 ; i<themes.length;i++) this.THEME_LIST.push(themes[i].name)
+    } );
   }
   
   ngOnInit() {}
@@ -37,6 +43,7 @@ export class QuizFormComponent implements OnInit {
     this.quizForm.reset()
     this.imagePreview = null;
     this.imageName = null;
+    this.showThemeForm = false;
   }
 
   addQuiz() {
@@ -67,8 +74,6 @@ export class QuizFormComponent implements OnInit {
     }
     quiz.name = formValues.name;
     quiz.theme = formValues.theme;
-    //quiz.name = (formValues.name)? formValues.name : 'Sans nom';
-    //quiz.theme = (formValues.theme)? formValues.theme : 'Autres';
     quiz.creationDate = new Date();
     return quiz;
   }
@@ -106,24 +111,11 @@ export class QuizFormComponent implements OnInit {
     return this.imageService.sanitize(this.imagePreview);
   }
 
-
-
-
-  onClicked(): void {
-    if (this.show === false) {
-      this.show = true;
-    } else {
-      this.show = false;
-    }
-
+  addNewTheme(): void {
+    this.showThemeForm = true;
   }
 
-  resetAppearing(show: boolean): void {
-    this.switchShow(show);
-  }
-  switchShow(show: boolean) {
-    this.show = show;
-  }
-
-
+  resetAppearing(): void {
+    this.showThemeForm = false;
+  }  
 }

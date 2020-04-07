@@ -10,13 +10,11 @@
       <select name = "Thème" id = "theme" [formControlName] = "'theme'"> 
         <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
           {{current_theme}}
-          
         </option>
-       
       </select>
       
-      <button (click)="onClicked()">Autres... </button>
-        <div *ngIf="show"><app-add-thems-form [THEME_LIST] = "THEME_LIST" (themeAdded) = "resetAppearing($event)"></app-add-thems-form></div>
+      <button (click)="addNewTheme()">Autres... </button>
+        <div *ngIf="showThemeForm"><app-add-thems-form (themeAdded) = "resetAppearing()"></app-add-thems-form></div>
       
 
     </label>

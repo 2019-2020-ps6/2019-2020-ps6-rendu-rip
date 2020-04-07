@@ -57,8 +57,6 @@ export class QuizService {
 
   addQuiz(quiz: Quiz) {
     this.http.post<Quiz>(this.quizUrl, quiz, this.httpOptions).subscribe((quiz) => {
-      console.log("Quiz: quiz added");
-      console.log(quiz);
       this.setQuizzesFromUrl();
     });
   }
@@ -68,8 +66,6 @@ export class QuizService {
     //chained requests
     this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
       quiz.imageId = (img.id).toString();
-      console.log("Quiz: creating with image...");
-      console.log(quiz);
       this.addQuiz(quiz);//met à jour observable
     });
   }
@@ -77,8 +73,6 @@ export class QuizService {
   updateQuiz(quiz: Quiz) {
     const url = this.quizUrl + '/' + quiz.id;
     this.http.put<Quiz>(url, quiz, this.httpOptions).subscribe(quiz => {
-      console.log("Quiz: quiz updated");
-      console.log(quiz);
       //this.setQuiz(quiz); --> pb
       this.setSelectedQuiz(quiz.id);//for now -- mais après mettre à jour autrement --> pour éviter rechargement infos sur page (pas beau) 
       this.setQuizzesFromUrl();
@@ -90,8 +84,6 @@ export class QuizService {
     //chained requests
     this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
       quiz.imageId = (img.id).toString();
-      console.log("Quiz: saving with image...");
-      console.log(quiz);
       this.updateQuiz(quiz);//met à jour observable
     });
   }
@@ -99,7 +91,6 @@ export class QuizService {
   deleteQuiz(quiz: Quiz) {
     const url = this.quizUrl + '/' + quiz.id;
     this.http.delete<Quiz>(url, this.httpOptions).subscribe(() => {
-      console.log("Quiz: deleted");
       this.setQuizzesFromUrl();
     });
   }

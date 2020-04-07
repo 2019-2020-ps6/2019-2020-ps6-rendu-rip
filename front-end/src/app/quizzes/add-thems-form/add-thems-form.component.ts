@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { QuizService } from 'src/services/quiz.service';
+import { ThemeService } from 'src/services/theme.service';
+import { Theme } from 'src/models/theme.model';
 
 @Component({
   selector: 'app-add-thems-form',
@@ -9,39 +11,34 @@ import { QuizService } from 'src/services/quiz.service';
 })
 export class AddThemsFormComponent implements OnInit {
 
-  @Input()
-  THEME_LIST: string[];
-
   themeForm: FormGroup;
   
   @Output()
   themeAdded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
-  constructor(public formBuilder: FormBuilder, public quizService: QuizService) {
+  constructor(public formBuilder: FormBuilder, public themeService: ThemeService) {
 
   }
 
   ngOnInit() {
     this.themeForm = this.formBuilder.group({
-      valueToAdd: [''],
+      name: [''],
     });
   }
 
 
 
   okClicked(): void {
-    const themeToCreate: string = this.themeForm.getRawValue() as string;
-    console.log('la valeur de theme est : ' + themeToCreate.toString());
+    const themeToAdd: Theme =  this.themeForm.getRawValue() as Theme;
+    this.themeService.addTheme(themeToAdd);
+    this.themeAdded.emit(true);
+    console.log('la valeur de theme est : ' + themeToAdd);
   }
 
   cancelClicked(): void {
     this.themeForm.reset();
     this.themeAdded.emit(false);
   }
-
-  addToDataBaseClicked(): void {
-  }
-
 
 }

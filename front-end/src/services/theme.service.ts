@@ -3,11 +3,6 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { Quiz } from '../models/quiz.model';
 import { HttpClient } from '@angular/common/http';
 import { serverUrl, httpOptionsBase } from '../configs/server.config';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Question } from 'src/models/question.model';
-import { Answer } from 'src/models/answer.model';
-import { Img } from 'src/models/image.model';
-import { QuizService } from './quiz.service';
 import { Theme } from 'src/models/theme.model';
 
 @Injectable({
@@ -16,16 +11,26 @@ import { Theme } from 'src/models/theme.model';
 
 export class ThemeService {
 
-    private themeUrl = serverUrl + '/theme';
+    private themeUrl = serverUrl + '/themes';
     private httpOptions = httpOptionsBase;
+    private themes :Theme[] = [];
+    public  themes$ : BehaviorSubject<Theme[]> = new BehaviorSubject(this.themes);
 
     constructor(private http: HttpClient) {
+      this.setThemes;
+      this.http.get<Theme[]>(this.themeUrl).subscribe((themes) => this.setThemes(themes));
+    }
+    setThemes(themes: Theme[]) {
+      this.themes = themes;
+      this.themes$.next(this.themes);
+    }
+
+    setThemesFromUrl() {
+      this.http.get<Theme[]>(this.themeUrl).subscribe((themes) => this.setThemes(themes));
     }
 
 
-
-    addTheme(them: Theme): void {
-        const url = this.themeUrl + '/' + them.id + '/';
-        this.http.post<Theme>(url, them, this.httpOptions).subscribe(() => console.log("theme: added..."));
-    }
+  addTheme(theme: Theme): void {
+      this.http.post<Theme>(this.themeUrl, theme, this.httpOptions).subscribe(() => this.setThemesFromUrl());
+  } 
 }
