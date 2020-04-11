@@ -7,11 +7,9 @@
         <div *ngIf = "rightAnswer" class="answer-li">Réponse:<br>
             {{rightAnswer.value}}
         </div>
-        <!--<div *ngIf = "!rightAnswer">Réponse:<br><!--A enlever ^^-->
-            <!-- TOUS!!!
-        </div>-->
     </div>
     <ng-template #elseBlock>
+        <div *ngIf = "answerSelected===rightAnswer">Bravo !</div>
         <app-display-right-answer [answers]=answers></app-display-right-answer>
     </ng-template>
 </div>

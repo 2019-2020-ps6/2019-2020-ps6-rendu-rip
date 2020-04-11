@@ -47,7 +47,7 @@ export class EditQuizComponent implements OnInit {
     this.imageService.loadQuizImage(this.image, id);
   }
 
-  private initQuizForm() {
+  private initQuizForm() {//par contre par quelle magie il y a pas besoin de ça ??
     if(this.quiz == null) console.log("Quiz: intiQuizForm ... got 'null'!!");
     this.quizForm = this.formBuilder.group({
       name: this.quiz.name,
@@ -57,14 +57,15 @@ export class EditQuizComponent implements OnInit {
   }
 
   reset(){
+    this.quizForm.reset();
     this.editionMode = false;
     this.imgUrl = null;
     this.quizForm = null;
   }
 
   updateQuiz() {
-    this.editionMode = false;
     const quizToSave: Quiz = this.quizFillIn();
+    if(!quizToSave)return;
     const imgToSave: Img = this.imgFillIn();
     const newTxt = this.txtHasChanged(quizToSave);
     const newImg = this.imgHasChanged(imgToSave);
@@ -76,6 +77,7 @@ export class EditQuizComponent implements OnInit {
       //in any case: create image + update quiz
       this.quizService.updateQuizWithImage(quizToSave, imgToSave);
     }
+    this.reset();
   }
 
   txtHasChanged(quiz: Quiz): boolean {
@@ -90,8 +92,16 @@ export class EditQuizComponent implements OnInit {
     const formValues: Quiz = this.quizForm.getRawValue() as Quiz;
     let quiz: Quiz = {} as Quiz;
     quiz.id = this.quiz.id;
-    quiz.name = (formValues.name)? formValues.name : 'Sans nom';
-    quiz.theme = (formValues.theme)? formValues.theme : 'Autres';
+    if(!formValues.name) {
+      window.alert("Veuillez donner un nom au quiz")
+      return null;
+    }
+    else if(!formValues.theme){
+      window.alert("Veuillez donner un thème au quiz")
+      return null;
+    }
+    quiz.name = formValues.name;
+    quiz.theme = formValues.theme;
     quiz.creationDate = new Date();
     if(this.quiz.imageId) quiz.imageId = this.quiz.imageId;
     return quiz;
