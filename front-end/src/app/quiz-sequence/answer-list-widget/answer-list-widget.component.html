@@ -1,5 +1,5 @@
-<div *ngIf="display === SHOW_ANSWER_TO_CHOOSE" class="box-answers">
-    <div class="answer-li" *ngFor = "let answer of answers">
+<div *ngIf="display === SHOW_ANSWER_TO_CHOOSE" class="grid">
+    <div *ngFor = "let answer of answers">
         <app-answer-widget [answer] = "answer" (selected) = "onAnswerSelected($event)"></app-answer-widget>
     </div>
 </div>

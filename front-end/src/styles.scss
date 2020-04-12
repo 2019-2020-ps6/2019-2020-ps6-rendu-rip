@@ -3,9 +3,13 @@
 /* You can add global styles to this file, and also import other style files */
 html {
   font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+  width: 100%;
+  height: 100%;
 }
 
 body {
   margin: 0;
+  width: 100%;
+  height: 100%;
   background-color: $app-background-color;
 }

@@ -11,11 +11,9 @@
     <ng-template #elseBlock>
     <div>
         <form class="quiz-form" [formGroup]="quizForm">
-            <h1>Nom du quiz : <input class="input-custom" type="text" id="name" [formControlName]="'name'"></h1>
-            <h2>Thème : <input class="input-custom" type="text" id="theme" [formControlName]="'theme'"></h2>
-            <!--
+            <h1>Nom du quiz : <input class="input-custom" type="text" id="name" [formControlName]="'name'"></h1>        
             <label for="theme">
-                Thème
+                Thème :
                 <br>
                 <select name = "Thème" id = "theme" [formControlName] = "'theme'"> 
                   <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
@@ -24,13 +22,13 @@
                 </select>
                 <button (click)="addNewTheme()">Autres... </button>
                   <div *ngIf="showThemeForm"><app-add-thems-form (themeAdded) = "resetAppearing()"></app-add-thems-form></div>
-            </label>-->
+            </label>
             <div *ngIf="image.url" class="frame"><img class = "thumbnail" [src]="displayImage()" alt="quiz image"></div>
             <input type="file" accept="image/*" (change)="onChangeFile($event)" id = "image">
             <br>
             <button type="submit" id = "confirmEdit" class="button" (click)="updateQuiz()">Valider</button>
             <!--<button type="submit" id = "confirmEdit" class="button">Valider</button>-->
-            <button type="button" id = "cancel" class="button" (click)="reset()">Annuler</button>
+            <button type="reset" id = "cancel" class="button" (click)="reset()">Annuler</button>
         </form>
     </div>
     </ng-template>

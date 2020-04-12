@@ -17,8 +17,7 @@ export class ThemeService {
     public  themes$ : BehaviorSubject<Theme[]> = new BehaviorSubject(this.themes);
 
     constructor(private http: HttpClient) {
-      this.setThemes;
-      this.http.get<Theme[]>(this.themeUrl).subscribe((themes) => this.setThemes(themes));
+      this.setThemesFromUrl();
     }
     setThemes(themes: Theme[]) {
       this.themes = themes;

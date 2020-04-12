@@ -7,6 +7,7 @@ import { Quiz } from '../../../models/quiz.model';
 import { Img } from 'src/models/image.model';
 import { ImageService } from 'src/services/image.service';
 import { SafeUrl } from '@angular/platform-browser';
+import { ThemeService } from 'src/services/theme.service';
 
 @Component({
   selector: 'app-edit-quiz',
@@ -18,6 +19,7 @@ export class EditQuizComponent implements OnInit {
   quiz: Quiz;
   quizForm: FormGroup;
   editionMode: Boolean;
+  showThemeForm: Boolean;
 
   //already existing
   image: Img;
@@ -25,14 +27,21 @@ export class EditQuizComponent implements OnInit {
   //form
   imgName: string;
   imgUrl: string;
+  public THEME_LIST : string[];
 
-  constructor(private route: ActivatedRoute, public imageService: ImageService, public quizService: QuizService, public formBuilder: FormBuilder) {}
+  constructor(private route: ActivatedRoute, public imageService: ImageService, public quizService: QuizService, public formBuilder: FormBuilder, public themeService : ThemeService) {
+  }
 
   ngOnInit() {
     this.quizService.quizSelected$.subscribe((quiz) => this.onQuizSelected(quiz));
     const id = this.route.snapshot.paramMap.get('id');
     this.quizService.setSelectedQuiz(id);
+    this.themeService.themes$.subscribe((themes) =>{
+      this.THEME_LIST =[];
+      for(var i =0 ; i<themes.length;i++) this.THEME_LIST.push(themes[i].name)
+  } );
     this.editionMode = false;
+    this.showThemeForm = false;
   }
 
   private onQuizSelected(quiz: Quiz) {
@@ -47,7 +56,7 @@ export class EditQuizComponent implements OnInit {
     this.imageService.loadQuizImage(this.image, id);
   }
 
-  private initQuizForm() {//par contre par quelle magie il y a pas besoin de ça ??
+  initQuizForm() {
     if(this.quiz == null) console.log("Quiz: intiQuizForm ... got 'null'!!");
     this.quizForm = this.formBuilder.group({
       name: this.quiz.name,
@@ -59,6 +68,7 @@ export class EditQuizComponent implements OnInit {
   reset(){
     this.quizForm.reset();
     this.editionMode = false;
+    this.showThemeForm = false;
     this.imgUrl = null;
     this.quizForm = null;
   }
@@ -131,4 +141,11 @@ export class EditQuizComponent implements OnInit {
   displayImage() {
     return this.imageService.sanitize(this.imgUrl? this.imgUrl : this.image.url);
   }
+  addNewTheme(): void {
+    this.showThemeForm = true;
+  }
+
+  resetAppearing(): void {
+    this.showThemeForm = false;
+  }  
 }
