@@ -1,0 +1,41 @@
+<div class="question">
+    <h1>{{question.label}} </h1>
+    <div *ngIf = "image.url" class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="question image"></div>
+    <div class="">{{question.answers.length}} réponses</div>
+</div>
+<!--
+<div class="card">
+    <div class = "errorMessage" *ngIf = "questionInvalid()">
+        {{errorMessage}}
+    </div>
+    {{question.label}} 
+    <div *ngIf="image.url"class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="question image"></div>
+    <button id="editLabelQuestion" class="button" (click)="editLabelQuestion()"><i class="fas fa-edit"></i></button>
+    <div *ngIf="showFormQuestion ">
+        <form [formGroup]="questionForm">
+         <input type="text" [formControlName]="'label'">
+         <button id = "submitQuestion" class="button-card" (click)="submitQuestionLabel()">Valider</button>
+         <button id = "cancel" class="button-card" (click)="cancelQuestionLabel()">Annuler</button>
+        </form>
+    </div>
+    
+    
+    <br>
+    Réponses : 
+    <div class="" *ngFor="let answer of question.answers">
+        <div *ngIf="answer">{{answer.value}}  -> {{answer.isCorrect}} 
+            <button id = "editAnswer" class="button" (click)="editAnswer(answer)"><i class="fas fa-edit"></i></button>
+            <div *ngIf="show && answer==answerSelected">
+                <app-answer-form [quiz] = "quiz" [question]="question" [answerInit]= "answerSelected" (answerAdded)="reset($event)"></app-answer-form>
+            </div>
+            <button id = "supprAnswer" class="button" (click)="supprAnswer(answer)"><i class="fas fa-trash"></i></button>
+        </div>
+    </div>
+    
+    
+    <button id = "createAnswer" class="button-card" (click)="createAnswer()"> Ajouter une réponse </button>
+    <div *ngIf="show && !answerSelected">
+        <app-answer-form [quiz] = "quiz" [question]="question" (answerAdded)="reset($event)"></app-answer-form>
+    </div>
+    <button id = "deleteQuestion" class="button-card" (click)="deleteQuestion()"> Supprimer la question</button>
+</div>-->
