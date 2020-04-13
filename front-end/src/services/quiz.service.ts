@@ -45,7 +45,7 @@ export class QuizService {
 
   setQuizzesFromUrl() { this.http.get<Quiz[]>(this.quizUrl).subscribe((quizzes) => this.setQuizzes(quizzes)); }
 
-  setQuiz(quiz:Quiz){ this.quizSelected$.next(quiz); }
+  setQuiz(quiz: Quiz){ this.quizSelected$.next(quiz); }
 
   setSelectedQuiz(quizId: string) {
     const url = `${this.quizUrl}/${quizId}`;
@@ -58,6 +58,7 @@ export class QuizService {
     const url = `${serverUrl}/images/quiz`;
     //chained requests
     this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
+      console.log("inside");
       quiz.imageId = (img.id).toString();
       this.addQuiz(quiz);//met à jour observable
     });
@@ -88,26 +89,49 @@ export class QuizService {
     });
   }
 
-  addQuestion(quiz: Quiz, question: Question) {
-    const url = `${this.quizUrl}/${quiz.id}/${this.questionsPath}`;
-    this.http.post<Question>(url, question, this.httpOptions).subscribe(() => {
-      this.setSelectedQuiz(quiz.id);
+  addQuestion(quizId: string, question: Question) {
+    const url = `${this.quizUrl}/${quizId}/${this.questionsPath}`;
+    this.http.post<Question>(url, question, this.httpOptions).subscribe((qu) => {
+      console.log("question got:");
+      console.log(qu);
+      this.setSelectedQuiz(quizId);
       this.setQuizzesFromUrl();
     });
-      
+  }
+
+  addQuestionWithImage(quizId: string, question: Question, image: Img) {
+    const url = `${serverUrl}/images/question`;
+    console.log("img before");
+    console.log(image.name);
+    this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
+      console.log("img in:");
+      console.log(img);
+      question.imageId = img.id;//(img.id).toString();
+      console.log("question:")
+      console.log(question)
+      this.addQuestion(quizId, question);//met à jour observable
+    });
+  }
+
+  updateQuestion(quizId: string, question: Question) {
+    const url = `${this.quizUrl}/${quizId}/${this.questionsPath}/${question.id}`;
+    this.http.put<Question>(url, question, this.httpOptions).subscribe(() => {
+      this.setSelectedQuiz(quizId);
+      this.setQuizzesFromUrl();
+    });
+  }
+
+  updateQuestionWithImage(quizId: string, question: Question, image: Img){
+    const url = `${serverUrl}/images/quiz`;
+    this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
+      question.imageId = (img.id).toString();
+      this.updateQuestion(quizId, question);//met à jour observable
+    });
   }
 
   deleteQuestion(quiz: Quiz , question: Question) {
     const url = `${this.quizUrl}/${quiz.id}/${this.questionsPath}/${question.id}`;
     this.http.delete<Question>(url, this.httpOptions).subscribe(() => {
-      this.setSelectedQuiz(quiz.id);
-      this.setQuizzesFromUrl();
-    });
-  }
-
-  updateQuestion(quiz: Quiz, questionToUpdate: Question) {
-    const url = `${this.quizUrl}/${quiz.id}/${this.questionsPath}/${questionToUpdate.id}`;
-    this.http.put<Question>(url, questionToUpdate, this.httpOptions).subscribe(() => {
       this.setSelectedQuiz(quiz.id);
       this.setQuizzesFromUrl();
     });

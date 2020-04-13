@@ -141,11 +141,9 @@ export class EditQuizComponent implements OnInit {
     }
   }
 
-  displayImage() {
-    return this.imageService.sanitize(this.imgUrl? this.imgUrl : this.image.url);
-  }
+  displayImage() { return this.imageService.sanitize(this.imgUrl? this.imgUrl : this.image.url); }
   
-  swapShowTheme() {
+  switchShowTheme() {
     this.showThemeForm = !this.showThemeForm; 
     this.themeBtnTxt = this.showThemeForm? this.themeBtnTxtShow : this.themeBtnTxtInit;
   }

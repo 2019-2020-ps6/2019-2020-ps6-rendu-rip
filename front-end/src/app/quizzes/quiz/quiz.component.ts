@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Quiz } from '../../../models/quiz.model';
-import { Img } from '../../../models/image.model';
 import { QuizService } from 'src/services/quiz.service';
+import { Img } from '../../../models/image.model';
 import { ImageService } from 'src/services/image.service';
+
 
 @Component({
   selector: 'app-quiz',
@@ -29,5 +30,5 @@ export class QuizComponent implements OnInit {
 
   deleteQuiz() { this.quizDeleted.emit(this.quiz); }
 
-  displayImage() { return this.imageService.sanitize(this.image.url) }
+  getImgSrc() { return this.imageService.sanitize(this.image.url) }
 }

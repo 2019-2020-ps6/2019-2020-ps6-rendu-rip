@@ -1,11 +1,17 @@
 <div class="card">
-<h3>Créer une nouvelle question :</h3>
-<form [formGroup]="questionForm">
-<label>
-    Intitulé de la question : 
-    <input type="text" [formControlName]="'label'">
-    <br>
-    <button id = "createQuestion" class="button-card" (click)="createQuestion()"> Créer</button>
-</label>
-</form>
+	<h3>Créer une nouvelle question :</h3>
+	<form [formGroup]="questionForm">
+	<label for="questionName">Intitulé</label>
+	<br>
+	<input type="text" [formControlName]="'label'" id="questionName">
+	<br>
+  Charger une image depuis
+  <div class="frame image" *ngIf="imagePreview">
+    <img class="thumbnail" [src]="getImgSrc()" alt="quiz image">
+  </div>
+	<div class="label"><label for="image64" class="button-card">Cet appareil</label></div>
+	<input type="file" class="hidden" id="image64" (change)="onChangeFile($event)" accept="image/*">
+	<br>
+	<button id="createQuestion" class="button-card" (click)="saveQuestion()">Créer</button>
+	</form>
 </div>

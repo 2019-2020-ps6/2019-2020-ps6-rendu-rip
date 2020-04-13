@@ -4,7 +4,9 @@
     <div class = "errorMessage" *ngIf = "questionInvalid()">
         {{errorMessage}}
     </div>
-    {{question.label}} <button id = "editLabelQuestion" class="button" (click)="editLabelQuestion()"><i class="fas fa-edit"></i></button>
+    {{question.label}} 
+    <div *ngIf="image.url"class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="question image"></div>
+    <button id="editLabelQuestion" class="button" (click)="editLabelQuestion()"><i class="fas fa-edit"></i></button>
     <div *ngIf="showFormQuestion ">
         <form [formGroup]="questionForm">
          <input type="text" [formControlName]="'label'">

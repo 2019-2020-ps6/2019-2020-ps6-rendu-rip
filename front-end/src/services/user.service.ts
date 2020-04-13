@@ -28,12 +28,18 @@ export class UserService {
 
   setUsersFromUrl() { this.http.get<User[]>(this.userUrl).subscribe((users) => this.setUsers(users)); }
 
-  addUser(user: User) { this.http.post<User>(this.userUrl, user, this.httpOptions).subscribe(() => this.setUsersFromUrl()); }
+  addUser(user: User) { 
+    console.log("user input")
+    console.log(user)
+    this.http.post<User>(this.userUrl, user, this.httpOptions).subscribe((u) => {
+    console.log("user got")
+    console.log(u)
+    this.setUsersFromUrl()}); }
 
   addUserWithImage(user: User, image: Img) {
     const url = `${serverUrl}/images/user`;
     this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
-      user.imageId = (img.id).toString();
+      user.imageId = img.id;//(img.id).toString();
       this.addUser(user);//met à jour observable
     });
   }

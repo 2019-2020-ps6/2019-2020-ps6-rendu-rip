@@ -18,9 +18,8 @@ export class ImageService {
   private httpOptions = httpOptionsBase;
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
 
-  private loadAllImages(images: Img[], imgType: string, log: string){
-    const url = `${serverUrl}/images/${imgType}`;
-    this.http.get<Img[]>(url).subscribe(imgs => {
+  private loadAllImages(images: Img[], path: string, log: string){
+    this.http.get<Img[]>( `${serverUrl}/images/${path}`, this.httpOptions).subscribe(imgs => {
       imgs.forEach(i => { 
         const ind = images.length;
         images[ind] = i as Img;
@@ -29,8 +28,8 @@ export class ImageService {
     });
   }
 
-  private loadImage(image: Img, url: string, log: string){
-    this.http.get<Img>(url).subscribe(img => {
+  private loadImage(image: Img, path: string, log: string){
+    this.http.get<Img>(`${serverUrl}/images/${path}`, this.httpOptions).subscribe(img => {
       console.log(`${log}: charging image - ${img.name}`);
       image.id = img.id;
       image.name = img.name;
@@ -51,8 +50,8 @@ export class ImageService {
   }
 
   loadQuizImage(image: Img, id: string){
-    const url = `${serverUrl}/images/${id == null? 'default/1' : 'quiz/' + id}`;
-    this.loadImage(image, url, 'Quiz');
+    //const path = ;//`${serverUrl}/images/${id == null? 'default/1' : 'quiz/' + id}`;
+    this.loadImage(image, `${id == null? 'default/1' : 'quiz/' + id}`, 'Quiz');
     /*this.http.get<Img>(url).subscribe(img => {
       console.log("Quiz: charging image - " + img.name);
       image.id = img.id;
@@ -62,18 +61,18 @@ export class ImageService {
   }
 
   loadQuestionImage(image: Img, id: string){
-    const url = `${serverUrl}/images/question/${id}`;
-    this.loadImage(image, url, 'Question');
+    //const path = ;//`${serverUrl}/images/question/${id}`;
+    this.loadImage(image, `question/${id}`, 'Question');
   }
 
   loadAnswerImage(image: Img, id: string){
-    const url = `${serverUrl}/images/answer/${id}`;
-    this.loadImage(image, url, 'Answer');
+    //const path = ;//`${serverUrl}/images/answer/${id}`;
+    this.loadImage(image, `answer/${id}`, 'Answer');
   }
 
   loadUserImage(image: Img, id: string){
-    const url = `${serverUrl}/images/${id == null? '1' : 'user/' + id}`;
-    this.loadImage(image, url, 'User');
+    //const path = ;//`${serverUrl}/images/${id == null? '1' : 'user/' + id}`;
+    this.loadImage(image,`${id == null? '1' : 'user/' + id}`, 'User');
     /*this.http.get<Img>(url).subscribe(img => {
       console.log("User: charging image - " + img.name);
       image.id = img.id;
@@ -85,10 +84,8 @@ export class ImageService {
   //bypass security --> sinon pb ne s'affiche pas...
   sanitize(url: string) { return this.sanitizer.bypassSecurityTrustUrl(url); }
 
-  deleteQuizImage(image: Img){
-    const url = `${serverUrl}/images/quiz/${image.id}`;
-    this.http.delete<Img>(url).subscribe(() => console.log("Image: deletion..."));
-  }
+  deleteQuizImage(image: Img) { this.http.delete<Img>(`${serverUrl}/images/quiz/${image.id}`, this.httpOptions)
+    .subscribe(() => console.log("Image: deletion...")); }
 
   /*createQuizImageAndSaveQuiz(imgToSave: Img, quiz: Quiz, quizService: QuizService) {
     const url = serverUrl + '/images/quiz';

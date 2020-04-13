@@ -1,20 +1,18 @@
 <div class="card">
-  <h2>Créer un nouveau quiz</h2>
+  <h2>Nouveau quiz</h2>
   <form class="quiz-form" [formGroup]="quizForm">
     <label for="name">Nom</label><br>
     <input class="input-custom" type="text" id="name" [formControlName]="'name'">
     <br>
-    <label for="theme">
-      Thème :
-      <br>
-      <select name = "Thème" id = "theme" [formControlName] = "'theme'"> 
-        <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
-          {{current_theme}}
-        </option>
-      </select>
-      <button class="button-card" type="button" (click)="swapShowTheme()">{{getThemeBtnTxt()}}</button>
-      <div *ngIf="showThemeForm"><theme-form (themeAdded) = "swapShowTheme()"></theme-form></div>
-    </label>
+    <label for="theme">Thème</label>
+    <br>
+    <select name = "Thème" id = "theme" [formControlName] = "'theme'"> 
+      <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
+        {{current_theme}}
+      </option>
+    </select>
+    <button class="button-card" type="button" (click)="switchShowTheme()">{{getThemeBtnTxt()}}</button>
+    <div *ngIf="showThemeForm"><theme-form (themeAdded) = "switchShowTheme()"></theme-form></div>
     <br>
     Charger une image depuis:
     <div class="frame image" *ngIf="imagePreview">
@@ -43,7 +41,7 @@
     default type="submit" so careful! give an explicit type -->
     <!-- this below is the submit button (and the only one) -> submit the form -->
     <div class="buttons-bottom">
-      <button type="submit" class="button-card" (click)="addQuiz()">Créer</button>
+      <button type="submit" class="button-card" (click)="saveQuiz()">Créer</button>
       <button type="button" class="button-card" (click)="reset()">Annuler</button>
     </div>
   </form>

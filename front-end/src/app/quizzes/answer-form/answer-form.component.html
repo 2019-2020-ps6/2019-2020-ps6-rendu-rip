@@ -1,8 +1,12 @@
 <form [formGroup]="answerForm">
-<label>
-    Réponse
-    <input type="text" [formControlName]="'value'">
-  
+  <label for="name">Réponse</label><br>
+  <input type="text" [formControlName]="'value'" id="name"><br>
+  Charger une image depuis:
+  <div class="frame image" *ngIf="imagePreview">
+    <img class="thumbnail" [src]="displayImage()" alt="quiz image">
+  </div>
+	<div class="label"><label for="image64" class="button-card">Cet appareil</label></div>
+	<input type="file" class="hidden" id="image64" (change)="onChangeFile($event)" accept="image/*">
   <div *ngIf="!aRightAnswerIsAlreadyPresent || isSetToRight()">
     Correct
     <input type="checkbox" [formControlName]="'isCorrect'"> 
@@ -11,9 +15,7 @@
     Correct
     <input type="checkbox" disabled="true">
   </div>
-  <button id = "submitAnswer" class="button-card" type="submit" (click)="submitAnswer()">Valider</button>
-  <button id = "cancelAnswer" class="button-card" type="reset"(click)="cancelAnswer()">Annuler</button>
+  <button id="submitAnswer" class="button-card" type="submit" (click)="submitAnswer()">Valider</button>
+  <button id="cancelAnswer" class="button-card" type="reset"(click)="cancelAnswer()">Annuler</button>
   <br>
-    
-</label>
 </form>

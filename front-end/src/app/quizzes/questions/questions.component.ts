@@ -4,6 +4,8 @@ import { Answer } from '../../../models/answer.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Quiz } from 'src/models/quiz.model';
 import { QuizService } from 'src/services/quiz.service';
+import { Img } from '../../../models/image.model';
+import { ImageService } from 'src/services/image.service';
 
 @Component({
   selector: 'app-questions',
@@ -19,24 +21,39 @@ export class QuestionsComponent implements OnInit {
   questionForm: FormGroup;
 
 
-  @Input()
-  question: Question;
-  @Input()
-  quiz: Quiz;
+  @Input() question: Question;
+  @Input() quiz: Quiz;
 
-  @Output()
-  questionDeleted: EventEmitter<Question> = new EventEmitter<Question>();
-  @Output()
-  theQuestionIsInvalid : EventEmitter<boolean> = new EventEmitter<boolean>();//non utilisé, servira peut-être à mettre un tag incomplet à un quiz, (pas testé non plus^^)
+  @Output() questionDeleted: EventEmitter<Question> = new EventEmitter<Question>();
+  @Output() theQuestionIsInvalid : EventEmitter<boolean> = new EventEmitter<boolean>();//non utilisé, servira peut-être à mettre un tag incomplet à un quiz, (pas testé non plus^^)
 
 
-  public answers: Answer[];
+  public answers: Answer[];//???
 
-  constructor(public formBuilder: FormBuilder, public quizService:QuizService) { }
+  image: Img;
+
+  constructor(public formBuilder: FormBuilder, public quizService: QuizService, public imageService: ImageService) {}
 
   ngOnInit() {
-    this.answers = this.question.answers;
+    this.loadImage();
+    this.answers = this.question.answers;//???
   }
+
+  //default image if no imgId in Quiz
+  loadImage(){
+    this.image = {} as Img;
+    const id = this.question.imageId;
+    if(id!=null) this.imageService.loadQuestionImage(this.image, id);
+  }
+
+  deleteQuestion() { this.questionDeleted.emit(this.question) }
+
+  getImgSrc() { return this.imageService.sanitize(this.image.url) }
+
+
+  //to be pushed else where --> question form actually...
+  //+ good to have a 'answer' component --> more flexible
+
 
   initializeQuestionForm() {
     this.questionForm = this.formBuilder.group({
@@ -51,7 +68,7 @@ export class QuestionsComponent implements OnInit {
       return;
     }
     this.question.label = questionToUpdate.label;
-    this.quizService.updateQuestion(this.quiz,this.question);
+    this.quizService.updateQuestion(this.quiz.id, this.question);
     this.questionForm.reset();
     this.showFormQuestion = false;
   } 
@@ -75,9 +92,6 @@ export class QuestionsComponent implements OnInit {
     this.showFormQuestion =true;
   }
 
-  deleteQuestion() {
-    this.questionDeleted.emit(this.question);
-  }
   createAnswer() {
     this.switchShow(true);
   }
@@ -86,11 +100,10 @@ export class QuestionsComponent implements OnInit {
     this.switchShow(show);
     this.answerSelected = null;
   }
+  
   switchShow(show: boolean) {
     this.show = show;
   }
-
-
 
   questionInvalid(){
     if(!this.answers|| this.answers.length==0){
@@ -99,8 +112,7 @@ export class QuestionsComponent implements OnInit {
       return true;
     }
     var oneRightAnswer = false
-    this.answers.forEach(element =>{
-      if(element.isCorrect) oneRightAnswer = true; })
+    this.answers.forEach(element => { if(element.isCorrect) oneRightAnswer = true })
     if(!oneRightAnswer){
       this.errorMessage = "Il n'y a pas de réponse correcte."
       this.theQuestionIsInvalid.emit(true);

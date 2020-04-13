@@ -6,7 +6,7 @@ import { Quiz } from '../../../models/quiz.model';
 import { Img } from 'src/models/image.model';
 import { ImageService } from 'src/services/image.service';
 import { ThemeService } from 'src/services/theme.service';
-import { Theme } from 'src/models/theme.model';
+import { Theme } from 'src/models/theme.model';//??
 
 @Component({
   selector: 'app-quiz-form',
@@ -19,15 +19,15 @@ export class QuizFormComponent implements OnInit {
   public quizForm: FormGroup;
   public THEME_LIST: string[];
   
-  showThemeForm: boolean;
   imageName: string;
   imagePreview: string;
 
+  showThemeForm: boolean;
   private themeBtnTxt: string;
   private themeBtnTxtInit: string = "Autre..."; 
   private themeBtnTxtShow: string = "Annuler"; 
 
-  constructor(public formBuilder: FormBuilder, public imageService: ImageService, public quizService: QuizService, public themeService: ThemeService) {
+  constructor(public formBuilder: FormBuilder, public quizService: QuizService, public imageService: ImageService, public themeService: ThemeService) {
     // Form creation
   }
   
@@ -52,7 +52,7 @@ export class QuizFormComponent implements OnInit {
     this.showThemeForm = false;
   }
 
-  addQuiz() {
+  saveQuiz() {
     let quizToSave: Quiz = this.quizFillIn();
     if(!quizToSave) return;
     if(this.imagePreview){
@@ -115,7 +115,7 @@ export class QuizFormComponent implements OnInit {
   //sanitize necessary otherwise throw security error
   displayImage() { return this.imageService.sanitize(this.imagePreview); }
 
-  swapShowTheme() {
+  switchShowTheme() {
     this.showThemeForm = !this.showThemeForm; 
     this.themeBtnTxt = this.showThemeForm? this.themeBtnTxtShow : this.themeBtnTxtInit;
   }

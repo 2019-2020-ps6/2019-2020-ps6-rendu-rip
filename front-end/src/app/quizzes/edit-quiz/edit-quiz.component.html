@@ -19,9 +19,9 @@
                       {{current_theme}}
                     </option>
                   </select>
-                  <button class="button-card" type="button" (click)="swapShowTheme()">{{getThemeBtnTxt()}}</button>
+                  <button class="button-card" type="button" (click)="switchShowTheme()">{{getThemeBtnTxt()}}</button>
                 </h2>
-                <div *ngIf="showThemeForm"><theme-form (themeAdded)="swapShowTheme()"></theme-form></div>
+                <div *ngIf="showThemeForm"><theme-form (themeAdded)="switchShowTheme()"></theme-form></div>
             </label>
             <div *ngIf="image.url" class="frame"><img class = "thumbnail" [src]="displayImage()" alt="quiz image"></div>
             <div class="label"><label for="image64" class="button-card">Cet appareil</label></div>

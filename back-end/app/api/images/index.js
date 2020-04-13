@@ -39,9 +39,9 @@ router.get('/:type/:id', (req, res) => {
 //:::::::::::create one image
 router.post('/:type', (req, res) => {
   let imageStruct = getImageStruct(req.params.type)
-  if(imageStruct == DefaultImage) res.status(404).end()
+  //if(imageStruct == DefaultImage) res.status(404).end()
   try {
-    const img = imageStruct.create({...body})
+    const img = imageStruct.create({...req.body})
     res.status(201).json(img)
   } catch (err) {
     manageAllErrors(res, err)
@@ -51,10 +51,10 @@ router.post('/:type', (req, res) => {
 //:::::::::::modify one image
 router.put('/:type/:id', (req, res) => {
   let imageStruct = getImageStruct(req.params.type)
-  if(imageStruct == DefaultImage) res.status(404).end()
+  //if(imageStruct == DefaultImage) res.status(404).end()
   try {
     const img = imageStruct.update(req.params.id, req.body)
-    res.status(201).json(img)
+    res.status(200).json(img)//ou 201??
   } catch (err) {
     manageAllErrors(res, err)
   }
