@@ -19,9 +19,7 @@ export class ImageService {
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
 
   loadQuizImage(image: Img, id: string){
-    const url = serverUrl
-      + "/images" 
-      + ((id == null)? "/1" : "/quiz/" + id);
+    const url = `${serverUrl}/images/${id == null? 'default/1' : 'quiz/' + id}`;
     this.http.get<Img>(url).subscribe(img => {
       console.log("Quiz: charging image - " + img.name);
       image.id = img.id;
@@ -29,6 +27,16 @@ export class ImageService {
       image.url = img.url;
     });
   }
+
+  loadUserImage(image: Img, id: string){
+    const url = `${serverUrl}/images/${id == null? '1' : 'user/' + id}`;
+    this.http.get<Img>(url).subscribe(img => {
+      console.log("User: charging image - " + img.name);
+      image.id = img.id;
+      image.name = img.name;
+      image.url = img.url;
+    });
+  }  
 
   //bypass security --> sinon pb ne s'affiche pas...
   sanitize(url: string) {

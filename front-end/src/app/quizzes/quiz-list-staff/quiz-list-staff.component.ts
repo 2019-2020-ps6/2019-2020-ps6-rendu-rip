@@ -15,10 +15,7 @@ export class QuizListStaffComponent implements OnInit {
     this.quizService.quizzes$.subscribe((quizzes) => this.quizList = quizzes);
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   
-  deleteQuiz(quiz: Quiz) {
-    this.quizService.deleteQuiz(quiz);
-  }
+  deleteQuiz(quiz: Quiz) { this.quizService.deleteQuiz(quiz); }
 }

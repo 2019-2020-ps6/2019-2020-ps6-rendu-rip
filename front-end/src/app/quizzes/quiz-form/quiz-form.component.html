@@ -13,8 +13,8 @@
         </option>
       </select>
       
-      <button (click)="addNewTheme()">Autres... </button>
-        <div *ngIf="showThemeForm"><app-add-thems-form (themeAdded) = "resetAppearing()"></app-add-thems-form></div>
+      <button (click)="swapShowTheme()">Autres... </button>
+      <div *ngIf="showThemeForm"><app-add-thems-form (themeAdded) = "swapShowTheme()"></app-add-thems-form></div>
       
 
     </label>

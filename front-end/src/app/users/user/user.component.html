@@ -1,4 +1,4 @@
-<div class="">
-    <h1>Nom : {{user.name}}</h1>
-    <button class="button-card" (click)="deleteUser()">Supprimer</button>
+<div class="user">
+    <h1>{{user.name}}</h1>
+    <div *ngIf = "image.url" class="frame"><img class="thumbnail" [src]="displayImage()" alt="user image"></div>
 </div>

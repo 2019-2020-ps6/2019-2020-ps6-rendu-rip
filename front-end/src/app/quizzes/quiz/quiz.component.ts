@@ -12,18 +12,13 @@ import { ImageService } from 'src/services/image.service';
 
 export class QuizComponent implements OnInit {
 
-  @Input()
-  quiz: Quiz;
+  @Input() quiz: Quiz;
+  @Output() quizDeleted: EventEmitter<Quiz> = new EventEmitter<Quiz>();
   image: Img;
 
-  @Output()
-  quizDeleted: EventEmitter<Quiz> = new EventEmitter<Quiz>();
+  constructor(public quizService : QuizService, public imageService : ImageService) {}
 
-  constructor(public imageService : ImageService, public quizService : QuizService) {}
-
-  ngOnInit() {
-    this.loadImage();
-  }
+  ngOnInit() { this.loadImage(); }
 
   //default image if no imgId in Quiz
   loadImage(){
@@ -31,11 +26,8 @@ export class QuizComponent implements OnInit {
     const id = this.quiz.imageId;
     this.imageService.loadQuizImage(this.image, id);
   }
-  deleteQuiz() {
-    this.quizDeleted.emit(this.quiz);
-  }
 
-  sanitize(url: string) {
-    return this.imageService.sanitize(url);
-  }
+  deleteQuiz() { this.quizDeleted.emit(this.quiz); }
+
+  displayImage() { return this.imageService.sanitize(this.image.url) }
 }

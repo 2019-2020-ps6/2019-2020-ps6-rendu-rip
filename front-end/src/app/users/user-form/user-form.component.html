@@ -1,13 +1,20 @@
 <div class="card">
-    <h2>Créer un nouveau user</h2>
+    <h2>Nouvel accueilli</h2>
     <form class="user-form" [formGroup]="userForm">
-      <br>
       <label for="name">
-        Nom <br>
+        Nom<br>
         <input class="input-custom" type="text" id="name" [formControlName]="'name'">
       </label>
+      <div class="frame image" *ngIf="imagePreview">
+        <img class="thumbnail" [src]="displayImage()" alt="quiz image">
+      </div>
       <br>
-      <br>
-      <button type="submit" class="button-card" (click)="addUser()">Créer</button>
+      Image
+      <div class="label"><label for="image64" class="button-card">Charger</label></div>
+      <input type="file" class="hidden" id="image64" (change)="onChangeFile($event)" accept="image/*">
+      <div class="buttons-bottom">
+        <button type="submit" class="button-card" (click)="addUser()">Créer</button>
+        <button type="button" class="button-card" (click)="reset()">Annuler</button>
+      </div>
     </form>
   </div>

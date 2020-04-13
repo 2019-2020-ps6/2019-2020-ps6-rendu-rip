@@ -1,25 +1,34 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { UserService } from 'src/services/user.service';
 import { User } from '../../../models/user.model';
+import { Img } from '../../../models/image.model';
+import { ImageService } from 'src/services/image.service';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
+
 export class UserComponent implements OnInit {
 
-  @Input()
-  user: User;
+  @Input() user: User;
+  @Output() userDeleted: EventEmitter<User> = new EventEmitter<User>();
+  image: Img;
 
-  @Output()
-  userDeleted: EventEmitter<User> = new EventEmitter<User>();
-  constructor() {
+  constructor(public userService : UserService, public imageService : ImageService) {}
+
+  ngOnInit() { this.loadImage(); }
+
+  //default image if no imgId in User
+  loadImage(){
+    this.image = {} as Img;
+    const id = this.user.imageId;
+    if(id == null) return;
+    this.imageService.loadUserImage(this.image, id);
   }
 
-  ngOnInit() {
-  }
-  deleteUser() {
-    this.userDeleted.emit(this.user);
-  }
+  deleteUser() { this.userDeleted.emit(this.user); }
 
+  displayImage() { return this.imageService.sanitize(this.image.url) }
 }

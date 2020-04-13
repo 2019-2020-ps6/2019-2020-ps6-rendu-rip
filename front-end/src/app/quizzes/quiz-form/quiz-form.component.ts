@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ViewChildren, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { QuizService } from '../../../services/quiz.service';
@@ -28,7 +28,7 @@ export class QuizFormComponent implements OnInit {
     this.showThemeForm = false;
     this.quizForm = this.formBuilder.group({
       name: [''],
-      theme: [''],
+      theme: ['']
     });
     this.THEME_LIST= [];
     this.themeService.themes$.subscribe((themes) =>{
@@ -106,16 +106,8 @@ export class QuizFormComponent implements OnInit {
     console.log(this.imagePreview);
   }
 
-  displayImage() {
-    //sanitize necessary otherwise throw security error
-    return this.imageService.sanitize(this.imagePreview);
-  }
+  //sanitize necessary otherwise throw security error
+  displayImage() { return this.imageService.sanitize(this.imagePreview); }
 
-  addNewTheme(): void {
-    this.showThemeForm = true;
-  }
-
-  resetAppearing(): void {
-    this.showThemeForm = false;
-  }  
+  swapShowTheme() { this.showThemeForm = !this.showThemeForm; }
 }

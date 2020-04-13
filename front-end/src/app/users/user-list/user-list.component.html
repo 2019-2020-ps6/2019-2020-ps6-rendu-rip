@@ -4,6 +4,11 @@
 <app-user-form></app-user-form>
 <div class="user-list">
     <div class="card user" *ngFor="let user of userList">
-        <app-user [user]="user" (userDeleted) = "deleteUser($event)"></app-user>
+        <button class="button-card delete" (click)="deleteUser(user)">
+            <i class="fas fa-times"></i>
+        </button>
+        <button class="button-card user"><!-- routerLink= "/edit-user/{{user.id}}">-->
+            <app-user [user]="user" (userDeleted) = "deleteUser($event)"></app-user>
+        </button>
     </div>
 </div>
