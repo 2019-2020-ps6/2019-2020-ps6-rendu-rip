@@ -7,6 +7,17 @@
     width:80%;
 }*/
 
+.hidden {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.label {
+    //margin-top: 0.5em;
+    margin-top: 0.3em;
+}
+
 .frame{
     height: 120px;//à revoir
     width: 150px;
@@ -23,4 +34,8 @@
     margin-right: auto;
     height: 100%;//80px;
     width: 100%;//100px
+}
+
+.buttons-bottom {
+    margin-top: 1em;
 }

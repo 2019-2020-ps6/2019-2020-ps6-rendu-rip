@@ -27,7 +27,7 @@ import { CustomersComponent } from './start/customers/customers.component';
 import { QuizSummaryComponent } from './quiz-sequence/quiz-summary/quiz-summary.component';
 import { QuizEndComponent } from './quiz-sequence/quiz-end/quiz-end.component';
 import { DisplayRightAnswerComponent } from './quiz-sequence/display-right-answer/display-right-answer.component';
-import { AddThemsFormComponent } from './quizzes/add-thems-form/add-thems-form.component';
+import { ThemeFormComponent } from './quizzes/theme-form/theme-form.component';
 import { DisplayRightVersusAnswerSelectedComponent } from './quiz-sequence/display-right-versus-answer-selected/display-right-versus-answer-selected.component';
 
 @NgModule({
@@ -56,7 +56,7 @@ import { DisplayRightVersusAnswerSelectedComponent } from './quiz-sequence/displ
     QuizEndComponent,
     DisplayRightAnswerComponent,
     DisplayRightVersusAnswerSelectedComponent,
-    AddThemsFormComponent,
+    ThemeFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,4 +67,4 @@ import { DisplayRightVersusAnswerSelectedComponent } from './quiz-sequence/displ
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

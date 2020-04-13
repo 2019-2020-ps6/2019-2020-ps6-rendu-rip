@@ -23,8 +23,15 @@ export class QuizFormComponent implements OnInit {
   imageName: string;
   imagePreview: string;
 
+  private themeBtnTxt: string;
+  private themeBtnTxtInit: string = "Autre..."; 
+  private themeBtnTxtShow: string = "Annuler"; 
+
   constructor(public formBuilder: FormBuilder, public imageService: ImageService, public quizService: QuizService, public themeService: ThemeService) {
     // Form creation
+  }
+  
+  ngOnInit() {
     this.showThemeForm = false;
     this.quizForm = this.formBuilder.group({
       name: [''],
@@ -35,9 +42,8 @@ export class QuizFormComponent implements OnInit {
         this.THEME_LIST =[];
         for(var i =0 ; i<themes.length;i++) this.THEME_LIST.push(themes[i].name)
     } );
+    this.themeBtnTxt = this.themeBtnTxtInit;
   }
-  
-  ngOnInit() {}
 
   reset(){
     this.quizForm.reset()
@@ -109,5 +115,10 @@ export class QuizFormComponent implements OnInit {
   //sanitize necessary otherwise throw security error
   displayImage() { return this.imageService.sanitize(this.imagePreview); }
 
-  swapShowTheme() { this.showThemeForm = !this.showThemeForm; }
+  swapShowTheme() {
+    this.showThemeForm = !this.showThemeForm; 
+    this.themeBtnTxt = this.showThemeForm? this.themeBtnTxtShow : this.themeBtnTxtInit;
+  }
+
+  getThemeBtnTxt(): string { return this.themeBtnTxt; }
 }

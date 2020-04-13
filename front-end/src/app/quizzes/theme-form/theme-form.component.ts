@@ -5,21 +5,19 @@ import { ThemeService } from 'src/services/theme.service';
 import { Theme } from 'src/models/theme.model';
 
 @Component({
-  selector: 'app-add-thems-form',
-  templateUrl: './add-thems-form.component.html',
-  styleUrls: ['./add-thems-form.component.scss']
+  selector: 'theme-form',
+  templateUrl: './theme-form.component.html',
+  styleUrls: ['./theme-form.component.scss']
 })
-export class AddThemsFormComponent implements OnInit {
+
+export class ThemeFormComponent implements OnInit {
 
   themeForm: FormGroup;
   
   @Output()
   themeAdded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-
-  constructor(public formBuilder: FormBuilder, public themeService: ThemeService) {
-
-  }
+  constructor(public formBuilder: FormBuilder, public themeService: ThemeService) {}
 
   ngOnInit() {
     this.themeForm = this.formBuilder.group({
@@ -27,18 +25,10 @@ export class AddThemsFormComponent implements OnInit {
     });
   }
 
-
-
-  okClicked(): void {
+  saveTheme(): void {
     const themeToAdd: Theme =  this.themeForm.getRawValue() as Theme;
     this.themeService.addTheme(themeToAdd);
     this.themeAdded.emit(true);
-    console.log('la valeur de theme est : ' + themeToAdd);
+    console.log(`la valeur de theme est : ${themeToAdd}`);
   }
-
-  cancelClicked(): void {
-    this.themeForm.reset();
-    this.themeAdded.emit(false);
-  }
-
 }

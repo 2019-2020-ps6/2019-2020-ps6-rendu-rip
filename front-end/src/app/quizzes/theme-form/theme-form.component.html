@@ -1,0 +1,7 @@
+<form [formGroup]="themeForm">
+    <label>
+        Nouveau
+        <input type="text" [formControlName]="'name'">
+    </label>
+    <button class="button-card" type="submit" (click) = "saveTheme()">Ok</button>
+</form>

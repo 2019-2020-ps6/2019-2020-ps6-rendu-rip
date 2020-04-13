@@ -12,11 +12,8 @@
           {{current_theme}}
         </option>
       </select>
-      
-      <button (click)="swapShowTheme()">Autres... </button>
-      <div *ngIf="showThemeForm"><app-add-thems-form (themeAdded) = "swapShowTheme()"></app-add-thems-form></div>
-      
-
+      <button class="button-card" type="button" (click)="swapShowTheme()">{{getThemeBtnTxt()}}</button>
+      <div *ngIf="showThemeForm"><theme-form (themeAdded) = "swapShowTheme()"></theme-form></div>
     </label>
     <br>
     Charger une image depuis:

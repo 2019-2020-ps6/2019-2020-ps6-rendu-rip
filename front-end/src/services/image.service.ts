@@ -18,35 +18,75 @@ export class ImageService {
   private httpOptions = httpOptionsBase;
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
 
+  private loadAllImages(images: Img[], imgType: string, log: string){
+    const url = `${serverUrl}/images/${imgType}`;
+    this.http.get<Img[]>(url).subscribe(imgs => {
+      imgs.forEach(i => { 
+        const ind = images.length;
+        images[ind] = i as Img;
+        console.log(`${log}BD: adding image - ${i.name}`);
+      });
+    });
+  }
+
+  private loadImage(image: Img, url: string, log: string){
+    this.http.get<Img>(url).subscribe(img => {
+      console.log(`${log}: charging image - ${img.name}`);
+      image.id = img.id;
+      image.name = img.name;
+      image.url = img.url;
+    });
+  }
+
+  loadAllQuizImages(images: Img[]){
+    //const url = `${serverUrl}/images/quiz`;
+    this.loadAllImages(images, 'quiz', 'Quiz');
+    /*this.http.get<Img[]>(url).subscribe(imgs => {
+      imgs.forEach(i => { 
+        const ind = images.length;
+        images[ind] = i as Img;
+        console.log("QuizBD: adding image - " + i.name);
+      });
+    });*/
+  }
+
   loadQuizImage(image: Img, id: string){
     const url = `${serverUrl}/images/${id == null? 'default/1' : 'quiz/' + id}`;
-    this.http.get<Img>(url).subscribe(img => {
+    this.loadImage(image, url, 'Quiz');
+    /*this.http.get<Img>(url).subscribe(img => {
       console.log("Quiz: charging image - " + img.name);
       image.id = img.id;
       image.name = img.name;
       image.url = img.url;
-    });
+    });*/
+  }
+
+  loadQuestionImage(image: Img, id: string){
+    const url = `${serverUrl}/images/question/${id}`;
+    this.loadImage(image, url, 'Question');
+  }
+
+  loadAnswerImage(image: Img, id: string){
+    const url = `${serverUrl}/images/answer/${id}`;
+    this.loadImage(image, url, 'Answer');
   }
 
   loadUserImage(image: Img, id: string){
     const url = `${serverUrl}/images/${id == null? '1' : 'user/' + id}`;
-    this.http.get<Img>(url).subscribe(img => {
+    this.loadImage(image, url, 'User');
+    /*this.http.get<Img>(url).subscribe(img => {
       console.log("User: charging image - " + img.name);
       image.id = img.id;
       image.name = img.name;
       image.url = img.url;
-    });
-  }  
-
-  //bypass security --> sinon pb ne s'affiche pas...
-  sanitize(url: string) {
-    return this.sanitizer.bypassSecurityTrustUrl(url);
+    });*/
   }
 
+  //bypass security --> sinon pb ne s'affiche pas...
+  sanitize(url: string) { return this.sanitizer.bypassSecurityTrustUrl(url); }
+
   deleteQuizImage(image: Img){
-    const url = serverUrl
-      + "/images"
-      + "/quiz/" + image.id;
+    const url = `${serverUrl}/images/quiz/${image.id}`;
     this.http.delete<Img>(url).subscribe(() => console.log("Image: deletion..."));
   }
 

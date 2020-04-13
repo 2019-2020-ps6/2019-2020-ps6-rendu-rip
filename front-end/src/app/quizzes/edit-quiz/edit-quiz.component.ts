@@ -28,9 +28,11 @@ export class EditQuizComponent implements OnInit {
   imgName: string;
   imgUrl: string;
   public THEME_LIST : string[];
+  private themeBtnTxt: string;
+  private themeBtnTxtInit: string = "Autre..."; 
+  private themeBtnTxtShow: string = "Annuler"; 
 
-  constructor(private route: ActivatedRoute, public imageService: ImageService, public quizService: QuizService, public formBuilder: FormBuilder, public themeService : ThemeService) {
-  }
+  constructor(private route: ActivatedRoute, public imageService: ImageService, public quizService: QuizService, public formBuilder: FormBuilder, public themeService : ThemeService) {}
 
   ngOnInit() {
     this.quizService.quizSelected$.subscribe((quiz) => this.onQuizSelected(quiz));
@@ -39,9 +41,10 @@ export class EditQuizComponent implements OnInit {
     this.themeService.themes$.subscribe((themes) =>{
       this.THEME_LIST =[];
       for(var i =0 ; i<themes.length;i++) this.THEME_LIST.push(themes[i].name)
-  } );
+    });
     this.editionMode = false;
     this.showThemeForm = false;
+    this.themeBtnTxt = this.themeBtnTxtInit;
   }
 
   private onQuizSelected(quiz: Quiz) {
@@ -141,11 +144,11 @@ export class EditQuizComponent implements OnInit {
   displayImage() {
     return this.imageService.sanitize(this.imgUrl? this.imgUrl : this.image.url);
   }
-  addNewTheme(): void {
-    this.showThemeForm = true;
+  
+  swapShowTheme() {
+    this.showThemeForm = !this.showThemeForm; 
+    this.themeBtnTxt = this.showThemeForm? this.themeBtnTxtShow : this.themeBtnTxtInit;
   }
 
-  resetAppearing(): void {
-    this.showThemeForm = false;
-  }  
+  getThemeBtnTxt(): string { return this.themeBtnTxt; }
 }
