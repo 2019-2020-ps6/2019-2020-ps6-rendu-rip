@@ -10,7 +10,7 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { QuestionWidgetComponent } from './quiz-sequence/question-widget/question-widget.component';
 import { QuizSummaryComponent } from './quiz-sequence/quiz-summary/quiz-summary.component';
 import { QuizEndComponent } from './quiz-sequence/quiz-end/quiz-end.component';
-import { UsersListComponent } from './start/users-list/users-list.component';
+import { UsersListComponent } from './users/user-selection-list/users-list.component';
 import { GaleryComponent } from './galery/galery.component';
 
 

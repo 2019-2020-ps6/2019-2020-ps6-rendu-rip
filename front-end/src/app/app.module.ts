@@ -29,7 +29,7 @@ import { QuizEndComponent } from './quiz-sequence/quiz-end/quiz-end.component';
 import { DisplayRightAnswerComponent } from './quiz-sequence/display-right-answer/display-right-answer.component';
 import { ThemeFormComponent } from './quizzes/theme-form/theme-form.component';
 import { DisplayRightVersusAnswerSelectedComponent } from './quiz-sequence/display-right-versus-answer-selected/display-right-versus-answer-selected.component';
-import { UsersListComponent } from './start/users-list/users-list.component';
+import { UsersListComponent } from './users/user-selection-list/users-list.component';
 import { GaleryComponent } from './galery/galery.component';
 
 @NgModule({
