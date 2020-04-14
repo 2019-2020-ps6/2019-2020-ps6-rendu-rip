@@ -20,7 +20,7 @@ export class AnswerListWidgetComponent implements OnInit {
   answerSelected : Answer;
   display: number;
 
-  TIME_OUT_FOR_CHOSING_ANSWER: number = 100000;
+  TIME_OUT_FOR_CHOSING_ANSWER: number = 10000;
   TIME_OUT_DISPLAY_COMPARAISON: number = 5000;
   TIME_OUT_DISPLAY_RIGHT_ANSWER: number = 5000;
 

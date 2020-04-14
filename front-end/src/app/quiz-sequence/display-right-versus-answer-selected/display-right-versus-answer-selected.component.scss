@@ -1,10 +1,10 @@
 @import '../../../styles/images.scss';
 
 .box-answers {
-    height: 50%;
-    width: 40%;
-    margin: auto;
-    padding: 1em;
+    //margin-top: auto
+    margin-bottom: auto;
+    margin-top: auto;
+    margin-top: 1em;
     border-style: solid;
     border-color:  rgb(179, 11, 89);
     display: flex;
@@ -14,4 +14,14 @@
 
 .answer-li {
     margin: auto;
+}
+.separation{
+    width:5px;
+    border-left:1px solid gray;
+}
+
+.victory-message{
+    color: red;
+    font-family: futura;
+    font-style: italic;
 }

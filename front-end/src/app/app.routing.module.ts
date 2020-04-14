@@ -11,7 +11,7 @@ import { QuestionWidgetComponent } from './quiz-sequence/question-widget/questio
 import { QuizSummaryComponent } from './quiz-sequence/quiz-summary/quiz-summary.component';
 import { QuizEndComponent } from './quiz-sequence/quiz-end/quiz-end.component';
 import { UsersSelectionListComponent } from './users/user-selection-list/user-selection-list.component';
-import { GaleryComponent } from './galery/galery.component';
+import { GalleryComponent } from './gallery/gallery.component';
 
 
 const routes: Routes = [
@@ -23,7 +23,7 @@ const routes: Routes = [
     { path: 'staff/quiz-list', component: QuizListStaffComponent },
     { path: 'edit-quiz/:id', component: EditQuizComponent },
     //{ path: 'edit-quiz/:id', component: EditQuizComponent }, --> specifier plusieurs routes pour modifier depuis plusieurs endroits
-    { path: 'galery', component: GaleryComponent},
+    { path: 'gallery', component: GalleryComponent},
     //ET bouton 'Retour' revenir au bon endroit
     { path: 'staff/user-list', component: UserListComponent },
     

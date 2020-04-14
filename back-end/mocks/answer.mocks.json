@@ -102,7 +102,7 @@
     "id": 1586252018444
   },
   {
-    "value": "réponse2",
+    "value": "réponse",
     "isCorrect": false,
     "questionId": 1586252009498,
     "id": 1586252024775
@@ -133,11 +133,11 @@
     "imageId": "1586825135469"
   },
   {
-    "value": "La brebie",
+    "value": "La brebis",
     "isCorrect": false,
     "questionId": 1586591590041,
     "id": 1586591733752,
-    "imageId": "1586825147039"
+    "imageId": "1586877699150"
   },
   {
     "value": "La poule",
@@ -147,11 +147,11 @@
     "imageId": "1586825157539"
   },
   {
-    "value": "L'ane",
+    "value": "L'âne",
     "isCorrect": false,
     "questionId": 1586591590041,
     "id": 1586591745234,
-    "imageId": "1586825167339"
+    "imageId": "1586877735483"
   },
   {
     "value": "La cane",

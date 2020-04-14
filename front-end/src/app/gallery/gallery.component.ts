@@ -4,11 +4,11 @@ import { Img } from 'src/models/image.model';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-galery',
-  templateUrl: './galery.component.html',
-  styleUrls: ['./galery.component.scss']
+  selector: 'app-gallery',
+  templateUrl: './gallery.component.html',
+  styleUrls: ['./gallery.component.scss']
 })
-export class GaleryComponent implements OnInit {
+export class GalleryComponent implements OnInit {
 
   images: Img[] = []
 

@@ -1,17 +1,15 @@
-<div class="box">
-    <div *ngIf="answerSelected !==null && answerSelected!=rightAnswer; else elseBlock" class="box-answers">
-        <div class="answer-li">Votre réponse:<br>
-            <div *ngIf="answerSelected.value">{{answerSelected.value}}</div>
-            <div *ngIf="imageSel.url" class="frame"><img class="thumbnail" [src]="getImgSrcSel()" alt="answer image"></div>
-        </div>
-        <hr>
-        <div *ngIf = "rightAnswer" class="answer-li">Réponse:<br>
-            <div *ngIf="rightAnswer.value">{{rightAnswer.value}}</div>
-            <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="answer image"></div>
-        </div>
+<div *ngIf="answerSelected !==null && answerSelected!=rightAnswer; else elseBlock" class="box-answers">
+    <div class="answer-li">Votre réponse:<br>
+        <div *ngIf="answerSelected.value">{{answerSelected.value}}</div>
+        <div *ngIf="imageSel.url" class="frame"><img class="thumbnail" [src]="getImgSrcSel()" alt="answer image"></div>
     </div>
-    <ng-template #elseBlock>
-        <div *ngIf = "answerSelected===rightAnswer">Bravo !</div>
-        <app-display-right-answer [answers]=answers></app-display-right-answer>
-    </ng-template>
+    <div class="separation"></div>
+    <div *ngIf = "rightAnswer" class="answer-li">Bonne réponse:<br>
+        <div *ngIf="rightAnswer.value">{{rightAnswer.value}}</div>
+        <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="answer image"></div>
+    </div>
 </div>
+<ng-template #elseBlock>
+    <div class = "victory-message" *ngIf = "answerSelected===rightAnswer">Bravo ! C'était : </div>
+    <app-display-right-answer [answers]=answers></app-display-right-answer>
+</ng-template>

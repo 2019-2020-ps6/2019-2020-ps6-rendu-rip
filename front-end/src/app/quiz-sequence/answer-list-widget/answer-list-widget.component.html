@@ -4,7 +4,7 @@
     </div>
 </div>
 
-<div *ngIf="display === SHOW_ANSWER_COMPARISON">
+<div class ="answer-comparison" *ngIf="display === SHOW_ANSWER_COMPARISON">
     <app-display-right-versus-answer-selected [answerSelected] = "answerSelected" [answers] = "answers"></app-display-right-versus-answer-selected>
     <button class="button-card next-button" (click) = "skipComparison()">Suivant</button>
 </div>

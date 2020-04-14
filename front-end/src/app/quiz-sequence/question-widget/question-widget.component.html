@@ -1,10 +1,10 @@
 <button class="button-card" routerLink= "/customers">Retour</button>
 
 <div class = "box" *ngIf = "quiz">
-    <h2>-{{quiz.name}}-</h2>
-    <div class="box-inherit" *ngIf = "currentQuestion; else elseBlock">
+    <!--<h2>-{{quiz.name}}-</h2>-->
+    <div class = "take-all-space"*ngIf = "currentQuestion; else elseBlock">
         <div *ngIf="currentQuestion.label"><h4>{{currentQuestion.label}}</h4></div>
-        <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="question image"></div>
+        <div *ngIf="image.url" class="question-image"><img class="thumbnail" [src]="getImgSrc()" alt="question image"></div>
         <app-answer-list-widget [answers] = "currentQuestion.answers" (selected) = "onSelectedAnswer($event)" (next) = "onNext($event)"></app-answer-list-widget>
     </div>
     <ng-template #elseBlock>
