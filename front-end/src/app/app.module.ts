@@ -31,6 +31,7 @@ import { ThemeFormComponent } from './quizzes/theme-form/theme-form.component';
 import { DisplayRightVersusAnswerSelectedComponent } from './quiz-sequence/display-right-versus-answer-selected/display-right-versus-answer-selected.component';
 import { UsersSelectionListComponent } from './users/user-selection-list/user-selection-list.component';
 import { GalleryComponent } from './gallery/gallery.component';
+import { PassewordComponent } from './start/passeword/passeword.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { GalleryComponent } from './gallery/gallery.component';
     ThemeFormComponent,
     UsersSelectionListComponent,
     GalleryComponent,
+    PassewordComponent,
   ],
   imports: [
     BrowserModule,

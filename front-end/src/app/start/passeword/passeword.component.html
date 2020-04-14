@@ -1,0 +1,7 @@
+<form [formGroup]="loginForm">
+    <input [formControlName]="'password'" type="password" placeholder="Enter Password">
+    <button (click) = "loginUser()">Identifier</button>
+    <span *ngIf="isnotCorrect">
+        Vous avez entrez une mauvaise valeur !
+    </span>
+  </form>

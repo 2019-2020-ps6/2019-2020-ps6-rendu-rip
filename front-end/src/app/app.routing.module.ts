@@ -12,6 +12,7 @@ import { QuizSummaryComponent } from './quiz-sequence/quiz-summary/quiz-summary.
 import { QuizEndComponent } from './quiz-sequence/quiz-end/quiz-end.component';
 import { UsersSelectionListComponent } from './users/user-selection-list/user-selection-list.component';
 import { GalleryComponent } from './gallery/gallery.component';
+import { PassewordComponent } from './start/passeword/passeword.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'staff', component: StaffComponent },
     { path: 'customers', component: CustomersComponent },
+    { path: 'passeword', component: PassewordComponent },
     { path: 'user-selection', component: UsersSelectionListComponent },
     { path: 'staff/quiz-list', component: QuizListStaffComponent },
     { path: 'edit-quiz/:id', component: EditQuizComponent },
