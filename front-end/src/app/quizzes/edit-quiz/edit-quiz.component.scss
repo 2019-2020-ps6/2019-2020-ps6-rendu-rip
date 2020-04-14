@@ -1,12 +1,13 @@
 @import '../../../styles/card.scss';
 @import '../../../styles/images.scss';
 
-/*thumbnail{
-    display: block; 
-    margin-left: auto; 
-    margin-right: auto; 
-    width:80%;
-}*/
+
+.frame{
+    height: 15%;
+    min-height: 300px;
+    width: 20%;
+    min-width: 470px;
+}
 
 .hidden {
     opacity: 0;
