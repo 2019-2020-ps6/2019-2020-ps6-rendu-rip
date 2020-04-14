@@ -1,11 +1,13 @@
 <div class="box">
     <div *ngIf="answerSelected !==null && answerSelected!=rightAnswer; else elseBlock" class="box-answers">
         <div class="answer-li">Votre réponse:<br>
-            {{answerSelected.value}}
+            <div *ngIf="answerSelected.value">{{answerSelected.value}}</div>
+            <div *ngIf="imageSel.url" class="frame"><img class="thumbnail" [src]="getImgSrcSel()" alt="answer image"></div>
         </div>
         <hr>
         <div *ngIf = "rightAnswer" class="answer-li">Réponse:<br>
-            {{rightAnswer.value}}
+            <div *ngIf="rightAnswer.value">{{rightAnswer.value}}</div>
+            <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="answer image"></div>
         </div>
     </div>
     <ng-template #elseBlock>

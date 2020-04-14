@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Question } from 'src/models/question.model';
 import { Answer } from 'src/models/answer.model';
+import { Img } from '../../../models/image.model';
+import { ImageService } from 'src/services/image.service';
 
 @Component({
   selector: 'app-display-right-answer',
@@ -14,14 +16,18 @@ export class DisplayRightAnswerComponent implements OnInit {
 
   rightAnswer:Answer;
 
-  constructor() { }
+  image: Img;
+
+  constructor(public imageService: ImageService) {}
 
   ngOnInit() {
     this.setRightAnswer();
+    this.loadImage();
   }
 
   ngOnChanges(){
-    this.setRightAnswer()
+    this.setRightAnswer();
+    this.loadImage();
   }
  
   setRightAnswer() {
@@ -36,4 +42,13 @@ export class DisplayRightAnswerComponent implements OnInit {
     }
   }
 
+  loadImage(){
+    if(this.rightAnswer!=null){
+      this.image = {} as Img;
+      const id = this.rightAnswer.imageId;
+      if(id!=null) this.imageService.loadAnswerImage(this.image, id);
+    }
+  }
+
+  getImgSrc() { return this.imageService.sanitize(this.image.url) }
 }

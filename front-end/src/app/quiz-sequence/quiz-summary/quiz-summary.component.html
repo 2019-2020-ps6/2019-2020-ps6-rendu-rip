@@ -4,7 +4,8 @@
     <div *ngIf = "quiz">
         <h2>-{{quiz.name}}-</h2>
         <div *ngIf = "currentQuestion">
-            {{currentQuestion.label}}
+            <div *ngIf="currentQuestion.label">{{currentQuestion.label}}</div>
+            <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="question image"></div>
             <app-display-right-answer [answers] = "currentQuestion.answers"></app-display-right-answer>
         </div>
     </div>
