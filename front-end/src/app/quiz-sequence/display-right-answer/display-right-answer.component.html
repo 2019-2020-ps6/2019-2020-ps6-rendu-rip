@@ -2,6 +2,6 @@
     <div *ngIf="rightAnswer.value">{{rightAnswer.value}}</div>
     <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="answer image"></div>
 </div>
-<!--<div *ngIf = "!rightAnswer">Réponse:<br>
-    TOUS!!!
-</div>-->
+<div *ngIf = "!rightAnswer">Réponse:<br>
+    Il n'y avait pas de bonne réponses :(
+</div>

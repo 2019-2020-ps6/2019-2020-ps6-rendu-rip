@@ -1,12 +1,12 @@
 @import '../../../styles/card.scss';
 
 .box{
-    margin-top: 20px;
+    margin-top: 5px;
     height: 100%;//à revoir
     width: 80%;
     margin-left: auto;
     margin-right: auto;
-    padding-bottom: 10px;
+    margin-bottom: 5px;
     border-style: solid;
     border-radius: 10px;;
     border-color:  rgb(243, 58, 144);
@@ -38,3 +38,12 @@
     height: 100%;//80px;
     width: 100%;//100px
 }
+
+.button-recap {
+    padding: 0.5em 0;
+    font-size: 350%;
+    margin-top: 5%;
+    width: 100%;
+    height: 80%;
+    text-align: center;
+  }

@@ -45,8 +45,9 @@ export class DisplayRightAnswerComponent implements OnInit {
   loadImage(){
     if(this.rightAnswer!=null){
       this.image = {} as Img;
-      const id = this.rightAnswer.imageId;
-      if(id!=null) this.imageService.loadAnswerImage(this.image, id);
+      let id = null
+      if(this.rightAnswer) id = this.rightAnswer.imageId;
+      if(id) this.imageService.loadAnswerImage(this.image, id);
     }
   }
 

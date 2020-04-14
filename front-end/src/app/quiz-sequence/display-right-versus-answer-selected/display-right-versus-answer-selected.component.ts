@@ -48,10 +48,11 @@ export class DisplayRightVersusAnswerSelectedComponent implements OnInit {
   loadImages(){
     this.image = {} as Img;
     this.imageSel = {} as Img;
-    let id = this.rightAnswer.imageId;
-    if(id!=null) this.imageService.loadAnswerImage(this.image, id);
-    id = this.answerSelected.imageId;
-    if(id!=null) this.imageService.loadAnswerImage(this.imageSel, id);
+    let id = null;
+    if(this.rightAnswer) id = this.rightAnswer.imageId;
+    if(id) this.imageService.loadAnswerImage(this.image, id);
+    if(this.answerSelected)id = this.answerSelected.imageId;
+    if(id) this.imageService.loadAnswerImage(this.imageSel, id);
   }
 
   getImgSrc() { return this.imageService.sanitize(this.image.url) }

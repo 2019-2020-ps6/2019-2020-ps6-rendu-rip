@@ -51,8 +51,9 @@ export class QuestionWidgetComponent implements OnInit {
   
   loadImage(){
     this.image = {} as Img;
-    const id = this.currentQuestion.imageId;
-    if(id!=null) this.imageService.loadQuestionImage(this.image, id);
+    let id = null;
+    if(this.currentQuestion) id = this.currentQuestion.imageId;
+    if(id) this.imageService.loadQuestionImage(this.image, id);
   }
 
   getImgSrc() { return this.imageService.sanitize(this.image.url) }

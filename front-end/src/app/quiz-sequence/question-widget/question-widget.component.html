@@ -8,6 +8,6 @@
         <app-answer-list-widget [answers] = "currentQuestion.answers" (selected) = "onSelectedAnswer($event)" (next) = "onNext($event)"></app-answer-list-widget>
     </div>
     <ng-template #elseBlock>
-        <button class="button-card" routerLink= "./quiz-summary">Recap</button>
+        <button class="button-recap" routerLink= "./quiz-summary">Recap</button>
     </ng-template>
 </div>
