@@ -1,4 +1,5 @@
 @import '../../../styles/card.scss';
+@import '../../../styles/images.scss';
 
 .box{
     margin-top: 5px;
@@ -19,24 +20,6 @@
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-}
-
-.frame{
-    height: 120px;//à revoir
-    width: 150px;
-    margin-left: auto;
-    margin-right: auto;
-    border-style: dashed;
-    border-color:  rgb(243, 58, 144);
-}
-
-.thumbnail {
-    object-fit: cover;
-    display: block; 
-    margin-left: auto;
-    margin-right: auto;
-    height: 100%;//80px;
-    width: 100%;//100px
 }
 
 .button-recap {

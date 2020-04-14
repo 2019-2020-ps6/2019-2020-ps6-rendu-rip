@@ -1,4 +1,5 @@
 @import '../../../styles/card.scss';
+@import '../../../styles/images.scss';
 
 h1 {
     font-family: Arial, Helvetica, sans-serif;
@@ -40,24 +41,6 @@ h2 {
 .image {
     float: right;
     //width: 30%;//50%
-}
-
-.frame{
-    height: 120px;//à revoir
-    width: 150px;
-    margin-left: auto;
-    margin-right: auto;
-    border-style: dashed;
-    border-color:  rgb(243, 58, 144);
-}
-
-.thumbnail {
-    object-fit: cover;
-    display: block; 
-    margin-left: auto;
-    margin-right: auto;
-    height: 100%;//80px;
-    width: 100%;//100px
 }
 
 .buttons-bottom {

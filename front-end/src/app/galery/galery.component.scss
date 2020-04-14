@@ -1,0 +1,19 @@
+@import '../../styles/images.scss';
+
+.responsive-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.frame{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.wide-button {
+    width: 100%;
+}

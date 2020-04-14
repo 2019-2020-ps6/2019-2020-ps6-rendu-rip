@@ -1,0 +1,7 @@
+<button class="wide-button" (click)="goBack()"> Retour </button>
+
+<div class="responsive-list">
+    <div *ngFor="let img of images">
+        <div *ngIf="img.url" class="frame"><img class="thumbnail" [src]="getImgSrc(img)" (click)="selectedImg(img.id)" alt="answer image"></div>
+    </div>
+</div>

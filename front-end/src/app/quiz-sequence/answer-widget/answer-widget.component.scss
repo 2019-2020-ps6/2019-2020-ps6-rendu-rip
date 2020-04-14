@@ -1,5 +1,6 @@
 @import '../../../styles/card.scss';
 @import '../../../styles/variables.scss';
+@import '../../../styles/images.scss';
 
 .answer{
     font-size: 1em;//100%; --> à voir... essayer d'avoir les 4     1 2
@@ -7,22 +8,4 @@
     font-size: x-large;//--> responsive then
     width: 80%;
     height: 80%;
-}
-
-.frame{
-    height: 100px;//à revoir
-    width: 130px;
-    margin-left: auto;
-    margin-right: auto;
-    border-style: dashed;
-    border-color:  rgb(243, 58, 144);
-}
-
-.thumbnail {
-    object-fit: cover;
-    display: block; 
-    margin-left: auto;
-    margin-right: auto;
-    height: 100%;//80px;
-    width: 100%;//100px
 }

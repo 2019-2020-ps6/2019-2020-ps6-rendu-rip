@@ -18,6 +18,13 @@ export class ImageService {
   private httpOptions = httpOptionsBase;
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
 
+  public loadAllImgs(images: Img[]) {
+    this.loadAllImages(images, "quiz", "")
+    this.loadAllImages(images, "question", "")
+    this.loadAllImages(images, "answer", "")
+    this.loadAllImages(images, "user", "")
+  }
+
   private loadAllImages(images: Img[], path: string, log: string){
     this.http.get<Img[]>( `${serverUrl}/images/${path}`, this.httpOptions).subscribe(imgs => {
       imgs.forEach(i => { 

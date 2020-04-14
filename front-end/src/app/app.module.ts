@@ -30,6 +30,7 @@ import { DisplayRightAnswerComponent } from './quiz-sequence/display-right-answe
 import { ThemeFormComponent } from './quizzes/theme-form/theme-form.component';
 import { DisplayRightVersusAnswerSelectedComponent } from './quiz-sequence/display-right-versus-answer-selected/display-right-versus-answer-selected.component';
 import { UsersListComponent } from './start/users-list/users-list.component';
+import { GaleryComponent } from './galery/galery.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { UsersListComponent } from './start/users-list/users-list.component';
     DisplayRightVersusAnswerSelectedComponent,
     ThemeFormComponent,
     UsersListComponent,
+    GaleryComponent,
   ],
   imports: [
     BrowserModule,
