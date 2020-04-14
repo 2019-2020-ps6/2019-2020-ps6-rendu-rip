@@ -3,7 +3,7 @@
 <br>
 <app-user-form></app-user-form>
 <div class="user-list">
-    <div class="card user" *ngFor="let user of userList">
+    <div class="card user fixed-container" *ngFor="let user of userList">
         <button class="button-card delete" (click)="deleteUser(user)">
             <i class="fas fa-times"></i>
         </button>

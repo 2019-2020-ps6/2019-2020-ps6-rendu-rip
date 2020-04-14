@@ -1,9 +1,10 @@
 <button class="button-card" routerLink= "/home">Retour</button>
 <br>
 
+<h1 class="title"> Sélectionnez votre profil accueilli </h1>
+
 <div class="user-list">
-    <div class="card user" *ngFor="let user of userList">
-        
+    <div class="card user fixed-container" *ngFor="let user of userList">
         <button class="button-card user" routerLink="/customers">
             <app-user [user]="user" (userDeleted) = "deleteUser($event)"></app-user>
         </button>

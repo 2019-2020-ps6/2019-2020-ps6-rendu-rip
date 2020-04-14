@@ -1,6 +1,12 @@
 @import '../../../styles/card.scss';
+@import '../../../styles/layout.scss';
 
 .quiz-list {
   display: flex;
   flex-wrap: wrap;
+}
+
+#bouton {
+  align-items: center;
+  justify-content: center;
 }

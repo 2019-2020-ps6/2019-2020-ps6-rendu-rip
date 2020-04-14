@@ -1,5 +1,6 @@
 @import '../../../styles/card.scss';
 @import '../../../styles/images.scss';
+@import '../../../styles/layout.scss';
 
 h1 {
     font-family: Arial, Helvetica, sans-serif;
@@ -14,7 +15,6 @@ i {
     text-align: center;
 }
 
-.user{
-    max-height: 500px;
-    max-width: 250px;
+#username {
+    text-align: center;
 }

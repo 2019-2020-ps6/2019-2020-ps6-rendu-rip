@@ -1,0 +1,11 @@
+@import '../styles/variables.scss';
+
+.fixed-container {
+    width: 25%;
+    height: 30%;
+}
+
+.overflowing-text {
+    white-space: nowrap;
+    overflow: hidden;
+}

@@ -1,4 +1,5 @@
 @import '../../../styles/card.scss';
+@import '../../../styles/layout.scss';
 
 .user-list {
   display: flex;
@@ -6,11 +7,18 @@
   //float: right;
 }
 
+.fixed-container {
+  width: 20%;
+}
+
 .user {
   padding: 0.5em;
   display: flex;
   flex-direction: column;
   text-align: center;
+
+  align-items: center;
+  justify-content: center;
 }
 
 .button-user:hover {
