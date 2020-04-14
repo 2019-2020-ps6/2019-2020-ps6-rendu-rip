@@ -10,7 +10,7 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { QuestionWidgetComponent } from './quiz-sequence/question-widget/question-widget.component';
 import { QuizSummaryComponent } from './quiz-sequence/quiz-summary/quiz-summary.component';
 import { QuizEndComponent } from './quiz-sequence/quiz-end/quiz-end.component';
-import { UsersListComponent } from './users/user-selection-list/users-list.component';
+import { UsersSelectionListComponent } from './users/user-selection-list/user-selection-list.component';
 import { GaleryComponent } from './galery/galery.component';
 
 
@@ -19,7 +19,7 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'staff', component: StaffComponent },
     { path: 'customers', component: CustomersComponent },
-    { path: 'customersList', component: UsersListComponent },
+    { path: 'user-selection', component: UsersSelectionListComponent },
     { path: 'staff/quiz-list', component: QuizListStaffComponent },
     { path: 'edit-quiz/:id', component: EditQuizComponent },
     //{ path: 'edit-quiz/:id', component: EditQuizComponent }, --> specifier plusieurs routes pour modifier depuis plusieurs endroits
