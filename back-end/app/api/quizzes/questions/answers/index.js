@@ -35,8 +35,8 @@ try {
 
 router.post('/', (req, res) => {
 try {
-  const question = getQuestionFromQuiz(req.params.quizId, req.params.questionId)
-  const answer = Answer.create({ ...req.body, questionId: question.id })
+  //const question = getQuestionFromQuiz(req.params.quizId, req.params.questionId)
+  const answer = Answer.create({ ...req.body})//, questionId: question.id })
   res.status(201).json(answer)
 } catch (err) {
   if (err.name === 'NotFoundError') {
@@ -51,8 +51,8 @@ try {
 
 router.put('/:answerId', (req, res) => {
 try {
-  const answer = getAnswerFromQuestion(req.params.quizId, req.params.questionId, req.params.answerId)
-  const updatedAnswer = Answer.update(req.params.answerId, { ...req.body, questionId: answer.questionId })
+  //const answer = getAnswerFromQuestion(req.params.quizId, req.params.questionId, req.params.answerId)
+  const updatedAnswer = Answer.update(req.params.answerId, req.body)//, questionId: answer.questionId })
   res.status(200).json(updatedAnswer)
 } catch (err) {
   if (err.name === 'NotFoundError') {

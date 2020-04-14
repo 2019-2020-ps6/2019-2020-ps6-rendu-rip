@@ -122,7 +122,7 @@ export class QuizService {
   }
 
   updateQuestionWithImage(quizId: string, question: Question, image: Img){
-    const url = `${serverUrl}/images/quiz`;
+    const url = `${serverUrl}/images/question`;
     this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
       question.imageId = (img.id).toString();
       this.updateQuestion(quizId, question);//met à jour observable
@@ -137,14 +137,42 @@ export class QuizService {
     });
   }
 
-  addAnswer(quiz: Quiz, question: Question, answerToAdd: Answer) {
-    const url = `${this.quizUrl}/${quiz.id}/${this.questionsPath}/${question.id}/${this.answersPath}`;
-    this.http.post<Answer>(url, answerToAdd, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
+  addAnswer(quizId: string, questionId: string, answer: Answer) {
+    const url = `${this.quizUrl}/${quizId}/${this.questionsPath}/${questionId}/${this.answersPath}`;
+    this.http.post<Answer>(url, answer, this.httpOptions).subscribe(() => {
+      this.setSelectedQuiz(quizId);
+      this.setQuizzesFromUrl();
+    });
   }
 
-  updateAnswer(quiz: Quiz, question: Question, answerToUpdate: Answer) {
-    const url = `${this.quizUrl}/${quiz.id}/${this.questionsPath}/${question.id}/${this.answersPath}/${answerToUpdate.id}`;
-    this.http.put<Answer>(url, answerToUpdate, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
+  addAnswerWithImage(quizId: string, questionId: string, answer: Answer, image: Img) {
+    const url = `${serverUrl}/images/answer`;
+    console.log("img before");
+    console.log(image.name);
+    this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
+      console.log("img in:");
+      console.log(img);
+      answer.imageId = img.id;//(img.id).toString();
+      console.log("answer:")
+      console.log(answer)
+      this.addAnswer(quizId, questionId, answer);//met à jour observable
+    });
+  }
+
+  updateAnswer(quizId: string, questionId: string, answer: Answer) {
+    const url = `${this.quizUrl}/${quizId}/${this.questionsPath}/${questionId}/${this.answersPath}/${answer.id}`;
+    this.http.put<Answer>(url, answer, this.httpOptions).subscribe(() => {
+      this.setQuizzesFromUrl();
+      this.setSelectedQuiz(quizId)
+    });
+  }
+
+  updateAnswerWithImage(quizId: string, questionId: string, answer, image: Img){
+    const url = `${serverUrl}/images/answer`;
+    this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
+      answer.imageId = (img.id).toString();
+      this.updateAnswer(quizId, questionId, answer);//met à jour observable
+    });
   }
 
   deleteAnswer(quiz: Quiz, question: Question, answerToDelete: Answer) {

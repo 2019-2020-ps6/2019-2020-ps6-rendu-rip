@@ -32,33 +32,24 @@
   {
     "label": "Quel animal pond des œufs ? ",
     "quizId": 1585934736906,
-    "id": 1586591590041
+    "id": 1586591590041,
+    "imageId": "1586824612836"
   },
   {
     "label": "Qui aime la boue ?",
     "quizId": 1585934736906,
-    "id": 1586591661904
+    "id": 1586591661904,
+    "imageId": "1586825176894"
   },
   {
     "label": "Qui ne fait pas de bruit ?",
     "quizId": 1585934736906,
-    "id": 1586591670358
+    "id": 1586591670358,
+    "imageId": "1586825183393"
   },
   {
     "label": "Qui est la femelle du canard ?",
     "quizId": 1585934736906,
     "id": 1586591682743
-  },
-  {
-    "label": "test",
-    "quizId": 1586809865794,
-    "id": 1586811716610,
-    "imageId": 1586811716432
-  },
-  {
-    "label": "yeah!",
-    "quizId": 1586809865794,
-    "imageId": 1586813701206,
-    "id": 1586813701529
   }
 ]

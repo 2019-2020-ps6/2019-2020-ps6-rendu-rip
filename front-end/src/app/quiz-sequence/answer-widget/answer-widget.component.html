@@ -1,1 +1,4 @@
-<button class="answer-button answer" (click) = "answerSelected()">{{answer.value}}</button>
+<button class="button-card answer" (click) = "answerSelected()">
+    <div *ngIf="answer.value">{{answer.value}}</div>
+    <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="answer image"></div>
+</button>

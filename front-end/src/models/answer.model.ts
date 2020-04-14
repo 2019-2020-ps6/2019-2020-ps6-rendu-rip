@@ -3,5 +3,6 @@ export interface Answer {
     type?: string;//type???
     value: string;
     isCorrect: boolean;
+    questionId?: string;
     imageId?: string;
 }

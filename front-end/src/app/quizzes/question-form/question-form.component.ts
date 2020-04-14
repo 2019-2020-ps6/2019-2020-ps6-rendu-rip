@@ -42,23 +42,17 @@ export class QuestionFormComponent implements OnInit {
 
   saveQuestion() {
     const questionToSave: Question = this.questionForm.getRawValue() as Question;
-    //questionToSave.answers = [];//???
-    //if (!questionToSave.label) {questionToSave.label = 'Question inconnue';}
-    
-    /*if (!questionToSave.label) {
-      window.alert("Veuillez mettre une question")
-      return;
-    }*/
     questionToSave.quizId = this.quiz.id;
     if(this.imagePreview){
       let imgToSave: Img = this.imgFillIn();
       console.log("Question: saving with image...");
       this.quizService.addQuestionWithImage(this.quiz.id, questionToSave, imgToSave);
     }
-    else{
-      //console.log("Question: saving...");
-      this.quizService.addQuestion(this.quiz.id, questionToSave);
-    } 
+    else if(!questionToSave.label) {
+      window.alert("Veuillez mettre une question")
+      return;
+    }
+    this.quizService.addQuestion(this.quiz.id, questionToSave);
     this.reset();
   }
 

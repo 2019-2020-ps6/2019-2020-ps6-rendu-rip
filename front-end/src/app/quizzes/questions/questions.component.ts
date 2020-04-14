@@ -31,6 +31,8 @@ export class QuestionsComponent implements OnInit {
   public answers: Answer[];//???
 
   image: Img;
+  imageNameUp: string;
+  imagePreviewUp: string;
 
   constructor(public formBuilder: FormBuilder, public quizService: QuizService, public imageService: ImageService) {}
 
@@ -39,7 +41,6 @@ export class QuestionsComponent implements OnInit {
     this.answers = this.question.answers;//???
   }
 
-  //default image if no imgId in Quiz
   loadImage(){
     this.image = {} as Img;
     const id = this.question.imageId;
@@ -52,7 +53,7 @@ export class QuestionsComponent implements OnInit {
 
 
   //to be pushed else where --> question form actually...
-  //+ good to have a 'answer' component --> more flexible
+  //+ good to have an 'answer' component --> more flexible
 
 
   initializeQuestionForm() {
@@ -62,16 +63,60 @@ export class QuestionsComponent implements OnInit {
   }
 
   submitQuestionLabel() {
-    const questionToUpdate: Question = this.questionForm.getRawValue() as Question;
-    if (!questionToUpdate.label) { 
-      window.alert("Veuillez remplir la question.")
+    const questionToSave: Question = this.questionForm.getRawValue() as Question;
+    questionToSave.quizId = this.quiz.id;
+    questionToSave.id = this.question.id;
+    if(this.imagePreviewUp){
+      let imgToSave: Img = this.imgFillIn();
+      console.log("Question: saving with image...");
+      this.quizService.updateQuestionWithImage(this.quiz.id, questionToSave, imgToSave);
+    }
+    else if(!questionToSave.label) {
+      window.alert("Veuillez mettre une question")
       return;
     }
-    this.question.label = questionToUpdate.label;
-    this.quizService.updateQuestion(this.quiz.id, this.question);
+    else{
+      if(this.question.imageId) questionToSave.imageId = this.question.imageId;
+      this.quizService.updateQuestion(this.quiz.id, questionToSave);
+    }
+    this.resetUp();
+  } 
+
+  resetUp(){
     this.questionForm.reset();
     this.showFormQuestion = false;
-  } 
+    this.imagePreviewUp = null;
+    this.imageNameUp = null;
+  }
+  
+  imgFillIn(): Img {
+    let image = {} as Img;
+    image.name = this.imageNameUp;
+    image.url = this.imagePreviewUp;
+    return image;
+  }
+
+  onChangeFile(event) {
+    let reader = new FileReader();
+    if (event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imageNameUp = file.name + " " + file.type;
+        this.imagePreviewUp = 'data:image;base64,' + (reader.result as string).split(',')[1];
+        //(<string>reader.result).split or (reader.result as string).split
+        console.log(this.imageNameUp);
+      };
+    }
+  }
+
+  getImgSrcUp() {
+    if(this.imagePreviewUp) return this.imageService.sanitize(this.imagePreviewUp); 
+    return this.imageService.sanitize(this.image.url); 
+  }
+    
+    
+  //////////////////////////////////////////////////////////////:
 
 
   cancelQuestionLabel() {

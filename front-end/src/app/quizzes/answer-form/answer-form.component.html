@@ -2,11 +2,11 @@
   <label for="name">Réponse</label><br>
   <input type="text" [formControlName]="'value'" id="name"><br>
   Charger une image depuis:
-  <div class="frame image" *ngIf="imagePreview">
-    <img class="thumbnail" [src]="displayImage()" alt="quiz image">
+  <div class="frame image" *ngIf="imagePreviewAns || image.url">
+    <img class="thumbnail" [src]="getImgSrcAns()" alt="answer image">
   </div>
-	<div class="label"><label for="image64" class="button-card">Cet appareil</label></div>
-	<input type="file" class="hidden" id="image64" (change)="onChangeFile($event)" accept="image/*">
+	<div class="label"><label for="image64Ans" class="button-card">Cet appareil</label></div>
+	<input type="file" class="hidden" id="image64Ans" (change)="onChangeFile($event)" accept="image/*">
   <div *ngIf="!aRightAnswerIsAlreadyPresent || isSetToRight()">
     Correct
     <input type="checkbox" [formControlName]="'isCorrect'"> 

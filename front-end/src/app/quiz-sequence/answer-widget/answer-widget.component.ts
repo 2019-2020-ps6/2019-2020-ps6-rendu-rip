@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Answer } from 'src/models/answer.model';
+import { Img } from '../../../models/image.model';
+import { ImageService } from 'src/services/image.service';
 
 @Component({
   selector: 'app-answer-widget',
@@ -8,17 +10,27 @@ import { Answer } from 'src/models/answer.model';
 })
 export class AnswerWidgetComponent implements OnInit {
 
-  @Input()
-  answer: Answer;
+  @Input() answer: Answer;
 
-  @Output()
-  selected: EventEmitter<Answer> = new EventEmitter<Answer>();
+  @Output() selected: EventEmitter<Answer> = new EventEmitter<Answer>();
 
-  constructor() {}
+  image: Img;
 
-  ngOnInit() {}
+  constructor(public imageService: ImageService) {}
+
+  ngOnInit() {
+    this.loadImage();
+  }
 
   answerSelected() {
     this.selected.emit(this.answer);
   }
+
+  loadImage(){
+    this.image = {} as Img;
+    const id = this.answer.imageId;
+    if(id!=null) this.imageService.loadAnswerImage(this.image, id);
+  }
+
+  getImgSrc() { return this.imageService.sanitize(this.image.url) }
 }
