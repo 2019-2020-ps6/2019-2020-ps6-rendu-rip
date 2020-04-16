@@ -9,12 +9,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class PassewordComponent implements OnInit {
 
-
-  public counter = 0;
-  public loginForm: FormGroup;
-
-  isnotCorrect = false;
-  private data: {};
+  loginForm: FormGroup;
+  isCorrect : boolean = true;
+  counter : number = 0;
 
   constructor(private router: Router) {
     this.loginForm = new FormGroup({
@@ -30,22 +27,17 @@ export class PassewordComponent implements OnInit {
   }
 
   loginUser() {
-
-    const password = this.loginForm.get('password').value;
-    if (((password === '1111') || (password === '')) && (this.counter < 3)) {
+    this.counter++;
+    let password = this.loginForm.get('password').value;
+    if (password === '1111' || password === '') {
       this.router.navigate(['staff']);
-      this.isnotCorrect = false;
-    } else {
-      this.isnotCorrect = true;
-      // tslint:disable-next-line: max-line-length
-      if (this.counter === 2) { // if entered password 3 times wrong that means it's a user who want to acces and not a staff !!
-      this.counter = 0; // reset on 0
-      this.router.navigate(['home']); // redirect to home page
-
-      } else {
-         this.counter++;
-        }
-    }
+      return;
+    } 
+    this.isCorrect = false;
+    if (this.counter === 3) { // if entered password 3 times wrong that means it's a user who want to acces and not a staff !!
+        this.counter = 0; // reset on 0
+        this.router.navigate(['home']); // redirect to home page
+    } 
   }
 
 

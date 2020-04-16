@@ -1,5 +1,6 @@
 @import '../../../styles/images.scss';
 @import '../../../styles/card.scss';
+@import '../../../styles/layout.scss';
 
 
 .label-for-recap{
@@ -9,8 +10,7 @@
 }
 
 .frame{
-    width: 60%;
+    width: 100%;
+    height: 100%;
     max-width: 350px;
-    height: 40%;
-    max-height: 400px;
 }

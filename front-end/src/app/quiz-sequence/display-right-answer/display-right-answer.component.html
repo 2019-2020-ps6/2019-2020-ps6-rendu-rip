@@ -1,4 +1,4 @@
-<div class = "take-all-space" *ngIf = "rightAnswer">
+<div *ngIf = "rightAnswer">
     <div *ngIf="rightAnswer.value" class = "label-for-recap">{{rightAnswer.value}}</div>
     <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="answer image"></div>
 </div>

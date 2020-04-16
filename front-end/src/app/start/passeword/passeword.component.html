@@ -1,10 +1,11 @@
 <button class="button-card" routerLink= "/home">Retour</button>
 <button class="button-card" routerLink= "/home">Home</button>
-<br>
-<form [formGroup]="loginForm">
-    <input [formControlName]="'password'" type="password" placeholder="Enter Password">
-    <button (click) = "loginUser()">Identifier</button>
-    <span *ngIf="isnotCorrect">
-        Vous avez entrez une mauvaise valeur !
-    </span>
-  </form>
+<div class = "center">
+    <form [formGroup]="loginForm">
+        <input [formControlName]="'password'" type="password" placeholder="Entrez le mot de passe">
+        <button (click) = "loginUser()">Valider</button>
+        <div *ngIf="!isCorrect">
+            Vous avez entrez une mauvaise valeur !
+        </div>
+    </form>
+</div>
