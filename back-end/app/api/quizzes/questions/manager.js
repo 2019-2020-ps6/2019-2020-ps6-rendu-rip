@@ -1,5 +1,5 @@
 const { Quiz, Question } = require('../../../models')
-const {deleteAnswerFromQuestion} = require('./answers/manager')
+const {deleteAnswerFromQuestion, filterAnswersFromQuestion} = require('./answers/manager')
 
 /**
  * Questions Manager.
@@ -40,8 +40,20 @@ const deleteQuestionFromQuiz = (quizId) => {
     });
 }
 
+const buildQuestion = (questionId) => {
+    const question = Question.getById(questionId)
+    const answers = filterAnswersFromQuestion(question.id)
+    return { ...question, answers: answers }
+}
+
+const buildQuestions = (questions) => {
+    return questions.map((question) => buildQuestion(question.id))
+} 
+
 module.exports = {
     filterQuestionsFromQuizz,
     getQuestionFromQuiz,
-    deleteQuestionFromQuiz
+    deleteQuestionFromQuiz,
+    buildQuestion,
+    buildQuestions
 }

@@ -23,7 +23,6 @@ export class QuestionFormComponent implements OnInit {
 
   constructor(public formBuilder: FormBuilder, public quizService: QuizService, public imageService: ImageService) {
     this.initializeQuestionForm();
-    console.log("question form")
   }
 
   ngOnInit() {}
@@ -43,16 +42,18 @@ export class QuestionFormComponent implements OnInit {
   saveQuestion() {
     const questionToSave: Question = this.questionForm.getRawValue() as Question;
     questionToSave.quizId = this.quiz.id;
+    if(!questionToSave.label) {
+      window.alert("Veuillez mettre une question")
+      return;
+    }
     if(this.imagePreview){
       let imgToSave: Img = this.imgFillIn();
       console.log("Question: saving with image...");
       this.quizService.addQuestionWithImage(this.quiz.id, questionToSave, imgToSave);
     }
-    else if(!questionToSave.label) {
-      window.alert("Veuillez mettre une question")
-      return;
+    else {
+      this.quizService.addQuestion(this.quiz.id, questionToSave);
     }
-    this.quizService.addQuestion(this.quiz.id, questionToSave);
     this.reset();
   }
 

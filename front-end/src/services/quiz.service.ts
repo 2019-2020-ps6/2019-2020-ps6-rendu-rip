@@ -179,4 +179,16 @@ export class QuizService {
     const url = `${this.quizUrl}/${quiz.id}/${this.questionsPath}/${question.id}/${this.answersPath}/${answerToDelete.id}`;
     this.http.delete<Answer>(url, this.httpOptions).subscribe(() => this.setSelectedQuiz(quiz.id));
   }
+
+  loadQuestion(question : Question, quizId:string, questionId: string){
+    const url = `${this.quizUrl}/${quizId}/${this.questionsPath}/${questionId}`;
+    this.http.get<Question>(url, this.httpOptions).subscribe(question1 => {
+      question.id = question1.id;
+      question.imageId = question1.imageId;
+      question.label = question1.label;
+      question.quizId = question1.quizId;
+      question.answers = question1.answers;
+    });
+
+  }
 }

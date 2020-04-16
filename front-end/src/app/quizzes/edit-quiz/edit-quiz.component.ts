@@ -56,6 +56,7 @@ export class EditQuizComponent implements OnInit {
   loadImage(){
     this.image = {} as Img;
     const id = this.quiz.imageId;
+    console.log(id)
     this.imageService.loadQuizImage(this.image, id);
   }
 

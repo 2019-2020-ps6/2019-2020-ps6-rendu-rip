@@ -1,5 +1,6 @@
 @import '../../../styles/card.scss';
 @import '../../../styles/images.scss';
+@import '../../../styles/layout.scss';
 
 
 .frame{
@@ -22,4 +23,12 @@
 
 .buttons-bottom {
     margin-top: 1em;
+}
+
+
+.quizName{
+    text-align: center;
+}
+.quizTheme{
+    text-align: center;
 }

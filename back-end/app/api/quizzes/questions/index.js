@@ -3,7 +3,7 @@ const { Router } = require('express')
 const { Answer, Quiz, Question } = require('../../../models')
 const manageAllErrors = require('../../../utils/routes/error-management')
 const AnswersRouter = require('./answers')
-const { filterQuestionsFromQuizz, getQuestionFromQuiz } = require('./manager')
+const { filterQuestionsFromQuizz, getQuestionFromQuiz, buildQuestion, buildQuestions } = require('./manager')
 const { deleteAnswerFromQuestion} = require('./answers/manager')
 
 const router = new Router({ mergeParams: true })
@@ -12,7 +12,9 @@ router.get('/', (req, res) => {
   try {
     // Check if quizId exists, if not it will throw a NotFoundError
     Quiz.getById(req.params.quizId)
-    res.status(200).json(filterQuestionsFromQuizz(req.params.quizId))
+    const questions = filterQuestionsFromQuizz(req.params.quizId)
+    const question2 = buildQuestions(questions);
+    res.status(200).json(question2)
   } catch (err) {
     manageAllErrors(res, err)
   }
@@ -20,7 +22,7 @@ router.get('/', (req, res) => {
 
 router.get('/:questionId', (req, res) => {
   try {
-    const question = Question.getById(req.params.questionId)//getQuestionFromQuiz(req.params.quizId, req.params.questionId)
+    const question = buildQuestion(req.params.questionId);
     res.status(200).json(question)
   } catch (err) {
     manageAllErrors(res, err)

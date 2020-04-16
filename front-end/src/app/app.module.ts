@@ -32,6 +32,7 @@ import { DisplayRightVersusAnswerSelectedComponent } from './quiz-sequence/displ
 import { UsersSelectionListComponent } from './users/user-selection-list/user-selection-list.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { PassewordComponent } from './start/passeword/passeword.component';
+import {EditQuestionComponent} from './quizzes/edit-question/edit-question.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { PassewordComponent } from './start/passeword/passeword.component';
     UsersSelectionListComponent,
     GalleryComponent,
     PassewordComponent,
+    EditQuestionComponent
   ],
   imports: [
     BrowserModule,

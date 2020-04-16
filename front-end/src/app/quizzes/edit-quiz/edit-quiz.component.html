@@ -3,8 +3,8 @@
 <div *ngIf ="quiz" >
     
     <div *ngIf="!editionMode; else elseBlock">
-        <h1>Nom du quiz : {{quiz.name}}</h1>
-        <h2>Thème : {{quiz.theme}}</h2>
+        <div class = "quizName"><h1>Nom du quiz : {{quiz.name}}</h1></div> 
+        <div class = "quizTheme" ><h2>Thème : {{quiz.theme}}</h2></div>
         <div *ngIf="image.url" class="frame"><img class = "thumbnail" [src]="displayImage()" alt="quiz image"></div>
         <button class="button-card" id = "editQuizName" (click)="initQuizForm()">Modifier</button>
     </div>

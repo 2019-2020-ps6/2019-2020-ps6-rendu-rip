@@ -1,7 +1,14 @@
 @import '../../../styles/card.scss';
-.question-list {
-    display: flex;
-  }
+@import '../../../styles/layout.scss';
+.question-list {  
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  overflow:auto; 
+  height: 400px; 
+  width: 50%; 
+  border: 1px solid #AAAAAA
+}
   
   
 .errorMessage{

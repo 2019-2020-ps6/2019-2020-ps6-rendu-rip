@@ -13,6 +13,7 @@ import { QuizEndComponent } from './quiz-sequence/quiz-end/quiz-end.component';
 import { UsersSelectionListComponent } from './users/user-selection-list/user-selection-list.component';
 import { GalleryComponent } from './gallery/gallery.component';
 import { PassewordComponent } from './start/passeword/passeword.component';
+import { EditQuestionComponent } from './quizzes/edit-question/edit-question.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
     { path: 'user-selection', component: UsersSelectionListComponent },
     { path: 'staff/quiz-list', component: QuizListStaffComponent },
     { path: 'edit-quiz/:id', component: EditQuizComponent },
+    { path: 'edit-quiz/:id/:questionId', component: EditQuestionComponent},
     //{ path: 'edit-quiz/:id', component: EditQuizComponent }, --> specifier plusieurs routes pour modifier depuis plusieurs endroits
     { path: 'gallery', component: GalleryComponent},
     //ET bouton 'Retour' revenir au bon endroit

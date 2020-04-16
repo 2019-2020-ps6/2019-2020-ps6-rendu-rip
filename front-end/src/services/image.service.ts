@@ -36,6 +36,7 @@ export class ImageService {
   }
 
   private loadImage(image: Img, path: string, log: string){
+    console.log(`${serverUrl}/images/${path}`)
     this.http.get<Img>(`${serverUrl}/images/${path}`, this.httpOptions).subscribe(img => {
       console.log(`${log}: charging image - ${img.name}`);
       image.id = img.id;
@@ -69,6 +70,7 @@ export class ImageService {
 
   loadQuestionImage(image: Img, id: string){
     //const path = ;//`${serverUrl}/images/question/${id}`;
+    console.log(id)
     this.loadImage(image, `question/${id}`, 'Question');
   }
 

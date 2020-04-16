@@ -1,45 +1,8 @@
 
-<div class="card">
-    <div class = "errorMessage" *ngIf = "questionInvalid()">
-        {{errorMessage}}
-    </div>
-    <div *ngIf="!showFormQuestion">
-        {{question.label}} 
-        <div *ngIf="image.url"class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="question image"></div>
-        <button id="editLabelQuestion" class="button" (click)="editLabelQuestion()"><i class="fas fa-edit"></i></button>
-    </div>
-    <div *ngIf="showFormQuestion">
-        <form [formGroup]="questionForm">
-            <input type="text" [formControlName]="'label'"><br>
-            Charger une image depuis
-            <div class="frame image" *ngIf="imagePreviewUp || image.url">
-                <img class="thumbnail" [src]="getImgSrcUp()" alt="question image">
-            </div>
-            <div class="label"><label for="image64Up" class="button-card">Cet appareil</label></div>
-            <input type="file" class="hidden" id="image64Up" (change)="onChangeFile($event)" accept="image/*">
-            <br>
-            <button id = "submitQuestion" class="button-card" (click)="submitQuestionLabel()">Valider</button>
-            <button id = "cancel" type="button" class="button-card" (click)="cancelQuestionLabel()">Annuler</button>
-        </form>
-    </div>
-    
-    
-    <br>
-    Réponses : 
-    <div class="question" *ngFor="let answer of question.answers">
-        <div *ngIf="answer">{{answer.value}} -> {{answer.isCorrect}}
-            <button id = "editAnswer" class="button" (click)="editAnswer(answer)"><i class="fas fa-edit"></i></button>
-            <div *ngIf="show && answer==answerSelected">
-                <app-answer-form [quiz] = "quiz" [question]="question" [answer]= "answerSelected" (answerAdded)="reset($event)"></app-answer-form>
-            </div>
-            <button id = "supprAnswer" class="button" (click)="supprAnswer(answer)"><i class="fas fa-trash"></i></button>
-        </div>
-    </div>
-    
-    
-    <button id = "createAnswer" class="button-card" (click)="createAnswer()"> Ajouter une réponse </button>
-    <div *ngIf="show && !answerSelected">
-        <app-answer-form [quiz] = "quiz" [question]="question" (answerAdded)="reset($event)"></app-answer-form>
-    </div>
-    <button id = "deleteQuestion" class="button-card" (click)="deleteQuestion()"> Supprimer la question</button>
+<div *ngIf = "question" class="card">
+    {{question.label}}
+    <div *ngIf="image.url"class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="question image"></div>
+    <div *ngIf = "question.answers"> {{question.answers.length}} réponses disponibles</div>
+    <button id = "modifyQuestion" class="button-card" routerLink= "/edit-quiz/{{quiz.id}}/{{question.id}}">Modifier</button>
+    <button id = "deleteQuestion" class="button-card" (click)="deleteQuestion()">Supprimer</button>
 </div>
