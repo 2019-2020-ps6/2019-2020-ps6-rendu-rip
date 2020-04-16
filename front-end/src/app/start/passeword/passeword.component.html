@@ -5,7 +5,7 @@
         <input [formControlName]="'password'" type="password" placeholder="Entrez le mot de passe">
         <button (click) = "loginUser()">Valider</button>
         <div *ngIf="!isCorrect">
-            Vous avez entrez une mauvaise valeur !
+            Vous avez entrez une mauvaise valeur ... Veuillez réessayer !
         </div>
     </form>
 </div>
