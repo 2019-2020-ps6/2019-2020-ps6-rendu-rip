@@ -11,7 +11,7 @@ import { QuizFormComponent } from './quizzes/quiz-form/quiz-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EditQuizComponent } from './quizzes/edit-quiz/edit-quiz.component';
 import { AppRoutingModule } from './app.routing.module';
-import { QuestionsComponent } from './quizzes/questions/questions.component';
+import { QuestionComponent } from './quizzes/question/question.component';
 import { QuestionFormComponent } from './quizzes/question-form/question-form.component';
 import { QuestionListComponent } from './quizzes/question-list/question-list.component';
 import { AnswerFormComponent } from './quizzes/answer-form/answer-form.component';
@@ -43,7 +43,7 @@ import {EditQuestionComponent} from './quizzes/edit-question/edit-question.compo
     HeaderComponent,
     QuizFormComponent,
     EditQuizComponent,
-    QuestionsComponent,
+    QuestionComponent,
     QuestionFormComponent,
     QuestionListComponent,
     AnswerFormComponent,

@@ -2,37 +2,38 @@
 <button class="button-card" routerLink= "/home">Home</button>
 <div *ngIf ="quiz" >
     
-    <div *ngIf="!editionMode; else elseBlock">
-        <div class = "quizName"><h1>Nom du quiz : {{quiz.name}}</h1></div> 
-        <div class = "quizTheme" ><h2>Thème : {{quiz.theme}}</h2></div>
-        <div *ngIf="image.url" class="frame"><img class = "thumbnail" [src]="displayImage()" alt="quiz image"></div>
-        <button class="button-card" id = "editQuizName" (click)="initQuizForm()">Modifier</button>
-    </div>
-    <ng-template #elseBlock>
-    <div>
-        <form class="quiz-form" [formGroup]="quizForm">
-            <h1>Nom du quiz : <input class="input-custom" type="text" id="name" [formControlName]="'name'"></h1>        
-            <label for="theme">
-                <h2>Thème :
-                  <select name = "Thème" id = "theme" [formControlName] = "'theme'">
-                    <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
-                      {{current_theme}}
-                    </option>
-                  </select>
-                  <button class="button-card" type="button" (click)="switchShowTheme()">{{getThemeBtnTxt()}}</button>
-                </h2>
-                <div *ngIf="showThemeForm"><theme-form (themeAdded)="switchShowTheme()"></theme-form></div>
-            </label>
-            <div *ngIf="image.url" class="frame"><img class = "thumbnail" [src]="displayImage()" alt="quiz image"></div>
-            <div class="label"><label for="image64" class="button-card">Cet appareil</label></div>
-            <input type="file" class="hidden" id="image64" (change)="onChangeFile($event)" accept="image/*">
-            <br>
-            <button class="button-card" type="submit" id = "confirmEdit" (click)="updateQuiz()">Valider</button>
-            <!--<button type="submit" id = "confirmEdit" class="button">Valider</button>-->
-            <button class="button-card" type="reset" id = "cancel" (click)="reset()">Annuler</button>
-        </form>
-    </div>
-    </ng-template>
-    <app-question-list [quiz] = "quiz"></app-question-list><!--ou quizIdBackup le temps que chargement effectif du quiz -->
+  <div *ngIf="!editionMode; else elseBlock">
+      <div class = "quizName"><h1>Nom du quiz : {{quiz.name}}</h1></div> 
+      <div class = "quizTheme" ><h2>Thème : {{quiz.theme}}</h2></div>
+      <div *ngIf="image.url" class="frame"><img class = "thumbnail" [src]="displayImage()" alt="quiz image"></div>
+      <button class="button-card" id = "editQuizName" (click)="initQuizForm()">Modifier</button>
+  </div>
+  
+  <ng-template #elseBlock>
+  <div>
+      <form class="quiz-form" [formGroup]="quizForm">
+          <h1>Nom du quiz : <input class="input-custom" type="text" id="name" [formControlName]="'name'"></h1>        
+          <label for="theme">
+              <h2>Thème :
+                <select name = "Thème" id = "theme" [formControlName] = "'theme'">
+                  <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
+                    {{current_theme}}
+                  </option>
+                </select>
+                <button class="button-card" type="button" (click)="switchShowTheme()">{{getThemeBtnTxt()}}</button>
+              </h2>
+              <div *ngIf="showThemeForm"><theme-form (themeAdded)="switchShowTheme()"></theme-form></div>
+          </label>
+          <div *ngIf="image.url" class="frame"><img class = "thumbnail" [src]="displayImage()" alt="quiz image"></div>
+          <div class="label"><label for="image64" class="button-card">Cet appareil</label></div>
+          <input type="file" class="hidden" id="image64" (change)="onChangeFile($event)" accept="image/*">
+          <br>
+          <button class="button-card" type="submit" id = "confirmEdit" (click)="updateQuiz()">Valider</button>
+          <!--<button type="submit" id = "confirmEdit" class="button">Valider</button>-->
+          <button class="button-card" type="reset" id = "cancel" (click)="reset()">Annuler</button>
+      </form>
+  </div>
+  </ng-template>
+  <app-question-list [quiz] = "quiz"></app-question-list><!--ou quizIdBackup le temps que chargement effectif du quiz -->
 </div>
 
