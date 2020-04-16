@@ -8,6 +8,7 @@ import { Img } from '../../../models/image.model';
 import { ImageService } from 'src/services/image.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -25,36 +26,56 @@ import { Location } from '@angular/common';
     errorMessage : String;
     questionForm: FormGroup;
 
-
     question: Question;
     quiz: Quiz;
-    image: Img;
+    image: Img = {} as Img;
     imageNameUp: string;
     imagePreviewUp: string;
 
-  constructor(private location: Location, private route: ActivatedRoute, public formBuilder: FormBuilder, public quizService: QuizService, public imageService: ImageService) {}
+  constructor(private http: HttpClient, private location: Location, private route: ActivatedRoute, public formBuilder: FormBuilder, public quizService: QuizService, public imageService: ImageService) {}
 
   ngOnInit() {
     this.quizService.quizSelected$.subscribe((quiz) => this.onQuizSelected(quiz));
+    this.loadAll();
     const id = this.route.snapshot.paramMap.get('id');
     this.quizService.setSelectedQuiz(id);
   }
   private onQuizSelected(quiz: Quiz) {
-    this.quiz = quiz;
-    this.loadQuestion();
-    this.loadImage();
+    this.loadAll();
   }
 
+
+  loadAll(){
+    const quizId = this.route.snapshot.paramMap.get('id');
+    const questionId = this.route.snapshot.paramMap.get('questionId');
+    let quizurl = `${this.quizService.quizUrl}/${quizId}`;
+    console.log(quizurl)
+    this.http.get<Quiz>(quizurl, this.quizService.httpOptions).subscribe((quiz)=>{
+        let questionurl = `${this.quizService.quizUrl}/${quiz.id}/${'questions'}/${questionId}`;
+        console.log(questionurl);
+        this.quiz = quiz;
+        this.http.get<Question>(questionurl, this.quizService.httpOptions).subscribe((question)=>{
+            this.question = question;
+            if(question.imageId){
+                let imageurl  = `http://localhost:9428/api/images/question/${question.imageId}`;
+                console.log(imageurl)
+                this.http.get<Img>(imageurl, this.quizService.httpOptions).subscribe((image) => this.image = image)
+            }
+        })
+    });
+}
+/*
   loadImage(){
     this.image = {} as Img;
     const id = this.question.imageId;
     if(id) this.imageService.loadQuestionImage(this.image, id);
+
   }
   loadQuestion(){
     this.question = {} as Question;
     const id = this.route.snapshot.paramMap.get('questionId');
     this.quizService.loadQuestion(this.question,this.quiz.id,id);
-  }
+  }*/
 
   //deleteQuestion() { this.questionDeleted.emit(this.question) }
 
@@ -116,7 +137,7 @@ import { Location } from '@angular/common';
 
   getImgSrcUp() {
     if(this.imagePreviewUp) return this.imageService.sanitize(this.imagePreviewUp); 
-    return this.imageService.sanitize(this.image.url); 
+    if(this.image) return this.imageService.sanitize(this.image.url); 
   }
     
     

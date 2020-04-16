@@ -1,7 +1,6 @@
 <button class="wide-button" (click)="goBack()"> Retour </button>
 <div *ngIf="quiz && question">
-    <div *ngIf="image.url"class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="question image"></div>
-
+    <div *ngIf="image && image.url"class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="question image"></div>
 <div class="card">
     <div class = "errorMessage" *ngIf = "questionInvalid()">
         {{errorMessage}}

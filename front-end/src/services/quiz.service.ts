@@ -17,8 +17,8 @@ export class QuizService {
   private quizzes: Quiz[];
   // private quizUrl = ' http://localhost:9428/api/quizzes';
 
-  private quizUrl = serverUrl + '/quizzes';
-  private httpOptions = httpOptionsBase;
+  quizUrl = serverUrl + '/quizzes';
+  httpOptions = httpOptionsBase;
   private questionsPath = 'questions';
   private answersPath = 'answers';
   
