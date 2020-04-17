@@ -22,27 +22,26 @@ import { HttpClient } from '@angular/common/http';
    
     answerSelected: Answer;
     show: boolean;
-    showFormQuestion : boolean;
     errorMessage : String;
     questionForm: FormGroup;
 
     question: Question;
     quiz: Quiz;
-    image: Img = {} as Img;
+    image: Img;
     imageNameUp: string;
     imagePreviewUp: string;
 
   constructor(private http: HttpClient, private location: Location, private route: ActivatedRoute, public formBuilder: FormBuilder, public quizService: QuizService, public imageService: ImageService) {}
 
   ngOnInit() {
-    this.quizService.quizSelected$.subscribe((quiz) => this.onQuizSelected(quiz));
+    this.quizService.quizSelected$.subscribe(() => this.loadAll());
     this.loadAll();
     const id = this.route.snapshot.paramMap.get('id');
     this.quizService.setSelectedQuiz(id);
   }
-  private onQuizSelected(quiz: Quiz) {
-    this.loadAll();
-  }
+  private onceAllIsLoaded() {
+    this.initializeQuestionForm();
+    }
 
 
   loadAll(){
@@ -57,28 +56,19 @@ import { HttpClient } from '@angular/common/http';
         this.http.get<Question>(questionurl, this.quizService.httpOptions).subscribe((question)=>{
             this.question = question;
             if(question.imageId){
-                let imageurl  = `http://localhost:9428/api/images/question/${question.imageId}`;
-                console.log(imageurl)
-                this.http.get<Img>(imageurl, this.quizService.httpOptions).subscribe((image) => this.image = image)
+              let imageurl  = `http://localhost:9428/api/images/question/${question.imageId}`;
+              console.log(imageurl)
+              this.http.get<Img>(imageurl, this.quizService.httpOptions).subscribe((image) =>{
+                this.image = image;
+                this.onceAllIsLoaded();
+              })
+            }
+            else{
+              this.onceAllIsLoaded();
             }
         })
     });
 }
-/*
-  loadImage(){
-    this.image = {} as Img;
-    const id = this.question.imageId;
-    if(id) this.imageService.loadQuestionImage(this.image, id);
-
-  }
-  loadQuestion(){
-    this.question = {} as Question;
-    const id = this.route.snapshot.paramMap.get('questionId');
-    this.quizService.loadQuestion(this.question,this.quiz.id,id);
-  }*/
-
-  //deleteQuestion() { this.questionDeleted.emit(this.question) }
-
   getImgSrc() { return this.imageService.sanitize(this.image.url) }
 
   initializeQuestionForm() {
@@ -104,15 +94,8 @@ import { HttpClient } from '@angular/common/http';
       if(this.question.imageId) questionToSave.imageId = this.question.imageId;
       this.quizService.updateQuestion(this.quiz.id, questionToSave);
     }
-    this.resetUp();
+    this.resetAll();
   } 
-
-  resetUp(){
-    this.questionForm.reset();
-    this.showFormQuestion = false;
-    this.imagePreviewUp = null;
-    this.imageNameUp = null;
-  }
   
   imgFillIn(): Img {
     let image = {} as Img;
@@ -123,18 +106,34 @@ import { HttpClient } from '@angular/common/http';
 
   onChangeFile(event) {
     let reader = new FileReader();
+    console.log(this.imageNameUp);
+    console.log("heo")
     if (event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
         this.imageNameUp = file.name + " " + file.type;
         this.imagePreviewUp = 'data:image;base64,' + (reader.result as string).split(',')[1];
-        //(<string>reader.result).split or (reader.result as string).split
         console.log(this.imageNameUp);
       };
     }
   }
 
+  cancelQuestionLabel() {
+    this.questionForm.reset();
+    this.initializeQuestionForm();
+  }
+
+  resetAll(){
+    this.questionForm.reset();
+    this.imagePreviewUp = null;
+    this.imageNameUp = null;
+  }
+
+  cancelImageLoading(){
+    this.imagePreviewUp = null;
+    this.imageNameUp = null;
+  }
   getImgSrcUp() {
     if(this.imagePreviewUp) return this.imageService.sanitize(this.imagePreviewUp); 
     if(this.image) return this.imageService.sanitize(this.image.url); 
@@ -144,10 +143,6 @@ import { HttpClient } from '@angular/common/http';
   //////////////////////////////////////////////////////////////:
 
 
-  cancelQuestionLabel() {
-    this.questionForm.reset();
-    this.showFormQuestion=false;
-  }
   supprAnswer(answer: Answer) {
     this.quizService.deleteAnswer(this.quiz, this.question, answer);
   }
@@ -155,11 +150,6 @@ import { HttpClient } from '@angular/common/http';
   editAnswer(answer: Answer) {
     this.answerSelected = answer;
     this.switchShow(true);
-  }
-
-  editLabelQuestion(){
-    this.initializeQuestionForm();
-    this.showFormQuestion =true;
   }
 
   createAnswer() {

@@ -1,34 +1,38 @@
-<button class="wide-button" (click)="goBack()"> Retour </button>
-<div *ngIf="quiz && question">
-    <div *ngIf="image && image.url"class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="question image"></div>
-<div class="card">
+<button class="button-card" (click)="goBack()"> Retour </button>(mettre popup quitter sans enr...)
+<div class = "horizontal-center" *ngIf="quiz && question && (image||!question.imageId)">
+    <h1>Quiz : {{quiz.name}}</h1>
+    
     <div class = "errorMessage" *ngIf = "questionInvalid()">
         {{errorMessage}}
     </div>
-    <div *ngIf="!showFormQuestion">
-        {{question.label}} 
-        <button id="editLabelQuestion" class="button" (click)="editLabelQuestion()"><i class="fas fa-edit"></i></button>
-    </div>
-    <div *ngIf="showFormQuestion">
-        <form [formGroup]="questionForm">
-            <input type="text" [formControlName]="'label'"><br>
-            Charger une image depuis
-            <div class="frame image" *ngIf="imagePreviewUp || image.url">
-                <img class="thumbnail" [src]="getImgSrcUp()" alt="question image">
-            </div>
-            <div class="label"><label for="image64Up" class="button-card">Cet appareil</label></div>
-            <input type="file" class="hidden" id="image64Up" (change)="onChangeFile($event)" accept="image/*">
-            <br>
-            <button id = "submitQuestion" class="button-card" (click)="submitQuestionLabel()">Valider</button>
-            <button id = "cancel" type="button" class="button-card" (click)="cancelQuestionLabel()">Annuler</button>
-        </form>
+
+    <form [formGroup]="questionForm">
+        <input type="text" size = "{{question.label.length}}" [formControlName]="'label'">
+        <button id = "cancel" type="button" (click)="cancelQuestionLabel()"><i class="fas fa-undo-alt"></i></button>
+    </form>
+    
+    <div *ngIf = "image">
+        <div class="frame image" *ngIf="imagePreviewUp || image.url">
+            <img class="thumbnail" [src]="getImgSrcUp()" alt="question image">
+        </div>
+        <div class="label">
+            <label for="image64Up" class="button-card" id = "chargerImage">Charger une image depuis cet appareil</label>
+            <button id = "cancel" type="button" (click)="cancelImageLoading()"><i class="fas fa-undo-alt"></i></button>
+        </div>
+        <input type="file" class="hidden" id="image64Up" (change)="onChangeFile($event)" accept="image/*">
     </div>
     
+    <h2>Réponses :</h2>
     
-    <br>
-    Réponses : 
+    <button id = "createAnswer" class="button-card" (click)="createAnswer()"> <i class="fas fa-plus-circle"></i> Ajouter une réponse </button>
+    <!--Peut-être à mettre dans un modal-->
+    <div *ngIf="show && !answerSelected">
+        <app-answer-form [quiz] = "quiz" [question]="question" (answerAdded)="reset($event)"></app-answer-form>
+    </div>
+    <!---->
     <div class="question" *ngFor="let answer of question.answers">
-        <div *ngIf="answer">{{answer.value}} -> {{answer.isCorrect}}
+        <div *ngIf="answer">
+            {{answer.value}} -> {{answer.isCorrect}}
             <button id = "editAnswer" class="button" (click)="editAnswer(answer)"><i class="fas fa-edit"></i></button>
             <div *ngIf="show && answer==answerSelected">
                 <app-answer-form [quiz] = "quiz" [question]="question" [answer]= "answerSelected" (answerAdded)="reset($event)"></app-answer-form>
@@ -37,11 +41,9 @@
         </div>
     </div>
     
-    
-    <button id = "createAnswer" class="button-card" (click)="createAnswer()"> Ajouter une réponse </button>
-    <div *ngIf="show && !answerSelected">
-        <app-answer-form [quiz] = "quiz" [question]="question" (answerAdded)="reset($event)"></app-answer-form>
-    </div>
-    <button id = "deleteQuestion" class="button-card" (click)="deleteQuestion()"> Supprimer la question</button>
-</div>
+    <!--<button id = "deleteQuestion" class="button-card" (click)="deleteQuestion()"> Supprimer la question</button>-->
+
+    <button id = "submitQuestion" class="button-card" (click)="submitQuestionLabel()">Enregistrer</button>
+    <button id = "cancelAll" class="button-card" (click)="resetAll()">Tout annuler</button>
+
 </div>
