@@ -28,17 +28,16 @@ export class PassewordComponent implements OnInit {
 
   loginUser() {
     this.counter++;
-    let password = this.loginForm.get('password').value;
+    const password = this.loginForm.get('password').value;
     if (password === '1111' || password === '') {
       this.router.navigate(['staff']);
       return;
-    } 
+    }
     this.isCorrect = false;
     if (this.counter === 3) { // if entered password 3 times wrong that means it's a user who want to acces and not a staff !!
         this.counter = 0; // reset on 0
         this.router.navigate(['home']); // redirect to home page
-    } 
+    }
   }
-
 
 }
