@@ -1,8 +1,8 @@
 const { Router } = require('express')
-
 const { User } = require('../../models')
 const manageAllErrors = require('../../utils/routes/error-management')
-
+const AttemptRouter = require('./attempts')
+const { deleteAttemptsFromUser } = require('./attempts/manager')
 const router = new Router()
 
 router.get('/', (req, res) => {
@@ -40,11 +40,14 @@ router.put('/:userId', (req, res) => {
 
 router.delete('/:userId', (req, res) => {
   try {
+    deleteAttemptsFromUser(req.params.userId)
     User.delete(req.params.userId)
     res.status(204).end()
   } catch (err) {
     manageAllErrors(res, err)
   }
 })
+
+router.use('/:userId/attempts', AttemptRouter)
 
 module.exports = router
