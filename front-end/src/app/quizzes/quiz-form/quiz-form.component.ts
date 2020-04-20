@@ -58,11 +58,11 @@ export class QuizFormComponent implements OnInit {
     if(this.imagePreview){
       let imgToSave: Img = this.imgFillIn();
       console.log("Quiz: save with image...");
-      this.quizService.addQuizWithImage(quizToSave, imgToSave);
+      //this.quizService.addQuizWithImage(quizToSave, imgToSave);
     }
     else{
       console.log("Quiz: save...");
-      this.quizService.addQuiz(quizToSave);
+      //this.quizService.addQuiz(quizToSave);
     }
     this.reset();
   }

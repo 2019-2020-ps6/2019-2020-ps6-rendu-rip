@@ -5,7 +5,7 @@
 
 <div class="user-list">
     <div class="card user fixed-container" *ngFor="let user of userList">
-        <button class="button-card user" routerLink="/customers">
+        <button class="button-card user" routerLink="./{{user.id}}">
             <app-user [user]="user" (userDeleted) = "deleteUser($event)"></app-user>
         </button>
     </div>

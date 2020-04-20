@@ -12,18 +12,20 @@ import { QuizSummaryComponent } from './quiz-sequence/quiz-summary/quiz-summary.
 import { QuizEndComponent } from './quiz-sequence/quiz-end/quiz-end.component';
 import { UsersSelectionListComponent } from './users/user-selection-list/user-selection-list.component';
 import { GalleryComponent } from './gallery/gallery.component';
-import { PassewordComponent } from './start/passeword/passeword.component';
+import { PassewordComponent } from './start/password/password.component';
 import { EditQuestionComponent } from './quizzes/edit-question/edit-question.component';
 
-
+///BIIIIIIIIIIIIIIIIIIIIIIIIIIIG CLEAN TODO!
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
     { path: 'staff', component: StaffComponent },
-    { path: 'customers', component: CustomersComponent },
-    { path: 'passeword', component: PassewordComponent },
-    { path: 'user-selection', component: UsersSelectionListComponent },
+    { path: 'customers', component: UsersSelectionListComponent},
+    { path: 'customers/:customerId', component: CustomersComponent},
+    { path: 'password', component: PassewordComponent },
+    //{ path: 'user-selection', component: UsersSelectionListComponent },
     { path: 'staff/quiz-list', component: QuizListStaffComponent },
+    { path: 'edit-quiz', component: EditQuizComponent },//no data fetching --> empty fields but exact same layout
     { path: 'edit-quiz/:id', component: EditQuizComponent },
     { path: 'edit-quiz/:id/:questionId', component: EditQuestionComponent},
     //{ path: 'edit-quiz/:id', component: EditQuizComponent }, --> specifier plusieurs routes pour modifier depuis plusieurs endroits
@@ -33,9 +35,9 @@ const routes: Routes = [
     
     { path: 'customers/quiz-list-customers', component: QuizListCustomersComponent },
     //{ path: 'customers/:id/quiz-list-customers', component: CustomerComponent }, --> page avec liste quiz d'un accueilli
-    { path: 'quiz-sequence/:id', component: QuestionWidgetComponent},
-    { path: 'quiz-sequence/:id/quiz-summary', component: QuizSummaryComponent },
-    { path: 'quiz-sequence/:id/quiz-end', component: QuizEndComponent }
+    { path: 'customers/:customerId/quiz-sequence/:id', component: QuestionWidgetComponent},
+    { path: 'customers/:customerId/quiz-sequence/:id/quiz-summary', component: QuizSummaryComponent },
+    { path: 'customers/:customerId/quiz-sequence/:id/quiz-end', component: QuizEndComponent }
 ];
 
 @NgModule({

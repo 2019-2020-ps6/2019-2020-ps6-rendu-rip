@@ -52,13 +52,16 @@ export class QuizService {
     this.http.get<Quiz>(url).subscribe((quiz) => this.setQuiz(quiz));
   }
 
-  addQuiz(quiz: Quiz) { this.http.post<Quiz>(this.quizUrl, quiz, this.httpOptions).subscribe(() => this.setQuizzesFromUrl()); }
+  addQuiz(quiz: Quiz) { this.http.post<Quiz>(this.quizUrl, quiz, this.httpOptions)
+    .subscribe((quiz) => {
+      this.setQuizzesFromUrl();
+      this.setSelectedQuiz(quiz.id);
+    })};
 
   addQuizWithImage(quiz: Quiz, image: Img) {
     const url = `${serverUrl}/images/quiz`;
     //chained requests
     this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
-      console.log("inside");
       quiz.imageId = (img.id).toString();
       this.addQuiz(quiz);//met à jour observable
     });

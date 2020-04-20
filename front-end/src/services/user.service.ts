@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import { serverUrl, httpOptionsBase } from '../configs/server.config';
 
@@ -16,6 +16,7 @@ export class UserService {
 
   private httpOptions = httpOptionsBase;
   public users$: BehaviorSubject<User[]> = new BehaviorSubject(this.users);
+  public userSelected$: Subject<User> = new Subject();
 
   constructor(private http: HttpClient) { 
     this.setUsersFromUrl()
@@ -27,6 +28,21 @@ export class UserService {
   }
 
   setUsersFromUrl() { this.http.get<User[]>(this.userUrl).subscribe((users) => this.setUsers(users)); }
+
+  setUser(user: User){ this.userSelected$.next(user); }
+
+  setSelectedUser(userId: string) {
+    const url = `${this.userUrl}/${userId}`;
+    this.http.get<User>(url).subscribe((user) => this.setUser(user));
+  }
+
+  getUser(usr: User, userId: string) {
+    const url = `${this.userUrl}/${userId}`;
+    this.http.get<User>(url).subscribe((user) => {
+      usr = user; 
+      this.setUser(user);
+    });
+  }
 
   addUser(user: User) { 
     console.log("user input")

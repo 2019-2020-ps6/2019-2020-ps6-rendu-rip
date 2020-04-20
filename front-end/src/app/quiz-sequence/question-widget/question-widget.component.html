@@ -1,6 +1,8 @@
-<button class="button-card" routerLink= "/customers">Retour</button>
+<div *ngIf="currentQuestion">
+    <button class="button-card" routerLink= "../..">Retour</button>
+</div>
 
-<div class = "box center" *ngIf = "quiz">
+<div class="box center" *ngIf = "quiz">
     <!--<h2>-{{quiz.name}}-</h2>-->
     <div *ngIf = "currentQuestion; else elseBlock">
         <div class = "labelandimage">
@@ -10,6 +12,7 @@
         <app-answer-list-widget [answers] = "currentQuestion.answers" (selected) = "onSelectedAnswer($event)" (next) = "onNext($event)"></app-answer-list-widget>
     </div>
     <ng-template #elseBlock>
-        <button class="button-recap" routerLink= "./quiz-summary">Recap</button>
+        <button class="button-card button-recap" routerLink= "./quiz-summary">Récaptulatif</button>
+        <button class="button-card button-recap" routerLink= "../..">Sauter le récaptulatif</button>
     </ng-template>
 </div>

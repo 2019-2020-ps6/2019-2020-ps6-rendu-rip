@@ -31,10 +31,11 @@ import { ThemeFormComponent } from './quizzes/theme-form/theme-form.component';
 import { DisplayRightVersusAnswerSelectedComponent } from './quiz-sequence/display-right-versus-answer-selected/display-right-versus-answer-selected.component';
 import { UsersSelectionListComponent } from './users/user-selection-list/user-selection-list.component';
 import { GalleryComponent } from './gallery/gallery.component';
-import { PassewordComponent } from './start/passeword/passeword.component';
+import { PassewordComponent } from './start/password/password.component';
 import {EditQuestionComponent} from './quizzes/edit-question/edit-question.component';
 import {EditAnswerComponent} from './quizzes/edit-answer/edit-answer.component';
-import { from } from 'rxjs';
+//import { from } from 'rxjs';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { from } from 'rxjs';
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

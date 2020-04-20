@@ -6,8 +6,10 @@ import { QuizService } from '../../../services/quiz.service';
 import { Quiz } from '../../../models/quiz.model';
 import { Img } from 'src/models/image.model';
 import { ImageService } from 'src/services/image.service';
-import { SafeUrl } from '@angular/platform-browser';
+//import { SafeUrl } from '@angular/platform-browser';
 import { ThemeService } from 'src/services/theme.service';
+
+import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-edit-quiz',
@@ -21,6 +23,8 @@ export class EditQuizComponent implements OnInit {
   editionMode: Boolean;
   showThemeForm: Boolean;
 
+  modalOptions:NgbModalOptions;
+
   //already existing
   image: Img;
 
@@ -32,19 +36,37 @@ export class EditQuizComponent implements OnInit {
   private themeBtnTxtInit: string = "Autre..."; 
   private themeBtnTxtShow: string = "Annuler"; 
 
-  constructor(private route: ActivatedRoute, public imageService: ImageService, public quizService: QuizService, public formBuilder: FormBuilder, public themeService : ThemeService) {}
+  constructor( private modalService: NgbModal, private route: ActivatedRoute,
+    public imageService: ImageService, public quizService: QuizService, 
+    public formBuilder: FormBuilder, public themeService : ThemeService) {
+      this.modalOptions = {
+        backdrop:'static',
+        backdropClass:'customBackdrop'
+      }
+    }
 
   ngOnInit() {
+    const id = this.quiz? this.quiz.id : this.route.snapshot.paramMap.get('id');
+    if(this.quiz) {
+      console.log("YYYEEEEPP!");
+    }
+    const newQuiz = id==null;
     this.quizService.quizSelected$.subscribe((quiz) => this.onQuizSelected(quiz));
-    const id = this.route.snapshot.paramMap.get('id');
-    this.quizService.setSelectedQuiz(id);
+    if(newQuiz) {
+      this.initQuizForm();
+    }
+    else {//new quiz
+      //this.quizService.quizSelected$.subscribe((quiz) => this.onQuizSelected(quiz));
+      this.quizService.setSelectedQuiz(id);
+    }
+    this.editionMode = newQuiz;
+    this.showThemeForm = false;
+    this.themeBtnTxt = this.themeBtnTxtInit;
+    this.imgUrl = null;
     this.themeService.themes$.subscribe((themes) =>{
       this.THEME_LIST =[];
       for(var i =0 ; i<themes.length;i++) this.THEME_LIST.push(themes[i].name)
     });
-    this.editionMode = false;
-    this.showThemeForm = false;
-    this.themeBtnTxt = this.themeBtnTxtInit;
   }
 
   private onQuizSelected(quiz: Quiz) {
@@ -56,16 +78,26 @@ export class EditQuizComponent implements OnInit {
   loadImage(){
     this.image = {} as Img;
     const id = this.quiz.imageId;
-    console.log(id)
-    this.imageService.loadQuizImage(this.image, id);
+    if(id != null) {
+      console.log(id)
+      this.imageService.loadQuizImage(this.image, id);
+    }
   }
 
   initQuizForm() {
-    if(this.quiz == null) console.log("Quiz: intiQuizForm ... got 'null'!!");
-    this.quizForm = this.formBuilder.group({
-      name: this.quiz.name,
-      theme: this.quiz.theme
-    });
+    if(this.quiz == null) {
+      this.quizForm = this.formBuilder.group({
+        name: "",
+        theme: ""
+      });
+      this.quizForm.reset();
+    }
+    else {
+      this.quizForm = this.formBuilder.group({
+        name: this.quiz.name,
+        theme: this.quiz.theme
+      });
+    }
     this.editionMode = true;
   }
 
@@ -75,6 +107,14 @@ export class EditQuizComponent implements OnInit {
     this.showThemeForm = false;
     this.imgUrl = null;
     this.quizForm = null;
+  }
+
+  resetBlank(){
+    this.quizForm.reset();
+    /*this.editionMode = true;
+    this.showThemeForm = true;*/
+    this.imgUrl = null;
+    //this.quizForm = null;
   }
 
   updateQuiz() {
@@ -94,6 +134,21 @@ export class EditQuizComponent implements OnInit {
     this.reset();
   }
 
+  saveQuiz() {
+    let quizToSave: Quiz = this.quizFillIn();
+    if(!quizToSave) return;
+    if(this.imgUrl){
+      let imgToSave: Img = this.imgFillIn();
+      console.log("Quiz: save with image...");
+      this.quizService.addQuizWithImage(quizToSave, imgToSave);
+    }
+    else{
+      console.log("Quiz: save...");
+      this.quizService.addQuiz(quizToSave);
+    }
+    this.reset();
+  }
+
   txtHasChanged(quiz: Quiz): boolean {
     return quiz.name !== this.quiz.name || quiz.theme !== this.quiz.theme;
   }
@@ -105,7 +160,6 @@ export class EditQuizComponent implements OnInit {
   quizFillIn(): Quiz {
     const formValues: Quiz = this.quizForm.getRawValue() as Quiz;
     let quiz: Quiz = {} as Quiz;
-    quiz.id = this.quiz.id;
     if(!formValues.name) {
       window.alert("Veuillez donner un nom au quiz")
       return null;
@@ -117,7 +171,10 @@ export class EditQuizComponent implements OnInit {
     quiz.name = formValues.name;
     quiz.theme = formValues.theme;
     quiz.creationDate = new Date();
-    if(this.quiz.imageId) quiz.imageId = this.quiz.imageId;
+    if(this.quiz != null) {
+      quiz.id = this.quiz.id;
+      if(this.quiz.imageId) quiz.imageId = this.quiz.imageId;
+    }
     return quiz;
   }
 
@@ -142,6 +199,13 @@ export class EditQuizComponent implements OnInit {
     }
   }
 
+  onChangeUrl(url: string){
+    this.imgName = "image web";
+    this.imgUrl = url;
+    console.log(this.imgName);
+    console.log(this.imgUrl);
+  }
+
   displayImage() { return this.imageService.sanitize(this.imgUrl? this.imgUrl : this.image.url); }
   
   switchShowTheme() {
@@ -150,4 +214,8 @@ export class EditQuizComponent implements OnInit {
   }
 
   getThemeBtnTxt(): string { return this.themeBtnTxt; }
+
+  open(content) {
+    this.modalService.open(content, this.modalOptions);//.result.then();
+  }
 }

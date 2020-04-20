@@ -2,12 +2,24 @@
 @import '../../../styles/images.scss';
 @import '../../../styles/layout.scss';
 
+.card {
+    max-width: 60%;
+}
 
 .frame{
-    height: 15%;
-    min-height: 300px;
-    width: 20%;
-    min-width: 470px;
+    height: 50%;
+    //min-height: 50px;//300px;
+    width: 50%;
+    //min-width: 50px;//470px;
+}
+
+.frame-little {
+    margin-left: auto;
+    margin-right: auto;
+    border-style: dashed;
+    border-color:  rgb(243, 58, 144);
+    height: 30%;
+    width: 30%;
 }
 
 .hidden {

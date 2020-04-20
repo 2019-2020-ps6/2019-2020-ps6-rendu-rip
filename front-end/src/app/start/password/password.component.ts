@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-passeword',
-  templateUrl: './passeword.component.html',
-  styleUrls: ['./passeword.component.scss']
+  selector: 'app-password',
+  templateUrl: './password.component.html',
+  styleUrls: ['./password.component.scss']
 })
 export class PassewordComponent implements OnInit {
 
