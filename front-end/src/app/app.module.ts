@@ -33,6 +33,8 @@ import { UsersSelectionListComponent } from './users/user-selection-list/user-se
 import { GalleryComponent } from './gallery/gallery.component';
 import { PassewordComponent } from './start/passeword/passeword.component';
 import {EditQuestionComponent} from './quizzes/edit-question/edit-question.component';
+import {EditAnswerComponent} from './quizzes/edit-answer/edit-answer.component';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,8 @@ import {EditQuestionComponent} from './quizzes/edit-question/edit-question.compo
     UsersSelectionListComponent,
     GalleryComponent,
     PassewordComponent,
-    EditQuestionComponent
+    EditQuestionComponent,
+    EditAnswerComponent
   ],
   imports: [
     BrowserModule,

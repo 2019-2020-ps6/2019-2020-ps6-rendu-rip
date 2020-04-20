@@ -1,6 +1,6 @@
 [
   {
-    "label": "Quelle est l'écriture de 64 en binaire",
+    "label": "bonjou",
     "quizId": 1586240902769,
     "id": 1586240961622,
     "imageId": "1587048053918"
@@ -14,7 +14,8 @@
   {
     "label": "Qui est l'origine de machine Turing ?",
     "quizId": 1586240902769,
-    "id": 1586241282274
+    "id": 1586241282274,
+    "imageId": "1587370843317"
   },
   {
     "label": "Pour vérifier qu'un langage n'est pas rationnelle, on utilise :",

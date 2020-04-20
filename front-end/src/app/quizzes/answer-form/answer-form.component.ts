@@ -21,7 +21,6 @@ export class AnswerFormComponent implements OnInit {
   @Output() answerAdded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   answerForm: FormGroup;
-  aRightAnswerIsAlreadyPresent : boolean = false;
   
   image: Img;
   imageNameAns: string;
@@ -30,7 +29,6 @@ export class AnswerFormComponent implements OnInit {
   constructor(public formBuilder: FormBuilder, public quizService: QuizService, public imageService: ImageService) {}
 
   ngOnInit() {
-    this.rightAnswerPresent();
     this.initializeAnswerForm();
     this.loadImage();
   }
@@ -44,67 +42,29 @@ export class AnswerFormComponent implements OnInit {
   }
 
   private initializeAnswerForm() {
-    if (this.answer != null) {
-      this.answerForm = this.formBuilder.group({
-        value: [this.answer.value],
-        isCorrect: this.answer.isCorrect,
-      });
-    } else {
-      this.answerForm = this.formBuilder.group({
-        value: [''],
-        isCorrect: false,
-      });
-    }
+    this.answerForm = this.formBuilder.group({
+      value: [''],
+      isCorrect: false,
+    });
   }
 
   submitAnswer() {
     const answerToSave: Answer = this.answerForm.getRawValue() as Answer;
     answerToSave.questionId = this.question.id;
-    if(this.answer==null){
-      if(this.imagePreviewAns){
-        let imgToSave: Img = this.imgFillIn();
-        console.log("Answer: saving with image...");
-        this.quizService.addAnswerWithImage(this.quiz.id, this.question.id, answerToSave, imgToSave);
-      }
-      else if(!answerToSave.value) { 
-        window.alert("Veuillez mettre une réponse.")
-        return
-      }
-      else{
-        this.quizService.addAnswer(this.question.quizId, this.question.id, answerToSave);
-      }
+    if(!answerToSave.value && !this.imagePreviewAns) { 
+      window.alert("Veuillez mettre une réponse ou une image")
+      return
     }
-    else{//update
-      answerToSave.id = this.answer.id;
-      if(this.imagePreviewAns){
-        let imgToSave: Img = this.imgFillIn();
-        console.log("Answer: saving with image...");
-        this.quizService.updateAnswerWithImage(this.quiz.id, this.question.id, answerToSave, imgToSave);
-      }
-      else if(!answerToSave.value) { 
-        window.alert("Veuillez mettre une réponse.")
-        return
-      }
-      else{
-        if(this.answer.imageId) answerToSave.imageId = this.question.imageId;
-        this.quizService.updateAnswer(this.question.quizId, this.question.id, answerToSave);
-      }
+
+    if(this.imagePreviewAns){
+      let imgToSave: Img = this.imgFillIn();
+      console.log("Answer: saving with image...");
+      this.quizService.addAnswerWithImage(this.quiz.id, this.question.id, answerToSave, imgToSave);
+    }
+    else{
+      this.quizService.addAnswer(this.question.quizId, this.question.id, answerToSave);
     }
     this.resetAns();
-
-    /*if (this.answer == null) {
-      if (!answerToSave.isCorrect) { answerToSave.isCorrect = false; }
-      //if (!answerToCreate.value) { answerToCreate.value = 'Aucune idée'; }
-      this.quizService.addAnswer(this.question.quizId, this.question.id, answerToSave);
-    } 
-    else {
-      for (let i = 0; i < this.question.answers.length; i++) {
-        if (this.question.answers[i] == this.answer) {
-          answerToSave.id = this.answer.id;
-          this.quizService.updateAnswer(this.question.quizId, this.question.id, answerToSave);
-        }
-      }
-    }*/
   }
 
 
@@ -112,19 +72,14 @@ export class AnswerFormComponent implements OnInit {
     this.answerForm.reset();
     this.answerAdded.emit(false);
   }
-
+/*
   rightAnswerPresent() {
     this.question.answers.forEach(element => {
       if (element.isCorrect === true) {
         this.aRightAnswerIsAlreadyPresent = true;
       }
     });
-  }
-
-  isSetToRight(): boolean{
-    if(this.answer==null) return false;
-    return this.answer.isCorrect;
-  }
+  }*/
 
   resetAns(){
     this.answerForm.reset();
@@ -148,7 +103,6 @@ export class AnswerFormComponent implements OnInit {
       reader.onload = () => {
         this.imageNameAns = file.name + " " + file.type;
         this.imagePreviewAns = 'data:image;base64,' + (reader.result as string).split(',')[1];
-        //(<string>reader.result).split or (reader.result as string).split
         console.log(this.imageNameAns);
       };
     }

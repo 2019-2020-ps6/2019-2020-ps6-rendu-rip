@@ -1,15 +1,10 @@
 [
   {
-    "value": "001000000",
+    "value": "cacahète",
     "isCorrect": true,
     "questionId": 1586240961622,
-    "id": 1586240984339
-  },
-  {
-    "value": "cacauhète",
-    "isCorrect": false,
-    "questionId": 1586240961622,
-    "id": 1586241023439
+    "id": 1586241023439,
+    "imageId": "1587375371975"
   },
   {
     "value": "11100000",
@@ -234,11 +229,5 @@
     "questionId": 1586591670358,
     "id": 1586591839759,
     "imageId": "1586849879656"
-  },
-  {
-    "value": "Bonjour",
-    "isCorrect": false,
-    "questionId": 1586240961622,
-    "id": 1587113610241
   }
 ]

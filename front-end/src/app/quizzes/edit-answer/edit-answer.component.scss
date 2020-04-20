@@ -1,0 +1,23 @@
+@import '../../../styles/card.scss';
+@import '../../../styles/layout.scss';
+@import '../../../styles/images.scss';
+
+.hidden {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+.imageAndButton{
+    display: flex;
+}
+.frame{
+    margin-left: 1em;;
+}
+
+#chargerImage {
+    border-radius: 1em;
+}
+
+.correctCheck{
+    text-align: left;
+}

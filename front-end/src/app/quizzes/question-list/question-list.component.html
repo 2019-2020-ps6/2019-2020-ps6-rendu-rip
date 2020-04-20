@@ -4,9 +4,7 @@
 </div>
 <div class = "errorMessage" *ngIf = "quiz.questions.length==0">Veuillez ajouter au moins une question</div>
 <div class="question-list"> 
-<div class="question" *ngFor="let question of quiz.questions">
-  <!--Sauvegarde : <app-edit-question [quiz]  = "quiz" [question] = "question" (questionDeleted) = "deleteQuestion($event)"></app-edit-question>-->
-  <app-question [quiz]  = "quiz" [question] = "question"></app-question>
-
-</div>
+  <div class="question" *ngFor="let question of quiz.questions">
+    <app-question [quiz]  = "quiz" [question] = "question"></app-question>
+  </div>
 </div>

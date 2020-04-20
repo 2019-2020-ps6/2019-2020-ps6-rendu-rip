@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Question } from '../../../models/Question.model';
 import { Answer } from '../../../models/answer.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -9,6 +9,7 @@ import { ImageService } from 'src/services/image.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 
 
@@ -19,12 +20,13 @@ import { HttpClient } from '@angular/common/http';
   })
   
   export class EditQuestionComponent implements OnInit {
-   
-    answerSelected: Answer;
-    show: boolean;
+
+    showForm: boolean;
     errorMessage : String;
     questionForm: FormGroup;
 
+    public saveAll$ : BehaviorSubject<boolean> = new BehaviorSubject(false);
+    public resetAll$ : BehaviorSubject<boolean> = new BehaviorSubject(false);
     question: Question;
     quiz: Quiz;
     image: Img;
@@ -76,8 +78,7 @@ import { HttpClient } from '@angular/common/http';
       label : [this.question.label]
     });
   }
-
-  submitQuestionLabel() {
+  submitQuestionLabel(){
     const questionToSave: Question = this.questionForm.getRawValue() as Question;
     questionToSave.quizId = this.quiz.id;
     questionToSave.id = this.question.id;
@@ -94,7 +95,10 @@ import { HttpClient } from '@angular/common/http';
       if(this.question.imageId) questionToSave.imageId = this.question.imageId;
       this.quizService.updateQuestion(this.quiz.id, questionToSave);
     }
-    this.resetAll();
+  }
+  submitAll() {
+    this.submitQuestionLabel();
+    this.saveAll$.next(true);
   } 
   
   imgFillIn(): Img {
@@ -124,46 +128,28 @@ import { HttpClient } from '@angular/common/http';
     this.initializeQuestionForm();
   }
 
-  resetAll(){
-    this.questionForm.reset();
+  cancelImageLoading(){
     this.imagePreviewUp = null;
     this.imageNameUp = null;
   }
 
-  cancelImageLoading(){
-    this.imagePreviewUp = null;
-    this.imageNameUp = null;
+  resetAll(){
+    this.cancelQuestionLabel();
+    this.cancelImageLoading();
+    this.showForm = false;
+    this.resetAll$.next(true);
   }
   getImgSrcUp() {
     if(this.imagePreviewUp) return this.imageService.sanitize(this.imagePreviewUp); 
     if(this.image) return this.imageService.sanitize(this.image.url); 
   }
     
-    
-  //////////////////////////////////////////////////////////////:
-
-
-  supprAnswer(answer: Answer) {
-    this.quizService.deleteAnswer(this.quiz, this.question, answer);
-  }
   
-  editAnswer(answer: Answer) {
-    this.answerSelected = answer;
-    this.switchShow(true);
+
+  switchShowForm(showForm :boolean){
+    this.showForm = showForm;
   }
 
-  createAnswer() {
-    this.switchShow(true);
-  }
-
-  reset(show: boolean) {
-    this.switchShow(show);
-    this.answerSelected = null;
-  }
-  
-  switchShow(show: boolean) {
-    this.show = show;
-  }
   goBack() {
     this.location.back(); // <-- go back to previous location on cancel
   }
@@ -174,10 +160,15 @@ import { HttpClient } from '@angular/common/http';
       //this.theQuestionIsInvalid.emit(true);
       return true;
     }
-    var oneRightAnswer = false
-    this.question.answers.forEach(element => { if(element.isCorrect) oneRightAnswer = true })
-    if(!oneRightAnswer){
+    var oneRightAnswer = 0
+    this.question.answers.forEach(element => { if(element.isCorrect) oneRightAnswer++ })
+    if(oneRightAnswer===0){
       this.errorMessage = "Il n'y a pas de réponse correcte."
+      //this.theQuestionIsInvalid.emit(true);
+      return true;
+    }
+    if(oneRightAnswer>1){
+      this.errorMessage = "Il y a plus d'une réponse correcte."
       //this.theQuestionIsInvalid.emit(true);
       return true;
     }

@@ -1,21 +1,17 @@
-<form [formGroup]="answerForm">
-  <label for="name">Réponse</label><br>
-  <input type="text" [formControlName]="'value'" id="name"><br>
-  Charger une image depuis:
-  <div class="frame image" *ngIf="imagePreviewAns || image.url">
-    <img class="thumbnail" [src]="getImgSrcAns()" alt="answer image">
-  </div>
-	<div class="label"><label for="image64Ans" class="button-card">Cet appareil</label></div>
-	<input type="file" class="hidden" id="image64Ans" (change)="onChangeFile($event)" accept="image/*">
-  <div *ngIf="!aRightAnswerIsAlreadyPresent || isSetToRight()">
-    Correct
-    <input type="checkbox" [formControlName]="'isCorrect'"> 
-  </div>
-  <div *ngIf="aRightAnswerIsAlreadyPresent && !isSetToRight()">
-    Correct
-    <input type="checkbox" disabled="true">
-  </div>
-  <button id="submitAnswer" class="button-card" type="submit" (click)="submitAnswer()">Valider</button>
-  <button id="cancelAnswer" class="button-card" type="reset"(click)="cancelAnswer()">Annuler</button>
-  <br>
-</form>
+<div class="card">
+  <form [formGroup]="answerForm">
+    <label for="name">Réponse</label><br>
+    <input type="text" [formControlName]="'value'" id="name"><br>
+    Charger une image depuis:
+    <div class="frame image" *ngIf="imagePreviewAns || image.url">
+      <img class="thumbnail" [src]="getImgSrcAns()" alt="answer image">
+    </div>
+    <div class="label"><label for="image64Ans" class="button-card chargerImage">Cet appareil</label></div>
+    <input type="file" class="hidden" id="image64Ans" (change)="onChangeFile($event)" accept="image/*">
+
+    
+    Correcte : <input type="checkbox" [formControlName]="'isCorrect'"> <br>
+    <button id="submitAnswer" class="button-card" type="submit" (click)="submitAnswer()">Valider</button>
+    <button id="cancelAnswer" class="button-card" type="reset"(click)="cancelAnswer()">Annuler</button>
+  </form>
+</div>
