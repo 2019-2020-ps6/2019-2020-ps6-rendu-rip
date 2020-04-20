@@ -45,8 +45,8 @@
     <!--<button type="button" class="button-card" id="imageWeb" (click)="onChangeUrl(url.value)">Ok</button>-->
 
 
-    <button type="button" class="hidden" id="modal-imageWeb" (click)="open(webUrlModal)">Internet</button>
-    <button type="button" class="hidden" id="modal-imageDB" (click)="on">Banque d'images</button>
+    <button type="button" class="hidden" id="modal-imageWeb" (click)="open(weburlmodal)">Internet</button>
+    <button type="button" class="hidden" id="modal-imageDB" (click)="open(imgdbmodal)">Banque d'images</button>
     <input type="file" class="hidden" id="image64" (change)="onChangeFile($event)" accept="image/*">
 
     <!--
@@ -85,7 +85,7 @@
   </div>
 </ng-template>
 
-<ng-template #webUrlModal let-modal>
+<ng-template #weburlmodal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Coller l'adresse de l'image</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -100,3 +100,23 @@
   </div>
 </ng-template>
 <!--"onChangeUrl(url.value)"-->
+
+
+<ng-template #imgdbmodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Choisir une image:</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="responsive-list">
+      <div class="button-card button-list" *ngFor="let img of imagesList">
+          <div *ngIf="img.url" class="frame-list"><img class="thumbnail-list" [src]="getImgSrc(img)" (click)="onImgClicked(modal, img.id, img.url)" alt="DB image"></div>
+      </div>
+    </div>
+  </div>
+  <!--<div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="saveImgFromDB(modal)">Ok</button>
+  </div>-->
+</ng-template>

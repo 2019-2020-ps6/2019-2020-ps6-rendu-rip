@@ -28,7 +28,14 @@ export class EditQuizComponent implements OnInit {
   //already existing
   image: Img;
 
+  imagesList: Img[] = []
+
   //form
+
+  tmpImgDBId: string;
+  tmpImgUrl: string;
+
+  imgDBId: string;
   imgName: string;
   imgUrl: string;
   public THEME_LIST : string[];
@@ -43,6 +50,7 @@ export class EditQuizComponent implements OnInit {
         backdrop:'static',
         backdropClass:'customBackdrop'
       }
+      imageService.loadAllQuizImages(this.imagesList);
     }
 
   ngOnInit() {
@@ -67,6 +75,7 @@ export class EditQuizComponent implements OnInit {
       this.THEME_LIST =[];
       for(var i =0 ; i<themes.length;i++) this.THEME_LIST.push(themes[i].name)
     });
+    this.imgDBId = null;
   }
 
   private onQuizSelected(quiz: Quiz) {
@@ -107,6 +116,7 @@ export class EditQuizComponent implements OnInit {
     this.showThemeForm = false;
     this.imgUrl = null;
     this.quizForm = null;
+    this.imgDBId = null;
   }
 
   resetBlank(){
@@ -124,7 +134,8 @@ export class EditQuizComponent implements OnInit {
     const newTxt = this.txtHasChanged(quizToSave);
     const newImg = this.imgHasChanged(imgToSave);
     //sans changement d'image
-    if(newTxt && !newImg) {//update quiz
+    if(this.imgDBId!=null || newTxt && !newImg) {//update quiz
+      if(this.imgDBId != null) quizToSave.imageId = this.imgDBId;
       this.quizService.updateQuiz(quizToSave);
     }//avec image
     else if(newImg) {
@@ -136,15 +147,21 @@ export class EditQuizComponent implements OnInit {
 
   saveQuiz() {
     let quizToSave: Quiz = this.quizFillIn();
-    if(!quizToSave) return;
-    if(this.imgUrl){
-      let imgToSave: Img = this.imgFillIn();
-      console.log("Quiz: save with image...");
-      this.quizService.addQuizWithImage(quizToSave, imgToSave);
-    }
-    else{
-      console.log("Quiz: save...");
+    if(this.imgDBId != null) {
+      quizToSave.imageId = this.imgDBId;
       this.quizService.addQuiz(quizToSave);
+    }
+    else {
+      if(!quizToSave) return;
+      if(this.imgUrl){
+        let imgToSave: Img = this.imgFillIn();
+        console.log("Quiz: save with image...");
+        this.quizService.addQuizWithImage(quizToSave, imgToSave);
+      }
+      else{
+        console.log("Quiz: save...");
+        this.quizService.addQuiz(quizToSave);
+      }
     }
     this.reset();
   }
@@ -196,6 +213,7 @@ export class EditQuizComponent implements OnInit {
         //(<string>reader.result).split or (reader.result as string).split
         console.log(this.imgName);
       };
+      this.imgDBId = null;
     }
   }
 
@@ -204,6 +222,7 @@ export class EditQuizComponent implements OnInit {
     this.imgUrl = url;
     console.log(this.imgName);
     console.log(this.imgUrl);
+    this.imgDBId = null;
   }
 
   displayImage() { return this.imageService.sanitize(this.imgUrl? this.imgUrl : this.image.url); }
@@ -217,5 +236,21 @@ export class EditQuizComponent implements OnInit {
 
   open(content) {
     this.modalService.open(content, this.modalOptions);//.result.then();
+  }
+
+  getImgSrc(image: Img) { return this.imageService.sanitize(image.url) }
+
+  onImgClicked(modal, id: string, url: string) {
+    this.tmpImgDBId = id;
+    this.tmpImgUrl = url;
+    this.saveImgFromDB(modal);
+  }
+
+  saveImgFromDB(modal) {
+    modal.close();
+    if(this.tmpImgDBId != null && this.tmpImgUrl != null) {
+      this.imgDBId = this.tmpImgDBId;
+      this.imgUrl = this.tmpImgUrl;
+    }
   }
 }
