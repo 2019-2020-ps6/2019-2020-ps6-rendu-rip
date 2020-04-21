@@ -17,6 +17,11 @@ export class AnswerListWidgetComponent implements OnInit {
   @Output()
   next: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  @Output()
+  timeOutEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output()
+  wrongAnswerEvent: EventEmitter<Answer> = new EventEmitter<Answer>();
+
   answerSelected : Answer;
   display: number;
   //Pour la demo BESOIN de timers assez rapide...
@@ -60,6 +65,8 @@ export class AnswerListWidgetComponent implements OnInit {
   onAnswerSelected(answer: Answer) {
     this.stop(this.timerToChooseAnswer);
 
+    if (answer.isCorrect==false) this.wrongAnswerEvent.emit(answer);
+
     // Debut: Code pour pop les questions
     if (answer.isCorrect==false && this.answers.length>2) {
       // On laisse la réponse erronée et la réponse vraie
@@ -77,6 +84,7 @@ export class AnswerListWidgetComponent implements OnInit {
 
   //Timer pour choisir
   startTimerToChooseAnswer = () => setTimeout(() => {//à la fin du timeOut :
+    this.timeOutEvent.emit(true);
     this.display = this.SHOW_ANSWER_COMPARISON; //on affiche la suite
     this.timerDisplayComparison = this.startTimerDisplayComparison();// on lance le timer suivant
   }

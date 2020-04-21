@@ -9,10 +9,10 @@
             <div *ngIf="currentQuestion.label"><h4>{{currentQuestion.label}}</h4></div>
             <div *ngIf="image.url" class="question-image"><img class="thumbnail" [src]="getImgSrc()" alt="question image"></div>
         </div>
-        <app-answer-list-widget [answers] = "currentQuestion.answers" (selected) = "onSelectedAnswer($event)" (next) = "onNext($event)"></app-answer-list-widget>
+        <app-answer-list-widget [answers] = "currentQuestion.answers" (selected) = "onSelectedAnswer($event)" (next) = "onNext($event)" (wrongAnswerEvent) = "onWrongAnswer($event)" (timeOutEvent) = "onTimeOut()"></app-answer-list-widget>
     </div>
     <ng-template #elseBlock>
-        <button class="button-card button-recap" routerLink= "./quiz-summary">Récapitulatif</button>
-        <button class="button-card button-recap" routerLink= "../..">Sauter le récapitulatif</button>
+        <button class="button-card button-recap" (click)="sendAttempt()" routerLink= "./quiz-summary">Récapitulatif</button>
+        <button class="button-card button-recap" (click)="sendAttempt()" routerLink= "../..">Sauter le récapitulatif</button>
     </ng-template>
 </div>
