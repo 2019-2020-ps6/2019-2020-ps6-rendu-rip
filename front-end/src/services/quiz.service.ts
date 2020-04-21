@@ -69,6 +69,7 @@ export class QuizService {
 
   updateQuiz(quiz: Quiz) {
     const url = `${this.quizUrl}/${quiz.id}`;
+    console.log(quiz)
     this.http.put<Quiz>(url, quiz, this.httpOptions).subscribe(quiz => {
       //this.setQuiz(quiz); --> pb
       this.setSelectedQuiz(quiz.id);//for now -- mais après mettre à jour autrement --> pour éviter rechargement infos sur page si possible non? (pas beau) 

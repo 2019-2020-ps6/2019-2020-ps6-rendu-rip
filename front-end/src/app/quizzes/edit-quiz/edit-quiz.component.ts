@@ -135,11 +135,12 @@ export class EditQuizComponent implements OnInit {
     const newImg = this.imgHasChanged(imgToSave);
     //sans changement d'image
     if(this.imgDBId!=null || newTxt && !newImg) {//update quiz
-      if(this.imgDBId != null) quizToSave.imageId = this.imgDBId;
+      if(this.imgDBId != null) quizToSave.imageId = this.imgDBId.toString();
       this.quizService.updateQuiz(quizToSave);
     }//avec image
     else if(newImg) {
       //in any case: create image + update quiz
+      console.log("heo")
       this.quizService.updateQuizWithImage(quizToSave, imgToSave);
     }
     this.reset();
@@ -148,7 +149,7 @@ export class EditQuizComponent implements OnInit {
   saveQuiz() {
     let quizToSave: Quiz = this.quizFillIn();
     if(this.imgDBId != null) {
-      quizToSave.imageId = this.imgDBId;
+      quizToSave.imageId = this.imgDBId.toString();
       this.quizService.addQuiz(quizToSave);
     }
     else {
