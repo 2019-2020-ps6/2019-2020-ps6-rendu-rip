@@ -14,6 +14,7 @@ import { UsersSelectionListComponent } from './users/user-selection-list/user-se
 import { GalleryComponent } from './gallery/gallery.component';
 import { PassewordComponent } from './start/password/password.component';
 import { EditQuestionComponent } from './quizzes/edit-question/edit-question.component';
+import { EditUserComponent } from './users/edit-user/edit-user.component';
 
 ///BIIIIIIIIIIIIIIIIIIIIIIIIIIIG CLEAN TODO!
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
     { path: 'staff/quiz-list', component: QuizListStaffComponent },
     { path: 'edit-quiz', component: EditQuizComponent },//no data fetching --> empty fields but exact same layout
     { path: 'edit-quiz/:id', component: EditQuizComponent },
+    { path: 'edit-user/:id', component: EditUserComponent },
     { path: 'edit-quiz/:id/:questionId', component: EditQuestionComponent},
     //{ path: 'edit-quiz/:id', component: EditQuizComponent }, --> specifier plusieurs routes pour modifier depuis plusieurs endroits
     { path: 'gallery', component: GalleryComponent},

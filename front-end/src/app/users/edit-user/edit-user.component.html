@@ -1,0 +1,24 @@
+<button class="button-card" routerLink= "/staff/quiz-list">Retour</button>
+<button class="button-card" routerLink= "/home">Home</button>
+<br>
+
+<div *ngIf="user">
+    <div class = "imageAndButton">
+        <div class="label">
+            <label for="image64EditUser{{user.id}}" class="button-card" id = "chargerImage">Charger une image depuis cet appareil</label>
+        </div>
+        <input type="file" class="hidden" id="image64EditUser{{user.id}}" (change)="onChangeFile($event)" accept="image/*">
+        <div class="frame image" *ngIf="imagePreviewUser || (userImage && userImage.url)">
+            <img class="thumbnail" [src]="getImgSrcUser()" alt="answer image">
+        </div>
+    </div>
+    <form class="user-form" [formGroup]="userForm">
+
+        <label for="name"><h1>Nom: </h1></label>  
+        <br>
+        <input class="input-custom" type="text" id="name" [formControlName]="'name'">
+        <br>
+        <button id="sumbit" class="button-card" (click)="submitUser()">Enregistrer</button>
+        <button id="cancelAnswer" class="button-card" (click)="cancelUser()">Annuler</button>
+    </form>
+</div>

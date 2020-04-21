@@ -1,4 +1,5 @@
 <div>
     <h1 id="username">{{user.name}}</h1>
     <div *ngIf = "image.url" class="frame"><img class="thumbnail" [src]="displayImage()" alt="user image"></div>
+    <button routerLink= "/edit-user/{{user.id}}">Modifier</button>
 </div>

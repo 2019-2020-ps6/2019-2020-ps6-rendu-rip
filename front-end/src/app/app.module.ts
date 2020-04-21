@@ -36,6 +36,7 @@ import {EditQuestionComponent} from './quizzes/edit-question/edit-question.compo
 import {EditAnswerComponent} from './quizzes/edit-answer/edit-answer.component';
 //import { from } from 'rxjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EditUserComponent } from './users/edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     GalleryComponent,
     PassewordComponent,
     EditQuestionComponent,
-    EditAnswerComponent
+    EditAnswerComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

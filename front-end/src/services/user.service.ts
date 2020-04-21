@@ -11,6 +11,10 @@ import { Img } from 'src/models/image.model';
 })
 
 export class UserService {
+
+
+
+  
   private users: User[] = [];
   private userUrl = serverUrl + '/users';
 
@@ -67,7 +71,19 @@ export class UserService {
 
   updateUser(user: User) {
     const urlWithId = `${this.userUrl}/${user.id}`;
+    console.log( user);
     this.http.put<User>(urlWithId, user, this.httpOptions).subscribe(() => this.setUsersFromUrl());
+  }
+
+
+  updateUserWithImg(user: User, imgToSave: Img) {
+    const url = `${serverUrl}/images/user`;
+    this.http.post<Img>(url, imgToSave, this.httpOptions).subscribe(img => {
+      user.imageId = img.id;
+      this.updateUser(user);
+    });
+
+    
   }
 
   /*

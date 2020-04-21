@@ -19,4 +19,8 @@ export class UserListComponent implements OnInit {
   }
 
   deleteUser(user: User) { this.userService.deleteUser(user); }
+
+  hello(){
+    console.log('hello\n');
+  }
 }
