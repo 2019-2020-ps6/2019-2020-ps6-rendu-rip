@@ -93,13 +93,14 @@
     </button>
   </div>
   <div class="modal-body">
-    <input class="input-custom" type="text" id="url" #url>
+    <form class="url-form" [formGroup]="urlForm">
+      <input class="input-custom" type="text" id="url" [formControlName]="'url'">
+    </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+    <button type="button" class="btn btn-outline-dark" (click)="onUrlClicked(modal)">Ok</button>
   </div>
 </ng-template>
-<!--"onChangeUrl(url.value)"-->
 
 
 <ng-template #imgdbmodal let-modal>
