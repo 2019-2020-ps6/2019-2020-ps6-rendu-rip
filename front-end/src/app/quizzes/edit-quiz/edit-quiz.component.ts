@@ -22,6 +22,8 @@ export class EditQuizComponent implements OnInit {
   quizForm: FormGroup;
   editionMode: Boolean;
   showThemeForm: Boolean;
+  urlForm: FormGroup;
+
 
   modalOptions:NgbModalOptions;
 
@@ -76,6 +78,7 @@ export class EditQuizComponent implements OnInit {
       for(var i =0 ; i<themes.length;i++) this.THEME_LIST.push(themes[i].name)
     });
     this.imgDBId = null;
+    this.initUrlForm();
   }
 
   private onQuizSelected(quiz: Quiz) {
@@ -93,6 +96,11 @@ export class EditQuizComponent implements OnInit {
     }
   }
 
+  initUrlForm() {
+    this.urlForm = this.formBuilder.group({
+        url: "",
+    });
+  }
   initQuizForm() {
     if(this.quiz == null) {
       this.quizForm = this.formBuilder.group({
@@ -217,13 +225,14 @@ export class EditQuizComponent implements OnInit {
       this.imgDBId = null;
     }
   }
-
-  onChangeUrl(url: string){
+  onUrlClicked(modal) {
+    modal.close();
     this.imgName = "image web";
-    this.imgUrl = url;
+    this.imgUrl = this.urlForm.getRawValue().url
     console.log(this.imgName);
     console.log(this.imgUrl);
     this.imgDBId = null;
+    this.urlForm.reset();
   }
 
   displayImage() { return this.imageService.sanitize(this.imgUrl? this.imgUrl : this.image.url); }
