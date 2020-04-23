@@ -4,9 +4,12 @@
 <!-- put in a bootstrap modal -->
 <!-- button: "Nouveau quiz" to triger it-->
 <!--<app-quiz-form class="quiz-form"></app-quiz-form>-->
-<button class="button-card new" routerLink= "/edit-quiz">
+<div class="newQuiz">
+<button class="button-card" routerLink= "/edit-quiz">
     Nouveau Quiz <i class="fas fa-plus-circle"></i>
 </button>
+</div>
+
 <div class="quiz-list">
     <div class="card quiz fixed-container" *ngFor="let quiz of quizList">
         <button class="button-card delete" (click)="deleteQuiz(quiz)">
@@ -16,4 +19,5 @@
         </button>
     </div>
 </div>
+
 

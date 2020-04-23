@@ -1,8 +1,8 @@
-<button class="button-card" routerLink= "/staff/quiz-list">Retour</button>
+<button class="button-card" routerLink= "/staff/user-list">Retour</button>
 <button class="button-card" routerLink= "/home">Home</button>
 <br>
 
-<div *ngIf="user">
+<div *ngIf="user" class = "user">
     <div class = "imageAndButton">
         <div class="label">
             <label for="image64EditUser{{user.id}}" class="button-card" id = "chargerImage">Charger une image depuis cet appareil</label>
@@ -14,8 +14,7 @@
     </div>
     <form class="user-form" [formGroup]="userForm">
 
-        <label for="name"><h1>Nom: </h1></label>  
-        <br>
+        <label for="name">Nom: </label>  
         <input class="input-custom" type="text" id="name" [formControlName]="'name'">
         <br>
         <button id="sumbit" class="button-card" (click)="submitUser()">Enregistrer</button>

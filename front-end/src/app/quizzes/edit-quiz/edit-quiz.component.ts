@@ -23,6 +23,8 @@ export class EditQuizComponent implements OnInit {
   editionMode: Boolean;
   showThemeForm: Boolean;
   urlForm: FormGroup;
+  
+  imageTemporaire: Img;
 
 
   modalOptions:NgbModalOptions;
@@ -137,7 +139,7 @@ export class EditQuizComponent implements OnInit {
 
   updateQuiz() {
     const quizToSave: Quiz = this.quizFillIn();
-    if(!quizToSave)return;
+    if(!quizToSave || this.quizInvalid(quizToSave))return;
     const imgToSave: Img = this.imgFillIn();
     const newTxt = this.txtHasChanged(quizToSave);
     const newImg = this.imgHasChanged(imgToSave);
@@ -148,7 +150,6 @@ export class EditQuizComponent implements OnInit {
     }//avec image
     else if(newImg) {
       //in any case: create image + update quiz
-      console.log("heo")
       this.quizService.updateQuizWithImage(quizToSave, imgToSave);
     }
     this.reset();
@@ -156,12 +157,12 @@ export class EditQuizComponent implements OnInit {
 
   saveQuiz() {
     let quizToSave: Quiz = this.quizFillIn();
+    if(!quizToSave || this.quizInvalid(quizToSave))return;
     if(this.imgDBId != null) {
       quizToSave.imageId = this.imgDBId.toString();
       this.quizService.addQuiz(quizToSave);
     }
     else {
-      if(!quizToSave) return;
       if(this.imgUrl){
         let imgToSave: Img = this.imgFillIn();
         console.log("Quiz: save with image...");
@@ -186,14 +187,6 @@ export class EditQuizComponent implements OnInit {
   quizFillIn(): Quiz {
     const formValues: Quiz = this.quizForm.getRawValue() as Quiz;
     let quiz: Quiz = {} as Quiz;
-    if(!formValues.name) {
-      window.alert("Veuillez donner un nom au quiz")
-      return null;
-    }
-    else if(!formValues.theme){
-      window.alert("Veuillez donner un thème au quiz")
-      return null;
-    }
     quiz.name = formValues.name;
     quiz.theme = formValues.theme;
     quiz.creationDate = new Date();
@@ -202,6 +195,19 @@ export class EditQuizComponent implements OnInit {
       if(this.quiz.imageId) quiz.imageId = this.quiz.imageId;
     }
     return quiz;
+  }
+
+
+  quizInvalid(quiz :Quiz){
+    if(!quiz.name) {
+      window.alert("Veuillez donner un nom au quiz")
+      return true;
+    }
+    else if(!quiz.theme){
+      window.alert("Veuillez donner un thème au quiz")
+      return true;
+    }
+    return false;
   }
 
   imgFillIn(): Img {
@@ -263,4 +269,11 @@ export class EditQuizComponent implements OnInit {
       this.imgUrl = this.tmpImgUrl;
     }
   }
+
+
+  takeImageFromBD(modal, id : string, url: string){
+    modal.close();
+    this.imageService.takeImage(id,url, this.imageTemporaire);
+  }
 }
+

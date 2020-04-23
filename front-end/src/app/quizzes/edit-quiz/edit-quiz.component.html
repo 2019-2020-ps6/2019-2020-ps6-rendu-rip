@@ -32,7 +32,6 @@
     <!--<div class="label">-->
       <label for="modal-imageWeb" class="button-card">Internet</label>
     <label for="image64" class="button-card">Cet appareil</label>
-    <!--<routerLink= "/gallery"-->
     <label for="modal-imageDB" class="button-card">Banque d'images</label>
     <div *ngIf="imgUrl || image && image.url" class="frame frame-little">
       <img class = "thumbnail" [src]="displayImage()" alt="quiz image">
@@ -60,7 +59,7 @@
     </div>
     <ng-template #createQuizBlock>
       <button class="button-card" type="submit" id="confirmCreation" (click)="saveQuiz()">Créer</button>
-      <button class="button-card" type="reset" id="cancelBlank" (click)="resetBlank()">Annuler</button>
+      <button class="button-card" type="reset" id="cancelBlank" routerLink= "/staff/quiz-list" (click)="resetBlank()">Annuler</button>
     </ng-template>
   </form>
 </div>

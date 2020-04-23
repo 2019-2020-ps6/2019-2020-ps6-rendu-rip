@@ -17,3 +17,9 @@
     border-style: dashed;
     border-color:  rgb(243, 58, 144);
 }
+
+.hidden {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
