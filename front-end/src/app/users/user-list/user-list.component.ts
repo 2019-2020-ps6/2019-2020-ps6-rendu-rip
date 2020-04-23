@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user.model';
+import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-user-list',
@@ -10,13 +11,29 @@ import { User } from '../../../models/user.model';
 export class UserListComponent implements OnInit {
 
   public userList: User[] = [];
+  showForm : boolean = false;
+  modalOptions:NgbModalOptions;
 
-  constructor(public userService: UserService) {
+  
+
+  constructor(private modalService: NgbModal, public userService: UserService) {
     this.userService.users$.subscribe((user) => this.userList = user);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.modalOptions = {
+      backdrop:'static',
+      backdropClass:'customBackdrop'
+    }
+  }
 
+  switchShowForm(show : boolean){
+    this.showForm = show;
+  }
+
+  open(content) {
+    this.modalService.open(content, this.modalOptions);
+  }
   deleteUser(user: User) { this.userService.deleteUser(user); }
 
 }

@@ -11,6 +11,8 @@ export class QuizListStaffComponent implements OnInit {
 
   public quizList: Quiz[] = [];
 
+  showQuizForm : boolean  = false;
+
   constructor(public quizService: QuizService) {
     this.quizService.quizzes$.subscribe((quizzes) => this.quizList = quizzes);
   }
@@ -18,4 +20,8 @@ export class QuizListStaffComponent implements OnInit {
   ngOnInit() {}
   
   deleteQuiz(quiz: Quiz) { this.quizService.deleteQuiz(quiz); }
+
+  switchShowQuizForm(show:boolean){
+    this.showQuizForm = show;
+  }
 }

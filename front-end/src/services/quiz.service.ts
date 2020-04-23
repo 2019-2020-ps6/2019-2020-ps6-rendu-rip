@@ -69,10 +69,8 @@ export class QuizService {
 
   updateQuiz(quiz: Quiz) {
     const url = `${this.quizUrl}/${quiz.id}`;
-    console.log(quiz)
     this.http.put<Quiz>(url, quiz, this.httpOptions).subscribe(quiz => {
-      //this.setQuiz(quiz); --> pb
-      this.setSelectedQuiz(quiz.id);//for now -- mais après mettre à jour autrement --> pour éviter rechargement infos sur page si possible non? (pas beau) 
+      this.setSelectedQuiz(quiz.id);
       this.setQuizzesFromUrl();
     });
   }
@@ -95,9 +93,7 @@ export class QuizService {
 
   addQuestion(quizId: string, question: Question) {
     const url = `${this.quizUrl}/${quizId}/${this.questionsPath}`;
-    this.http.post<Question>(url, question, this.httpOptions).subscribe((qu) => {
-      console.log("question got:");
-      console.log(qu);
+    this.http.post<Question>(url, question, this.httpOptions).subscribe((qu) => {;
       this.setSelectedQuiz(quizId);
       this.setQuizzesFromUrl();
     });
@@ -105,14 +101,8 @@ export class QuizService {
 
   addQuestionWithImage(quizId: string, question: Question, image: Img) {
     const url = `${serverUrl}/images/question`;
-    console.log("img before");
-    console.log(image.name);
     this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
-      console.log("img in:");
-      console.log(img);
       question.imageId = img.id;//(img.id).toString();
-      console.log("question:")
-      console.log(question)
       this.addQuestion(quizId, question);//met à jour observable
     });
   }
@@ -151,14 +141,8 @@ export class QuizService {
 
   addAnswerWithImage(quizId: string, questionId: string, answer: Answer, image: Img) {
     const url = `${serverUrl}/images/answer`;
-    console.log("img before");
-    console.log(image.name);
     this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
-      console.log("img in:");
-      console.log(img);
       answer.imageId = img.id;//(img.id).toString();
-      console.log("answer:")
-      console.log(answer)
       this.addAnswer(quizId, questionId, answer);//met à jour observable
     });
   }
@@ -194,6 +178,19 @@ export class QuizService {
       question.answers = question1.answers;
     });
   }
+
+  quizInvalid(quiz :Quiz){
+    if(!quiz.name) {
+      window.alert("Veuillez donner un nom au quiz")
+      return true;
+    }
+    else if(!quiz.theme){
+      window.alert("Veuillez donner un thème au quiz")
+      return true;
+    }
+    return false;
+  }
+
   questionInvalid(question : Question){
     if(!question.label) {
       window.alert("Veuillez mettre une question")

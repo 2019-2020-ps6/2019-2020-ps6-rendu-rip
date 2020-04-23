@@ -11,6 +11,9 @@ import { Img } from 'src/models/image.model';
 export class ImageService {
 
   private httpOptions = httpOptionsBase;
+  public localType : string = "local";
+  public dataBaseType : string = "dataBase";
+  public internetType : string = "internet";
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
 
   public loadAllImgs(images: Img[]) {
@@ -68,15 +71,12 @@ export class ImageService {
     .subscribe(() => console.log("Image: deletion...")); }
 
 
-  takeImage(id : string, url:string, image: Img){
-    image.id=id;
-    image.url=url;
-  }
-
   imageFillIn(imageTemporaire : Img){
     const image = {} as Img;
     image.name = imageTemporaire.name;
     image.url = imageTemporaire.url;
+    image.type = imageTemporaire.type;
+    image.id = imageTemporaire.id;
     return image;
   }
 
@@ -88,8 +88,23 @@ export class ImageService {
       reader.onload = () => {
         imageTemporaire.name = file.name + ' ' + file.type;
         imageTemporaire.url = 'data:image;base64,' + (reader.result as string).split(',')[1];
+        imageTemporaire.type = this.localType;
       };
     }
+  }
+
+  onUrlClicked(modal, imageTemporaire : Img, url : string) {
+    modal.close();
+    imageTemporaire.name = "image web";
+    imageTemporaire.url = url;
+    imageTemporaire.type = this.internetType;
+  }
+  onImgClicked(modal, imageTemporaire : Img, image : Img) {
+    modal.close();
+    imageTemporaire.name = image.name;
+    imageTemporaire.url = image.url;
+    imageTemporaire.type = this.dataBaseType;
+    imageTemporaire.id = image.id;
   }
 
   getImgSrc(imageTemporaire : Img, image : Img) {

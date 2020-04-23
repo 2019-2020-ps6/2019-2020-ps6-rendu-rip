@@ -1,49 +1,101 @@
-<div class="card">
-  <h2>Nouveau quiz</h2>
+<div *ngIf = "!quiz" class="card horizontal-center">
   <form class="quiz-form" [formGroup]="quizForm">
-    <label for="name">Nom</label><br>
-    <input class="input-custom" type="text" id="name" [formControlName]="'name'">
+    <label for="name"><h1>Nom du quiz : </h1></label>  
+    <input class="input-custom" type="text" id="name" [formControlName]="'name'">     
     <br>
-    <label for="theme">Thème</label>
-    <br>
-    <select name = "Thème" id = "theme" [formControlName] = "'theme'"> 
-      <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
-        {{current_theme}}
-      </option>
+    <label for="selectTheme"><h2>Thème : </h2> </label>
+    <select name="Thème" id="selectTheme" [formControlName]="'theme'">
+    <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
+      {{current_theme}}
+    </option>
     </select>
-    <button class="button-card" type="button" (click)="switchShowTheme()">{{getThemeBtnTxt()}}</button>
-    <div *ngIf="showThemeForm"><theme-form (themeAdded) = "switchShowTheme()"></theme-form></div>
+    <button class="button-card" type="button" (click)="switchShowThemeForm(true)">Ajouter un thème</button>
+    <div *ngIf="showThemeForm"><theme-form (themeAdded)="switchShowThemeForm(false)"></theme-form></div>
     <br>
-    Charger une image depuis:
-    <div class="frame image" *ngIf="imagePreview">
-      <img class="thumbnail" [src]="displayImage()" alt="quiz image">
-    </div>
-    <div class="label"><label for="modal-imageWeb" class="button-card">Internet</label></div>
-    <div class="label"><label for="image64" class="button-card">Cet appareil</label></div>
-
-    <div class="label" routerLink= "/gallery"><label for="modal-imageDB" class="button-card">Banque d'images</label></div>
-
-
-    <!-- modal -->
-    MODAL!<br>
-    <label for="url">Coller l'adresse de l'image:</label><br>
-    <input class="input-custom" type="text" id="url" #url><!-- # for referencing url.value -->
-    <button type="button" class="button-card" id="imageWeb" (click)="onChangeUrl(url.value)">Ok</button>
-
-
-    <button type="button" class="hidden" id="modal-imageWeb" (click)="on">Internet</button>
-    <button type="button" class="hidden" id="modal-imageDB" (click)="on">Banque d'images</button>
-    <input type="file" class="hidden" id="image64" (change)="onChangeFile($event)" accept="image/*">
-
-    <!--  for those who obviously didn't know...
-    'press enter' triggers the 'submit' button/input action...
-    so only ONE submit button of course + has to be THE SUBMIT button
-    AND NOT THE 'cancel' one... the rest is just 'simple' buttons
-    default type="submit" so careful! give an explicit type -->
-    <!-- this below is the submit button (and the only one) -> submit the form -->
-    <div class="buttons-bottom">
-      <button type="submit" class="button-card" (click)="saveQuiz()">Créer</button>
-      <button type="button" class="button-card" (click)="reset()">Annuler</button>
-    </div>
+    <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>        
+    <ng-template [ngTemplateOutlet] = "displayImage"></ng-template>
+    <button class="button-card" type="submit" id="confirmCreation" (click)="addOrUpdateQuiz()">Créer</button>
+    <button class="button-card" type="reset" id="cancelBlank" (click)="reset()">Annuler</button>
   </form>
 </div>
+
+<div *ngIf = "quiz" class="card edit-quiz-form">
+  <form [formGroup]="quizForm">
+    <label for="name"><h1>Nom du quiz : </h1></label>  
+    <input class="input-custom" type="text" id="name" [formControlName]="'name'">     
+    <br>
+    <label for="selectTheme"><h2>Thème : </h2> </label>
+    <select name="Thème" id="selectTheme" [formControlName]="'theme'">
+    <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
+      {{current_theme}}
+    </option>
+    </select>
+    <button class="button-card" type="button" (click)="switchShowThemeForm(true)">Ajouter un thème</button>
+    <div *ngIf="showThemeForm"><theme-form (themeAdded)="switchShowThemeForm(false)"></theme-form></div>
+    <br>
+    <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>        
+    <ng-template [ngTemplateOutlet] = "displayImage"></ng-template>
+    <button class="button-card" id="confirmEdit" (click)="addOrUpdateQuiz()">Valider</button>
+    <button class="button-card" id="cancel" (click)="reset()">Annuler</button>
+  </form>
+</div>
+
+
+
+<ng-template #buttonCharging>
+  <div class="label">
+    Charger une image depuis :
+    <label for="image64QuizForm" class="button-card chargingButton" >Cet appareil</label>
+    <input type="file" class="hidden" id="image64QuizForm" (change)="imageService.onChangeFile($event,imageTemporaire)" accept="image/*">
+
+    <label for="modal-imageWebQuiz" class="button-card chargingButton">Internet</label>
+    <button type="button" class="hidden" id="modal-imageWebQuiz" (click)="open(weburlmodal)"></button>
+    
+    <label for="modal-imageDBQuiz" class="button-card chargingButton ">Banque d'images</label>
+    <button type="button" class="hidden" id="modal-imageDBQuiz" (click)="open(imgdbmodal)"></button>
+  </div>
+</ng-template>
+
+
+<ng-template #displayImage>
+  <div class="frame image" *ngIf="imageTemporaire.url || (image && image.url)">
+    <img class="thumbnail" [src]="imageService.getImgSrc(imageTemporaire,image)" alt="quiz image">
+  </div>
+</ng-template>
+
+
+<ng-template #weburlmodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Coller l'adresse de l'image</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="url-form" [formGroup]="urlForm">
+      <input class="input-custom" type="text" id="url" [formControlName]="'url'">
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="onUrlClicked(modal)">Ok</button>
+  </div>
+</ng-template>
+
+
+<ng-template #imgdbmodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Choisir une image:</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="responsive-list">
+      <div class="button-card button-list" *ngFor="let img of gallery">
+          <div *ngIf="img.url" class="frame-list">
+            <img class="thumbnail-list" [src]="imageService.getImgSrc1(img)" (click)="imageService.onImgClicked(modal, imageTemporaire, img)" alt="DB image">
+          </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

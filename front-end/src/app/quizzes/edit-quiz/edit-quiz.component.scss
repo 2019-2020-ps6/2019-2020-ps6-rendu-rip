@@ -6,30 +6,7 @@
     max-width: 60%;
 }
 
-.frame{
-    height: 50%;
-    //min-height: 50px;//300px;
-    width: 50%;
-    //min-width: 50px;//470px;
-}
 
-.frame-little {
-    margin-left: auto;
-    margin-right: auto;
-    border-style: dashed;
-    border-color:  rgb(243, 58, 144);
-    height: 30%;
-    width: 30%;
-}
-
-.label {
-    //margin-top: 0.5em;
-    margin-top: 0.3em;
-}
-
-.buttons-bottom {
-    margin-top: 1em;
-}
 
 .quizName{
     text-align: center;
@@ -37,40 +14,11 @@
 .quizTheme{
     text-align: center;
 }
-
-//db image
-.responsive-list {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-
-    align-items: center;
-    justify-content: center;
-    //white-space: nowrap;
-}
-
-.frame-list{
-    height: 100px;//à revoir
-    width: 100px;
+.frame-little {
     margin-left: auto;
     margin-right: auto;
-    //border-style: dashed;
+    border-style: dashed;
     border-color:  rgb(243, 58, 144);
-
-    /*height: 30%;
-    //min-height: 50px;//300px;
+    height: 30%;
     width: 30%;
-    border: 1px solid rgb(82, 82, 82);
-    //border-collapse: collapse;*/
-}
-.thumbnail-list {
-    object-fit: cover;
-    display: block; 
-    margin-left: auto;
-    margin-right: auto;
-    height: 100%;//80px;
-    width: 100%;//100px
-}
-.button-list {
-    padding: 0;
 }

@@ -1,39 +1,83 @@
 <div *ngIf = "user">
-  <div class = "imageAndButton">
-    <div class="label">
-        <label for="image64UserForm{{user.id}}" class="button-card" id = "chargerImage">Charger une image depuis cet appareil</label>
-    </div>
-    <input type="file" class="hidden" id="image64UserForm{{user.id}}" (change)="imageService.onChangeFile($event,imageTemporaire)" accept="image/*">
-    <div class="frame image" *ngIf="imageTemporaire.url || userImage.url">
-        <img class="thumbnail" [src]="imageService.getImgSrc(imageTemporaire,userImage)" alt="user image">
-    </div>
-  </div>
+  <ng-template [ngTemplateOutlet]="form"></ng-template>        
+</div>
+
+<div *ngIf = "!user" class="card"> 
+  <ng-template [ngTemplateOutlet]="form"></ng-template>        
+</div>
+
+<!--Sert si on veux faire 2 trucs différents selon le form (prérempli ou pas)-->
+<ng-template #form>
   <form class="user-form" [formGroup]="userForm">
     <label for="name">Nom: </label>  
     <input class="input-custom" type="text" id="name" [formControlName]="'name'">
     <br>
-    <button id="sumbit" class="button-card" (click)="updateUser()">Enregistrer</button>
+    <div class = "imageAndButton">
+      <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>        
+      <ng-template [ngTemplateOutlet] = "displayImage"></ng-template>
+    </div>
+    <button id="sumbit" class="button-card" (click)="addOrUpdateUser()">Enregistrer</button>
     <button id="cancelAnswer" class="button-card" (click)="reset()">Annuler</button>
-</form>
-</div>
-
-<div *ngIf = "!user" class="card">
-  <h2>Nouvel accueilli</h2>
-  <form class="user-form" [formGroup]="userForm">
-    <label for="name">
-      Nom<br>
-      <input class="input-custom" type="text" id="name" [formControlName]="'name'">
-    </label>
-    <div class="label">
-      <label for="image64UserForm" class="button-card" id = "chargerImage">Charger une image depuis cet appareil</label>
-    </div>
-    <input type="file" class="hidden" id="image64UserForm" (change)="imageService.onChangeFile($event,imageTemporaire)" accept="image/*">
-    <div class="frame image" *ngIf="imageTemporaire.url">
-      <img class="thumbnail" [src]="imageService.getImgSrc(imageTemporaire,userImage)" alt="user image">
-    </div>
-    <div >
-      <button type="submit" class="button-card" (click)="addUser()">Créer</button>
-      <button type="button" class="button-card" (click)="reset()">Annuler</button>
-    </div>
   </form>
-</div>
+</ng-template>
+
+<ng-template #buttonCharging>
+  <div class="label">
+    Charger une image depuis :
+    <label for="image64UserForm" class="button-card chargingButton" id = "chargerImage">Cet appareil</label>
+    <input type="file" class="hidden" id="image64UserForm" (change)="imageService.onChangeFile($event,imageTemporaire)" accept="image/*">
+
+    <label for="modal-imageWebUser" class="button-card chargingButton">Internet</label>
+    <button type="button" class="hidden" id="modal-imageWebUser" (click)="open(weburlmodal)"></button>
+    
+    <label for="modal-imageDBUser" class="button-card chargingButton ">Banque d'images</label>
+    <button type="button" class="hidden" id="modal-imageDBUser" (click)="open(imgdbmodal)"></button>
+  </div>
+</ng-template>
+
+<ng-template #displayImage>
+  <div class="frame image" *ngIf="imageTemporaire.url || (userImage && userImage.url)">
+    <img class="thumbnail" [src]="imageService.getImgSrc(imageTemporaire,userImage)" alt="user image">
+  </div>
+</ng-template>
+
+<ng-template #weburlmodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Coller l'adresse de l'image</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="url-form" [formGroup]="urlForm">
+      <input class="input-custom" type="text" id="url" [formControlName]="'url'">
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="onUrlClicked(modal)">Ok</button>
+  </div>
+</ng-template>
+
+
+<ng-template #imgdbmodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Choisir une image:</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="responsive-list">
+      <div class="button-card button-list" *ngFor="let img of gallery">
+          <div *ngIf="img.url" class="frame-list">
+            <img class="thumbnail-list" [src]="imageService.getImgSrc1(img)" (click)="imageService.onImgClicked(modal,imageTemporaire, img)" alt="DB image">
+          </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+
+
+
