@@ -1,12 +1,6 @@
 @import '../../../styles/card.scss';
 @import '../../../styles/images.scss';
 
-.hidden {
-    opacity: 0;
-    position: absolute;
-    z-index: -1;
-}
-
 #chargerImage {
     border-radius: 1em;
 }

@@ -5,13 +5,12 @@
             <div class="label">
                 <label for="image64EditAns{{answer.id}}" class="button-card" id = "chargerImage">Charger une image depuis cet appareil</label>
             </div>
-            <input type="file" class="hidden" id="image64EditAns{{answer.id}}" (change)="onChangeFile($event)" accept="image/*">
-            <div class="frame image" *ngIf="imagePreviewAns || (image && image.url)">
-                <img class="thumbnail" [src]="getImgSrcAns()" alt="answer image">
+            <input type="file" class="hidden" id="image64EditAns{{answer.id}}" (change)="imageService.onChangeFile($event, imageTemporaire)" accept="image/*">
+            <div class="frame image" *ngIf="imageTemporaire.url || (image && image.url)">
+                <img class="thumbnail" [src]="imageService.getImgSrc(imageTemporaire,image)" alt="answer image">
             </div>
         </div>
         
-    
         <div class = "correctCheck">Correcte : <input type="checkbox" [formControlName]="'isCorrect'"> </div>
 
         <button id="sumbit" class="button-card" (click)="submitAnswer()">Enregistrer</button>

@@ -20,15 +20,12 @@ export class UserComponent implements OnInit {
 
   ngOnInit() { this.loadImage(); }
 
-  //default image if no imgId in User
   loadImage(){
     this.image = {} as Img;
     const id = this.user.imageId;
-    if(id == null) return;
+    if(!id) return;
     this.imageService.loadUserImage(this.image, id);
   }
 
   deleteUser() { this.userDeleted.emit(this.user); }
-
-  displayImage() { return this.imageService.sanitize(this.image.url) }
 }

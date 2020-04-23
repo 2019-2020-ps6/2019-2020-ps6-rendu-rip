@@ -1,4 +1,4 @@
 <button class="button-card answer" (click) = "answerSelected()">
     <div *ngIf="answer.value">{{answer.value}}</div>
-    <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="answer image"></div>
+    <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="answer image"></div>
 </button>

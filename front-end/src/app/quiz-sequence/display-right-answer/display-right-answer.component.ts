@@ -50,6 +50,4 @@ export class DisplayRightAnswerComponent implements OnInit {
       if(id) this.imageService.loadAnswerImage(this.image, id);
     }
   }
-
-  getImgSrc() { return this.imageService.sanitize(this.image.url) }
 }

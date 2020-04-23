@@ -6,11 +6,11 @@
 	<input type="text" [formControlName]="'label'" id="questionName">
 	<br>
   Charger une image depuis
-  <div class="frame image" *ngIf="imagePreview">
-    <img class="thumbnail" [src]="getImgSrc()" alt="quiz image">
+  <div class="frame image" *ngIf="imageTemporaire.url">
+    <img class="thumbnail" [src]="imageService.getImgSrc1(imageTemporaire)" alt="quiz image">
   </div>
-	<div class="label"><label for="image64" class="button-card">Cet appareil</label></div>
-	<input type="file" class="hidden" id="image64" (change)="onChangeFile($event)" accept="image/*">
+	<div class="label"><label for="image64QuestionForm" class="button-card">Cet appareil</label></div>
+	<input type="file" class="hidden" id="image64QuestionForm" (change)="imageService.onChangeFile($event,imageTemporaire)" accept="image/*">
 	<br>
 	<button id="createQuestion" class="button-card" (click)="saveQuestion()">Créer</button>
 	<button id="reset" class="button-card" (click) = "reset()">Annuler</button>

@@ -193,6 +193,37 @@ export class QuizService {
       question.quizId = question1.quizId;
       question.answers = question1.answers;
     });
+  }
+  questionInvalid(question : Question){
+    if(!question.label) {
+      window.alert("Veuillez mettre une question")
+      return true;
+    }
+    return false;
+  }
+  answersInvalid(question : Question){
+    let errorMessage = "";
+    if(!question.answers|| question.answers.length==0){
+      errorMessage = "Il n'y a pas de réponses possibles."
+    }
+    if(question.answers.length!=4){
+      errorMessage = "Il faudrait 4 réponses."
+    }
+    var oneRightAnswer = 0
+    question.answers.forEach(element => { if(element.isCorrect) oneRightAnswer++ })
+    if(oneRightAnswer>1){
+      errorMessage = "Il y a plus d'une réponse correcte."
+    }
+    if(oneRightAnswer===0){
+      errorMessage = "Il n'y a pas de réponse correcte."
+    }
+    return errorMessage;
+  }
 
+  answerInvalid(answer : Answer, imageId : string){
+    if(!answer.value && (answer.imageId || imageId)) { 
+      window.alert("Veuillez mettre une réponse ou une image.")
+      return true;
+    }
   }
 }

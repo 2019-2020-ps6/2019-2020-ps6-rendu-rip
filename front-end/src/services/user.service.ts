@@ -85,23 +85,15 @@ export class UserService {
 
     
   }
-
-  /*
-  addUser(user: User) {
-    user.id = (this.users.length).toString();
-    this.users.push(user);
-    this.users$.next(this.users);
+  userInvalid(user : User){
+    if(!user){
+      window.alert("Erreur");
+      return true;
+    }
+    if(!user.name){
+      window.alert("Veuillez mettre un nom.");
+      return true;
+    }
+    return false;
   }
-
-  deleteUser(user: User) {
-    this.users.splice(this.users.indexOf(user), 1);
-    this.reindex();
-    this.users$.next(this.users);
-  }
-
-  reindex() {
-    for (let i = 0; i < this.users.length; i++) {
-      this.users[i].id = i.toString();
-  }
-  */
 }

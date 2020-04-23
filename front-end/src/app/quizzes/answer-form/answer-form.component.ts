@@ -23,8 +23,8 @@ export class AnswerFormComponent implements OnInit {
   answerForm: FormGroup;
   
   image: Img;
-  imageNameAns: string;
-  imagePreviewAns: string;
+
+  imageTemporaire : Img = {} as Img;
 
   constructor(public formBuilder: FormBuilder, public quizService: QuizService, public imageService: ImageService) {}
 
@@ -51,15 +51,9 @@ export class AnswerFormComponent implements OnInit {
   submitAnswer() {
     const answerToSave: Answer = this.answerForm.getRawValue() as Answer;
     answerToSave.questionId = this.question.id;
-    if(!answerToSave.value && !this.imagePreviewAns) { 
-      window.alert("Veuillez mettre une réponse ou une image")
-      return
-    }
-
-    if(this.imagePreviewAns){
-      let imgToSave: Img = this.imgFillIn();
-      console.log("Answer: saving with image...");
-      this.quizService.addAnswerWithImage(this.quiz.id, this.question.id, answerToSave, imgToSave);
+    if(this.quizService.answerInvalid(answerToSave,this.imageTemporaire.url))return;
+    if(this.imageTemporaire.url){
+      this.quizService.addAnswerWithImage(this.quiz.id, this.question.id, answerToSave, this.imageService.imageFillIn(this.imageTemporaire));
     }
     else{
       this.quizService.addAnswer(this.question.quizId, this.question.id, answerToSave);
@@ -72,47 +66,11 @@ export class AnswerFormComponent implements OnInit {
     this.answerForm.reset();
     this.answerAdded.emit(false);
   }
-/*
-  rightAnswerPresent() {
-    this.question.answers.forEach(element => {
-      if (element.isCorrect === true) {
-        this.aRightAnswerIsAlreadyPresent = true;
-      }
-    });
-  }*/
 
   resetAns(){
     this.answerForm.reset();
-    this.imagePreviewAns = null;
-    this.imageNameAns = null;
+    this.imageTemporaire = {} as Img;
     this.answerAdded.emit(false);
-  }
-  
-  imgFillIn(): Img {
-    let image = {} as Img;
-    image.name = this.imageNameAns;
-    image.url = this.imagePreviewAns;
-    return image;
-  }
-
-  onChangeFile(event) {
-    let reader = new FileReader();
-    if (event.target.files && event.target.files.length > 0) {
-      let file = event.target.files[0];
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.imageNameAns = file.name + " " + file.type;
-        this.imagePreviewAns = 'data:image;base64,' + (reader.result as string).split(',')[1];
-        console.log(this.imageNameAns);
-      };
-    }
-  }
-
-
-
-  getImgSrcAns() {
-    if(this.imagePreviewAns) return this.imageService.sanitize(this.imagePreviewAns); 
-    return this.imageService.sanitize(this.image.url); 
   }
 
 }

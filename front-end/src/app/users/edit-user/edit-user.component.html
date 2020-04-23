@@ -1,23 +1,6 @@
 <button class="button-card" routerLink= "/staff/user-list">Retour</button>
 <button class="button-card" routerLink= "/home">Home</button>
-<br>
 
-<div *ngIf="user" class = "user">
-    <div class = "imageAndButton">
-        <div class="label">
-            <label for="image64EditUser{{user.id}}" class="button-card" id = "chargerImage">Charger une image depuis cet appareil</label>
-        </div>
-        <input type="file" class="hidden" id="image64EditUser{{user.id}}" (change)="onChangeFile($event)" accept="image/*">
-        <div class="frame image" *ngIf="imagePreviewUser || (userImage && userImage.url)">
-            <img class="thumbnail" [src]="getImgSrcUser()" alt="answer image">
-        </div>
-    </div>
-    <form class="user-form" [formGroup]="userForm">
-
-        <label for="name">Nom: </label>  
-        <input class="input-custom" type="text" id="name" [formControlName]="'name'">
-        <br>
-        <button id="sumbit" class="button-card" (click)="submitUser()">Enregistrer</button>
-        <button id="cancelAnswer" class="button-card" (click)="cancelUser()">Annuler</button>
-    </form>
+<div *ngIf="user && (!user.imageId || userImage.name)" class = "user">
+    <app-user-form [user] = "user" [userImage] = "userImage" ></app-user-form>
 </div>

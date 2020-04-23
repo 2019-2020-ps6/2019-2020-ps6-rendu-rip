@@ -1,20 +1,39 @@
-<div class="card">
-    <h2>Nouvel accueilli</h2>
-    <form class="user-form" [formGroup]="userForm">
-      <label for="name">
-        Nom<br>
-        <input class="input-custom" type="text" id="name" [formControlName]="'name'">
-      </label>
-      <div class="frame image" *ngIf="imagePreview">
-        <img class="thumbnail" [src]="displayImage()" alt="quiz image">
-      </div>
-      <br>
-      Image
-      <div class="label"><label for="image64" class="button-card">Charger</label></div>
-      <input type="file" class="hidden" id="image64" (change)="onChangeFile($event)" accept="image/*">
-      <div class="buttons-bottom">
-        <button type="submit" class="button-card" (click)="addUser()">Créer</button>
-        <button type="button" class="button-card" (click)="reset()">Annuler</button>
-      </div>
-    </form>
+<div *ngIf = "user">
+  <div class = "imageAndButton">
+    <div class="label">
+        <label for="image64UserForm{{user.id}}" class="button-card" id = "chargerImage">Charger une image depuis cet appareil</label>
+    </div>
+    <input type="file" class="hidden" id="image64UserForm{{user.id}}" (change)="imageService.onChangeFile($event,imageTemporaire)" accept="image/*">
+    <div class="frame image" *ngIf="imageTemporaire.url || userImage.url">
+        <img class="thumbnail" [src]="imageService.getImgSrc(imageTemporaire,userImage)" alt="user image">
+    </div>
   </div>
+  <form class="user-form" [formGroup]="userForm">
+    <label for="name">Nom: </label>  
+    <input class="input-custom" type="text" id="name" [formControlName]="'name'">
+    <br>
+    <button id="sumbit" class="button-card" (click)="updateUser()">Enregistrer</button>
+    <button id="cancelAnswer" class="button-card" (click)="reset()">Annuler</button>
+</form>
+</div>
+
+<div *ngIf = "!user" class="card">
+  <h2>Nouvel accueilli</h2>
+  <form class="user-form" [formGroup]="userForm">
+    <label for="name">
+      Nom<br>
+      <input class="input-custom" type="text" id="name" [formControlName]="'name'">
+    </label>
+    <div class="label">
+      <label for="image64UserForm" class="button-card" id = "chargerImage">Charger une image depuis cet appareil</label>
+    </div>
+    <input type="file" class="hidden" id="image64UserForm" (change)="imageService.onChangeFile($event,imageTemporaire)" accept="image/*">
+    <div class="frame image" *ngIf="imageTemporaire.url">
+      <img class="thumbnail" [src]="imageService.getImgSrc(imageTemporaire,userImage)" alt="user image">
+    </div>
+    <div >
+      <button type="submit" class="button-card" (click)="addUser()">Créer</button>
+      <button type="button" class="button-card" (click)="reset()">Annuler</button>
+    </div>
+  </form>
+</div>

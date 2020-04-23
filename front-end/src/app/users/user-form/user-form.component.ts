@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Img } from 'src/models/image.model';
@@ -15,57 +15,57 @@ import { User } from '../../../models/user.model';
 export class UserFormComponent implements OnInit {
   public userForm: FormGroup;
 
-  imageName: string;
-  imagePreview: string;
+  @Input()
+  user : User;
+  @Input()
+  userImage : Img;
+
+  imageTemporaire : Img = {} as Img;
 
   constructor(public formBuilder: FormBuilder, public imageService: ImageService, public userService: UserService) {
-    // Form creation
-    this.userForm = this.formBuilder.group({ name: [''] });
   }
 
-  ngOnInit() {}
+  ngOnInit() {this.initUserForm();}
 
-  reset(){
-    this.userForm.reset()
-    this.imagePreview = null;
-    this.imageName = null;
-  }
+  initUserForm(){
+    if(!this.user) this.userForm = this.formBuilder.group({ 
+      name: ['']
+    });
+    else{
+      this.userForm = this.formBuilder.group({ 
+        name: [this.user.name]
+      });
+    }
+  }  
 
   addUser() {
-    const usrToSave: User = this.userForm.getRawValue() as User;
-    if(this.imagePreview){
-      let imgToSave: Img = this.imgFillIn();
-      console.log("User: saving with image...");
-      this.userService.addUserWithImage(usrToSave, imgToSave);
+    const userToSave: User = this.userForm.getRawValue() as User;
+    if(this.userService.userInvalid(userToSave))return;
+    if(this.imageTemporaire.name){
+      this.userService.addUserWithImage(userToSave, this.imageService.imageFillIn(this.imageTemporaire));
     }
     else{
-      console.log("User: saving...");
-      this.userService.addUser(usrToSave);
+      this.userService.addUser(userToSave);
     }
     this.reset();
   }
 
-  imgFillIn(): Img {
-    let image = {} as Img;
-    image.name = this.imageName;
-    image.url = this.imagePreview;
-    return image;
-  }
-
-  onChangeFile(event) {
-    let reader = new FileReader();
-    if (event.target.files && event.target.files.length > 0) {
-      let file = event.target.files[0];
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.imageName = file.name + " " + file.type;
-        this.imagePreview = 'data:image;base64,' + (reader.result as string).split(',')[1];
-        //(<string>reader.result).split or (reader.result as string).split
-        console.log(this.imageName);
-      };
+  updateUser() {
+    const userToSave: User = this.userForm.getRawValue() as User;
+    if(this.userService.userInvalid(userToSave))return;
+    userToSave.id = this.user.id;
+    if (this.imageTemporaire.name) {
+        this.userService.updateUserWithImg(userToSave, this.imageService.imageFillIn(this.imageTemporaire));
+      } 
+    else {
+      this.userService.updateUser(userToSave);
     }
   }
 
-  //sanitize necessary otherwise throw security error
-  displayImage() { return this.imageService.sanitize(this.imagePreview); }
+  reset(){
+    this.userForm.reset()
+    this.imageTemporaire = {} as Img;
+    this.initUserForm();
+  }
+
 }

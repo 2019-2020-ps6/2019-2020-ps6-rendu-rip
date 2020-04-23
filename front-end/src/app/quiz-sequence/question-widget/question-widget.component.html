@@ -7,7 +7,7 @@
     <div *ngIf = "currentQuestion; else elseBlock">
         <div class = "labelandimage">
             <div *ngIf="currentQuestion.label"><h4>{{currentQuestion.label}}</h4></div>
-            <div *ngIf="image.url" class="question-image"><img class="thumbnail" [src]="getImgSrc()" alt="question image"></div>
+            <div *ngIf="image.url" class="question-image"><img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="question image"></div>
         </div>
         <app-answer-list-widget [answers] = "currentQuestion.answers" (selected) = "onSelectedAnswer($event)" (next) = "onNext($event)" (wrongAnswerEvent) = "onWrongAnswer($event)" (timeOutEvent) = "onTimeOut()"></app-answer-list-widget>
     </div>

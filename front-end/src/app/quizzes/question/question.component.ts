@@ -29,8 +29,6 @@ export class QuestionComponent implements OnInit {
     const id = this.question.imageId;
     if(id) this.imageService.loadQuestionImage(this.image, id);
   }
-
-  getImgSrc() { return this.imageService.sanitize(this.image.url) }   
   
   deleteQuestion() {
     this.quizService.deleteQuestion(this.quiz, this.question);

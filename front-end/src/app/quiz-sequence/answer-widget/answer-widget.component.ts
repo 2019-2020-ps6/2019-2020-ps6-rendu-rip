@@ -32,6 +32,4 @@ export class AnswerWidgetComponent implements OnInit {
     if(this.answer) id = this.answer.imageId;
     if(id) this.imageService.loadAnswerImage(this.image, id);
   }
-
-  getImgSrc() { return this.imageService.sanitize(this.image.url) }
 }

@@ -1,14 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { Quiz } from '../models/quiz.model';
 import { HttpClient } from '@angular/common/http';
 import { serverUrl, httpOptionsBase } from '../configs/server.config';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Question } from 'src/models/question.model';
-import { Answer } from 'src/models/answer.model';
 import { Img } from 'src/models/image.model';
-import { QuizService } from './quiz.service';
-import {NgbModal, ModalDismissReasons, NgbModalOptions} from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
   providedIn: 'root'
@@ -56,7 +50,6 @@ export class ImageService {
 
   loadQuestionImage(image: Img, id: string){
     //const path = ;//`${serverUrl}/images/question/${id}`;
-    console.log(id)
     this.loadImage(image, `question/${id}`, 'Question');
   }
 
@@ -66,7 +59,7 @@ export class ImageService {
   }
 
   loadUserImage(image: Img, id: string){
-    this.loadImage(image,`${id == null? '1' : 'user/' + id}`, 'User');
+    this.loadImage(image,`user/${id}`, 'User');
   }
 
   sanitize(url: string) { return this.sanitizer.bypassSecurityTrustUrl(url); }
@@ -78,5 +71,38 @@ export class ImageService {
   takeImage(id : string, url:string, image: Img){
     image.id=id;
     image.url=url;
+  }
+
+  imageFillIn(imageTemporaire : Img){
+    const image = {} as Img;
+    image.name = imageTemporaire.name;
+    image.url = imageTemporaire.url;
+    return image;
+  }
+
+  onChangeFile(event, imageTemporaire : Img) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        imageTemporaire.name = file.name + ' ' + file.type;
+        imageTemporaire.url = 'data:image;base64,' + (reader.result as string).split(',')[1];
+      };
+    }
+  }
+
+  getImgSrc(imageTemporaire : Img, image : Img) {
+    if (imageTemporaire && imageTemporaire.url) {
+      return this.sanitize(imageTemporaire.url);
+    }
+    if(image && image.url){
+      return this.sanitize(image.url);
+    }
+  }
+  getImgSrc1(imageTemporaire : Img) {
+    if (imageTemporaire && imageTemporaire.url) {
+      return this.sanitize(imageTemporaire.url);
+    }
   }
 }

@@ -3,7 +3,7 @@
     <!---<i *ngIf ="quiz.theme==='Sport'" class="fab fa-accessible-icon"></i>-->
     <h2 class="title">{{quiz.name}}</h2>
     <h3 class="subtitle">{{quiz.theme}}</h3>
-    <div *ngIf = "image.url"class="frame"><img class="thumbnail" [src]="getImgSrc()" alt="quiz image"></div>
+    <div *ngIf = "image.url"class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="quiz image"></div>
     <div class="">{{quiz.questions.length}} questions</div>
     <div class = "date" *ngIf = "quiz.creationDate">{{quiz.creationDate | date}}</div>
 </div>

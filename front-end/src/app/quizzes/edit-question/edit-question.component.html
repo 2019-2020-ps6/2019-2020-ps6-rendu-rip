@@ -2,8 +2,8 @@
 <div class = "horizontal-center" *ngIf="quiz && question && (image||!question.imageId)">
     <h1>Quiz : {{quiz.name}}</h1>
     
-    <div class = "errorMessage" *ngIf = "questionInvalid()">
-        {{errorMessage}}
+    <div class = "errorMessage" >
+        {{quizService.answersInvalid(question)}}
     </div>
 
     <form [formGroup]="questionForm">
@@ -15,10 +15,10 @@
             <label for="image64Up" class="button-card" id = "chargerImage">Charger une image depuis cet appareil</label>
             <button id = "cancel" type="button" (click)="cancelImageLoading()"><i class="fas fa-undo-alt"></i></button>
         </div>
-        <div class="frame image" *ngIf="imagePreviewUp || (image && image.url)">
-            <img class="thumbnail" [src]="getImgSrcUp()" alt="question image">
+        <div class="frame image" *ngIf="imageTemporaire.url || (image && image.url)">
+            <img class="thumbnail" [src]="imageService.getImgSrc(imageTemporaire, image)" alt="question image">
         </div>
-        <input type="file" class="hidden" id="image64Up" (change)="onChangeFile($event)" accept="image/*">
+        <input type="file" class="hidden" id="image64Up" (change)="imageService.onChangeFile($event, imageTemporaire)" accept="image/*">
     </div>
     
     <h2>Réponses :</h2>
@@ -28,23 +28,13 @@
     <div *ngIf="showForm">
         <app-answer-form [quiz] = "quiz" [question]="question" (answerAdded)="switchShowForm($event)"></app-answer-form>
     </div>
-    <!---->
+
     <div class="answer-list">
         <div *ngFor="let answer of question.answers">
                 <app-edit-answer [answer] = "answer" [question] = "question" [quiz] = "quiz"></app-edit-answer>
-                <!--
-            {{answer.value}} -> {{answer.isCorrect}}
-            <button id = "editAnswer" class="button" (click)="editAnswer(answer)"><i class="fas fa-edit"></i></button>
-            <div *ngIf="show && answer==answerSelected">
-                <app-answer-form [quiz] = "quiz" [question]="question" [answer]= "answerSelected" (answerAdded)="reset($event)"></app-answer-form>
-            </div>
-            <button id = "supprAnswer" class="button" (click)="supprAnswer(answer)"><i class="fas fa-trash"></i></button>
-        -->
         </div>
     </div>
     
-    <!--<button id = "deleteQuestion" class="button-card" (click)="deleteQuestion()"> Supprimer la question</button>-->
-
     <button id = "submitQuestion" class="button-card" (click)="submitQuestionLabel()">Tout enregistrer (n'enregistre pas tout encore)</button>
     <button id = "cancelAll" class="button-card" (click)="resetAll()">Tout annuler</button>
 

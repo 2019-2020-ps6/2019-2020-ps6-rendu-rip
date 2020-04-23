@@ -19,8 +19,6 @@ export class GalleryComponent implements OnInit {
   ngOnInit() {
   }
 
-  getImgSrc(image: Img) { return this.imageService.sanitize(image.url) }
-
   selectedImg(imgId :String) {
     console.log(imgId)
   }

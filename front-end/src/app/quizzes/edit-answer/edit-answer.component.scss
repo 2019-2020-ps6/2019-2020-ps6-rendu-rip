@@ -2,11 +2,6 @@
 @import '../../../styles/layout.scss';
 @import '../../../styles/images.scss';
 
-.hidden {
-    opacity: 0;
-    position: absolute;
-    z-index: -1;
-}
 .imageAndButton{
     display: flex;
 }

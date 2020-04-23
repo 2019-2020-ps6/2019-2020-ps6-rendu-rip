@@ -19,8 +19,6 @@ export class UsersSelectionListComponent implements OnInit {
 
     }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
 }

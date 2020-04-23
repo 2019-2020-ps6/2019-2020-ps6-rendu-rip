@@ -29,6 +29,4 @@ export class QuizComponent implements OnInit {
   }
 
   deleteQuiz() { this.quizDeleted.emit(this.quiz); }
-
-  getImgSrc() { return this.imageService.sanitize(this.image.url) }
 }

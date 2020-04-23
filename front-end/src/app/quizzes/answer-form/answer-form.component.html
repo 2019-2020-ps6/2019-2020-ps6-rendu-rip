@@ -3,11 +3,11 @@
     <label for="name">Réponse</label><br>
     <input type="text" [formControlName]="'value'" id="name"><br>
     Charger une image depuis:
-    <div class="frame image" *ngIf="imagePreviewAns || image.url">
-      <img class="thumbnail" [src]="getImgSrcAns()" alt="answer image">
+    <div class="frame image" *ngIf="imageTemporaire.url || image.url">
+      <img class="thumbnail" [src]="imageService.getImgSrc(imageTemporaire,image)" alt="answer image">
     </div>
     <div class="label"><label for="image64Ans" class="button-card chargerImage">Cet appareil</label></div>
-    <input type="file" class="hidden" id="image64Ans" (change)="onChangeFile($event)" accept="image/*">
+    <input type="file" class="hidden" id="image64Ans" (change)="imageService.onChangeFile($event,imageTemporaire)" accept="image/*">
 
     
     Correcte : <input type="checkbox" [formControlName]="'isCorrect'"> <br>

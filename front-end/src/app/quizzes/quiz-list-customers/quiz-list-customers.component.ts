@@ -18,8 +18,4 @@ export class QuizListCustomersComponent implements OnInit {
   ngOnInit() {
   }
 
- /* quizSelected(selected: boolean) {
-    console.log('event received from child:', selected);
-  }*/
-
 }

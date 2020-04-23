@@ -54,9 +54,4 @@ export class DisplayRightVersusAnswerSelectedComponent implements OnInit {
     if(this.answerSelected)id = this.answerSelected.imageId;
     if(id) this.imageService.loadAnswerImage(this.imageSel, id);
   }
-
-  getImgSrc() { return this.imageService.sanitize(this.image.url) }
-
-  getImgSrcSel() { return this.imageService.sanitize(this.imageSel.url) }
-
 }

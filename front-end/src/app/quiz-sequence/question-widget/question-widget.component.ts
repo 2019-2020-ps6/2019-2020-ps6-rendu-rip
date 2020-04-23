@@ -92,7 +92,6 @@ export class QuestionWidgetComponent implements OnInit {
     if(id) this.imageService.loadQuestionImage(this.image, id);
   }
 
-  getImgSrc() { return this.imageService.sanitize(this.image.url) }
 }
 
 

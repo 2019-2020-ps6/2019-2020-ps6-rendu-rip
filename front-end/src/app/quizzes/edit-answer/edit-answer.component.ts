@@ -21,8 +21,7 @@ export class EditAnswerComponent implements OnInit {
   @Input() quiz : Quiz;
   
   image: Img;
-  imageNameAns: string;
-  imagePreviewAns: string;
+  imageTemporaire : Img = {} as Img;
   answerForm : FormGroup;
 
   constructor(public editQuestion: EditQuestionComponent, public formBuilder : FormBuilder, public quizService: QuizService, public imageService: ImageService, public router: Router) {
@@ -55,53 +54,24 @@ export class EditAnswerComponent implements OnInit {
       if(id!=null) this.imageService.loadAnswerImage(this.image, id);
     }
   }
-  
-  imgFillIn(): Img {
-    let image = {} as Img;
-    image.name = this.imageNameAns;
-    image.url = this.imagePreviewAns;
-    return image;
-  }
 
   submitAnswer() {
     const answerToSave: Answer = this.answerForm.getRawValue() as Answer;
     answerToSave.questionId = this.question.id;
     answerToSave.id = this.answer.id;
-    if(this.imagePreviewAns){
-        let imgToSave: Img = this.imgFillIn();
-        this.quizService.updateAnswerWithImage(this.quiz.id, this.question.id, answerToSave, imgToSave);
+    if(this.quizService.answerInvalid(answerToSave,this.imageTemporaire.url))return;
+    if(this.imageTemporaire.url){
+        this.quizService.updateAnswerWithImage(this.quiz.id, this.question.id, answerToSave, this.imageService.imageFillIn(this.imageTemporaire));
       }
-    else if(!answerToSave.value && !this.imagePreviewAns && !this.answer.imageId) { 
-        window.alert("Veuillez mettre une réponse ou une image.")
-    return
-    }
     else{
-        //if(this.answer.imageId) answerToSave.imageId = this.question.imageId; // ????
         this.quizService.updateAnswer(this.question.quizId, this.question.id, answerToSave);
     }    
 }
-  onChangeFile(event) {
-    let reader = new FileReader();
-    if (event.target.files && event.target.files.length > 0) {
-      let file = event.target.files[0];
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.imageNameAns = file.name + " " + file.type;
-        this.imagePreviewAns = 'data:image;base64,' + (reader.result as string).split(',')[1];
-      };
-    }
-  }
 
   cancelAnswer() {
     this.answerForm.reset();
-    this.imagePreviewAns = null;
-    this.imageNameAns = null;
+    this.imageTemporaire = {} as Img;
     this.initializeAnswerForm();
-  }
-
-  getImgSrcAns() {
-    if(this.imagePreviewAns) return this.imageService.sanitize(this.imagePreviewAns); 
-    return this.imageService.sanitize(this.image.url); 
   }
 
   deleteAnswer() {

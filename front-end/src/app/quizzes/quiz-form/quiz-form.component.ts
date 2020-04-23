@@ -6,8 +6,6 @@ import { Quiz } from '../../../models/quiz.model';
 import { Img } from 'src/models/image.model';
 import { ImageService } from 'src/services/image.service';
 import { ThemeService } from 'src/services/theme.service';
-import { Theme } from 'src/models/theme.model';//??
-
 @Component({
   selector: 'app-quiz-form',
   templateUrl: './quiz-form.component.html',
