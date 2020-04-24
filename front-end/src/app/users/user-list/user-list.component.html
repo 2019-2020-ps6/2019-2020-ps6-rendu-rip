@@ -5,7 +5,7 @@
 <button type="button" class="button-card" (click)="open(formModal)"> <i class="fas fa-plus-circle"></i> Ajouter un nouvel accueilli</button>
 </div>
 <div class="user-list">
-    <div class="card user fixed-container" *ngFor="let user of userList">
+    <div class="card user fixed-container" *ngFor="let user of userList" routerLink= "/statistics/{{user.id}}">
         <button class="button-card delete" (click)="deleteUser(user)">
             <i class="fas fa-times"></i>
         </button>

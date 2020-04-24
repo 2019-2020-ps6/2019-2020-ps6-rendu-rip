@@ -37,6 +37,9 @@ import {EditAnswerComponent} from './quizzes/edit-answer/edit-answer.component';
 //import { from } from 'rxjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
+import { StatisticsComponent } from './users/statistics/statistics.component';
+import { QuizAttemptComponent } from './users/quiz-attempt/quiz-attempt.component';
+import { QuizAttemptDetailsComponent } from './users/quiz-attempt-details/quiz-attempt-details.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +73,10 @@ import { EditUserComponent } from './users/edit-user/edit-user.component';
     PassewordComponent,
     EditQuestionComponent,
     EditAnswerComponent,
-    EditUserComponent
+    EditUserComponent,
+    StatisticsComponent,
+    QuizAttemptComponent,
+    QuizAttemptDetailsComponent
   ],
   imports: [
     BrowserModule,

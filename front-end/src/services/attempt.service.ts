@@ -24,7 +24,9 @@ export class AttemptService {
   getSpecificUserAttempts(userId: string, attemptId: number, output: Attempt) {
     this.http.get<Attempt>(`${serverUrl}/users/${userId}/attempts/${attemptId}`, this.httpOptions)
     .subscribe( attempt => {
+      output.id = attempt.id;
       output.userId = attempt.userId;
+      output.quizId = attempt.quizId;
       output.date = attempt.date;
       output.timeOuts = attempt.timeOuts;
       output.wrongAnswers = attempt.wrongAnswers;

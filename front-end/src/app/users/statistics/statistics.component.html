@@ -1,0 +1,9 @@
+<div *ngIf="user">
+    <app-user [user]="user"></app-user>
+
+    <div class="flex-list">
+        <div *ngFor="let attempt of userAttempts" >
+            <app-quiz-attempt [attempt]="attempt" routerLink= "./attempt/{{attempt.id}}"></app-quiz-attempt>
+        </div>
+    </div>
+</div>

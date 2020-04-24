@@ -15,6 +15,8 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { PassewordComponent } from './start/password/password.component';
 import { EditQuestionComponent } from './quizzes/edit-question/edit-question.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
+import { StatisticsComponent } from './users/statistics/statistics.component';
+import { QuizAttemptDetailsComponent } from './users/quiz-attempt-details/quiz-attempt-details.component';
 
 ///BIIIIIIIIIIIIIIIIIIIIIIIIIIIG CLEAN TODO!
 const routes: Routes = [
@@ -34,7 +36,8 @@ const routes: Routes = [
     { path: 'gallery', component: GalleryComponent},
     //ET bouton 'Retour' revenir au bon endroit
     { path: 'staff/user-list', component: UserListComponent },
-    
+    { path: 'statistics/:userId', component: StatisticsComponent },
+    { path: 'statistics/:userId/attempt/:id', component: QuizAttemptDetailsComponent },
     { path: 'customers/quiz-list-customers', component: QuizListCustomersComponent },
     //{ path: 'customers/:id/quiz-list-customers', component: CustomerComponent }, --> page avec liste quiz d'un accueilli
     { path: 'customers/:customerId/quiz-sequence/:id', component: QuestionWidgetComponent},

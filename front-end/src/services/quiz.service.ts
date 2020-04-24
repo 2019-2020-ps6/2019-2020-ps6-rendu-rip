@@ -38,7 +38,21 @@ export class QuizService {
 
   //getHttpOptions(): Object { return this.httpOptions; }
 
+  retrieveQuiz(quizId: string,output: Quiz) {
+    const url = `${this.quizUrl}/${quizId}`;
+    this.http.get<Quiz>(url).subscribe((quiz) => {
+      output.id = quiz.id;
+      output.name = quiz.name;
+      output.creationDate = quiz.creationDate;
+      output.questions = quiz.questions;
+      output.theme = quiz.theme;
+      output.imageId = quiz.imageId;
+    });
+  }
+
   setQuizzes(quizzes: Quiz[]) {
+    console.log("In setQuizzes");
+    console.log(quizzes);
     this.quizzes = quizzes;
     this.quizzes$.next(this.quizzes);
   }
