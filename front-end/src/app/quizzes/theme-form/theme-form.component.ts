@@ -31,4 +31,8 @@ export class ThemeFormComponent implements OnInit {
     this.themeAdded.emit(true);
     console.log(`la valeur de theme est : ${themeToAdd}`);
   }
+
+  cancel(){
+    this.themeAdded.emit(false);
+  }
 }
