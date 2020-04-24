@@ -7,6 +7,7 @@ import { ImageService } from 'src/services/image.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AttemptService } from 'src/services/attempt.service';
 import { Answer } from 'src/models/answer.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-quiz-attempt-details',
@@ -24,7 +25,7 @@ export class QuizAttemptDetailsComponent implements OnInit {
 
   constructor(public userService: UserService, public imageService: ImageService, 
               public route: ActivatedRoute, public attemptService: AttemptService,
-              public router: Router) { }
+              public router: Router, private location: Location) { }
 
   ngOnInit() {
     const userId = this.route.snapshot.paramMap.get('userId');
@@ -40,6 +41,10 @@ export class QuizAttemptDetailsComponent implements OnInit {
   }
 
   seeAnswer( answer: Answer ) {
-    this.router.navigate([`edit-quiz/${this.attempt.quizId}/${answer.id}`]);
+    this.router.navigate([`edit-quiz/${this.attempt.quizId}/${answer.questionId}`]);
+  }
+
+  goBack() {
+    this.location.back(); // <-- go back to previous location on cancel
   }
 }

@@ -1,4 +1,7 @@
-<div *ngIf="loaded()" class="card">
+<button class="button-card" (click)="goBack()"> Retour </button>
+
+
+<div *ngIf="loaded()" class="card center">
     <h2 *ngIf="attempt.timeOuts>0"> Pertes d'attention ({{attempt.timeOuts}}) </h2>
     <div *ngIf="attempt.wrongAnswers && attempt.wrongAnswers.length>0; else perfect">
         <h2 > {{attempt.wrongAnswers.length}} fautes </h2>

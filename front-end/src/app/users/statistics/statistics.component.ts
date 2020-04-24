@@ -6,6 +6,7 @@ import { ImageService } from 'src/services/image.service';
 import { User } from 'src/models/user.model';
 import { Img } from 'src/models/image.model';
 import { Attempt } from 'src/models/attempt.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-statistics',
@@ -19,7 +20,8 @@ export class StatisticsComponent implements OnInit {
   userAttempts: Attempt[] = [];
 
   constructor(public userService: UserService, public imageService: ImageService, 
-              public router: ActivatedRoute, public attemptService: AttemptService) { }
+              public router: ActivatedRoute, public attemptService: AttemptService,
+              private location: Location) { }
 
   ngOnInit() {
     this.userService.userSelected$.subscribe((user) => {
@@ -34,4 +36,7 @@ export class StatisticsComponent implements OnInit {
     this.userService.setSelectedUser(userId);
   }
 
+  goBack() {
+    this.location.back(); // <-- go back to previous location on cancel
+  }
 }
