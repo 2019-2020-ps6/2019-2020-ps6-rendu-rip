@@ -18,8 +18,10 @@ const ImageBaseModel = require('../utils/image-base-model.js')
 
 module.exports = {
   DefaultImage: new ImageBaseModel('DefaultImage'),
-  QuizImage: new ImageBaseModel('QuizImage'),
+  /*QuizImage: new ImageBaseModel('QuizImage'),
   QuestionImage: new ImageBaseModel('QuestionImage'),
-  AnswerImage: new ImageBaseModel('AnswerImage'),
-  UserImage: new ImageBaseModel('UserImage')
+  AnswerImage: new ImageBaseModel('AnswerImage'),*/
+  Image: new ImageBaseModel('Image'),//better this way & easier to deal with img db
+  PlayerPhoto: new ImageBaseModel('PlayerPhoto')
+  //UserImage: new ImageBaseModel('UserImage')
 }

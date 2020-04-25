@@ -1,0 +1,6 @@
+<div *ngIf = "player">
+    <h1 id="playername">{{player.name}}</h1>
+    <div *ngIf = "image.url" class="frame">
+        <img class="thumbnail" [src]="imageService.sanitize(this.image.url)" alt="player image">
+    </div>
+</div>

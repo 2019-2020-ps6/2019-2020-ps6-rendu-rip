@@ -17,10 +17,12 @@ export class ImageService {
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
 
   public loadAllImgs(images: Img[]) {
-    this.loadAllImages(images, "quiz", "")
+    this.loadAllImages(images, "database", "");
+    this.loadAllImages(images, "player", "");//just to delete some then hide
+    /*this.loadAllImages(images, "quiz", "")
     this.loadAllImages(images, "question", "")
     this.loadAllImages(images, "answer", "")
-    this.loadAllImages(images, "user", "")
+    this.loadAllImages(images, "user", "")*/
   }
 
   private loadAllImages(images: Img[], path: string, log: string){
@@ -48,21 +50,24 @@ export class ImageService {
   }
 
   loadQuizImage(image: Img, id: string){
-    this.loadImage(image, `${id == null? 'default/1' : 'quiz/' + id}`, 'Quiz');
+    //this.loadImage(image, `${id == null? 'default/1' : 'quiz/' + id}`, 'Quiz');
+    this.loadImage(image, `${id == null? 'default/1' : 'database/' + id}`, 'Quiz');
   }
 
   loadQuestionImage(image: Img, id: string){
     //const path = ;//`${serverUrl}/images/question/${id}`;
-    this.loadImage(image, `question/${id}`, 'Question');
+    //this.loadImage(image, `question/${id}`, 'Question');
+    this.loadImage(image, `database/${id}`, 'Question');
   }
 
   loadAnswerImage(image: Img, id: string){
     //const path = ;//`${serverUrl}/images/answer/${id}`;
-    this.loadImage(image, `answer/${id}`, 'Answer');
+    //this.loadImage(image, `answer/${id}`, 'Answer');
+    this.loadImage(image, `database/${id}`, 'Answer');
   }
 
-  loadUserImage(image: Img, id: string){
-    this.loadImage(image,`user/${id}`, 'User');
+  loadPlayerImage(image: Img, id: string){
+    this.loadImage(image,`player/${id}`, 'Player');
   }
 
   sanitize(url: string) { return this.sanitizer.bypassSecurityTrustUrl(url); }
@@ -71,53 +76,54 @@ export class ImageService {
     .subscribe(() => console.log("Image: deletion...")); }
 
 
-  imageFillIn(imageTemporaire : Img){
+  imageFillIn(imageTmp : Img){
     const image = {} as Img;
-    image.name = imageTemporaire.name;
-    image.url = imageTemporaire.url;
-    image.type = imageTemporaire.type;
-    image.id = imageTemporaire.id;
+    image.name = imageTmp.name;
+    image.url = imageTmp.url;
+    image.type = imageTmp.type;
+    image.id = imageTmp.id;
     return image;
   }
 
-  onChangeFile(event, imageTemporaire : Img) {
+  onChangeFile(event, imageTmp : Img) {
     const reader = new FileReader();
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
-        imageTemporaire.name = file.name + ' ' + file.type;
-        imageTemporaire.url = 'data:image;base64,' + (reader.result as string).split(',')[1];
-        imageTemporaire.type = this.localType;
+        imageTmp.name = file.name + ' ' + file.type;
+        imageTmp.url = 'data:image;base64,' + (reader.result as string).split(',')[1];
+        imageTmp.type = this.localType;
       };
     }
   }
 
-  onUrlClicked(modal, imageTemporaire : Img, url : string) {
+  onUrlClicked(modal, imageTmp : Img, url : string) {
     modal.close();
-    imageTemporaire.name = "image web";
-    imageTemporaire.url = url;
-    imageTemporaire.type = this.internetType;
-  }
-  onImgClicked(modal, imageTemporaire : Img, image : Img) {
-    modal.close();
-    imageTemporaire.name = image.name;
-    imageTemporaire.url = image.url;
-    imageTemporaire.type = this.dataBaseType;
-    imageTemporaire.id = image.id;
+    imageTmp.name = "image web";
+    imageTmp.url = url;
+    imageTmp.type = this.internetType;
   }
 
-  getImgSrc(imageTemporaire : Img, image : Img) {
-    if (imageTemporaire && imageTemporaire.url) {
-      return this.sanitize(imageTemporaire.url);
+  onImgClicked(modal, imageTmp : Img, image : Img) {
+    modal.close();
+    imageTmp.name = image.name;
+    imageTmp.url = image.url;
+    imageTmp.type = this.dataBaseType;
+    imageTmp.id = image.id;
+  }
+
+  getImgSrc(imageTmp : Img, image : Img) {
+    if (imageTmp && imageTmp.url) {
+      return this.sanitize(imageTmp.url);
     }
     if(image && image.url){
       return this.sanitize(image.url);
     }
   }
-  getImgSrc1(imageTemporaire : Img) {
-    if (imageTemporaire && imageTemporaire.url) {
-      return this.sanitize(imageTemporaire.url);
+  getImgSrc1(imageTmp : Img) {
+    if (imageTmp && imageTmp.url) {
+      return this.sanitize(imageTmp.url);
     }
   }
 }

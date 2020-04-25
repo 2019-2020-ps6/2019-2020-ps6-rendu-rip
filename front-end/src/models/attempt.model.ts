@@ -4,7 +4,7 @@ export interface Attempt {
     id?: string;
     date?: Date;
     quizId: string;
-    userId: string;
+    playerId: string;
     timeOuts?: number;
     wrongAnswers?: Answer[];
 }

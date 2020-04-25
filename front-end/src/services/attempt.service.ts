@@ -3,7 +3,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import { serverUrl, httpOptionsBase } from '../configs/server.config';
 
-import { User } from 'src/models/user.model';
+import { Player } from 'src/models/player.model';
 import { Attempt } from 'src/models/attempt.model';
 
 @Injectable({
@@ -15,17 +15,20 @@ export class AttemptService {
 
   constructor(private http: HttpClient) {   }
 
-  getUserAttempts(userId: string, output: Attempt[]) {
-    this.http.get<Attempt[]>(`${serverUrl}/users/${userId}/attempts/`, this.httpOptions)
-    .subscribe( attempts =>  
-      attempts.forEach(element => output.push(element)) );
+  getPlayerAttempts(playerId: string, output: Attempt[]) {
+    console.log("wouuhou!");
+    this.http.get<Attempt[]>(`${serverUrl}/players/${playerId}/attempts/`, this.httpOptions)
+    .subscribe( attempts =>  {
+      console.log("double wouuuhouu!");
+      attempts.forEach(element => output.push(element));
+    });
   } 
 
-  getSpecificUserAttempts(userId: string, attemptId: number, output: Attempt) {
-    this.http.get<Attempt>(`${serverUrl}/users/${userId}/attempts/${attemptId}`, this.httpOptions)
+  getSpecificPlayerAttempt(playerId: string, attemptId: number, output: Attempt) {
+    this.http.get<Attempt>(`${serverUrl}/players/${playerId}/attempts/${attemptId}`, this.httpOptions)
     .subscribe( attempt => {
       output.id = attempt.id;
-      output.userId = attempt.userId;
+      output.playerId = attempt.playerId;
       output.quizId = attempt.quizId;
       output.date = attempt.date;
       output.timeOuts = attempt.timeOuts;
@@ -34,7 +37,7 @@ export class AttemptService {
   }
 
   sendAttempt(attempt: Attempt) {
-    this.http.post<Attempt>(`${serverUrl}/users/${attempt.userId}/attempts/`, attempt, this.httpOptions)
+    this.http.post<Attempt>(`${serverUrl}/players/${attempt.playerId}/attempts/`, attempt, this.httpOptions)
     .subscribe(() => console.log("Sending attempt .."));
   }
 

@@ -1,0 +1,11 @@
+<button class="button-card" (click)="goBack()"> Retour </button>
+
+<div *ngIf="player">
+    <app-player [player]="player"></app-player>
+
+    <div class="flex-list">
+        <div *ngFor="let attempt of playerAttempts" >
+            <app-quiz-attempt [attempt]="attempt" routerLink="./{{attempt.id}}"></app-quiz-attempt>
+        </div>
+    </div>
+</div>

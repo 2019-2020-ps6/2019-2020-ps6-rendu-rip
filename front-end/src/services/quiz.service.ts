@@ -21,7 +21,7 @@ export class QuizService {
   httpOptions = httpOptionsBase;
   private questionsPath = 'questions';
   private answersPath = 'answers';
-  
+
 
   public quizzes$: BehaviorSubject<Quiz[]> = new BehaviorSubject(this.quizzes);
   public quizSelected$: Subject<Quiz> = new Subject();
@@ -38,7 +38,7 @@ export class QuizService {
 
   //getHttpOptions(): Object { return this.httpOptions; }
 
-  retrieveQuiz(quizId: string,output: Quiz) {
+  retrieveQuiz(quizId: string, output: Quiz) {
     const url = `${this.quizUrl}/${quizId}`;
     this.http.get<Quiz>(url).subscribe((quiz) => {
       output.id = quiz.id;
@@ -73,7 +73,8 @@ export class QuizService {
     })};
 
   addQuizWithImage(quiz: Quiz, image: Img) {
-    const url = `${serverUrl}/images/quiz`;
+    //const url = `${serverUrl}/images/quiz`;
+    const url = `${serverUrl}/images/database`;
     //chained requests
     this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
       quiz.imageId = (img.id).toString();
@@ -90,7 +91,8 @@ export class QuizService {
   }
 
   updateQuizWithImage(quiz: Quiz, image: Img){
-    const url = `${serverUrl}/images/quiz`;
+    //const url = `${serverUrl}/images/quiz`;
+    const url = `${serverUrl}/images/database`;
     //chained requests
     this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
       quiz.imageId = (img.id).toString();
@@ -114,7 +116,8 @@ export class QuizService {
   }
 
   addQuestionWithImage(quizId: string, question: Question, image: Img) {
-    const url = `${serverUrl}/images/question`;
+    //const url = `${serverUrl}/images/question`;
+    const url = `${serverUrl}/images/database`;
     this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
       question.imageId = img.id;//(img.id).toString();
       this.addQuestion(quizId, question);//met à jour observable
@@ -130,7 +133,8 @@ export class QuizService {
   }
 
   updateQuestionWithImage(quizId: string, question: Question, image: Img){
-    const url = `${serverUrl}/images/question`;
+    //const url = `${serverUrl}/images/question`;
+    const url = `${serverUrl}/images/database`;
     this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
       question.imageId = (img.id).toString();
       this.updateQuestion(quizId, question);//met à jour observable
@@ -154,7 +158,8 @@ export class QuizService {
   }
 
   addAnswerWithImage(quizId: string, questionId: string, answer: Answer, image: Img) {
-    const url = `${serverUrl}/images/answer`;
+    //const url = `${serverUrl}/images/answer`;
+    const url = `${serverUrl}/images/database`;
     this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
       answer.imageId = img.id;//(img.id).toString();
       this.addAnswer(quizId, questionId, answer);//met à jour observable
@@ -170,7 +175,8 @@ export class QuizService {
   }
 
   updateAnswerWithImage(quizId: string, questionId: string, answer, image: Img){
-    const url = `${serverUrl}/images/answer`;
+    //const url = `${serverUrl}/images/answer`;
+    const url = `${serverUrl}/images/database`;
     this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
       answer.imageId = (img.id).toString();
       this.updateAnswer(quizId, questionId, answer);//met à jour observable
@@ -184,12 +190,12 @@ export class QuizService {
 
   loadQuestion(question : Question, quizId:string, questionId: string){
     const url = `${this.quizUrl}/${quizId}/${this.questionsPath}/${questionId}`;
-    this.http.get<Question>(url, this.httpOptions).subscribe(question1 => {
-      question.id = question1.id;
-      question.imageId = question1.imageId;
-      question.label = question1.label;
-      question.quizId = question1.quizId;
-      question.answers = question1.answers;
+    this.http.get<Question>(url, this.httpOptions).subscribe(q => {
+      question.id = q.id;
+      question.imageId = q.imageId;
+      question.label = q.label;
+      question.quizId = q.quizId;
+      question.answers = q.answers;
     });
   }
 
@@ -212,28 +218,30 @@ export class QuizService {
     }
     return false;
   }
+  
   answersInvalid(question : Question){
     let errorMessage = "";
-    if(!question.answers|| question.answers.length==0){
-      errorMessage = "Il n'y a pas de réponses possibles."
-    }
-    if(question.answers.length!=4){
-      errorMessage = "Il faudrait 4 réponses."
+    /*if(!question.answers || question.answers.length==0){
+      errorMessage = "Il n'y a pas de réponse possible."
+    }*/
+    if(!question.answers || question.answers.length<2){
+      errorMessage = "Attention: 2 réponses minimum requises"
     }
     var oneRightAnswer = 0
     question.answers.forEach(element => { if(element.isCorrect) oneRightAnswer++ })
     if(oneRightAnswer>1){
-      errorMessage = "Il y a plus d'une réponse correcte."
+      errorMessage = "Erreur: 1 seule réponse correcte possible"// --> faire la verif avant d'enregistrer réponse
+      // gérer autrement --> radio buttons
     }
     if(oneRightAnswer===0){
-      errorMessage = "Il n'y a pas de réponse correcte."
+      errorMessage = "Attention: il n'y a aucune réponse correcte"
     }
     return errorMessage;
   }
 
   answerInvalid(answer : Answer, imageId : string){
     if(!answer.value && (answer.imageId || imageId)) { 
-      window.alert("Veuillez mettre une réponse ou une image.")
+      window.alert("Veuillez mettre à minima du texte ou une image")
       return true;
     }
   }

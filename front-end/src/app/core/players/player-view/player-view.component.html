@@ -1,0 +1,6 @@
+<button class="button-card" routerLink= "..">Retour</button>
+<button class="button-card" routerLink= "/">Home</button>
+
+<div *ngIf="player && (!player.imageId || playerImage.name)" class = "player">
+    <app-player-form-modal [player] = "player" [playerImage] = "playerImage" ></app-player-form-modal>
+</div>

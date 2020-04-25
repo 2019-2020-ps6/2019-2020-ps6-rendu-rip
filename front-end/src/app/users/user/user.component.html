@@ -1,6 +1,0 @@
-<div *ngIf = "user">
-    <h1 id="username">{{user.name}}</h1>
-    <div *ngIf = "image.url" class="frame">
-        <img class="thumbnail" [src]="imageService.sanitize(this.image.url)" alt="user image">
-    </div>
-</div>

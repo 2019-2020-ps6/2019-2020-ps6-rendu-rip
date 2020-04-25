@@ -1,0 +1,11 @@
+@import 'src/styles/layout.scss';
+@import "src/styles/card.scss";
+
+.flex-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    align-items: center;
+    justify-content: center;
+}

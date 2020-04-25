@@ -1,15 +1,18 @@
 const { Router } = require('express')
-const { DefaultImage, QuizImage, QuestionImage, AnswerImage, UserImage } = require('../../models')
+//const { DefaultImage, QuizImage, QuestionImage, AnswerImage, UserImage } = require('../../models')
+const { DefaultImage, Image, PlayerPhoto } = require('../../models')
 const manageAllErrors = require('../../utils/routes/error-management')
 
 const router = new Router()
 
 getImageStruct = (type) => {
   switch(type) {
-    case "quiz": return QuizImage
+    /*case "quiz": return QuizImage
     case "question": return QuestionImage
     case "answer": return AnswerImage
-    case "user": return UserImage
+    case "user": return UserImage*/
+    case "database": return Image
+    case "player": return PlayerPhoto
     default: return DefaultImage
   }
 }
@@ -32,7 +35,13 @@ router.get('/:type/:id', (req, res) => {
     const img = imageStruct.getById(req.params.id)
     res.status(200).json(img)
   } catch (err) {
-    manageAllErrors(res, err)
+    try {
+      const imgDef = DefaultImage.getById('2')//in case
+      res.status(200).json(imgDef)
+    }
+    catch (err) {
+      manageAllErrors(res, err)
+    }
   }
 })
 

@@ -1,0 +1,16 @@
+<button class="button-card" routerLink= "..">Retour</button>
+<button class="button-card" routerLink= "/">Home</button>
+<br>
+
+<div *ngIf ="quiz && (!quiz.imageId || image.url)">
+  <div *ngIf = "!showQuizForm" class="horizontal-center ">
+    <div class = "quizName"><h1>Nom du quiz : {{quiz.name}}</h1></div> 
+    <div class = "quizTheme" ><h2>Thème : {{quiz.theme}}</h2></div>
+    <div *ngIf="image.url" class="frame-little"><img class = "thumbnail" [src]="imageService.getImgSrc1(image)" alt="quiz image"></div>
+    <button class="button-card" id = "editQuizName" (click)="switchShowQuizForm(true)">Modifier</button>
+  </div>
+  <div *ngIf="showQuizForm">
+    <app-quiz-form-modal [quiz]="quiz" [image]="image" (quitForm) = "switchShowQuizForm(false)"></app-quiz-form-modal>
+  </div>
+  <app-question-list [quiz]="quiz"></app-question-list>
+</div>

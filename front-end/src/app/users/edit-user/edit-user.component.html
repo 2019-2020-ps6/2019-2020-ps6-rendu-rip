@@ -1,6 +1,0 @@
-<button class="button-card" routerLink= "/staff/user-list">Retour</button>
-<button class="button-card" routerLink= "/home">Home</button>
-
-<div *ngIf="user && (!user.imageId || userImage.name)" class = "user">
-    <app-user-form [user] = "user" [userImage] = "userImage" ></app-user-form>
-</div>

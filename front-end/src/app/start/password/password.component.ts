@@ -7,7 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './password.component.html',
   styleUrls: ['./password.component.scss']
 })
-export class PassewordComponent implements OnInit {
+export class PasswordComponent implements OnInit {
 
   loginForm: FormGroup;
   isCorrect : boolean = true;
@@ -19,9 +19,7 @@ export class PassewordComponent implements OnInit {
         Validators.required
       ])
     });
-
   }
-
 
   ngOnInit() {
   }
@@ -30,14 +28,13 @@ export class PassewordComponent implements OnInit {
     this.counter++;
     const password = this.loginForm.get('password').value;
     if (password === '1111' || password === '') {
-      this.router.navigate(['staff']);
+      this.router.navigate(['admin']);
       return;
     }
     this.isCorrect = false;
     if (this.counter === 3) { // if entered password 3 times wrong that means it's a user who want to acces and not a staff !!
         this.counter = 0; // reset on 0
         this.router.navigate(['home']); // redirect to home page
-    }
+    }//bootstrap modal error
   }
-
 }

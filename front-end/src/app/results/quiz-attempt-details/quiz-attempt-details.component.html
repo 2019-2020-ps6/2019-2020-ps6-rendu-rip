@@ -1,0 +1,17 @@
+<button class="button-card" (click)="goBack()"> Retour </button>
+
+
+<div *ngIf="loaded()" class="card center">
+    <h2 *ngIf="attempt.timeOuts>0"> Pertes d'attention ({{attempt.timeOuts}}) </h2>
+    <div *ngIf="attempt.wrongAnswers && attempt.wrongAnswers.length>0; else perfect">
+        <h2 > {{attempt.wrongAnswers.length}} fautes </h2>
+        <div *ngFor="let answer of attempt.wrongAnswers">
+            <button class="button-card" (click)=seeQuestion(answer.questionId)>Voir question</button>
+        </div>
+    </div>
+    <h6> {{attempt.date | date}} </h6>
+</div>
+
+<ng-template #perfect>
+    <h2>Sans faute</h2>
+</ng-template>

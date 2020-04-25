@@ -1,0 +1,11 @@
+<!--<button class="button-card" routerLink= "/customers">Retour</button>-->
+
+<div class="box">
+    <div *ngIf="player">
+        <h1>Bravo {{player.name}} !<!--Prénom--></h1>
+        <button class="button-card button-big" routerLink= "..">Recommencer</button>
+        <button class="button-card button-big" routerLink= "/players/{{player.id}}">Choisir un autre quiz</button>
+        <!--<button class="button-card button-big" routerLink= "/players">Changer d'accueilli</button>-->
+    </div>
+</div>
+
