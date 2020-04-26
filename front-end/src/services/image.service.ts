@@ -14,6 +14,7 @@ export class ImageService {
   public localType : string = "local";
   public dataBaseType : string = "dataBase";
   public internetType : string = "internet";
+  public rmImg: string = "remove from object";
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
 
   public loadAllImgs(images: Img[]) {

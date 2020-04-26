@@ -27,7 +27,7 @@ export class QuizFormModalComponent implements OnInit {
   urlForm: FormGroup;
   showThemeForm: boolean = false;
   
-  imageTemporaire: Img = {} as Img;
+  imageTmp: Img = {} as Img;
 
 
   modalOptions:NgbModalOptions;
@@ -45,7 +45,7 @@ export class QuizFormModalComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.imageService.loadAllQuizImages(this.gallery);
+    this.imageService.loadAllImgs(this.gallery);
     this.initQuizForm();
     this.initUrlForm();
     this.themeService.themes$.subscribe((themes) =>{
@@ -75,7 +75,7 @@ export class QuizFormModalComponent implements OnInit {
 
   reset(){
     this.quizForm.reset();
-    this.imageTemporaire = {} as Img;
+    this.imageTmp = {} as Img;
     this.initQuizForm();
     this.quitForm.emit(false);
   }
@@ -83,14 +83,21 @@ export class QuizFormModalComponent implements OnInit {
   addOrUpdateQuiz() {
     let quizToSave: Quiz = this.quizFillIn();
     if(this.quizService.quizInvalid(quizToSave))return;
-    if(this.imageTemporaire.type === this.imageService.dataBaseType || !this.imageTemporaire.url) {
-      if(this.imageTemporaire.id) quizToSave.imageId = this.imageTemporaire.id.toString();
-      if(this.quiz)this.quizService.updateQuiz(quizToSave);
+    if(this.imageTmp.id == this.imageService.rmImg && 
+        this.imageTmp.url == this.imageService.rmImg 
+      || this.imageTmp.type === this.imageService.dataBaseType 
+      || !this.imageTmp.url) {
+      if(this.imageTmp.id) quizToSave.imageId = this.imageTmp.id.toString();
+      if(this.quiz) {
+        if(this.imageTmp.id == this.imageService.rmImg && 
+          this.imageTmp.url == this.imageService.rmImg) quizToSave.imageId = "";//empty --> bad request...
+        this.quizService.updateQuiz(quizToSave);
+      }
       else this.quizService.addQuiz(quizToSave);
     }
     else {
-      if(this.quiz)this.quizService.updateQuizWithImage(quizToSave,this.imageService.imageFillIn(this.imageTemporaire));
-      else this.quizService.addQuizWithImage(quizToSave, this.imageService.imageFillIn(this.imageTemporaire));
+      if(this.quiz)this.quizService.updateQuizWithImage(quizToSave,this.imageService.imageFillIn(this.imageTmp));
+      else this.quizService.addQuizWithImage(quizToSave, this.imageService.imageFillIn(this.imageTmp));
     }
     if(!this.quiz)this.reset();
     this.quitForm.emit(false);
@@ -104,7 +111,7 @@ export class QuizFormModalComponent implements OnInit {
   }
 
   onUrlClicked(modal) {
-    this.imageService.onUrlClicked(modal,this.imageTemporaire,this.urlForm.getRawValue().url)
+    this.imageService.onUrlClicked(modal,this.imageTmp,this.urlForm.getRawValue().url)
   }
   
   open(content) {
@@ -114,5 +121,9 @@ export class QuizFormModalComponent implements OnInit {
   switchShowThemeForm(show : boolean){
     this.showThemeForm = show;
   }
- 
+
+  rmImg(img: Img) {
+    this.imageTmp.id = this.imageService.rmImg;
+    this.imageTmp.url = this.imageService.rmImg;
+  }
 }

@@ -46,7 +46,7 @@
   <div class="label">
     Charger une image depuis :
     <label for="image64QuizForm" class="button-card chargingButton" >Cet appareil</label>
-    <input type="file" class="hidden" id="image64QuizForm" (change)="imageService.onChangeFile($event,imageTemporaire)" accept="image/*">
+    <input type="file" class="hidden" id="image64QuizForm" (change)="imageService.onChangeFile($event,imageTmp)" accept="image/*">
 
     <label for="modal-imageWebQuiz" class="button-card chargingButton">Internet</label>
     <button type="button" class="hidden" id="modal-imageWebQuiz" (click)="open(weburlmodal)"></button>
@@ -58,8 +58,10 @@
 
 
 <ng-template #displayImage>
-  <div class="frame image" *ngIf="imageTemporaire.url || (image && image.url)">
-    <img class="thumbnail" [src]="imageService.getImgSrc(imageTemporaire,image)" alt="quiz image">
+  <div class="frame image fixed-container" *ngIf="imageTmp.url || (image && image.url)">
+    <button class="button-card delete" (click)="rmImg()">
+      <i class="fas fa-times"></i></button>
+    <img class="thumbnail" [src]="imageService.getImgSrc(imageTmp,image)" alt="quiz image">
   </div>
 </ng-template>
 
@@ -93,7 +95,7 @@
     <div class="responsive-list">
       <div class="button-card button-list" *ngFor="let img of gallery">
           <div *ngIf="img.url" class="frame-list">
-            <img class="thumbnail-list" [src]="imageService.getImgSrc1(img)" (click)="imageService.onImgClicked(modal, imageTemporaire, img)" alt="DB image">
+            <img class="thumbnail-list" [src]="imageService.getImgSrc1(img)" (click)="imageService.onImgClicked(modal, imageTmp, img)" alt="DB image">
           </div>
       </div>
     </div>
