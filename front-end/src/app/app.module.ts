@@ -40,6 +40,8 @@ import { PlayerViewComponent } from './core/players/player-view/player-view.comp
 import { StatisticsComponent } from './results/statistics/statistics.component';
 import { QuizAttemptComponent } from './results/quiz-attempt/quiz-attempt.component';
 import { QuizAttemptDetailsComponent } from './results/quiz-attempt-details/quiz-attempt-details.component';
+import { InternetImageModalComponent } from './core/internet-image-modal/internet-image-modal.component';
+import { DatabaseImageModalComponent } from './core/database-image-modal/database-image-modal.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,9 @@ import { QuizAttemptDetailsComponent } from './results/quiz-attempt-details/quiz
     PlayerViewComponent,
     StatisticsComponent,
     QuizAttemptComponent,
-    QuizAttemptDetailsComponent
+    QuizAttemptDetailsComponent,
+    InternetImageModalComponent,
+    DatabaseImageModalComponent
   ],
   imports: [
     BrowserModule,

@@ -7,10 +7,20 @@
     <div class = "quizName"><h1>Nom du quiz : {{quiz.name}}</h1></div> 
     <div class = "quizTheme" ><h2>Thème : {{quiz.theme}}</h2></div>
     <div *ngIf="image.url" class="frame-little"><img class = "thumbnail" [src]="imageService.getImgSrc1(image)" alt="quiz image"></div>
-    <button class="button-card" id = "editQuizName" (click)="switchShowQuizForm(true)">Modifier</button>
-  </div>
-  <div *ngIf="showQuizForm">
-    <app-quiz-form-modal [quiz]="quiz" [image]="image" (quitForm) = "switchShowQuizForm(false)"></app-quiz-form-modal>
+    <button class="button-card" id = "editQuizName" (click)="modalService.open(formModal)">Modifier</button>
   </div>
   <app-question-list [quiz]="quiz"></app-question-list>
 </div>
+
+
+<ng-template #formModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Créer un nouveau quiz :</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <app-quiz-form-modal [quiz] = "quiz" [image] = "image" (quitForm) = "modal.close()"></app-quiz-form-modal>
+  </div>
+</ng-template>

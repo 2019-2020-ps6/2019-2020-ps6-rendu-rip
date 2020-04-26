@@ -1,0 +1,20 @@
+<label for="modal-imageWebQuiz" class="button-card chargingButton">Internet</label>
+<button type="button" class="hidden" id="modal-imageWebQuiz" (click)="modalService.open(weburlmodal)"></button>
+
+
+<ng-template #weburlmodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Coller l'adresse de l'image</h4>
+      <button type="button" class="close" aria-label="Close" (click)="urlForm.reset();modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form class="url-form" [formGroup]="urlForm">
+        <input class="input-custom" type="text" id="url" [formControlName]="'url'">
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="onUrlClicked(modal)">Ok</button>
+    </div>
+  </ng-template>

@@ -4,6 +4,8 @@ import { QuizService } from 'src/services/quiz.service';
 import { Quiz } from 'src/models/quiz.model';
 import { Img } from 'src/models/image.model';
 import { ImageService } from 'src/services/image.service';
+import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from 'src/services/modal.service';
 
 @Component({
   selector: 'app-quiz-view',
@@ -15,9 +17,10 @@ export class QuizViewComponent implements OnInit {
  
   quiz: Quiz;
   image: Img = {} as Img;
-  showQuizForm : boolean = false;
+  //showQuizForm : boolean = false;
 
-  constructor(private route: ActivatedRoute, public imageService: ImageService, public quizService: QuizService) {}
+  constructor(private modalService: ModalService, private route: ActivatedRoute, public imageService: ImageService, public quizService: QuizService) {
+  }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -34,8 +37,9 @@ export class QuizViewComponent implements OnInit {
     if(!id) return;
     this.imageService.loadQuizImage(this.image, id);
   }
-  switchShowQuizForm(show : boolean){
+  /*switchShowQuizForm(show : boolean){
     this.showQuizForm = show;
-  }
+  }*/
+
 }
 
