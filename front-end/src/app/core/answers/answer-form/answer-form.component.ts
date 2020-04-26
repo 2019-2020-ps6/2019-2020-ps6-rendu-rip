@@ -121,4 +121,10 @@ onUrlClicked(modal) {
 initUrlForm() {
   this.urlForm = this.formBuilder.group({url: "",});
 } 
+
+sizeInput(){
+  if(!this.answer) return 20;
+  else if (this.answer.value.length>40)return 40;
+  else return this.answer.value.length;
+}
 }

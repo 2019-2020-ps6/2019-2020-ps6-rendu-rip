@@ -1,4 +1,4 @@
-<button class="button-card" (click)="goBack();resetAll()"> Retour </button>(mettre popup quitter sans enr...)
+<button class="button-card" (click)="goBack();"> Retour </button>
 <div class = "horizontal-center" *ngIf="quiz && question && (image||!question.imageId)">
     <h1>Quiz : {{quiz.name}}</h1>
     
@@ -25,9 +25,6 @@
                 <app-answer-form [answer]="answer" [question]="question" [quiz]="quiz"></app-answer-form>
         </div>
     </div>
-    
-    <button id = "submitQuestion" class="button-card" (click)="submitQuestionLabel()">Tout enregistrer (n'enregistre pas tout encore)</button>
-    <button id = "cancelAll" class="button-card" (click)="resetAll()">Tout annuler</button>
 
 </div>
 
@@ -54,5 +51,17 @@
     <div class="modal-body">
         <app-answer-form [quiz] = "quiz" [question] = "question" (quitForm) = "modal.close()"></app-answer-form>
     </div>
+</ng-template>
+
+<ng-template #quitWithInvalidQuestion let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Ajouter une réponse :</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <app-answer-form [quiz] = "quiz" [question] = "question" (quitForm) = "modal.close()"></app-answer-form>
+      </div>
 </ng-template>
 

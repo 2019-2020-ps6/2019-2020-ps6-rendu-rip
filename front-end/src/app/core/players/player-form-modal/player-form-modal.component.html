@@ -10,7 +10,7 @@
 <ng-template #form>
   <form class="player-form" [formGroup]="playerForm">
     <label for="name">Nom: </label>  
-    <input class="input-custom" type="text" id="name" [formControlName]="'name'">
+    <input class="input-custom" type="text" size = "{{sizeInput()}}" id="name" [formControlName]="'name'">
     <br>
     <div class = "imageAndButton">
       <ng-template [ngTemplateOutlet] = "displayImage"></ng-template>
@@ -23,7 +23,7 @@
 
 <ng-template #buttonCharging>
   <div class="label">
-    Charger une image depuis :
+    Charger une image depuis :<br>
     <label for="image64playerForm" class="button-card chargingButton" id = "chargerImage">Cet appareil</label>
     <input type="file" class="hidden" id="image64playerForm" (change)="imageService.onChangeFile($event,imageTmp)" accept="image/*">
     <!--<app-database-image-modal [imageTmp] = "imageTmp"></app-database-image-modal>-->

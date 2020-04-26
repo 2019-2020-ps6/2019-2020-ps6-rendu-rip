@@ -45,11 +45,7 @@ export class PlayerService {
   }
 
   addplayer(player: Player) { 
-    console.log("player input")
-    console.log(player)
-    this.http.post<Player>(this.playerUrl, player, this.httpOptions).subscribe((u) => {
-    console.log("player got")
-    console.log(u)
+    this.http.post<Player>(this.playerUrl, player, this.httpOptions).subscribe(() => {
     this.setPlayersFromUrl()}); }
 
   addPlayerWithImage(player: Player, image: Img) {
@@ -68,7 +64,9 @@ export class PlayerService {
   updatePlayer(player: Player) {
     const urlWithId = `${this.playerUrl}/${player.id}`;
     console.log( player);
-    this.http.put<Player>(urlWithId, player, this.httpOptions).subscribe(() => this.setPlayersFromUrl());
+    this.http.put<Player>(urlWithId, player, this.httpOptions).subscribe((player) =>{
+    this.setSelectedPlayer(player.id);
+    this.setPlayersFromUrl()});
   }
 
 

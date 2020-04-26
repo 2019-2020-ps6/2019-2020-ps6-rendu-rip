@@ -2,7 +2,7 @@
 	<form [formGroup]="questionForm">
 	<label for="questionName">Intitulé</label>
 	<br>
-	<input type="text" [formControlName]="'label'" id="questionName">
+	<input type="text" size = "{{sizeInput()}}" [formControlName]="'label'" id="questionName">
 	<br>
 	<ng-template [ngTemplateOutlet] ="displayImage"></ng-template>
     <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>   
@@ -14,7 +14,7 @@
 
 <ng-template #buttonCharging>
 	<div class="label">
-	  Charger une image depuis :
+	  Charger une image depuis :<br>
 	  <label for="image64QuestionForm" class="button-card chargingButton" >Cet appareil</label>
 	  <input type="file" class="hidden" id="image64QuestionForm" (change)="imageService.onChangeFile($event,imageTmp)" accept="image/*">
 	  <app-internet-image-modal [imageTmp] = "imageTmp"></app-internet-image-modal>
@@ -23,9 +23,8 @@
   </ng-template>
   
   <ng-template #displayImage>
+	<div *ngIf = "imageTmp.url" ><button class="button-card delete" (click)="rmImg()">	<i class="fas fa-times"></i></button></div>
 	<div class="frame image fixed-container" *ngIf="imageTmp.url">
-	  <button class="button-card delete" (click)="rmImg()">
-		<i class="fas fa-times"></i></button>
 	  <img class="thumbnail" [src]="imageService.getImgSrc1(imageTmp)" alt="question image">
 	</div>
   </ng-template>

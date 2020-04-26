@@ -61,4 +61,9 @@ export class PlayerFormModalComponent implements OnInit {
     this.initplayerForm();
     this.quitForm.emit(false);
   }
+  sizeInput(){
+    if(!this.player) return 20;
+    else if (this.player.name.length>40)return 40;
+    else return this.player.name.length;
+  }
 }

@@ -1,7 +1,7 @@
 <div class="card edit-quiz-form">
   <form [formGroup]="quizForm">
     <label for="name"><h1>Nom du quiz : </h1></label>  
-    <input class="input-custom" type="text" id="name" [formControlName]="'name'">     
+    <input class="input-custom" size = "{{sizeInput()}}" type="text" id="name" [formControlName]="'name'">     
     <br>
     <label for="selectTheme"><h2>Thème : </h2> </label>
     <select name="Thème" id="selectTheme" [formControlName]="'theme'">
@@ -21,7 +21,7 @@
 
 <ng-template #buttonCharging>
   <div class="label">
-    Charger une image depuis :
+    Charger une image depuis :<br>
     <label for="image64QuizForm" class="button-card chargingButton" >Cet appareil</label>
     <input type="file" class="hidden" id="image64QuizForm" (change)="imageService.onChangeFile($event,imageTmp)" accept="image/*">
     <app-internet-image-modal [imageTmp] = "imageTmp"></app-internet-image-modal>
@@ -29,10 +29,9 @@
   </div>
 </ng-template>
 
-<ng-template #displayImage>
+<ng-template #displayImage>  
+  <div *ngIf = "imageTmp.url" ><button class="button-card delete" (click)="rmImg()">	<i class="fas fa-times"></i></button></div>
   <div class="frame image fixed-container" *ngIf="imageTmp.url">
-    <button class="button-card delete" (click)="rmImg()">
-      <i class="fas fa-times"></i></button>
     <img class="thumbnail" [src]="imageService.getImgSrc1(imageTmp)" alt="quiz image">
   </div>
 </ng-template>

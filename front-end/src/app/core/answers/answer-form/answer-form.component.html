@@ -1,7 +1,7 @@
-<div *ngIf = "image.url || (answer && !answer.id) || !answer" class="card">
+<div *ngIf = "image.url || (answer && !answer.imageId) || !answer" class="card">
   <form [formGroup]="answerForm">
     <label for="name">Réponse</label><br>
-    <input type="text" [formControlName]="'value'" id="name">
+    <input type="text" size = "{{sizeInput()}}" [formControlName]="'value'" id="name">
     <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>
     <ng-template [ngTemplateOutlet] ="displayImageAns"></ng-template>
     Correcte : <input type="checkbox" [formControlName]="'isCorrect'"> <br>
@@ -62,10 +62,10 @@
       <button type="button" class="btn btn-outline-dark" (click)="onUrlClicked(modal)">Ok</button>
     </div>
   </ng-template>
+
   <ng-template #displayImageAns>
+  <div *ngIf = "imageTmp.url || image.url" ><button class="button-card delete" (click)="rmImg()">	<i class="fas fa-times"></i></button></div>
 	<div class="frame image fixed-container" *ngIf="imageTmp.url || image.url">
-	  <button class="button-card delete" (click)="rmImg()">
-		<i class="fas fa-times"></i></button>
 	  <img class="thumbnail" [src]="imageService.getImgSrc(imageTmp,image)" alt="answer image">
 	</div>
   </ng-template>

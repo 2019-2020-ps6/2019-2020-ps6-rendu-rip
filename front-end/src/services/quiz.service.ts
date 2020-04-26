@@ -247,4 +247,10 @@ export class QuizService {
       return true;
     }
   }
+
+  sizeInput(value : string){
+    if(!value) return 20;
+    else if (value.length>40)return 40;
+    else return value.length;
+  }
 }

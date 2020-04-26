@@ -89,4 +89,9 @@ export class QuestionFormModalComponent implements OnInit {
     this.imageTmp = {} as Img;
     this.imageTmp.name = this.imageService.rmImg;  
   }
+  sizeInput(){
+    if(!this.question) return 20;
+    else if (this.question.label.length>40)return 40;
+    else return this.question.label.length;
+  }
 }

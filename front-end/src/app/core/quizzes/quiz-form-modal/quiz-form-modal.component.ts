@@ -107,4 +107,9 @@ export class QuizFormModalComponent implements OnInit {
     this.imageTmp = {} as Img;
     this.imageTmp.name = this.imageService.rmImg;  
   }
+  sizeInput(){
+    if(!this.quiz) return 20;
+    else if (this.quiz.name.length>40)return 40;
+    else return this.quiz.name.length;
+  }
 }
