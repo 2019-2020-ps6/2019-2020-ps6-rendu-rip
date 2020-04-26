@@ -92,16 +92,22 @@ export class AnswerListWidgetComponent implements OnInit {
 
   //timer pour afficher la comparaison
   startTimerDisplayComparison = () => setTimeout(() => {// à la fin du timeOut
+    if(!this.answerSelected || this.answerSelected.isCorrect===true) this.nextQuestion();
+    else{
       this.display = this.SHOW_RIGHT_ANSWER;// on affiche la bonne réponse
       this.timerDisplayRightAnswer = this.startTimerDisplayRightAnswer();// on lance le timer correspondant
+    }
   }
   , this.TIME_OUT_DISPLAY_COMPARAISON);
 
   //skip le timer de la comparaison
   skipComparison() {
     this.stop(this.timerDisplayComparison);
-    this.display = this.SHOW_RIGHT_ANSWER;
-    this.timerDisplayRightAnswer = this.startTimerDisplayRightAnswer();
+    if(!this.answerSelected || this.answerSelected.isCorrect===true) this.nextQuestion();
+    else {
+      this.display = this.SHOW_RIGHT_ANSWER;
+      this.timerDisplayRightAnswer = this.startTimerDisplayRightAnswer();
+    }
   }
 
   //timer pour afficher que la bonne réponse
