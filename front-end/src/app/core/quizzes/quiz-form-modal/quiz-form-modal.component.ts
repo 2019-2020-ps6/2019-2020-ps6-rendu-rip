@@ -46,6 +46,7 @@ export class QuizFormModalComponent implements OnInit {
 
   ngOnInit() {
     this.imageService.loadAllImgs(this.gallery);
+    this.initImageTmp();
     this.initQuizForm();
     this.initUrlForm();
     this.themeService.themes$.subscribe((themes) =>{
@@ -56,6 +57,10 @@ export class QuizFormModalComponent implements OnInit {
 
   initUrlForm() {
     this.urlForm = this.formBuilder.group({url: "",});
+  }
+  initImageTmp(){
+    if(this.image) this.imageTmp = this.imageService.imageFillIn(this.image);
+    else this.imageTmp = {} as Img;
   }
   initQuizForm() {
     if(!this.quiz) {
@@ -75,30 +80,30 @@ export class QuizFormModalComponent implements OnInit {
 
   reset(){
     this.quizForm.reset();
-    this.imageTmp = {} as Img;
+    this.initImageTmp();
     this.initQuizForm();
     this.quitForm.emit(false);
+  }
+
+  addNewImage(){
+    if(this.imageTmp.name===this.imageService.rmImg) return false
+    if(this.imageTmp.type===this.imageService.dataBaseType)return false;
+    return (this.imageTmp.url && (!this.image || this.image.url !== this.imageTmp.url))
   }
 
   addOrUpdateQuiz() {
     let quizToSave: Quiz = this.quizFillIn();
     if(this.quizService.quizInvalid(quizToSave))return;
-    if(this.imageTmp.id == this.imageService.rmImg && 
-        this.imageTmp.url == this.imageService.rmImg 
-      || this.imageTmp.type === this.imageService.dataBaseType 
-      || !this.imageTmp.url) {
-      if(this.imageTmp.id) quizToSave.imageId = this.imageTmp.id.toString();
-      if(this.quiz) {
-        if(this.imageTmp.id == this.imageService.rmImg && 
-          this.imageTmp.url == this.imageService.rmImg) quizToSave.imageId = "";//empty --> bad request...
-        this.quizService.updateQuiz(quizToSave);
-      }
-      else this.quizService.addQuiz(quizToSave);
-    }
-    else {
+    if(this.addNewImage()){
       if(this.quiz)this.quizService.updateQuizWithImage(quizToSave,this.imageService.imageFillIn(this.imageTmp));
       else this.quizService.addQuizWithImage(quizToSave, this.imageService.imageFillIn(this.imageTmp));
     }
+    else{
+      if(this.imageTmp.name===this.imageService.rmImg) quizToSave.imageId = "1";
+      else if(this.imageTmp.id) quizToSave.imageId = this.imageTmp.id.toString();
+      if(this.quiz)this.quizService.updateQuiz(quizToSave);
+      else this.quizService.addQuiz(quizToSave);
+  }
     if(!this.quiz)this.reset();
     this.quitForm.emit(false);
   }
@@ -122,8 +127,11 @@ export class QuizFormModalComponent implements OnInit {
     this.showThemeForm = show;
   }
 
-  rmImg(img: Img) {
-    this.imageTmp.id = this.imageService.rmImg;
-    this.imageTmp.url = this.imageService.rmImg;
+  rmImg() {
+    this.imageTmp = {} as Img;
+    this.imageTmp.name = this.imageService.rmImg;
+    //this.imageTmp.id = this.imageService.rmImg;
+    //this.imageTmp.url = this.imageService.rmImg;
+  
   }
 }

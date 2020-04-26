@@ -15,6 +15,7 @@ export class ImageService {
   public dataBaseType : string = "dataBase";
   public internetType : string = "internet";
   public rmImg: string = "remove from object";
+  public defaultQuizImageId = "1";
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
 
   public loadAllImgs(images: Img[]) {
@@ -105,6 +106,7 @@ export class ImageService {
         imageTmp.name = file.name + ' ' + file.type;
         imageTmp.url = 'data:image;base64,' + (reader.result as string).split(',')[1];
         imageTmp.type = this.localType;
+        imageTmp.id = undefined;
       };
     }
   }
@@ -114,6 +116,7 @@ export class ImageService {
     imageTmp.name = "image web";
     imageTmp.url = url;
     imageTmp.type = this.internetType;
+    imageTmp.id = undefined;
   }
 
   onImgClicked(modal, imageTmp : Img, image : Img) {

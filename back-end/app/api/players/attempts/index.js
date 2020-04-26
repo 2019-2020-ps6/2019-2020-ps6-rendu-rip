@@ -8,9 +8,7 @@ const router = new Router({ mergeParams: true })
 
 router.get('/', (req, res) => {
   try {
-    console.log(req.params.playerId)
     const playerAttempts = filterAttemptsFromPlayers(req.params.playerId)
-    console.log(playerAttempts)
     res.status(200).json(playerAttempts)
   } catch (err) {
     manageAllErrors(res, err)
@@ -29,7 +27,6 @@ router.get('/:attemptId', (req, res) => {
 router.post('/', (req, res) => {
   try {
     const attempt = Attempt.create({ ...req.body })
-    console.log(attempt)
     res.status(201).json(attempt)
   } catch (err) {
     // console.log(...req.body.playerId)

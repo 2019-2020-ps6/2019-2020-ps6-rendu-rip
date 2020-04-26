@@ -58,10 +58,10 @@
 
 
 <ng-template #displayImage>
-  <div class="frame image fixed-container" *ngIf="imageTmp.url || (image && image.url)">
+  <div class="frame image fixed-container" *ngIf="imageTmp.url">
     <button class="button-card delete" (click)="rmImg()">
       <i class="fas fa-times"></i></button>
-    <img class="thumbnail" [src]="imageService.getImgSrc(imageTmp,image)" alt="quiz image">
+    <img class="thumbnail" [src]="imageService.getImgSrc1(imageTmp)" alt="quiz image">
   </div>
 </ng-template>
 
