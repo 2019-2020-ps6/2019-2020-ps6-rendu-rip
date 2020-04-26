@@ -14,6 +14,7 @@ import { QuestionViewComponent } from '../../questions/question-view/question-vi
   templateUrl: './answer-view.component.html',
   styleUrls: ['./answer-view.component.scss']
 })
+
 export class AnswerViewComponent implements OnInit {
 
   @Input() answer: Answer;
@@ -21,7 +22,7 @@ export class AnswerViewComponent implements OnInit {
   @Input() quiz : Quiz;
   
   image: Img;
-  imageTemporaire : Img = {} as Img;
+  imageTmp : Img = {} as Img;
   answerForm : FormGroup;
 
   constructor(public questionView: QuestionViewComponent, public formBuilder : FormBuilder, public quizService: QuizService, public imageService: ImageService, public router: Router) {
@@ -29,7 +30,7 @@ export class AnswerViewComponent implements OnInit {
 
 
   ngOnInit() {
-    this.initializeAnswerForm();
+    /*this.initializeAnswerForm();
     this.loadImage();
     this.questionView.resetAll$.subscribe((obj) => {
         if(obj===true)this.cancelAnswer()
@@ -37,9 +38,10 @@ export class AnswerViewComponent implements OnInit {
     this.questionView.saveAll$.subscribe((obj)=>{
         if(obj===true)this.submitAnswer()
     })
+    */
 }
 
-
+/*
   initializeAnswerForm() {
     this.answerForm = this.formBuilder.group({
       value : [this.answer.value],
@@ -51,7 +53,7 @@ export class AnswerViewComponent implements OnInit {
     this.image = {} as Img;
     if(this.answer){
       const id = this.answer.imageId;
-      if(id!=null) this.imageService.loadAnswerImage(this.image, id);
+      if(id) this.imageService.loadAnswerImage(this.image, id);
     }
   }
 
@@ -59,9 +61,9 @@ export class AnswerViewComponent implements OnInit {
     const answerToSave: Answer = this.answerForm.getRawValue() as Answer;
     answerToSave.questionId = this.question.id;
     answerToSave.id = this.answer.id;
-    if(this.quizService.answerInvalid(answerToSave,this.imageTemporaire.url))return;
-    if(this.imageTemporaire.url){
-        this.quizService.updateAnswerWithImage(this.quiz.id, this.question.id, answerToSave, this.imageService.imageFillIn(this.imageTemporaire));
+    if(this.quizService.answerInvalid(answerToSave,this.imageTmp.url))return;
+    if(this.imageTmp.url){
+        this.quizService.updateAnswerWithImage(this.quiz.id, this.question.id, answerToSave, this.imageService.imageFillIn(this.imageTmp));
       }
     else{
         this.quizService.updateAnswer(this.question.quizId, this.question.id, answerToSave);
@@ -70,12 +72,11 @@ export class AnswerViewComponent implements OnInit {
 
   cancelAnswer() {
     this.answerForm.reset();
-    this.imageTemporaire = {} as Img;
+    this.imageTmp = {} as Img;
     this.initializeAnswerForm();
   }
 
   deleteAnswer() {
     this.quizService.deleteAnswer(this.quiz, this.question, this.answer);
-  }
-
+  }*/
 }

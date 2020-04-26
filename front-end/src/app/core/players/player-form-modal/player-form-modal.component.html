@@ -13,8 +13,8 @@
     <input class="input-custom" type="text" id="name" [formControlName]="'name'">
     <br>
     <div class = "imageAndButton">
-      <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>        
       <ng-template [ngTemplateOutlet] = "displayImage"></ng-template>
+      <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>        
     </div>
     <button type="submit" id="sumbit" class="button-card" (click)="addOrUpdatePlayer()">Enregistrer</button>
     <button type="button" id="cancelAnswer" class="button-card" (click)="reset()">Annuler</button>
@@ -26,13 +26,8 @@
     Charger une image depuis :
     <label for="image64playerForm" class="button-card chargingButton" id = "chargerImage">Cet appareil</label>
     <input type="file" class="hidden" id="image64playerForm" (change)="imageService.onChangeFile($event,imageTmp)" accept="image/*">
-
-    <!--<label for="modal-imageWebplayer" class="button-card chargingButton">Internet</label>
-    <button type="button" class="hidden" id="modal-imageWebplayer" (click)="open(weburlmodal)"></button>
-    
-    <label for="modal-imageDBplayer" class="button-card chargingButton ">Banque d'images</label>
-    <button type="button" class="hidden" id="modal-imageDBplayer" (click)="open(imgdbmodal)"></button>
-    -->
+    <!--<app-database-image-modal [imageTmp] = "imageTmp"></app-database-image-modal>-->
+    <!--<app-internet-image-modal [imageTmp] = "imageTmp"></app-internet-image-modal>-->
   </div>
 </ng-template>
 
@@ -42,41 +37,7 @@
   </div>
 </ng-template>
 
-<!--<ng-template #weburlmodal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Coller l'adresse de l'image</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form class="url-form" [formGroup]="urlForm">
-      <input class="input-custom" type="text" id="url" [formControlName]="'url'">
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="onUrlClicked(modal)">Ok</button>
-  </div>
-</ng-template>
 
-
-<ng-template #imgdbmodal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Choisir une image:</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="responsive-list">
-      <div class="button-card button-list" *ngFor="let img of gallery">
-          <div *ngIf="img.url" class="frame-list">
-            <img class="thumbnail-list" [src]="imageService.getImgSrc1(img)" (click)="imageService.onImgClicked(modal,imageTmp, img)" alt="DB image">
-          </div>
-      </div>
-    </div>
-  </div>
-</ng-template>-->
 
 
 

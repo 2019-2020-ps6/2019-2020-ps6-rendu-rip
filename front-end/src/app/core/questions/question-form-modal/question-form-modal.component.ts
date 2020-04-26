@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, Form, FormArray, FormGroup } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Question } from 'src/models/question.model';
 import { Quiz } from 'src/models/quiz.model';
 import { Img } from 'src/models/image.model';
@@ -13,39 +13,80 @@ import { ImageService } from 'src/services/image.service';
 })
 export class QuestionFormModalComponent implements OnInit {
 
-  @Input() quiz: Quiz;
+  @Input() 
+  quiz: Quiz;
+  @Input()
+  question : Question;
+  @Input()
+  image: Img;
+  @Output()
+  quitForm: EventEmitter<boolean> = new EventEmitter<boolean>();
   
   questionForm: FormGroup;
 
-  imageTemporaire: Img = {} as Img;
+  imageTmp: Img = {} as Img;
 
   constructor(public formBuilder: FormBuilder, public quizService: QuizService, public imageService: ImageService) {
+  }
+
+  ngOnInit() {
+    this.initImageTmp();
     this.initializeQuestionForm();
   }
 
-  ngOnInit() {}
-
   private initializeQuestionForm() {
-    this.questionForm = this.formBuilder.group({
-      label: ['']
-    });
+    if(!this.question){
+      this.questionForm = this.formBuilder.group({
+        label: ['']
+      });
+    }
+    else{
+      this.questionForm = this.formBuilder.group({
+        label: [this.question.label]
+      });
+    }
+  }
+
+  initImageTmp(){
+    if(this.image) this.imageTmp = this.imageService.imageFillIn(this.image);
+    else this.imageTmp = {} as Img;
   }
 
   reset(){
     this.questionForm.reset();
-    this.imageTemporaire = {} as Img;
+    this.initImageTmp();
+    this.initializeQuestionForm();
+    this.quitForm.emit(false);
   }
 
-  saveQuestion() {
+  addNewImage(){
+    if(this.imageTmp.name===this.imageService.rmImg) return false
+    if(this.imageTmp.type===this.imageService.dataBaseType)return false;
+    return (this.imageTmp.url && (!this.image || this.image.url !== this.imageTmp.url))
+  }
+
+  addOrUpdateQuestion() {
     const questionToSave: Question = this.questionForm.getRawValue() as Question;
+    if(this.question)questionToSave.id = this.question.id;
     questionToSave.quizId = this.quiz.id;
     if(this.quizService.questionInvalid(questionToSave))return;
-    if(this.imageTemporaire.name){
-      this.quizService.addQuestionWithImage(this.quiz.id, questionToSave, this.imageService.imageFillIn(this.imageTemporaire));
+    if(this.addNewImage()){
+      if(this.question)this.quizService.updateQuestionWithImage(this.quiz.id, questionToSave, this.imageService.imageFillIn(this.imageTmp));
+      else this.quizService.addQuestionWithImage(this.quiz.id,questionToSave, this.imageService.imageFillIn(this.imageTmp));
     }
     else {
-      this.quizService.addQuestion(this.quiz.id, questionToSave);
-    }
+      if(this.imageTmp.name===this.imageService.rmImg) questionToSave.imageId = "1";
+      else if(this.imageTmp.id) questionToSave.imageId = this.imageTmp.id.toString();
+      if(this.question)this.quizService.updateQuestion(this.quiz.id,questionToSave);
+      else this.quizService.addQuestion(this.quiz.id,questionToSave);
+    } 
     this.reset();
+    this.quitForm.emit(false);
+
+  }
+
+  rmImg() {
+    this.imageTmp = {} as Img;
+    this.imageTmp.name = this.imageService.rmImg;  
   }
 }

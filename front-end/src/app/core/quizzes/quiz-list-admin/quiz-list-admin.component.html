@@ -4,7 +4,7 @@
 
 
 <div class="newQuiz">
-    <button type="button" class="button-card" (click)="modalService.open(formModal)"> 
+    <button type="button" class="button-card" (click)="modalService.open(quizFormModal)"> 
         <i class="fas fa-plus-circle"></i> Nouveau Quiz
     </button>
 </div>
@@ -20,7 +20,7 @@
 </div>
 
 
-<ng-template #formModal let-modal>
+<ng-template #quizFormModal let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Créer un nouveau quiz :</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">

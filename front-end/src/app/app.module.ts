@@ -14,7 +14,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { QuestionComponent } from './core/questions/question/question.component';
 import { QuestionFormModalComponent } from './core/questions/question-form-modal/question-form-modal.component';
 import { QuestionListComponent } from './core/questions/question-list/question-list.component';
-import { AnswerFormComponent } from './core/answers/answer-form-no-need/answer-form-no-need.component';
+import { AnswerFormComponent } from './core/answers/answer-form/answer-form.component';
 import { PlayerListAdminComponent } from './core/players/player-list-admin/player-list-admin.component';
 import { PlayerComponent } from './core/players/player/player.component';
 import { PlayerFormModalComponent } from './core/players/player-form-modal/player-form-modal.component';

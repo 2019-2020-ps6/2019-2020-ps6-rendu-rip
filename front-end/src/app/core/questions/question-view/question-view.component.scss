@@ -12,6 +12,15 @@ h2 {
     font-size: x-small;
 }
 
+.frame-little {
+    margin-left: auto;
+    margin-right: auto;
+    border-style: dashed;
+    border-color:  rgb(243, 58, 144);
+    height: 30%;
+    width: 30%;
+}
+
 .errorMessage{
     color: rgb(238, 12, 12);
     font-weight: bold;;
@@ -32,21 +41,15 @@ h2 {
   }
     
 
-.question{
-    max-height: 500px;
-    max-width: 250px;
+.questionLabel{
+    font-size: 2em;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .label {
     padding-top: 5%;
     text-align: center;
-}
-
-#chargerImage {
-    border-radius: 1em;
-}
-.image {
-    margin-top: 1em;
 }
 
 .buttons-bottom {

@@ -5,8 +5,7 @@ import { Img } from 'src/models/image.model';
 import { ImageService } from 'src/services/image.service';
 import { PlayerService } from 'src/services/player.service';
 import { Player } from 'src/models/player.model';
-import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-//MDBModalRef, MDBModalService
+import { ModalService } from 'src/services/modal.service';
 
 @Component({
   selector: 'app-player-form-modal',
@@ -16,9 +15,6 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 export class PlayerFormModalComponent implements OnInit {
   public playerForm: FormGroup;
-  public urlForm: FormGroup
-  modalOptions:NgbModalOptions;
-
 
   @Input()
   player : Player;
@@ -29,29 +25,18 @@ export class PlayerFormModalComponent implements OnInit {
   quitForm: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   imageTmp : Img = {} as Img;
-  gallery : Img[] = [];
 
-  constructor(private modalService: NgbModal, public formBuilder: FormBuilder, 
+  constructor(private modalService: ModalService, public formBuilder: FormBuilder, 
     public imageService: ImageService, public playerService: PlayerService) {
   }
 
   ngOnInit() {
-    this.modalOptions = {
-      backdrop:'static',
-      backdropClass:'customBackdrop'
-    }
     this.initplayerForm();
-    this.initUrlForm();
-    this.imageService.loadAllQuizImages(this.gallery);
   }
 
   initplayerForm(){
     if(!this.player) this.playerForm = this.formBuilder.group({name: ['']});
     else this.playerForm = this.formBuilder.group({name: [this.player.name]});
-  }
-
-  initUrlForm() {
-    this.urlForm = this.formBuilder.group({url: ""});
   }
 
   addOrUpdatePlayer() {
@@ -68,14 +53,6 @@ export class PlayerFormModalComponent implements OnInit {
     }
     if(!this.player)this.reset();
     this.quitForm.emit(true);//false
-  }
-
-  open(content) {
-    this.modalService.open(content, this.modalOptions);
-  }
-
-  onUrlClicked(modal) {
-    this.imageService.onUrlClicked(modal, this.imageTmp, this.urlForm.getRawValue().url)
   }
  
   reset(){

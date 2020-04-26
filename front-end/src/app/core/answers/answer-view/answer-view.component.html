@@ -1,13 +1,14 @@
+<!--
 <div class = "card" *ngIf = "answer">
     <form [formGroup]="answerForm">
-        Réponse : <input type="text" size = "{{answer.value.length}}" [formControlName]="'value'"><br>
+        Réponse : <input type="text" size = "{{answer.value.length}}" [formControlName]="'value'"><br> 
         <div class = "imageAndButton">
             <div class="label">
                 <label for="image64EditAns{{answer.id}}" class="button-card" id = "chargerImage">Charger une image depuis cet appareil</label>
             </div>
-            <input type="file" class="hidden" id="image64EditAns{{answer.id}}" (change)="imageService.onChangeFile($event, imageTemporaire)" accept="image/*">
-            <div class="frame image" *ngIf="imageTemporaire.url || (image && image.url)">
-                <img class="thumbnail" [src]="imageService.getImgSrc(imageTemporaire,image)" alt="answer image">
+            <input type="file" class="hidden" id="image64EditAns{{answer.id}}" (change)="imageService.onChangeFile($event, imageTmp)" accept="image/*">
+            <div class="frame image" *ngIf="imageTmp.url || (image && image.url)">
+                <img class="thumbnail" [src]="imageService.getImgSrc(imageTmp,image)" alt="answer image">
             </div>
         </div>
         
@@ -17,4 +18,4 @@
         <button id="cancelAnswer" class="button-card" (click)="cancelAnswer()">Annuler</button>
         <button id="deleteAnswer" class="button-card" (click)="deleteAnswer()">Supprimer la réponse</button>
     </form>
-</div>
+</div>-->

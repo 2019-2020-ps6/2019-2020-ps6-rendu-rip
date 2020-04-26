@@ -29,31 +29,3 @@
     padding-top: 5%;
     text-align: center;
 }
-
-.responsive-list {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-
-    align-items: center;
-    justify-content: center;
-}
-
-.frame-list{
-    height: 100px;
-    width: 100px;
-    margin-left: auto;
-    margin-right: auto;
-    border-color:  rgb(243, 58, 144);
-}
-.thumbnail-list {
-    object-fit: cover;
-    display: block; 
-    margin-left: auto;
-    margin-right: auto;
-    height: 100%;//80px;
-    width: 100%;//100px
-}
-.button-list {
-    padding: 0;
-}

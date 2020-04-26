@@ -2,7 +2,7 @@
 <button class="button-card" routerLink= "/">Home</button>
 <br>
 <div class = "createPlayer">
-<button type="button" class="button-card" (click)="open(formModal)"> 
+<button type="button" class="button-card" (click)="modalService.open(playerFormModal)"> 
     <i class="fas fa-plus-circle"></i> Nouvel Accueilli</button>
 </div>
 <div class="player-list">
@@ -18,7 +18,7 @@
 </div>
 
 
-<ng-template #formModal let-modal>
+<ng-template #playerFormModal let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Créer un nouvel accueilli :</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">

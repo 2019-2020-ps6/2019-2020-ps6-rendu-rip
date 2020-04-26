@@ -1,18 +1,31 @@
 <div class="card">
-	<h3>Nouvelle question :</h3>
 	<form [formGroup]="questionForm">
 	<label for="questionName">Intitulé</label>
 	<br>
 	<input type="text" [formControlName]="'label'" id="questionName">
 	<br>
-  Charger une image depuis
-  <div class="frame image" *ngIf="imageTemporaire.url">
-    <img class="thumbnail" [src]="imageService.getImgSrc1(imageTemporaire)" alt="quiz image">
-  </div>
-	<div class="label"><label for="image64QuestionForm" class="button-card">Cet appareil</label></div>
-	<input type="file" class="hidden" id="image64QuestionForm" (change)="imageService.onChangeFile($event,imageTemporaire)" accept="image/*">
-	<br>
-	<button id="createQuestion" class="button-card" (click)="saveQuestion()">Créer</button>
+	<ng-template [ngTemplateOutlet] ="displayImage"></ng-template>
+    <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>   
+	<button id="createQuestion" class="button-card" (click)="addOrUpdateQuestion()">Créer</button>
 	<button id="reset" class="button-card" (click) = "reset()">Annuler</button>
 	</form>
 </div>
+
+
+<ng-template #buttonCharging>
+	<div class="label">
+	  Charger une image depuis :
+	  <label for="image64QuestionForm" class="button-card chargingButton" >Cet appareil</label>
+	  <input type="file" class="hidden" id="image64QuestionForm" (change)="imageService.onChangeFile($event,imageTmp)" accept="image/*">
+	  <app-internet-image-modal [imageTmp] = "imageTmp"></app-internet-image-modal>
+	  <app-database-image-modal [imageTmp] = "imageTmp"></app-database-image-modal>
+	</div>
+  </ng-template>
+  
+  <ng-template #displayImage>
+	<div class="frame image fixed-container" *ngIf="imageTmp.url">
+	  <button class="button-card delete" (click)="rmImg()">
+		<i class="fas fa-times"></i></button>
+	  <img class="thumbnail" [src]="imageService.getImgSrc1(imageTmp)" alt="question image">
+	</div>
+  </ng-template>

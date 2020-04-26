@@ -2,16 +2,25 @@
 <button class="button-card" routerLink= "/">Home</button>
 
 <div *ngIf="player" class = "player">
-    <div *ngIf="!modifyPlayer; else modifyingPlayer">
-        <div class="name"><h1>{{player.name}}</h1></div> 
-        <div *ngIf="playerPhoto && playerPhoto.url!=null" class="frame-little">
-            <img class = "thumbnail" [src]="imageService.getImgSrc1(playerPhoto)" alt="photo">
-        </div>
-        <button class = "button-card" (click)="switchEditView()">Modifier</button>
+    <div class="name"><h1>{{player.name}}</h1></div> 
+    <div *ngIf="playerPhoto && playerPhoto.url" class="frame-little">
+        <img class = "thumbnail" [src]="imageService.getImgSrc1(playerPhoto)" alt="photo">
     </div>
-    <ng-template #modifyingPlayer>
-        <app-player-form-modal [player]="player" [playerImage]="playerPhoto" (quitForm)="quitForm()"></app-player-form-modal>
-    </ng-template>
+    <button class = "button-card" (click)="modalService.open(playerFormModal)">Modifier</button>
     <br>
     <button class = "button-card" routerLink= "./statistics">Voir les résultats</button>
 </div>
+
+
+
+<ng-template #playerFormModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Modifier les informations de l'accueilli :</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <app-player-form-modal [player] = "player" [playerImage] = "playerPhoto" (quitForm) = "modal.close()"></app-player-form-modal>
+    </div>
+  </ng-template>

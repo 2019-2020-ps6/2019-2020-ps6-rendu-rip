@@ -5,34 +5,24 @@
     <div class = "errorMessage" >
         {{quizService.answersInvalid(question)}}
     </div>
-
-    <form [formGroup]="questionForm">
-        <input type="text" size = "{{question.label.length}}" [formControlName]="'label'">
-        <button id = "cancel" type="button" (click)="cancelQuestionLabel()"><i class="fas fa-undo-alt"></i></button>
-    </form>
-    <div class = "imageAndText">
-        <div class="label">
-            <label for="image64Up" class="button-card" id = "chargerImage">Charger une image depuis cet appareil</label>
-            <button id = "cancel" type="button" (click)="cancelImageLoading()"><i class="fas fa-undo-alt"></i></button>
+    <div class="horizontal-center ">
+        <div class = "questionLabel">Question : {{question.label}}</div> 
+        <div *ngIf="image.url" class="frame-little">
+            <img class = "thumbnail" [src]="imageService.getImgSrc1(image)" alt="question image">
         </div>
-        <div class="frame image" *ngIf="imageTemporaire.url || (image && image.url)">
-            <img class="thumbnail" [src]="imageService.getImgSrc(imageTemporaire, image)" alt="question image">
-        </div>
-        <input type="file" class="hidden" id="image64Up" (change)="imageService.onChangeFile($event, imageTemporaire)" accept="image/*">
+        <button class="button-card" (click)="modalService.open(questionEditModal)">Modifier</button>
     </div>
-    
+       
     <h2>Réponses :</h2>
     
-    <button id = "createAnswer" class="button-card" (click)="switchShowForm(true)"> 
-        <i class="fas fa-plus-circle"></i> Nouvelle Réponse </button>
-    <!--Peut-être à mettre dans une modal-->
-    <div *ngIf="showForm">
-        <app-answer-form-no-need [quiz]="quiz" [question]="question" (answerAdded)="switchShowForm($event)"></app-answer-form-no-need>
-    </div>
+    <button id = "createAnswer" class="button-card" (click)="modalService.open(answerFormModal)"> 
+        <i class="fas fa-plus-circle"></i> Nouvelle Réponse 
+    </button>
+  
 
     <div class="answer-list">
         <div *ngFor="let answer of question.answers">
-                <app-answer-view [answer]="answer" [question]="question" [quiz]="quiz"></app-answer-view>
+                <app-answer-form [answer]="answer" [question]="question" [quiz]="quiz"></app-answer-form>
         </div>
     </div>
     
@@ -40,3 +30,29 @@
     <button id = "cancelAll" class="button-card" (click)="resetAll()">Tout annuler</button>
 
 </div>
+
+
+<ng-template #questionEditModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Modifier la question :</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <app-question-form-modal [quiz] = "quiz" [question] = "question" [image] = "image" (quitForm) = "modal.close()"></app-question-form-modal>
+    </div>
+</ng-template>
+
+<ng-template #answerFormModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Ajouter une réponse :</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <app-answer-form [quiz] = "quiz" [question] = "question" (quitForm) = "modal.close()"></app-answer-form>
+    </div>
+</ng-template>
+

@@ -1,11 +1,31 @@
 <div class = "horizontal-center">
-  <app-question-form-modal [quiz]="quiz"></app-question-form-modal>
+
+  <button type="button" class="button-card" (click)="modalService.open(questionFormModal)"> 
+    <i class="fas fa-plus-circle"></i>Ajouter une question
+  </button>
+
   <h2>Liste des questions : </h2>
 </div>
+
 <div class = "errorMessage" *ngIf = "quiz.questions.length==0">
-  Attention: Ajouter au moins une question</div>
+  Attention: Ajouter au moins une question
+</div>
+
 <div class="question-list"> 
   <div class="question" *ngFor="let question of quiz.questions">
     <app-question [quiz]="quiz" [question]="question"></app-question>
   </div>
 </div>
+
+
+<ng-template #questionFormModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Créer une nouvelle question :</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <app-question-form-modal [quiz] = "quiz" (quitForm) = "modal.close()"></app-question-form-modal>
+  </div>
+</ng-template>
