@@ -23,7 +23,8 @@
     
     <h2>Réponses :</h2>
     
-    <button id = "createAnswer" class="button-card" (click)="switchShowForm(true)"> <i class="fas fa-plus-circle"></i> Ajouter une réponse </button>
+    <button id = "createAnswer" class="button-card" (click)="switchShowForm(true)"> 
+        <i class="fas fa-plus-circle"></i> Nouvelle Réponse </button>
     <!--Peut-être à mettre dans une modal-->
     <div *ngIf="showForm">
         <app-answer-form-no-need [quiz]="quiz" [question]="question" (answerAdded)="switchShowForm($event)"></app-answer-form-no-need>

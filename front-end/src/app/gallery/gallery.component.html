@@ -2,8 +2,14 @@
 
 <div class="responsive-list">
     <div *ngFor="let img of images">
-        <div *ngIf="img.url" class="frame">
-            <!--Todo  : deleteImage mais ATTENTION : VERIFIER NON UTILISEE-->
-            <img class="thumbnail" [src]="imageService.getImgSrc1(img)" (click)="selectedImg(img.id)" alt="answer image"></div>
+        <div *ngIf="img.url" class="fixed-container">
+            <button class="button-card delete" (click)="deleteImg(img)">
+                <i class="fas fa-times"></i></button>
+            <!--Todo  : VERIFIER NON UTILISEE sinon modal error-->
+            <img class="frame thumbnail" [src]="imageService.getImgSrc1(img)" (click)="selectedImg(img.id)" alt="answer image">
+        </div>
     </div>
 </div>
+
+<!--<div class="card quiz fixed-container" *ngFor="let quiz of quizList">-->
+   

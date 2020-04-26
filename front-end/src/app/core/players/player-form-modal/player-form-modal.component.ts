@@ -6,6 +6,7 @@ import { ImageService } from 'src/services/image.service';
 import { PlayerService } from 'src/services/player.service';
 import { Player } from 'src/models/player.model';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+//MDBModalRef, MDBModalService
 
 @Component({
   selector: 'app-player-form-modal',
@@ -53,9 +54,9 @@ export class PlayerFormModalComponent implements OnInit {
     this.urlForm = this.formBuilder.group({url: ""});
   }
 
-  addOrUpdateplayer() {
+  addOrUpdatePlayer() {
     const playerToSave: Player = this.playerForm.getRawValue() as Player;
-    if(this.playerService.playerInvalid(playerToSave))return;
+    if(this.playerService.playerInvalid(playerToSave)) return;
     if(this.player) playerToSave.id = this.player.id;
     if(this.imageTmp.url){
       if(this.player) this.playerService.updateplayerWithImg(playerToSave, this.imageService.imageFillIn(this.imageTmp));
@@ -66,7 +67,7 @@ export class PlayerFormModalComponent implements OnInit {
       else this.playerService.addplayer(playerToSave);
     }
     if(!this.player)this.reset();
-    this.quitForm.emit(false);
+    this.quitForm.emit(true);//false
   }
 
   open(content) {

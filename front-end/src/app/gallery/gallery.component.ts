@@ -13,10 +13,10 @@ export class GalleryComponent implements OnInit {
   images: Img[] = []
 
   constructor(public imageService:ImageService, private location: Location) {
-      imageService.loadAllImgs(this.images);
   }
 
   ngOnInit() {
+    this.imageService.loadAllImgs(this.images);
   }
 
   selectedImg(imgId :String) {
@@ -27,4 +27,10 @@ export class GalleryComponent implements OnInit {
     this.location.back(); // <-- go back to previous location on cancel
   }
 
+  deleteImg(img: Img) {
+    this.imageService.deleteImage(img);
+    this.imageService.deletePlayerPhoto(img);
+    this.images.length = 0;
+    this.imageService.loadAllImgs(this.images);
+  }
 }

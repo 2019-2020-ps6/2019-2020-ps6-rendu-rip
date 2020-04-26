@@ -18,7 +18,7 @@ export class ImageService {
 
   public loadAllImgs(images: Img[]) {
     this.loadAllImages(images, "database", "");
-    this.loadAllImages(images, "player", "");//just to delete some then hide
+    //this.loadAllImages(images, "player", "");//just to delete some then hide
     /*this.loadAllImages(images, "quiz", "")
     this.loadAllImages(images, "question", "")
     this.loadAllImages(images, "answer", "")
@@ -72,9 +72,19 @@ export class ImageService {
 
   sanitize(url: string) { return this.sanitizer.bypassSecurityTrustUrl(url); }
 
-  deleteQuizImage(image: Img) { this.http.delete<Img>(`${serverUrl}/images/quiz/${image.id}`, this.httpOptions)
-    .subscribe(() => console.log("Image: deletion...")); }
+  deleteQuizImage(image: Img) { 
+    this.deleteImage(image);
+  }
 
+  deleteImage(image: Img) {
+    this.http.delete<Img>(`${serverUrl}/images/database/${image.id}`, this.httpOptions)
+    .subscribe(() => console.log("Image: deletion..."));
+  }
+
+  deletePlayerPhoto(image: Img) {
+    this.http.delete<Img>(`${serverUrl}/images/player/${image.id}`, this.httpOptions)
+    .subscribe(() => console.log("Image: deletion..."));
+  }
 
   imageFillIn(imageTmp : Img){
     const image = {} as Img;

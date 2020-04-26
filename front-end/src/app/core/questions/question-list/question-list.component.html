@@ -2,7 +2,8 @@
   <app-question-form-modal [quiz]="quiz"></app-question-form-modal>
   <h2>Liste des questions : </h2>
 </div>
-<div class = "errorMessage" *ngIf = "quiz.questions.length==0">Veuillez ajouter au moins une question</div>
+<div class = "errorMessage" *ngIf = "quiz.questions.length==0">
+  Attention: Ajouter au moins une question</div>
 <div class="question-list"> 
   <div class="question" *ngFor="let question of quiz.questions">
     <app-question [quiz]="quiz" [question]="question"></app-question>

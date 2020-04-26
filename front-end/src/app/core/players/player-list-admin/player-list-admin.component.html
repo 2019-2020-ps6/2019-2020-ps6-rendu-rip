@@ -2,16 +2,17 @@
 <button class="button-card" routerLink= "/">Home</button>
 <br>
 <div class = "createPlayer">
-<button type="button" class="button-card" (click)="open(formModal)"> <i class="fas fa-plus-circle"></i> Ajouter un nouvel accueilli</button>
+<button type="button" class="button-card" (click)="open(formModal)"> 
+    <i class="fas fa-plus-circle"></i> Nouvel Accueilli</button>
 </div>
 <div class="player-list">
-    <div class="card player fixed-container" *ngFor="let player of playerList" routerLink= "./{{player.id}}/statistics">
+    <div class="card player fixed-container" *ngFor="let player of playerList">
         <button class="button-card delete" (click)="deletePlayer(player)">
             <i class="fas fa-times"></i>
         </button>
-        <button class="button-card player">
+        <button class="button-card player" routerLink= "./{{player.id}}"><!--/statistics">-->
             <app-player [player]="player" (playerDeleted) = "deletePlayer($event)"></app-player>
-            <button class = "button-card" routerLink= "./{{player.id}}">Modifier</button>
+            <!--<button class = "button-card" routerLink= "./{{player.id}}">Modifier</button>-->
         </button>
     </div>
 </div>

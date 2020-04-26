@@ -16,8 +16,8 @@
       <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>        
       <ng-template [ngTemplateOutlet] = "displayImage"></ng-template>
     </div>
-    <button id="sumbit" class="button-card" (click)="addOrUpdatePlayer()">Enregistrer</button>
-    <button id="cancelAnswer" class="button-card" (click)="reset()">Annuler</button>
+    <button type="submit" id="sumbit" class="button-card" (click)="addOrUpdatePlayer()">Enregistrer</button>
+    <button type="button" id="cancelAnswer" class="button-card" (click)="reset()">Annuler</button>
   </form>
 </ng-template>
 
@@ -27,11 +27,12 @@
     <label for="image64playerForm" class="button-card chargingButton" id = "chargerImage">Cet appareil</label>
     <input type="file" class="hidden" id="image64playerForm" (change)="imageService.onChangeFile($event,imageTmp)" accept="image/*">
 
-    <label for="modal-imageWebplayer" class="button-card chargingButton">Internet</label>
+    <!--<label for="modal-imageWebplayer" class="button-card chargingButton">Internet</label>
     <button type="button" class="hidden" id="modal-imageWebplayer" (click)="open(weburlmodal)"></button>
     
     <label for="modal-imageDBplayer" class="button-card chargingButton ">Banque d'images</label>
     <button type="button" class="hidden" id="modal-imageDBplayer" (click)="open(imgdbmodal)"></button>
+    -->
   </div>
 </ng-template>
 
@@ -41,7 +42,7 @@
   </div>
 </ng-template>
 
-<ng-template #weburlmodal let-modal>
+<!--<ng-template #weburlmodal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Coller l'adresse de l'image</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -75,7 +76,7 @@
       </div>
     </div>
   </div>
-</ng-template>
+</ng-template>-->
 
 
 

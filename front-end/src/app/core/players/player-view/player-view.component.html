@@ -1,6 +1,17 @@
 <button class="button-card" routerLink= "..">Retour</button>
 <button class="button-card" routerLink= "/">Home</button>
 
-<div *ngIf="player && (!player.imageId || playerImage.name)" class = "player">
-    <app-player-form-modal [player] = "player" [playerImage] = "playerImage" ></app-player-form-modal>
+<div *ngIf="player" class = "player">
+    <div *ngIf="!modifyPlayer; else modifyingPlayer">
+        <div class="name"><h1>{{player.name}}</h1></div> 
+        <div *ngIf="playerPhoto && playerPhoto.url!=null" class="frame-little">
+            <img class = "thumbnail" [src]="imageService.getImgSrc1(playerPhoto)" alt="photo">
+        </div>
+        <button class = "button-card" (click)="switchEditView()">Modifier</button>
+    </div>
+    <ng-template #modifyingPlayer>
+        <app-player-form-modal [player]="player" [playerImage]="playerPhoto" (quitForm)="quitForm()"></app-player-form-modal>
+    </ng-template>
+    <br>
+    <button class = "button-card" routerLink= "./statistics">Voir les résultats</button>
 </div>
