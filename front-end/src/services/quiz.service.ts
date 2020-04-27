@@ -228,6 +228,7 @@ export class QuizService {
     }*/
     if(!question.answers || question.answers.length<2){
       errorMessage = "Attention: 2 réponses minimum requises"
+      return errorMessage;
     }
     var oneRightAnswer = 0
     question.answers.forEach(element => { if(element.isCorrect) oneRightAnswer++ })
@@ -242,10 +243,11 @@ export class QuizService {
   }
 
   answerInvalid(answer : Answer, imageId : string){
-    if(!answer.value && (answer.imageId || imageId)) { 
+    if(!answer.value && !(answer.imageId || imageId)) { 
       window.alert("Veuillez mettre à minima du texte ou une image")
       return true;
     }
+    return false;
   }
 
   sizeInput(value : string){

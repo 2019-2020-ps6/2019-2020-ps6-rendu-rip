@@ -44,8 +44,9 @@ export class AnswerFormComponent implements OnInit {
       });
     }
     else {
+      const val = this.answer.value? this.answer.value : '';
       this.answerForm = this.formBuilder.group({
-        value : [this.answer.value],
+        value : [val],
         isCorrect: this.answer.isCorrect
       });
     }
@@ -66,8 +67,11 @@ export class AnswerFormComponent implements OnInit {
   
 
   submitAnswer() {
-    const answerToSave: Answer = this.answerForm.getRawValue() as Answer;
-    if(this.answer)answerToSave.id = this.answer.id;
+    let answerToSave: Answer = {} as Answer;
+    const value = this.answerForm.getRawValue().value;
+    answerToSave.isCorrect = this.answerForm.getRawValue().isCorrect;
+    if(value!="") answerToSave.value = value;
+    if(this.answer) answerToSave.id = this.answer.id;
     answerToSave.questionId = this.question.id;
     if(this.quizService.answerInvalid(answerToSave,this.imageTmp.url))return;
     if(this.addImage()){
@@ -123,7 +127,7 @@ initUrlForm() {
 } 
 
 sizeInput(){
-  if(!this.answer) return 20;
+  if(!this.answer || !this.answer.value) return 20;
   else if (this.answer.value.length>40)return 40;
   else return this.answer.value.length;
 }

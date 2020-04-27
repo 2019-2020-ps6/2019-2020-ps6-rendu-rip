@@ -5,9 +5,9 @@
     <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>
     <ng-template [ngTemplateOutlet] ="displayImageAns"></ng-template>
     Correcte : <input type="checkbox" [formControlName]="'isCorrect'"> <br>
-    <button id="submitAnswer" class="button-card" type="submit" (click)="submitAnswer()">Valider</button>
-    <button id="cancelAnswer" class="button-card" (click)="reset()">Annuler</button>
-    <button id="deleteAnswer" class="button-card" (click)="deleteAnswer()">Supprimer la réponse</button>
+    <button type="submit" id="submitAnswer" class="button-card" type="submit" (click)="submitAnswer()">Valider</button>
+    <button type="button" id="cancelAnswer" class="button-card" (click)="reset()">Annuler</button>
+    <button type="button" id="deleteAnswer" class="button-card" (click)="deleteAnswer()">Supprimer la réponse</button>
   </form>
 </div>
 
@@ -65,7 +65,7 @@
 
   <ng-template #displayImageAns>
 	<div class="frame image fixed-container" *ngIf="imageTmp.url || image.url">
-    <button class="delete" (click)="rmImg()"><i class="fas fa-times"></i></button>
+    <button type="button" class="delete" (click)="rmImg()"><i class="fas fa-times"></i></button>
     <img class="thumbnail" [src]="imageService.getImgSrc(imageTmp,image)" alt="answer image">
 	</div>
   </ng-template>

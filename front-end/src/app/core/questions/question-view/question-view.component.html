@@ -1,5 +1,5 @@
-<button class="button-card" *ngIf ="!invalid()" (click)="goBack();"> Retour </button>
-<button class="button-card" *ngIf ="invalid()" (click)="modalService.open(quitWithInvalidQuestion)"> Retour </button>
+<button class="button-card" *ngIf ="!question || question && !invalid()" (click)="goBack();"> Retour </button>
+<button class="button-card" *ngIf ="question && invalid()" (click)="modalService.open(quitWithInvalidQuestion)"> Retour </button>
 
 <div class = "horizontal-center" *ngIf="quiz && question && (image||!question.imageId)">
     <h1>Quiz : {{quiz.name}}</h1>
