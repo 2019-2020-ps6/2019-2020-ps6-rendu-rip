@@ -4,7 +4,7 @@
         <div *ngIf="imageSel.url" class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(imageSel)" alt="answer image"></div>
     </div>
     <div class="separation"></div>
-    <div *ngIf = "rightAnswer" class="answer-li">Bonne réponse:<br>
+    <div *ngIf = "rightAnswer" class="answer-li">Réponse attendue :<br>
         <div *ngIf="rightAnswer.value">{{rightAnswer.value}}</div>
         <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="answer image"></div>
     </div>
