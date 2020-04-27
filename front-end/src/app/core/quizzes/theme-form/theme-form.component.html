@@ -1,8 +1,26 @@
-<form [formGroup]="themeForm">
-    <label>
-        Nouveau thème : 
-        <input type="text" [formControlName]="'name'">
-    </label>
-    <button class="button-card" type="submit" (click) = "saveTheme()">Ok</button>
-    <button class = "button-card" (click) = "cancel()">Annuler</button>
-</form>
+
+<label for="modal-theme" class="button-card chargingButton ">Ajouter un thème</label>
+<button type="button" class="hidden" id="modal-theme" (click)="modalService.open(thememodal)"></button>
+
+
+<ng-template #thememodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Ajouter un thème</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+    <form [formGroup]="themeForm">
+        <label>
+            Nouveau thème :
+            <input type="text" [formControlName]="'name'">
+        </label>
+        <br>
+        <div class = "button-bottom" >
+            <button class="button-card" type="submit" (click) = "saveTheme(); modal.close()">Ok</button>
+            <button class = "button-card" (click) = "cancel();modal.close()">Annuler</button>
+        </div>
+    </form>
+    </div>
+  </ng-template>

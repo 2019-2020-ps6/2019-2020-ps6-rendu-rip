@@ -64,8 +64,8 @@
   </ng-template>
 
   <ng-template #displayImageAns>
-  <div *ngIf = "imageTmp.url || image.url" ><button class="button-card delete" (click)="rmImg()">	<i class="fas fa-times"></i></button></div>
 	<div class="frame image fixed-container" *ngIf="imageTmp.url || image.url">
-	  <img class="thumbnail" [src]="imageService.getImgSrc(imageTmp,image)" alt="answer image">
+    <button class="delete" (click)="rmImg()"><i class="fas fa-times"></i></button>
+    <img class="thumbnail" [src]="imageService.getImgSrc(imageTmp,image)" alt="answer image">
 	</div>
   </ng-template>

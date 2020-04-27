@@ -222,7 +222,7 @@ export class QuizService {
   }
   
   answersInvalid(question : Question){
-    let errorMessage = "";
+    let errorMessage;
     /*if(!question.answers || question.answers.length==0){
       errorMessage = "Il n'y a pas de réponse possible."
     }*/

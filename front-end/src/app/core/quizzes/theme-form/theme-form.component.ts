@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { QuizService } from 'src/services/quiz.service';
 import { ThemeService } from 'src/services/theme.service';
 import { Theme } from 'src/models/theme.model';
+import { ModalService } from 'src/services/modal.service';
 
 @Component({
   selector: 'theme-form',
@@ -17,7 +18,7 @@ export class ThemeFormComponent implements OnInit {
   @Output()
   themeAdded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(public formBuilder: FormBuilder, public themeService: ThemeService) {}
+  constructor(private modalService : ModalService, public formBuilder: FormBuilder, public themeService: ThemeService) {}
 
   ngOnInit() {
     this.themeForm = this.formBuilder.group({

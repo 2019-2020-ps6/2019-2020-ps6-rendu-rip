@@ -1,10 +1,9 @@
-<button class="button-card" (click)="goBack();"> Retour </button>
+<button class="button-card" *ngIf ="!invalid()" (click)="goBack();"> Retour </button>
+<button class="button-card" *ngIf ="invalid()" (click)="modalService.open(quitWithInvalidQuestion)"> Retour </button>
+
 <div class = "horizontal-center" *ngIf="quiz && question && (image||!question.imageId)">
     <h1>Quiz : {{quiz.name}}</h1>
     
-    <div class = "errorMessage" >
-        {{quizService.answersInvalid(question)}}
-    </div>
     <div class="horizontal-center ">
         <div class = "questionLabel">Question : {{question.label}}</div> 
         <div *ngIf="image.url" class="frame-little">
@@ -55,13 +54,17 @@
 
 <ng-template #quitWithInvalidQuestion let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Ajouter une réponse :</h4>
+        <h4 class="modal-title" id="modal-basic-title">Question invalide</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-          <app-answer-form [quiz] = "quiz" [question] = "question" (quitForm) = "modal.close()"></app-answer-form>
+        <div class = "errorMessage">
+            {{invalid()}}
+        </div>
+        <button class="button-card" (click)="goBack();modal.close()"> Quitter quand même </button>
+        <button class="button-card" (click)="modal.close()"> Continuer l'édition </button>
       </div>
 </ng-template>
 

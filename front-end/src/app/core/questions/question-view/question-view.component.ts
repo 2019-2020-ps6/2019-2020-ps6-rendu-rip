@@ -70,4 +70,8 @@ import { ModalService } from 'src/services/modal.service';
     this.location.back(); // <-- go back to previous location on cancel
   }
 
+  invalid(){
+    return this.quizService.answersInvalid(this.question)
+  }
+
 }

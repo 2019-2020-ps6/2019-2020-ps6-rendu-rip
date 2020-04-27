@@ -1,5 +1,6 @@
 @import '../../styles/images.scss';
 @import 'src/styles/layout.scss';
+@import '../../styles/card.scss';
 
 .responsive-list {
     display: flex;
@@ -17,9 +18,4 @@
 
 .wide-button {
     width: 100%;
-}
-
-.delete {
-    margin-left: 300%;
-    margin-right: 0;
 }

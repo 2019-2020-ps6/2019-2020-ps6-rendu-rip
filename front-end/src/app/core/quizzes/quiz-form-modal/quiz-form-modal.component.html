@@ -1,17 +1,15 @@
-<div class="card edit-quiz-form">
+<div class="edit-quiz-form">
   <form [formGroup]="quizForm">
-    <label for="name"><h1>Nom du quiz : </h1></label>  
-    <input class="input-custom" size = "{{sizeInput()}}" type="text" id="name" [formControlName]="'name'">     
+    <label class = "name" for="name">Nom du quiz : </label>  
+    <input class="quizName" size = "{{sizeInput()}}" type="text" id="name" [formControlName]="'name'">     
     <br>
-    <label for="selectTheme"><h2>Thème : </h2> </label>
+    <label class = "theme" for="selectTheme">Thème : </label>
     <select name="Thème" id="selectTheme" [formControlName]="'theme'">
     <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
       {{current_theme}}
     </option>
-    </select>
-    <button class="button-card" type="button" (click)="switchShowThemeForm(true)">Ajouter un thème</button>
-    <div *ngIf="showThemeForm"><theme-form (themeAdded)="switchShowThemeForm(false)"></theme-form></div>
-    <br>
+    </select>&nbsp;
+    <theme-form></theme-form>
     <ng-template [ngTemplateOutlet] = "displayImage"></ng-template>
     <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>        
     <button class="button-card" id="confirmEdit" (click)="addOrUpdateQuiz()">Valider</button>
@@ -30,9 +28,9 @@
 </ng-template>
 
 <ng-template #displayImage>  
-  <div *ngIf = "imageTmp.url" ><button class="button-card delete" (click)="rmImg()">	<i class="fas fa-times"></i></button></div>
   <div class="frame image fixed-container" *ngIf="imageTmp.url">
-    <img class="thumbnail" [src]="imageService.getImgSrc1(imageTmp)" alt="quiz image">
-  </div>
+      <button class="delete" (click)="rmImg()">	<i class="fas fa-times"></i></button>
+      <img class="thumbnail" [src]="imageService.getImgSrc1(imageTmp)" alt="quiz image">
+</div>
 </ng-template>
 
