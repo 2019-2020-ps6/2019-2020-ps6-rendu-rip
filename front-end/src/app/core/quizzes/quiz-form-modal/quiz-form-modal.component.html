@@ -28,7 +28,7 @@
 </ng-template>
 
 <ng-template #displayImage>  
-  <div class="frame image fixed-container" *ngIf="imageTmp.url">
+  <div class="frame image thumb-container-small" *ngIf="imageTmp.url">
       <button class="delete" (click)="rmImg()">	<i class="fas fa-times"></i></button>
       <img class="thumbnail" [src]="imageService.getImgSrc1(imageTmp)" alt="quiz image">
 </div>
