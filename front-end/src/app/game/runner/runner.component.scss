@@ -3,12 +3,16 @@
 @import '../../../styles/layout.scss';
 
 .box{
-    margin-top: 5px;
-    margin-left: auto;
-    margin-right: auto;
+    @extend .vertical-layout;
+    @extend .center;
+    width: fit-content;
+    margin: auto;
+    padding: 10px;
+
     border-style: solid;
     border-radius: 10px;;
     border-color:  rgb(243, 58, 144);
+
     text-align: center;
 }
 
