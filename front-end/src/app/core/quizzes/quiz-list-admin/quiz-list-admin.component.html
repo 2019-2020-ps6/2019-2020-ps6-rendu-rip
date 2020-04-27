@@ -13,7 +13,7 @@
     <div class="card quiz fixed-container" *ngFor="let quiz of quizList">
         <button class="button-card delete" (click)="deleteQuiz(quiz)">
             <i class="fas fa-times"></i></button>
-        <button class="card button-card quiz" routerLink= "./{{quiz.id}}">
+        <button class="quiz-card" routerLink= "./{{quiz.id}}">
             <app-quiz [quiz]="quiz" (quizDeleted) = "deleteQuiz($event)"></app-quiz>
         </button>
     </div>

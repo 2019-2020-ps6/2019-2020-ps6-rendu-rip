@@ -2,7 +2,7 @@
 
 <div class="responsive-list">
     <div *ngFor="let img of images">
-        <div *ngIf="img.url" class="fixed-container">
+        <div *ngIf="img.url" class="fixed-container vertical-layout">
             <button class="button-card delete" (click)="deleteImg(img)">
                 <i class="fas fa-times"></i></button>
             <!--Todo  : VERIFIER NON UTILISEE sinon modal error-->

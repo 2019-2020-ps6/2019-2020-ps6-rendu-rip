@@ -1,8 +1,41 @@
 @import '../styles/variables.scss';
 
 .fixed-container {
-    width: 25%;
     height: 30%;
+    width: 25%;
+    min-width: 300px;
+}
+
+.flex-compat {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+}
+
+.simple-flex {
+    @extend .flex-compat;
+    display: flex;
+}
+
+.center-flex {
+    @extend .simple-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.horizontal-layout {
+    @extend .center-flex;
+    flex-direction: row;
+}
+
+.vertical-layout {
+    @extend .center-flex;
+    flex-direction: column;
+}
+
+.responsive-list {
+    @extend .horizontal-layout;
+    flex-wrap: wrap;
 }
 
 .overflowing-text {

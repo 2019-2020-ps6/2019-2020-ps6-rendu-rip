@@ -2,23 +2,23 @@
 @import 'src/styles/layout.scss';
 
 .player-list {
-  display: flex;
-  flex-wrap: wrap;
-  //float: right;
-}
-
-.fixed-container {
-  width: 20%;
+  @extend .responsive-list;
 }
 
 .player {
   padding: 0.5em;
-  display: flex;
-  flex-direction: column;
+  @extend .vertical-layout;
   text-align: center;
+}
 
-  align-items: center;
-  justify-content: center;
+.player-card{
+  @extend .button-card;
+  @extend .player;
+  width: 100%;
+}
+
+.fixed-container {
+  width: 20%;
 }
 
 .button-player:hover {
