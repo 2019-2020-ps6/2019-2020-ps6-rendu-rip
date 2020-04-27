@@ -6,7 +6,7 @@
     <ng-template [ngTemplateOutlet] ="displayImageAns"></ng-template>
     Correcte : <input type="checkbox" [formControlName]="'isCorrect'"> <br>
     <button id="submitAnswer" class="button-card" type="submit" (click)="submitAnswer()">Valider</button>
-    <button id="cancelAnswer" class="button-card" type="reset"(click)="reset()">Annuler</button>
+    <button id="cancelAnswer" class="button-card" (click)="reset()">Annuler</button>
     <button id="deleteAnswer" class="button-card" (click)="deleteAnswer()">Supprimer la réponse</button>
   </form>
 </div>

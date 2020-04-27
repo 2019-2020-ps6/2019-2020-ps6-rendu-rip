@@ -26,9 +26,9 @@ export class AnswerListWidgetComponent implements OnInit {
   display: number;
   //Pour la demo BESOIN de timers assez rapide...
   private milli = 1000;
-  TIME_OUT_FOR_CHOSING_ANSWER: number = 10*this.milli;//1000000;
-  TIME_OUT_DISPLAY_COMPARAISON: number = 5*this.milli;//500000;
-  TIME_OUT_DISPLAY_RIGHT_ANSWER: number = 5*this.milli;//500000;
+  TIME_OUT_FOR_CHOSING_ANSWER: number = 90*this.milli;//1000000;
+  TIME_OUT_DISPLAY_COMPARAISON: number = 50000*this.milli;//500000;
+  TIME_OUT_DISPLAY_RIGHT_ANSWER: number = 50000*this.milli;//500000;
 
   SHOW_ANSWER_TO_CHOOSE: number = 0;
   SHOW_ANSWER_COMPARISON: number = 1;

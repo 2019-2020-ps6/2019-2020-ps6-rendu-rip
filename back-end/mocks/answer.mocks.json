@@ -92,13 +92,13 @@
   },
   {
     "value": "réponse1",
-    "isCorrect": false,
+    "isCorrect": true,
     "questionId": 1586252382272,
     "id": 1586252411423
   },
   {
     "value": "réponse2",
-    "isCorrect": false,
+    "isCorrect": true,
     "questionId": 1586252382272,
     "id": 1586252539813
   },

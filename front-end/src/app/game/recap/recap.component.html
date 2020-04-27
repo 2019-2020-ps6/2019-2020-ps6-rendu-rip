@@ -8,9 +8,10 @@
             <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="question image"></div>
             <app-right-answer [answers] = "currentQuestion.answers"></app-right-answer>
         </div>
+    <!--
     <div *ngIf = "questions.length!==0; else elseBlock">
         <button class="button-card" (click) = "nextQuestion()">Suite</button>
-    </div>
+    </div>-->
     <ng-template #elseBlock>
         <button class="button-card" routerLink= "../end">Fin</button>
     </ng-template>
