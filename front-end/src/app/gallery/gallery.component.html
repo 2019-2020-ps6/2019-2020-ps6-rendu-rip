@@ -3,13 +3,29 @@
 <div class="responsive-list">
     <div *ngFor="let img of images">
         <div *ngIf="img.url" class="fixed-container vertical-layout">
-            <button class="button-card delete" (click)="deleteImg(img)">
+            <button class="button-card delete" (click)="checkIfImageIsUsed(img);modalService.open(deleteImageUsed)">
                 <i class="fas fa-times"></i></button>
-            <!--Todo  : VERIFIER NON UTILISEE sinon modal error-->
-            <img class="frame thumbnail" [src]="imageService.getImgSrc1(img)" (click)="selectedImg(img.id)" alt="answer image">
+            <img class="frame thumbnail" [src]="imageService.getImgSrc1(img)" (click)="selectedImg(img)" alt="answer image">
         </div>
     </div>
 </div>
 
-<!--<div class="card quiz fixed-container" *ngFor="let quiz of quizList">-->
-   
+<ng-template #deleteImageUsed let-modal>
+    <div  class="modal-header">
+        <h4 class="modal-title" *ngIf = "used(res.name)" id="modal-basic-title">Attention image utilisée</h4>
+        <h4 class="modal-title" *ngIf = "!used(res.name)" id="modal-basic-title">Confirmation de suppression</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+      <div  class="modal-body">
+        <div *ngIf = "!used(res.name)"class = "errorMessage">
+            Cette image n'est pas utilisée. Etes-vous sur de vouloir la supprimer ?
+        </div>
+        <div *ngIf = "used(res.name)" class = "errorMessage">
+            Attention l'image que vous allez supprimer est utilisée dans au moins un quiz. Etes-vous sur de la supprimer ?
+        </div>
+      <button class="button-card" (click)="deleteImg(imageSelected);modal.close()"> Confirmer </button>
+      <button class="button-card" (click)="reset();modal.close()"> Annuler </button>
+    </div>
+</ng-template>

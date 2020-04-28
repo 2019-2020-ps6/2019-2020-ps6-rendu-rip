@@ -282,4 +282,26 @@ export class QuizService {
     else if (value.length>40)return 40;
     else return value.length;
   }
+
+  checkIfImageIsUsed(id : string, res : Img){
+    this.http.get<Quiz[]>(serverUrl+"/quizzes", this.httpOptions).subscribe((quizzes) => {
+      console.log(quizzes)
+      quizzes.forEach(quiz => {
+        if(quiz.imageId==id){
+          res.name = "true";
+        }
+        quiz.questions.forEach(question => {
+          if(question.imageId==id){
+            res.name = "true";
+          } 
+          question.answers.forEach(answer =>{
+            if(answer.imageId==id){
+              res.name = "true";
+            } 
+          })
+        })
+      })
+      if(!res.name)res.name = "false";
+    });
+  }
 }

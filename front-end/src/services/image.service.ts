@@ -46,10 +46,6 @@ export class ImageService {
     });
   }
 
-  loadAllQuizImages(images: Img[]){
-    this.loadAllImages(images, 'quiz');
-  }
-
   loadQuizImage(image: Img, id: string){
     if(!this.isAnImage(id)) this.loadImage(image, "default/"+ this.defaultQuizImageId);
     else  this.loadImage(image, "database/" + id);
@@ -74,9 +70,11 @@ export class ImageService {
 
   sanitize(url: string) { return this.sanitizer.bypassSecurityTrustUrl(url); }
 
-  deleteImage(image: Img) {
+  deleteImage(image: Img, images : Img[]) {
     this.http.delete<Img>(`${serverUrl}/images/database/${image.id}`, this.httpOptions)
-    .subscribe(() => console.log("Image: deletion..."));
+    .subscribe(() => {
+      console.log("Image: deletion...")
+    });
   }
 
   deletePlayerPhoto(image: Img) {
