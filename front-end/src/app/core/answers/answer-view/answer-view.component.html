@@ -1,21 +1,4 @@
-<!--
-<div class = "card" *ngIf = "answer">
-    <form [formGroup]="answerForm">
-        Réponse : <input type="text" size = "{{answer.value.length}}" [formControlName]="'value'"><br> 
-        <div class = "imageAndButton">
-            <div class="label">
-                <label for="image64EditAns{{answer.id}}" class="button-card" id = "chargerImage">Charger une image depuis cet appareil</label>
-            </div>
-            <input type="file" class="hidden" id="image64EditAns{{answer.id}}" (change)="imageService.onChangeFile($event, imageTmp)" accept="image/*">
-            <div class="frame image" *ngIf="imageTmp.url || (image && image.url)">
-                <img class="thumbnail" [src]="imageService.getImgSrc(imageTmp,image)" alt="answer image">
-            </div>
-        </div>
-        
-        <div class = "correctCheck">Correcte : <input type="checkbox" [formControlName]="'isCorrect'"> </div>
 
-        <button id="sumbit" class="button-card" (click)="submitAnswer()">Enregistrer</button>
-        <button id="cancelAnswer" class="button-card" (click)="cancelAnswer()">Annuler</button>
-        <button id="deleteAnswer" class="button-card" (click)="deleteAnswer()">Supprimer la réponse</button>
-    </form>
-</div>-->
+<div class = "card" *ngIf = "answer">
+    <app-answer-form [quiz] = "quiz" [question] = "question" [answer] = "answer"></app-answer-form>   
+</div>

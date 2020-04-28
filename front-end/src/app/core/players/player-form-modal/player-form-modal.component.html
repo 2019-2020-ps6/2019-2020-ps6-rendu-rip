@@ -1,25 +1,14 @@
-<div *ngIf = "player">
-  <ng-template [ngTemplateOutlet]="form"></ng-template>        
-</div>
-
-<div *ngIf = "!player" class="card"> 
-  <ng-template [ngTemplateOutlet]="form"></ng-template>        
-</div>
-
-<!--Sert si on veux faire 2 trucs différents selon le form (prérempli ou pas)-->
-<ng-template #form>
-  <form class="player-form" [formGroup]="playerForm">
-    <label for="name">Nom: </label>  
-    <input class="input-custom" type="text" size = "{{sizeInput()}}" id="name" [formControlName]="'name'">
-    <br>
-    <div class = "imageAndButton">
-      <ng-template [ngTemplateOutlet] = "displayImage"></ng-template>
-      <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>        
-    </div>
-    <button type="submit" id="sumbit" class="button-card" (click)="addOrUpdatePlayer()">Enregistrer</button>
-    <button type="button" id="cancelAnswer" class="button-card" (click)="reset()">Annuler</button>
-  </form>
-</ng-template>
+ <form class="player-form" [formGroup]="playerForm">
+  <label for="name">Nom: </label>  
+  <input class="input-custom" type="text" size = "{{sizeInput()}}" id="name" [formControlName]="'name'">
+  <br>
+  <div class = "imageAndButton">
+    <ng-template [ngTemplateOutlet] = "displayImage"></ng-template>
+    <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>        
+  </div>
+  <button type="submit" id="sumbit" class="button-card" (click)="addOrUpdatePlayer()">Enregistrer</button>
+  <button type="button" id="cancelAnswer" class="button-card" (click)="reset()">Annuler</button>
+</form>
 
 <ng-template #buttonCharging>
   <div class="label">
@@ -32,8 +21,9 @@
 </ng-template>
 
 <ng-template #displayImage>
-  <div class="frame image" *ngIf="imageTmp.url || (playerImage && playerImage.url)">
-    <img class="thumbnail" [src]="imageService.getImgSrc(imageTmp,playerImage)" alt="player image">
+  <div class="frame image" *ngIf="imageTmp.url">
+    <button type="button" class="delete" (click)="imageService.removeImg(imageTmp)"><i class="fas fa-times"></i></button>
+    <img class="thumbnail" [src]="imageService.getImgSrc1(imageTmp)" alt="player image">
   </div>
 </ng-template>
 

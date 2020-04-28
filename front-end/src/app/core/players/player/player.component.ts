@@ -22,8 +22,7 @@ export class PlayerComponent implements OnInit {
 
   loadImage(){
     this.image = {} as Img;
-    const id = this.player.imageId;
-    if(!id) return;
+    const id = this.player.imageId;//image par défaut si non présentes
     this.imageService.loadPlayerImage(this.image, id);
   }
 

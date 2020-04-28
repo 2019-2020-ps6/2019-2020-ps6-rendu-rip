@@ -17,7 +17,6 @@ export class QuizViewComponent implements OnInit {
  
   quiz: Quiz;
   image: Img = {} as Img;
-  //showQuizForm : boolean = false;
 
   constructor(private modalService: ModalService, private route: ActivatedRoute, public imageService: ImageService, public quizService: QuizService) {
   }
@@ -33,13 +32,8 @@ export class QuizViewComponent implements OnInit {
   }
   loadImage(){
     this.image = {} as Img;
-    const id = this.quiz.imageId;
-    if(!id) return;
+    const id = this.quiz.imageId;//image par défaut si null
     this.imageService.loadQuizImage(this.image, id);
   }
-  /*switchShowQuizForm(show : boolean){
-    this.showQuizForm = show;
-  }*/
-
 }
 

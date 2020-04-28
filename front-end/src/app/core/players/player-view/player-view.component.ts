@@ -23,9 +23,7 @@ export class PlayerViewComponent implements OnInit {
   ngOnInit() {
     this.playerService.playerSelected$.subscribe((player) => {
       this.player = player;
-      if(this.player.imageId){
-        this.imageService.loadPlayerImage(this.playerPhoto,this.player.imageId);
-      }
+      this.imageService.loadPlayerImage(this.playerPhoto,this.player.imageId);
     });
     const playerId = this.router.snapshot.paramMap.get('id');
     this.playerService.setSelectedPlayer(playerId);

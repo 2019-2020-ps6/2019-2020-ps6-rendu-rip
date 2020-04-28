@@ -12,8 +12,6 @@ export class QuizListAdminComponent implements OnInit {
 
   public quizList: Quiz[] = [];
 
-  //showQuizForm : boolean  = false;
-
   constructor(private modalService: ModalService, public quizService: QuizService) {
     this.quizService.quizzes$.subscribe((quizzes) => this.quizList = quizzes);
   }
@@ -21,9 +19,5 @@ export class QuizListAdminComponent implements OnInit {
   ngOnInit() {}
   
   deleteQuiz(quiz: Quiz) { this.quizService.deleteQuiz(quiz); }
-
-  /*switchShowQuizForm(show:boolean){
-    this.showQuizForm = show;
-  }*/
 
 }

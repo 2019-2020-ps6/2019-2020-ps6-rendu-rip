@@ -7,7 +7,6 @@ import { Img } from '../../../../models/image.model';
 import { ImageService } from 'src/services/image.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { ModalService } from 'src/services/modal.service';
 
@@ -21,49 +20,34 @@ import { ModalService } from 'src/services/modal.service';
   
   export class QuestionViewComponent implements OnInit {
 
-    showForm: boolean;
-
-    public saveAll$ : BehaviorSubject<boolean> = new BehaviorSubject(false);
     public resetAll$ : BehaviorSubject<boolean> = new BehaviorSubject(false);
-    question: Question;
-    quiz: Quiz;
+    question: Question = {} as Question;
+    quiz: Quiz = {} as Quiz;
     image: Img = {} as Img;
     
-  constructor(private modalService : ModalService, private http: HttpClient, private location: Location, private route: ActivatedRoute, public formBuilder: FormBuilder, public quizService: QuizService, public imageService: ImageService) {}
+  constructor(private modalService : ModalService, private location: Location, private route: ActivatedRoute, public formBuilder: FormBuilder, public quizService: QuizService, public imageService: ImageService) {}
 
   ngOnInit() {
-    this.quizService.quizSelected$.subscribe(() => this.loadAll());
-    this.loadAll();
+    this.quizService.quizSelected$.subscribe(() => this.load());
+    this.load();
     const id = this.route.snapshot.paramMap.get('id');
     this.quizService.setSelectedQuiz(id);
   }
 
-
-  loadAll(){
+  load(){
+    this.image =  {} as Img;
     const quizId = this.route.snapshot.paramMap.get('id');
     const questionId = this.route.snapshot.paramMap.get('questionId');
-    let quizurl = `${this.quizService.quizUrl}/${quizId}`;
-    this.http.get<Quiz>(quizurl, this.quizService.httpOptions).subscribe((quiz)=>{
-        let questionurl = `${this.quizService.quizUrl}/${quiz.id}/${'questions'}/${questionId}`;
-        this.quiz = quiz;
-        this.http.get<Question>(questionurl, this.quizService.httpOptions).subscribe((question)=>{
-            this.question = question;
-            this.imageService.loadQuestionImage(this.image,question.imageId)
-        })
-    });
-}
+    this.quizService.loadQuiz(quizId,this.quiz);
+    this.quizService.loadQuestionAndImage(this.question,this.image, quizId,questionId)//pas d'image par défaut et -1 si image supprimée
+  }
 
-  submitAll() {
-    this.saveAll$.next(true);
-  } 
-
+  allIsLoaded(){//si il n'y a pas de question ou quelle est chargée
+    return this.quiz.id && this.question.id && (this.image.url||(!this.question.imageId || this.question.imageId===this.imageService.imageRemovedId))
+  }
 
   resetAll(){
     this.resetAll$.next(true);
-  }
-  
-  switchShowForm(showForm :boolean){
-    this.showForm = showForm;
   }
 
   goBack() {

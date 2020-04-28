@@ -60,7 +60,8 @@ export class QuestionFormModalComponent implements OnInit {
   }
 
   addNewImage(){
-    if(this.imageTmp.name===this.imageService.rmImg) return false
+    if(this.imageService.isRemoved(this.imageTmp.id)) return false
+    if(this.imageTmp.type===this.imageService.defaultType) return false;
     if(this.imageTmp.type===this.imageService.dataBaseType)return false;
     return (this.imageTmp.url && (!this.image || this.image.url !== this.imageTmp.url))
   }
@@ -75,7 +76,7 @@ export class QuestionFormModalComponent implements OnInit {
       else this.quizService.addQuestionWithImage(this.quiz.id,questionToSave, this.imageService.imageFillIn(this.imageTmp));
     }
     else {
-      if(this.imageTmp.name===this.imageService.rmImg) questionToSave.imageId = "1";
+      if(this.imageService.isRemoved(this.imageTmp.id)) questionToSave.imageId = this.imageTmp.id;
       else if(this.imageTmp.id) questionToSave.imageId = this.imageTmp.id.toString();
       if(this.question)this.quizService.updateQuestion(this.quiz.id,questionToSave);
       else this.quizService.addQuestion(this.quiz.id,questionToSave);
@@ -83,11 +84,6 @@ export class QuestionFormModalComponent implements OnInit {
     this.reset();
     this.quitForm.emit(false);
 
-  }
-
-  rmImg() {
-    this.imageTmp = {} as Img;
-    this.imageTmp.name = this.imageService.rmImg;  
   }
   sizeInput(){
     if(!this.question) return 20;

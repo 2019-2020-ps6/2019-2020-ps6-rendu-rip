@@ -7,6 +7,7 @@ import { Quiz } from '../models/quiz.model';
 import { Question } from 'src/models/question.model';
 import { Answer } from 'src/models/answer.model';
 import { Img } from 'src/models/image.model';
+import { ImageService } from './image.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class QuizService {
   public currentQuestionNumber$ : BehaviorSubject<number> = new BehaviorSubject(0);
   public currentQuestionNumber : number = 0;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private imageService : ImageService) {
     this.setQuizzesFromUrl();
   }
 
@@ -38,7 +39,7 @@ export class QuizService {
 
   //getHttpOptions(): Object { return this.httpOptions; }
 
-  retrieveQuiz(quizId: string, output: Quiz) {
+  loadQuiz(quizId: string, output: Quiz) {
     const url = `${this.quizUrl}/${quizId}`;
     this.http.get<Quiz>(url).subscribe((quiz) => {
       output.id = quiz.id;
@@ -47,6 +48,18 @@ export class QuizService {
       output.questions = quiz.questions;
       output.theme = quiz.theme;
       output.imageId = quiz.imageId;
+    });
+  }
+  loadQuizAndImage(quizId: string, output: Quiz, image : Img ) {
+    const url = `${this.quizUrl}/${quizId}`;
+    this.http.get<Quiz>(url).subscribe((quiz) => {
+      output.id = quiz.id;
+      output.name = quiz.name;
+      output.creationDate = quiz.creationDate;
+      output.questions = quiz.questions;
+      output.theme = quiz.theme;
+      output.imageId = quiz.imageId;
+      if(output.imageId)this.imageService.loadQuizImage(image,output.imageId);
     });
   }
 
@@ -200,6 +213,20 @@ export class QuizService {
       question.answers = q.answers;
     });
   }
+
+  loadQuestionAndImage(question : Question, image : Img, quizId:string, questionId: string){
+    const url = `${this.quizUrl}/${quizId}/${this.questionsPath}/${questionId}`;
+    this.http.get<Question>(url, this.httpOptions).subscribe(q => {
+      question.id = q.id;
+      question.imageId = q.imageId;
+      question.label = q.label;
+      question.quizId = q.quizId;
+      question.answers = q.answers;
+      if(q.imageId)this.imageService.loadQuestionImage(image,q.imageId);
+    });
+  }
+
+  
 
   quizInvalid(quiz :Quiz){
     if(!quiz.name) {

@@ -70,7 +70,8 @@ export class QuizFormModalComponent implements OnInit {
   }
 
   addNewImage(){
-    if(this.imageTmp.name===this.imageService.rmImg) return false
+    if(this.imageService.isRemoved(this.imageTmp.id)) return false
+    if(this.imageTmp.type===this.imageService.defaultType) return false;
     if(this.imageTmp.type===this.imageService.dataBaseType)return false;
     return (this.imageTmp.url && (!this.image || this.image.url !== this.imageTmp.url))
   }
@@ -83,12 +84,12 @@ export class QuizFormModalComponent implements OnInit {
       else this.quizService.addQuizWithImage(quizToSave, this.imageService.imageFillIn(this.imageTmp));
     }
     else{
-      if(this.imageTmp.name===this.imageService.rmImg) quizToSave.imageId = "1";
+      if(this.imageService.isRemoved(this.imageTmp.id)) quizToSave.imageId = this.imageTmp.id;
       else if(this.imageTmp.id) quizToSave.imageId = this.imageTmp.id.toString();
       if(this.quiz)this.quizService.updateQuiz(quizToSave);
       else this.quizService.addQuiz(quizToSave);
   }
-    if(!this.quiz)this.reset();
+    this.reset();
     this.quitForm.emit(false);
   }
 
@@ -103,10 +104,6 @@ export class QuizFormModalComponent implements OnInit {
     this.showThemeForm = show;
   }
 
-  rmImg() {
-    this.imageTmp = {} as Img;
-    this.imageTmp.name = this.imageService.rmImg;  
-  }
   sizeInput(){
     if(!this.quiz) return 20;
     else if (this.quiz.name.length>40)return 40;

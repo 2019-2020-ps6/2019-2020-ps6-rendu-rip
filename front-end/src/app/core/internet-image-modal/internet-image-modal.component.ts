@@ -13,14 +13,15 @@ export class InternetImageModalComponent implements OnInit {
 
   @Input()
   imageTmp : Img;
+  @Input()
+  id : string;
   urlForm: FormGroup;
     
-    constructor(public formBuilder: FormBuilder,private modalService: ModalService, public imageService : ImageService){
-
-    }
+    constructor(public formBuilder: FormBuilder,private modalService: ModalService, public imageService : ImageService){}
 
     ngOnInit(){
       this.initUrlForm();
+      if(!this.id) this.id = "";
     }
 
 

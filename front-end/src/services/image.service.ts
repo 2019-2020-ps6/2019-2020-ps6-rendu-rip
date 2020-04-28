@@ -14,69 +14,65 @@ export class ImageService {
   public localType : string = "local";
   public dataBaseType : string = "dataBase";
   public internetType : string = "internet";
+  public defaultType : string = "default";
   public rmImg: string = "remove from object";
+  public imageRemovedId = "-1";
   public defaultQuizImageId = "1";
+  public defaultQuestionImageId = "2";
+  public defaultAnswerImageId = "3";
+  public defaultPlayerImageId = "4";
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
 
   public loadAllImgs(images: Img[]) {
-    this.loadAllImages(images, "database", "");
-    //this.loadAllImages(images, "player", "");//just to delete some then hide
-    /*this.loadAllImages(images, "quiz", "")
-    this.loadAllImages(images, "question", "")
-    this.loadAllImages(images, "answer", "")
-    this.loadAllImages(images, "user", "")*/
+    this.loadAllImages(images, "database");
   }
 
-  private loadAllImages(images: Img[], path: string, log: string){
+  private loadAllImages(images: Img[], path: string){
     this.http.get<Img[]>( `${serverUrl}/images/${path}`, this.httpOptions).subscribe(imgs => {
       imgs.forEach(i => { 
         const ind = images.length;
         images[ind] = i as Img;
-        console.log(`${log}BD: adding image - ${i.name}`);
       });
     });
   }
 
-  private loadImage(image: Img, path: string, log: string){
-    console.log(`${serverUrl}/images/${path}`)
+  private loadImage(image: Img, path: string){
     this.http.get<Img>(`${serverUrl}/images/${path}`, this.httpOptions).subscribe(img => {
-      console.log(`${log}: charging image - ${img.name}`);
-      image.id = img.id;
-      image.name = img.name;
-      image.url = img.url;
+      if(this.isAnImage(img.id)){
+        image.id = img.id;
+        image.name = img.name;
+        image.url = img.url;
+      }
     });
   }
 
   loadAllQuizImages(images: Img[]){
-    this.loadAllImages(images, 'quiz', 'Quiz');
+    this.loadAllImages(images, 'quiz');
   }
 
   loadQuizImage(image: Img, id: string){
-    //this.loadImage(image, `${id == null? 'default/1' : 'quiz/' + id}`, 'Quiz');
-    this.loadImage(image, `${id == null? 'default/1' : 'database/' + id}`, 'Quiz');
+    if(!this.isAnImage(id)) this.loadImage(image, "default/"+ this.defaultQuizImageId);
+    else  this.loadImage(image, "database/" + id);
   }
 
   loadQuestionImage(image: Img, id: string){
-    //const path = ;//`${serverUrl}/images/question/${id}`;
-    //this.loadImage(image, `question/${id}`, 'Question');
-    this.loadImage(image, `database/${id}`, 'Question');
+    if(!this.isAnImage(id))return;
+    else this.loadImage(image, `database/${id}`);
   }
 
   loadAnswerImage(image: Img, id: string){
-    //const path = ;//`${serverUrl}/images/answer/${id}`;
-    //this.loadImage(image, `answer/${id}`, 'Answer');
-    this.loadImage(image, `database/${id}`, 'Answer');
+    if(!this.isAnImage(id))return;
+    this.loadImage(image, `database/${id}`);
   }
 
   loadPlayerImage(image: Img, id: string){
-    this.loadImage(image,`player/${id}`, 'Player');
+    if(!this.isAnImage(id)) {
+      this.loadImage(image, "default/"+ this.defaultPlayerImageId);
+    }
+    else this.loadImage(image,`player/${id}`);
   }
 
   sanitize(url: string) { return this.sanitizer.bypassSecurityTrustUrl(url); }
-
-  deleteQuizImage(image: Img) { 
-    this.deleteImage(image);
-  }
 
   deleteImage(image: Img) {
     this.http.delete<Img>(`${serverUrl}/images/database/${image.id}`, this.httpOptions)
@@ -140,4 +136,18 @@ export class ImageService {
       return this.sanitize(imageTmp.url);
     }
   }
+  isAnImage(id : string){
+    return id && id !== "" && id!== this.imageRemovedId;
+  }
+  isRemoved(id : string){
+    return id===this.imageRemovedId;
+  }
+
+  removeImg(imageTmp : Img){
+    imageTmp.url = undefined;
+    imageTmp.name = "removedImage";
+    imageTmp.type = "removedImage"
+    imageTmp.id = this.imageRemovedId;
+  }
+
 }

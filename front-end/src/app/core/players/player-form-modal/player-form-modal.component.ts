@@ -32,6 +32,12 @@ export class PlayerFormModalComponent implements OnInit {
 
   ngOnInit() {
     this.initplayerForm();
+    this.initImageTmp();
+  }
+
+  initImageTmp(){
+    if(!this.player)this.imageTmp = {} as Img;
+    else this.imageTmp = this.imageService.imageFillIn(this.playerImage);
   }
 
   initplayerForm(){
@@ -43,6 +49,7 @@ export class PlayerFormModalComponent implements OnInit {
     const playerToSave: Player = this.playerForm.getRawValue() as Player;
     if(this.playerService.playerInvalid(playerToSave)) return;
     if(this.player) playerToSave.id = this.player.id;
+    if(this.imageService.isRemoved(this.imageTmp.id))playerToSave.imageId = this.imageTmp.id;
     if(this.imageTmp.url){
       if(this.player) this.playerService.updateplayerWithImg(playerToSave, this.imageService.imageFillIn(this.imageTmp));
       else this.playerService.addPlayerWithImage(playerToSave, this.imageService.imageFillIn(this.imageTmp));
@@ -51,7 +58,7 @@ export class PlayerFormModalComponent implements OnInit {
       if(this.player) this.playerService.updatePlayer(playerToSave);
       else this.playerService.addplayer(playerToSave);
     }
-    if(!this.player)this.reset();
+    this.reset();
     this.quitForm.emit(true);//false
   }
  
@@ -59,6 +66,7 @@ export class PlayerFormModalComponent implements OnInit {
     this.playerForm.reset()
     this.imageTmp = {} as Img;
     this.initplayerForm();
+    this.initImageTmp();
     this.quitForm.emit(false);
   }
   sizeInput(){

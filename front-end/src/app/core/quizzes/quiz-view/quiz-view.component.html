@@ -2,7 +2,7 @@
 <button class="button-card" routerLink= "/">Home</button>
 <br>
 
-<div *ngIf ="quiz && (!quiz.imageId || image.url)">
+<div *ngIf ="quiz && image.url">
   <div class="horizontal-center ">
     <div class = "quizName"><h1>Nom du quiz : {{quiz.name}}</h1></div> 
     <div class = "quizTheme" ><h2>Thème : {{quiz.theme}}</h2></div>

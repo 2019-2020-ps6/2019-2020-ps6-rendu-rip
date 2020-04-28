@@ -1,9 +1,9 @@
 <button class="button-card" routerLink= "..">Retour</button>
 <button class="button-card" routerLink= "/">Home</button>
 
-<div *ngIf="player" class = "player">
+<div *ngIf="player && playerPhoto.url" class = "player">
     <div class="name"><h1>{{player.name}}</h1></div> 
-    <div *ngIf="playerPhoto && playerPhoto.url" class="frame-little">
+    <div *ngIf="playerPhoto.url" class="frame-little">
         <img class = "thumbnail" [src]="imageService.getImgSrc1(playerPhoto)" alt="photo">
     </div>
     <button class = "button-card" (click)="modalService.open(playerFormModal)">Modifier</button>

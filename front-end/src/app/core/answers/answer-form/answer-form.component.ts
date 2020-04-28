@@ -6,7 +6,6 @@ import { Quiz } from 'src/models/quiz.model';
 import { QuizService } from 'src/services/quiz.service';
 import { Img } from '../../../../models/image.model';
 import { ImageService } from 'src/services/image.service';
-import { ModalService } from 'src/services/modal.service';
 
 @Component({
   selector: 'app-answer-form',
@@ -24,16 +23,11 @@ export class AnswerFormComponent implements OnInit {
   
   imageTmp : Img = {} as Img;
   image : Img = {} as Img;
-  //a enlever
-  gallery : Img[] = [];
-  urlForm: FormGroup;
-  constructor(private modalService: ModalService, public formBuilder: FormBuilder, public quizService: QuizService, public imageService: ImageService) {}
+  constructor(public formBuilder: FormBuilder, public quizService: QuizService, public imageService: ImageService) {}
 
   ngOnInit() {
-    this.imageService.loadAllImgs(this.gallery);
     this.initializeAnswerForm();
     this.loadImage();
-    this.initUrlForm();
   }
 
   private initializeAnswerForm() {
@@ -61,8 +55,16 @@ export class AnswerFormComponent implements OnInit {
     this.image = {} as Img;
     if(this.answer){
       const id = this.answer.imageId;
-      if(id) this.imageService.loadAnswerImage(this.image, id);
+      if(id) {
+        this.imageService.loadAnswerImage(this.image, id);
+        this.imageService.loadAnswerImage(this.imageTmp,id);
+      }
     }
+  }
+
+
+  allIsLoaded(){
+    return this.answer; //|| (this.image.url || (!this.answer.imageId || this.answer.imageId===this.imageService.imageRemovedId));
   }
   
 
@@ -79,7 +81,7 @@ export class AnswerFormComponent implements OnInit {
       else this.quizService.addAnswerWithImage(this.quiz.id, this.question.id, answerToSave, this.imageService.imageFillIn(this.imageTmp));
     }
     else{
-      if(this.imageTmp.name===this.imageService.rmImg) answerToSave.imageId = "1";
+      if(this.imageService.isRemoved(this.imageTmp.id)) answerToSave.imageId = this.imageTmp.id;
       else if(this.imageTmp.id) answerToSave.imageId = this.imageTmp.id.toString();
       if(this.answer) this.quizService.updateAnswer(this.question.quizId, this.question.id, answerToSave);
       else this.quizService.addAnswer(this.question.quizId, this.question.id, answerToSave);
@@ -95,36 +97,20 @@ export class AnswerFormComponent implements OnInit {
   }
 
   addImage(){
-    if(this.imageTmp.name===this.imageService.rmImg)return false;
+    if(this.imageService.isRemoved(this.imageTmp.id)) return false
+    if(this.imageTmp.type===this.imageService.defaultType) return false;
     if(this.imageTmp.type===this.imageService.dataBaseType)return false;
     return (this.imageTmp.url && (!this.image || this.image.url !== this.imageTmp.url))
   }
   
-  rmImg() {
-    this.imageTmp = {} as Img;
-    this.imageTmp.name = this.imageService.rmImg;  
-  }
-
   deleteAnswer() {
     if(this.answer) this.quizService.deleteAnswer(this.quiz, this.question, this.answer);
   }
 
-  //Trucs modals pour éviter le conflit
+  //Renvoi un id pour modals pour éviter le conflit
   setLabel(){
     return this.answer ? this.answer.id : "";
   }
-  onImgClicked(modal, imageTmp : Img, image : Img){
-    this.imageService.onImgClicked(modal, imageTmp,image);
-    //this.imageSelected.emit(this.imageTmp);
-}
-
-onUrlClicked(modal) {
-  this.imageService.onUrlClicked(modal,this.imageTmp,this.urlForm.getRawValue().url)
-  this.urlForm.reset();
-}
-initUrlForm() {
-  this.urlForm = this.formBuilder.group({url: "",});
-} 
 
 sizeInput(){
   if(!this.answer || !this.answer.value) return 20;

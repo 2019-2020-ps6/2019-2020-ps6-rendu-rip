@@ -23,6 +23,6 @@ export class QuizAttemptComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.quizService.retrieveQuiz(this.attempt.quizId, this.quiz);
+    this.quizService.loadQuiz(this.attempt.quizId, this.quiz);
   }
 }

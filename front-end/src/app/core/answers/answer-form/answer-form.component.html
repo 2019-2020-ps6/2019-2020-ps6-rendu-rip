@@ -1,14 +1,16 @@
-<div *ngIf = "image.url || (answer && !answer.imageId) || !answer" class="card">
-  <form [formGroup]="answerForm">
-    <label for="name">Réponse</label><br>
-    <input type="text" size = "{{sizeInput()}}" [formControlName]="'value'" id="name">
-    <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>
-    <ng-template [ngTemplateOutlet] ="displayImageAns"></ng-template>
-    Correcte : <input type="checkbox" [formControlName]="'isCorrect'"> <br>
-    <button type="submit" id="submitAnswer" class="button-card" type="submit" (click)="submitAnswer()">Valider</button>
-    <button type="button" id="cancelAnswer" class="button-card" (click)="reset()">Annuler</button>
-    <button type="button" id="deleteAnswer" class="button-card" (click)="deleteAnswer()">Supprimer la réponse</button>
-  </form>
+<div class="new-answer-form">
+  <div *ngIf = "allIsLoaded()">
+    <form [formGroup]="answerForm">
+      <label for="name">Réponse</label><br>
+      <input type="text" size = "{{sizeInput()}}" [formControlName]="'value'" id="name">
+      <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>
+      <ng-template [ngTemplateOutlet] ="displayImageAns"></ng-template>
+      Correcte : <input type="checkbox" [formControlName]="'isCorrect'"> <br>
+      <button type="submit" id="submitAnswer" class="button-card" type="submit" (click)="submitAnswer()">Valider</button>
+      <button type="button" id="cancelAnswer" class="button-card" (click)="reset()">Annuler</button>
+      <button type="button" id="deleteAnswer" class="button-card" (click)="deleteAnswer()">Supprimer la réponse</button>
+    </form>
+  </div>
 </div>
 
 
@@ -17,55 +19,14 @@
     Charger une image depuis :<br>
     <label for="image64AnswerForm{{setLabel()}}" class="button-card chargingButton" >Cet appareil</label>
 	  <input type="file" class="hidden" id="image64AnswerForm{{setLabel()}}" (change)="imageService.onChangeFile($event,imageTmp)" accept="image/*">
-    <label for="modal-imageDBQuiz{{setLabel()}}" class="button-card chargingButton ">Banque d'images</label>
-    <button type="button" class="hidden" id="modal-imageDBQuiz{{setLabel()}}" (click)="modalService.open(imgdbmodal)"></button>
-    <label for="modal-imageWebQuiz{{setLabel()}}" class="button-card chargingButton">Internet</label>
-    <button type="button" class="hidden" id="modal-imageWebQuiz{{setLabel()}}" (click)="modalService.open(weburlmodal)"></button>
+    <app-database-image-modal [imageTmp] = "imageTmp" [id] = "setLabel()"></app-database-image-modal>
+    <app-internet-image-modal [imageTmp] = "imageTmp" [id] = "setLabel()"></app-internet-image-modal>
   </div>
   </ng-template>
 
-
-
-<!--ATTENTION : Il faut refactor mais faire gaffe à bien avoir des labels différents sinon conflit-->
-<ng-template #imgdbmodal let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Choisir une image:</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div class="responsive-list">
-        <div class="button-card button-list" *ngFor="let img of gallery">
-            <div *ngIf="img.url" class="frame-list">
-              <img class="thumbnail-list" [src]="imageService.getImgSrc1(img)" (click)="onImgClicked(modal, imageTmp, img)" alt="DB image">
-            </div>
-        </div>
-      </div>
-    </div>
-  </ng-template>
-
-
-<ng-template #weburlmodal let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Coller l'adresse de l'image</h4>
-      <button type="button" class="close" aria-label="Close" (click)="urlForm.reset();modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form class="url-form" [formGroup]="urlForm">
-        <input class="input-custom" type="text" id="url" [formControlName]="'url'">
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="onUrlClicked(modal)">Ok</button>
-    </div>
-  </ng-template>
-
   <ng-template #displayImageAns>
-	<div class="frame image fixed-container" *ngIf="imageTmp.url || image.url">
-    <button type="button" class="delete" (click)="rmImg()"><i class="fas fa-times"></i></button>
-    <img class="thumbnail" [src]="imageService.getImgSrc(imageTmp,image)" alt="answer image">
+	<div class="frame image fixed-container" *ngIf="imageTmp.url">
+    <button type="button" class="delete" (click)="imageService.removeImg(imageTmp)"><i class="fas fa-times"></i></button>
+    <img class="thumbnail" [src]="imageService.getImgSrc1(imageTmp)" alt="answer image">
 	</div>
   </ng-template>
