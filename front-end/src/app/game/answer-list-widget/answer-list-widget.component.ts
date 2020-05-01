@@ -2,16 +2,16 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, 
 import { Answer } from 'src/models/answer.model';
 import { trigger, state, transition, style, animate } from '@angular/animations';
 
-const shazam = trigger('scale', [
-  state('scaleIn', style({ 
+const shazam = trigger('shazam', [
+  state('zoomIn', style({ 
     transform: 'scale(1)',
     //opacity: 1,
     backgroundColor: 'rgb(38, 139, 255)'})),
-  state('scaleOut', style({ 
+  state('zoomOut', style({ 
     transform: 'scale(1.1)',
     //opacity: 0.8,
     backgroundColor: 'rgb(127, 74, 250)'})),
-  transition('scaleIn <=> scaleOut', animate('2000ms ease-out'))//animate('1000ms 100ms linear'))
+  transition('zoomIn <=> zoomOut', animate('2000ms ease-out'))//animate('1000ms 100ms linear'))
 ]);
 
 @Component({
@@ -57,10 +57,10 @@ export class AnswerListWidgetComponent implements OnInit, AfterViewInit{
 
   TIME_OUT_SHAZAM_TRANSITION: number = 2000;//ms
 
-  public scale = 'scaleIn';
+  public zoom = 'zoomIn';
 
   public toggleScale() {
-    this.scale = this.scale === 'scaleIn' ? 'scaleOut' : 'scaleIn';
+    this.zoom = this.zoom === 'zoomIn' ? 'zoomOut' : 'zoomIn';
   }
   
   private timerShazam: any;
