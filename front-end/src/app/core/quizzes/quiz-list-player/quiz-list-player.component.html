@@ -1,7 +1,9 @@
 <button class="button-card" routerLink= "/players">Retour</button>
 <br>
 <div class="quiz-list">
-    <button id="bouton" class="card button-card fixed-container" *ngFor="let quiz of quizList" routerLink= "./game/{{quiz.id}}">
-        <app-quiz [quiz]="quiz"></app-quiz>
-    </button>
+    <div *ngFor="let quiz of quizList">
+        <button id="bouton" *ngIf="quizService.isValid(quiz)" class="card button-card fixed-container"  routerLink= "./game/{{quiz.id}}">
+            <app-quiz  [quiz]="quiz"></app-quiz>
+        </button>
+    </div>
 </div>

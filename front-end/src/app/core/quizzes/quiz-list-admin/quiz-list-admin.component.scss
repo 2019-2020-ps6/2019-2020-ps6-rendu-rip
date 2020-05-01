@@ -6,6 +6,9 @@
   @extend .vertical-layout;
   text-align: center;
 }
+.invalid{
+  color: red;
+}
 
 .quiz-list {
   @extend .responsive-list;

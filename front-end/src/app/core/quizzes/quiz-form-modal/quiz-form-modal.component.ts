@@ -69,10 +69,10 @@ export class QuizFormModalComponent implements OnInit {
     this.quitForm.emit(false);
   }
 
-  addNewImage(){
-    if(this.imageService.isRemoved(this.imageTmp.id)) return false
-    if(this.imageTmp.type===this.imageService.defaultType) return false;
-    if(this.imageTmp.type===this.imageService.dataBaseType)return false;
+  addNewImage() {
+    if (this.imageService.isRemoved(this.imageTmp.id)) { return false; }
+    if (this.imageTmp.type === this.imageService.defaultType) { return false; }
+    if (this.imageTmp.type === this.imageService.dataBaseType) {return false; }
     return (this.imageTmp.url && (!this.image || this.image.url !== this.imageTmp.url))
   }
 

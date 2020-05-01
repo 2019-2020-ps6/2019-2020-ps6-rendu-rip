@@ -249,7 +249,7 @@ export class QuizService {
   }
   
   answersInvalid(question : Question){
-    let errorMessage;
+    let errorMessage = '';
     /*if(!question.answers || question.answers.length==0){
       errorMessage = "Il n'y a pas de réponse possible."
     }*/
@@ -306,4 +306,22 @@ export class QuizService {
       if(!res.name)res.name = "false";
     });
   }
+
+  // check if a quiz is valid. Retun true if quiz is valid, false otherwise.
+  isValid(quiz: Quiz): boolean {
+    if (!quiz || !quiz.name || !quiz.theme) {
+      return false;
+    }
+    if ( !quiz.questions || quiz.questions.length === 0) {
+      return false;
+    } else {
+      quiz.questions.forEach(question => {
+        if (this.answersInvalid(question) === '') {
+          return false;
+        }
+      });
+      return true;
+    }
+  }
+
 }
