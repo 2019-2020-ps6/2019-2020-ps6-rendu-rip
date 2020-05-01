@@ -8,6 +8,7 @@ import { Question } from 'src/models/question.model';
 import { Answer } from 'src/models/answer.model';
 import { Img } from 'src/models/image.model';
 import { ImageService } from './image.service';
+import { AttemptService } from './attempt.service';
 
 @Injectable({
   providedIn: 'root'
@@ -226,7 +227,7 @@ export class QuizService {
     });
   }
 
-  
+
 
   quizInvalid(quiz :Quiz){
     if(!quiz.name) {
@@ -249,7 +250,7 @@ export class QuizService {
   }
   
   answersInvalid(question : Question){
-    let errorMessage;
+    let errorMessage = '';
     /*if(!question.answers || question.answers.length==0){
       errorMessage = "Il n'y a pas de réponse possible."
     }*/
@@ -285,17 +286,19 @@ export class QuizService {
 
   checkIfImageIsUsed(id : string, res : Img){
     this.http.get<Quiz[]>(serverUrl+"/quizzes", this.httpOptions).subscribe((quizzes) => {
-      console.log(quizzes)
       quizzes.forEach(quiz => {
         if(quiz.imageId==id){
+          console.log(quiz)
           res.name = "true";
         }
         quiz.questions.forEach(question => {
           if(question.imageId==id){
+            console.log(question)
             res.name = "true";
           } 
           question.answers.forEach(answer =>{
             if(answer.imageId==id){
+              console.log(answer)
               res.name = "true";
             } 
           })
@@ -304,4 +307,22 @@ export class QuizService {
       if(!res.name)res.name = "false";
     });
   }
+
+  // check if a quiz is valid. Retun true if quiz is valid, false otherwise.
+  isValid(quiz: Quiz): boolean {
+    if (!quiz || !quiz.name || !quiz.theme) {
+      return false;
+    }
+    if ( !quiz.questions || quiz.questions.length === 0) {
+      return false;
+    } else {
+      quiz.questions.forEach(question => {
+        if (this.answersInvalid(question) === '') {
+          return false;
+        }
+      });
+      return true;
+    }
+  }
+
 }

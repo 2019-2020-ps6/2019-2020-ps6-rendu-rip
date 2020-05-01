@@ -11,6 +11,9 @@
 
 <div class="quiz-list">
     <div class="card quiz fixed-container" *ngFor="let quiz of quizList">
+        <div class = "invalid" *ngIf = "!quizService.isValid(quiz)">
+            Incomplet
+        </div>
         <button class="button-card delete" (click)="deleteQuiz(quiz)">
             <i class="fas fa-times"></i></button>
         <button class="quiz-card" routerLink= "./{{quiz.id}}">

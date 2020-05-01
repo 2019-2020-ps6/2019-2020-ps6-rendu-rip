@@ -39,7 +39,9 @@ export class PlayerService {
   getplayer(usr: Player, playerId: string) {
     const url = `${this.playerUrl}/${playerId}`;
     this.http.get<Player>(url).subscribe((player) => {
-      usr = player; 
+      usr.id = player.id;
+      usr.name = player.name;
+      usr.imageId = usr.imageId;
       this.setplayer(player);
     });
   }

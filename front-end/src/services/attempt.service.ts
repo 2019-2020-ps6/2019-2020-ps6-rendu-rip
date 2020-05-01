@@ -5,6 +5,11 @@ import { serverUrl, httpOptionsBase } from '../configs/server.config';
 
 import { Player } from 'src/models/player.model';
 import { Attempt } from 'src/models/attempt.model';
+import { QuizService } from './quiz.service';
+import { Quiz } from 'src/models/quiz.model';
+import { Img } from 'src/models/image.model';
+import { Answer } from 'src/models/answer.model';
+import { Question } from 'src/models/question.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +18,7 @@ import { Attempt } from 'src/models/attempt.model';
 export class AttemptService {
   private httpOptions = httpOptionsBase;
 
-  constructor(private http: HttpClient) {   }
+  constructor(private http: HttpClient, private quizService : QuizService) {   }
 
   getPlayerAttempts(playerId: string, output: Attempt[]) {
     console.log("wouuhou!");
@@ -33,6 +38,19 @@ export class AttemptService {
       output.date = attempt.date;
       output.timeOuts = attempt.timeOuts;
       output.wrongAnswers = attempt.wrongAnswers;
+    });
+  }
+
+  getSpecificAllFromAttempt(playerId: string, attemptId: number, attemptToLoad: Attempt, quizToLoad : Quiz, imageToLoad : Img) {
+    this.http.get<Attempt>(`${serverUrl}/players/${playerId}/attempts/${attemptId}`, this.httpOptions)
+    .subscribe( attempt => {
+      attemptToLoad.id = attempt.id;
+      attemptToLoad.playerId = attempt.playerId;
+      attemptToLoad.quizId = attempt.quizId;
+      attemptToLoad.date = attempt.date;
+      attemptToLoad.timeOuts = attempt.timeOuts;
+      attemptToLoad.wrongAnswers = attempt.wrongAnswers;
+      this.quizService.loadQuizAndImage(attempt.quizId,quizToLoad,imageToLoad);
     });
   }
 

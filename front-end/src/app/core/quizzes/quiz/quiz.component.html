@@ -5,5 +5,5 @@
     <h3 class="subtitle">{{quiz.theme}}</h3>
     <div *ngIf = "image.url"class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="quiz image"></div>
     <div class="">{{quiz.questions.length}} questions</div>
-    <div class = "date" *ngIf = "quiz.creationDate">{{quiz.creationDate | date}}</div>
+    <div class = "date" *ngIf = "quiz.creationDate">{{quiz.creationDate | date : 'dd/MM/yyyy'}}</div>
 </div>

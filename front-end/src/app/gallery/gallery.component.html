@@ -14,7 +14,7 @@
     <div  class="modal-header">
         <h4 class="modal-title" *ngIf = "used(res.name)" id="modal-basic-title">Attention image utilisée</h4>
         <h4 class="modal-title" *ngIf = "!used(res.name)" id="modal-basic-title">Confirmation de suppression</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <button type="button" class="close" aria-label="Close" (click)="reset();modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -25,7 +25,7 @@
         <div *ngIf = "used(res.name)" class = "errorMessage">
             Attention l'image que vous allez supprimer est utilisée dans au moins un quiz. Etes-vous sur de la supprimer ?
         </div>
-      <button class="button-card" (click)="deleteImg(imageSelected);modal.close()"> Confirmer </button>
+      <button class="button-card" (click)="deleteImg(imageSelected);modal.close();reset();"> Confirmer </button>
       <button class="button-card" (click)="reset();modal.close()"> Annuler </button>
     </div>
 </ng-template>
