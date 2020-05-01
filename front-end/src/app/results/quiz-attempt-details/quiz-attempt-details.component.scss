@@ -1,2 +1,29 @@
 @import 'src/styles/card.scss';
 @import 'src/styles/layout.scss';
+@import 'src/styles/images.scss';
+
+.question-list {  
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    overflow:auto; 
+    height: 400px; 
+    width: 50%; 
+    border: 1px solid #AAAAAA;
+}
+.frame-little {
+  margin-left: auto;
+  margin-right: auto;
+  border-style: dashed;
+  border-color:  rgb(243, 58, 144);
+  height: 30%;
+  width: 30%;
+}
+.resultats{
+  text-align: center;
+}
+
+.answerList{
+  @extend .horizontal-layout;
+}
+

@@ -1,17 +1,35 @@
 <button class="button-card" (click)="goBack()"> Retour </button>
 
 
-<div *ngIf="loaded()" class="card center">
-    <h2 *ngIf="attempt.timeOuts>0"> Pertes d'attention ({{attempt.timeOuts}}) </h2>
-    <div *ngIf="attempt.wrongAnswers && attempt.wrongAnswers.length>0; else perfect">
-        <h2 > {{attempt.wrongAnswers.length}} fautes </h2>
-        <div *ngFor="let answer of attempt.wrongAnswers">
-            <button class="button-card" (click)=seeQuestion(answer.questionId)>Voir question</button>
+<div *ngIf="loaded()" >
+    <h2>Résultats du quiz : {{quiz.name}} réalisé le {{attempt.date | date : 'dd/MM/yyyy'}} par {{player.name}} </h2>
+    <div *ngIf="quizImage.url" class="frame-little"><img class = "thumbnail" [src]="imageService.getImgSrc1(quizImage)" alt="quiz image"></div>
+    <div class="resultats" *ngIf="attempt.timeOuts>0">{{attempt.timeOuts}} pertes d'attention</div>
+    <div *ngIf="attempt.wrongAnswers && attempt.wrongAnswers.length>0">
+        <div class = "resultats">{{attempt.wrongAnswers.length}} fautes </div>
+        <div class="question-list"> 
+            <div *ngFor="let question of quiz.questions"> 
+                <div class="card" *ngIf = "checkIfWrongQuestion(question)">
+                    A la question : {{question.label}}<br>
+                    Il a répondu : 
+                    <div class = "answerList">
+                        <div *ngFor="let answer of attempt.wrongAnswers">
+                            <div class = "card"*ngIf = "answerInQuestion(answer, question)">
+                                {{answer.value}}
+                            </div>
+                        </div>
+                    </div>
+                    au lieu de : <br>
+                    <div class = "card">
+                        {{setRightAnswer(question).value}}
+                    </div> 
+                    <br>
+                    <button class="button-card" (click)=seeQuestion(question.id)>Modifier la question</button>
+                </div>
+             </div> 
         </div>
     </div>
-    <h6> {{attempt.date | date}} </h6>
+    <div class = "resultats" *ngIf = "!attempt.wrongAnswers || attempt.wrongAnswers.length===0">
+        <h2>Sans faute</h2>
+    </div>
 </div>
-
-<ng-template #perfect>
-    <h2>Sans faute</h2>
-</ng-template>

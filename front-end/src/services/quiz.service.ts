@@ -8,6 +8,7 @@ import { Question } from 'src/models/question.model';
 import { Answer } from 'src/models/answer.model';
 import { Img } from 'src/models/image.model';
 import { ImageService } from './image.service';
+import { AttemptService } from './attempt.service';
 
 @Injectable({
   providedIn: 'root'
@@ -226,7 +227,7 @@ export class QuizService {
     });
   }
 
-  
+
 
   quizInvalid(quiz :Quiz){
     if(!quiz.name) {
