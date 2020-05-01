@@ -11,7 +11,7 @@ const shazam = trigger('scale', [
     transform: 'scale(1.1)',
     //opacity: 0.8,
     backgroundColor: 'rgb(127, 74, 250)'})),
-  transition('scaleIn <=> scaleOut', animate('1500ms ease-out'))//animate('1000ms 100ms linear'))
+  transition('scaleIn <=> scaleOut', animate('2000ms ease-out'))//animate('1000ms 100ms linear'))
 ]);
 
 @Component({
@@ -55,7 +55,7 @@ export class AnswerListWidgetComponent implements OnInit, AfterViewInit{
   //::::::::::::::shazam button::::::::::::::::::::
   private displayNextButton: boolean;
 
-  TIME_OUT_SHAZAM_TRANSITION: number = 1500;//ms
+  TIME_OUT_SHAZAM_TRANSITION: number = 2000;//ms
 
   public scale = 'scaleIn';
 
@@ -84,6 +84,7 @@ export class AnswerListWidgetComponent implements OnInit, AfterViewInit{
 
   initShazamTimer() {
     //this.stop(this.timerShazam);
+    this.toggleScale();
     this.timerShazam = this.startTimerShazamTrans();
   }
 
