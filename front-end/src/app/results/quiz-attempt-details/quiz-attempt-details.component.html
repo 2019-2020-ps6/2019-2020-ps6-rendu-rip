@@ -4,9 +4,11 @@
 <div *ngIf="loaded()" >
     <h2>Résultats du quiz : {{quiz.name}} réalisé le {{attempt.date | date : 'dd/MM/yyyy'}} par {{player.name}} </h2>
     <div *ngIf="quizImage.url" class="frame-little"><img class = "thumbnail" [src]="imageService.getImgSrc1(quizImage)" alt="quiz image"></div>
-    <div class="resultats" *ngIf="attempt.timeOuts>0">{{attempt.timeOuts}} pertes d'attention</div>
+    <div class="resultats" *ngIf="attempt.timeOuts===1">{{attempt.timeOuts}} perte d'attention</div>
+    <div class="resultats" *ngIf="attempt.timeOuts>1">{{attempt.timeOuts}} pertes d'attention</div>
     <div *ngIf="attempt.wrongAnswers && attempt.wrongAnswers.length>0">
-        <div class = "resultats">{{attempt.wrongAnswers.length}} fautes </div>
+        <div class = "resultats" *ngIf="attempt.wrongAnswers.length===1">{{attempt.wrongAnswers.length}} faute </div>
+        <div class = "resultats" *ngIf="attempt.wrongAnswers.length!==1">{{attempt.wrongAnswers.length}} fautes </div>
         <div class="question-list"> 
             <div *ngFor="let question of quiz.questions"> 
                 <div class="card" *ngIf = "checkIfWrongQuestion(question)">
