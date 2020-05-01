@@ -12,12 +12,12 @@ import { ModalService } from 'src/services/modal.service';
 })
 export class GalleryComponent implements OnInit {
 
+  headerTitle = "Galerie d'images"
+
   images: Img[] = []
-
   imageSelected : Img;
-
   res :  Img = {} as Img;
-
+  
   constructor(public modalService :ModalService, public imageService:ImageService, public quizService : QuizService, private location: Location) {
   }
 
@@ -25,10 +25,10 @@ export class GalleryComponent implements OnInit {
     this.imageService.loadAllImgs(this.images);
   }
 
-  selectedImg(img : Img) {
+  /*selectedImg(img : Img) {
     this.imageSelected = img;
     console.log(img);
-  }
+  }*/
 
   goBack() {
     this.location.back(); // <-- go back to previous location on cancel

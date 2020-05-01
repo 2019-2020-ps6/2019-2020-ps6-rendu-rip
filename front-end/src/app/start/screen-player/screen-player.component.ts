@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScreenPlayerComponent implements OnInit {
 
+  headerTitle = "Sélection du profil"
+
   constructor() {
   }
 

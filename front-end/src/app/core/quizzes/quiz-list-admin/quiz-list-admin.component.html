@@ -1,4 +1,6 @@
-<button class="button-card" routerLink= "/admin">Retour</button>
+<button class="button-card" routerLink= "/admin">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+</button>
 <button class="button-card" routerLink= "/">Home</button>
 <br>
 
@@ -19,7 +21,7 @@
 <div class="quiz-list">
     <div *ngIf="quizList && filteredQuizList().length!==0; else noQuizFound">
         <div *ngFor="let quiz of filteredQuizList()">
-            <div class="card quiz fixed-container">
+            <div class="card quiz fixed-container-bigger">
                 <div class = "invalid" *ngIf = "!quizService.isValid(quiz)">
                     Incomplet
                 </div>

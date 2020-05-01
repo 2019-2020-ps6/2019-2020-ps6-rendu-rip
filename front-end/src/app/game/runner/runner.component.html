@@ -1,7 +1,10 @@
-<button class="button-card" routerLink= "../..">Retour</button>
+<app-header [title] = "headerTitle"></app-header>
+<div class="goback-button" routerLink= "../..">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+</div>
 
+<div class="main">
 <div class="box" *ngIf = "quiz">
-    <!--<h2>-{{quiz.name}}-</h2>-->
     <div *ngIf = "currentQuestion; else elseBlock">
         <div class = "labelandimage">
             <div *ngIf="currentQuestion.label"><h4>{{currentQuestion.label}}</h4></div>
@@ -12,4 +15,5 @@
     <ng-template #elseBlock>
         <button class="button-card button-recap" (click)="sendAttempt()" routerLink= "./recap">Récapitulatif</button>
     </ng-template>
+</div>
 </div>

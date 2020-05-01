@@ -22,11 +22,11 @@
     <app-database-image-modal [imageTmp] = "imageTmp" [id] = "setLabel()"></app-database-image-modal>
     <app-internet-image-modal [imageTmp] = "imageTmp" [id] = "setLabel()"></app-internet-image-modal>
   </div>
-  </ng-template>
+</ng-template>
 
-  <ng-template #displayImageAns>
+<ng-template #displayImageAns>
 	<div class="frame image fixed-container" *ngIf="imageTmp.url">
     <button type="button" class="delete" (click)="imageService.removeImg(imageTmp)"><i class="fas fa-times"></i></button>
     <img class="thumbnail" [src]="imageService.getImgSrc1(imageTmp)" alt="answer image">
-	</div>
-  </ng-template>
+  </div>
+</ng-template>

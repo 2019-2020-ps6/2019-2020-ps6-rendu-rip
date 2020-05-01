@@ -21,6 +21,8 @@ export class RecapComponent implements OnInit {
 
   private timerDisplayRightAnswer: any;
 
+  headerTitle = "Récapitulatif"
+
   constructor(private route: ActivatedRoute, public quizService: QuizService, public imageService: ImageService) {
     this.quizService.quizSelected$.subscribe((quiz) => {
       this.quiz = quiz;

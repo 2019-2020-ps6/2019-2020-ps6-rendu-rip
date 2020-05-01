@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  @Input()
+  title: string;
   constructor() { }
 
   ngOnInit() {
+    this.title = this.title == null? this.title = "- Jeu de Quiz -" : `- ${this.title} -` 
   }
-
 }

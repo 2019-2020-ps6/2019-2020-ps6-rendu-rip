@@ -1,5 +1,8 @@
-<button class="button-card" routerLink= "../../..">Retour</button>
-
+<app-header [title] = "headerTitle"></app-header>
+<div class="goback-button" routerLink= "../../..">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+</div>
+<div class="main">
 <div class = "box center">
     <div *ngIf = "quiz">
         <!-- <h2>-{{quiz.name}}-</h2> -->
@@ -8,17 +11,10 @@
             <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="question image"></div>
             <app-right-answer [answers] = "currentQuestion.answers"></app-right-answer>
         </div>
-    <!--
-    <div *ngIf = "questions.length!==0; else elseBlock">
-        <button class="button-card" (click) = "nextQuestion()">Suite</button>
-    </div>
-    <ng-template #elseBlock>
-        <button class="button-card" routerLink= "../end">Fin</button>
-    </ng-template>
-    -->
     <div *ngIf = "questions.length===0">
         <button class="button-card" routerLink= "../end">Fin</button>
     </div>
 
     </div>
+</div>
 </div>

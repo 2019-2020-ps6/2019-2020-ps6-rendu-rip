@@ -1,6 +1,8 @@
 @import '../../../styles/card.scss';
 @import '../../../styles/images.scss';
 @import '../../../styles/layout.scss';
+@import '../../../styles/common.scss';
+
 
 .box{
     @extend .vertical-layout;
@@ -20,5 +22,4 @@
     width: 100%;
     height: 100%;
     max-width: 350px;
-
 }

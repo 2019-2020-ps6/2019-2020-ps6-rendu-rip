@@ -15,12 +15,14 @@
 }
 
 .frame{
-    height: 130px;//à revoir
-    width: 130px;
+    /*height: 130px;//à revoir
+    width: 130px;*/
+    height: 7rem;
+    width: 7rem;
     margin-left: auto;
     margin-right: auto;
     border-style: dashed;
-    border-color:  rgb(243, 58, 144);
+    border-color: rgb(151, 87, 255);//rgb(243, 58, 144);
 }
 
 .hidden {

@@ -17,6 +17,8 @@ export class QuizListPlayerComponent implements OnInit {
 
   themeForm: FormGroup;
 
+  headerTitle = "Liste des quiz"
+
   constructor(public quizService: QuizService,
               public formBuilder: FormBuilder, public themeService : ThemeService) {
     this.quizService.quizzes$.subscribe((quizzes) => this.quizList = quizzes);

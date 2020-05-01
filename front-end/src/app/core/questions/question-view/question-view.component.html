@@ -1,4 +1,6 @@
-<button class="button-card" *ngIf ="!question || question && !invalid()" (click)="goBack();"> Retour </button>
+<button class="button-card" *ngIf ="!question || question && !invalid()" (click)="goBack()">
+  <i class="fa fa-arrow-left" aria-hidden="true"></i>
+</button>
 <button class="button-card" *ngIf ="question && invalid()" (click)="modalService.open(quitWithInvalidQuestion)"> Retour </button>
 
 <div class = "horizontal-center" *ngIf="allIsLoaded()">

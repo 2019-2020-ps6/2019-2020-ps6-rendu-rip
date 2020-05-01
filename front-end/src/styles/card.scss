@@ -13,7 +13,8 @@
 .button-card {
   background-color: $white;
   border: solid 1px $blue;
-  color: $blue;
+  //color: $blue;
+  color: rgb(92, 0, 212);
   font-weight: bold;
   padding: 0.5em 1em;
   font-size: small;
@@ -29,11 +30,20 @@
 }
 
 .button-big {
-  font-size: 300%;
-  margin-top: 5%;
+  //font-size: 300%;
+  margin-bottom: 5%;
   width: 100%;
   height: 100%;
   text-align: center;
+
+  background-color: rgb(92, 0, 212);
+  border-radius: 10rem;
+  //border: solid 1px rgb(0, 69, 218);
+  color:  rgb(255, 255, 255);
+  font-weight: bold;
+  padding: 0.5em 1em;
+  font-size: 300%;
+  box-shadow: 0 6px 10px rgba(33, 34, 65, 0.2), 0 0 6px rgba(57, 44, 88, 0.15);
 }
 
 .delete{

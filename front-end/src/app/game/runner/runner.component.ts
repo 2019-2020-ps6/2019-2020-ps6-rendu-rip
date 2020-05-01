@@ -28,9 +28,12 @@ export class RunnerComponent implements OnInit {
 
   @Output() showAnswer: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  headerTitle: string;
+
   constructor(private route: ActivatedRoute, public quizService: QuizService, public imageService: ImageService, public attemptService: AttemptService) {
     this.quizService.quizSelected$.subscribe((quiz) => {
       this.quiz = quiz;
+      this.headerTitle = this.quiz.name;
       if(quiz.questions) {
         this.questions = quiz.questions.map(e => ({ ... e }));
         this.questions.reverse();

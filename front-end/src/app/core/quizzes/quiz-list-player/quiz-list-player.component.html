@@ -1,6 +1,9 @@
-<button class="button-card" routerLink= "/players">Retour</button>
-<br>
+<app-header [title] = "headerTitle"></app-header>
+<div class="goback-button" routerLink= "/players">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+</div>
 
+<div class="main">
 <form [formGroup]="themeForm">
     <select name="Thème" id="selectTheme" [formControlName]="'theme'">
         <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
@@ -13,7 +16,7 @@
 
     <div *ngIf="quizList && filteredQuizList().length!==0; else noQuizFound">
         <div *ngFor="let quiz of filteredQuizList()">
-            <button id="bouton" class="card button-card fixed-container"  routerLink= "./game/{{quiz.id}}">
+            <button id="bouton" class="card button-card fixed-container-bigger"  routerLink= "./game/{{quiz.id}}">
                 <app-quiz  [quiz]="quiz"></app-quiz>
             </button>
         </div>
@@ -23,3 +26,4 @@
 <ng-template #noQuizFound let-modal>
     <div class="center" id="redCenteredMsg"> Aucun quiz trouvé </div>
 </ng-template>
+</div>

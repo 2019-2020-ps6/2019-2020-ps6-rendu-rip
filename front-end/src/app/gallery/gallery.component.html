@@ -1,13 +1,18 @@
-<button class="wide-button" (click)="goBack()"> Retour </button>
-
+<app-header [title] = "headerTitle"></app-header>
+<div class="goback-button" (click)="goBack()">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+</div>
+<div class="main">
 <div class="responsive-list">
     <div *ngFor="let img of images">
         <div *ngIf="img.url" class="fixed-container vertical-layout">
-            <button class="button-card delete" (click)="checkIfImageIsUsed(img);modalService.open(deleteImageUsed)">
-                <i class="fas fa-times"></i></button>
-            <img class="frame thumbnail" [src]="imageService.getImgSrc1(img)" (click)="selectedImg(img)" alt="answer image">
+                <button class="delete" (click)="checkIfImageIsUsed(img);modalService.open(deleteImageUsed)">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+                <img class="frame thumbnail" [src]="imageService.getImgSrc1(img)" alt="answer image">
         </div>
     </div>
+</div>
 </div>
 
 <ng-template #deleteImageUsed let-modal>
