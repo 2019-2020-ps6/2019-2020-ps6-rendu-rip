@@ -17,7 +17,6 @@ import { QuestionViewComponent } from './core/questions/question-view/question-v
 import { PlayerViewComponent } from './core/players/player-view/player-view.component';
 import { StatisticsComponent } from './results/statistics/statistics.component';
 import { QuizAttemptDetailsComponent } from './results/quiz-attempt-details/quiz-attempt-details.component';
-import { QuizAttemptComponent } from './results/quiz-attempt/quiz-attempt.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },

@@ -1,6 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
+//added for animations
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+//added for boostrap
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
+
 
 import { AppComponent } from './app.component';
 import { QuizListAdminComponent } from './core/quizzes/quiz-list-admin/quiz-list-admin.component';
@@ -34,8 +39,7 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { PasswordComponent } from './start/password/password.component';
 import { QuestionViewComponent} from './core/questions/question-view/question-view.component';
 import { AnswerViewComponent} from './core/answers/answer-view/answer-view.component';
-//import { from } from 'rxjs';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { PlayerViewComponent } from './core/players/player-view/player-view.component';
 import { StatisticsComponent } from './results/statistics/statistics.component';
 import { QuizAttemptComponent } from './results/quiz-attempt/quiz-attempt.component';
@@ -84,6 +88,7 @@ import { DatabaseImageModalComponent } from './core/database-image-modal/databas
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,

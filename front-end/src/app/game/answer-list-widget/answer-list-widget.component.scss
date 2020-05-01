@@ -19,3 +19,36 @@
 }
 
 // Lien utile : https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Auto-placement_in_CSS_Grid_Layout
+
+/*#nextButton {
+    background-color: #2693FF;
+    border-radius: 75px;
+    height: 50px;
+    margin: auto;
+    width: 150px;
+    transition: transform 1.8s ease-in-out, opacity 1.8s ease-in-out;
+}*/
+.shazamButton {
+    background-color: #2693FF;
+    border-radius: 75px;
+    height: 50px;
+    line-height: 50px;//to vertically center
+    margin: auto;
+    width: 120px;
+    padding: auto;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 6px 10px rgba(33, 34, 65, 0.2), 0 0 6px rgba(57, 44, 88, 0.15);
+}
+.shazamButton:hover {
+    cursor: pointer;
+}
+/*.stateOne {
+    opacity: 1;
+    transform: scale(1, 1);
+}
+.stateTwo {
+    opacity: .5;
+    transform: scale(1.3, 1.3);
+}*/
