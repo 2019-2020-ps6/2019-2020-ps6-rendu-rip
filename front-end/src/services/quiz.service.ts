@@ -285,17 +285,19 @@ export class QuizService {
 
   checkIfImageIsUsed(id : string, res : Img){
     this.http.get<Quiz[]>(serverUrl+"/quizzes", this.httpOptions).subscribe((quizzes) => {
-      console.log(quizzes)
       quizzes.forEach(quiz => {
         if(quiz.imageId==id){
+          console.log(quiz)
           res.name = "true";
         }
         quiz.questions.forEach(question => {
           if(question.imageId==id){
+            console.log(question)
             res.name = "true";
           } 
           question.answers.forEach(answer =>{
             if(answer.imageId==id){
+              console.log(answer)
               res.name = "true";
             } 
           })
