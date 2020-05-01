@@ -6,53 +6,14 @@
 
 <div class ="answer-comparison" *ngIf="display === SHOW_ANSWER_COMPARISON">
     <app-selected-vs-right-answer [answerSelected] = "answerSelected" [answers] = "answers"></app-selected-vs-right-answer >
-    <!--<button class="button-card next-button" (click) = "skipComparison()">Suivant</button>-->
 </div>
 
 <div *ngIf="display === SHOW_RIGHT_ANSWER ">
     <app-right-answer [answers]=answers></app-right-answer>
     <div *ngIf="displayNextButton">
-        <!--<button id="nextButton" class="stateOne" (click)="setInitialClass($event)"
-        (transitionend)="loopTransition($event)">Suivant</button> <!--(click) = "nextQuestion()">Suivant</button>  -->
         <div class="shazamButton" [@scale]='scale' (click)="nextQuestion()">Suivant 
             <i class="fa fa-arrow-right" aria-hidden="true"></i>
         </div>
-    </div><!--(window:load)--->
+    </div>
 </div>
-<div class="shazamButton" [@scale]='scale' (click)="toggleScale()">Test
-    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-</div>
-<i class="fa fa-arrow-left" aria-hidden="true">back button left hand corner</i>
-
-<!-- js transitioning-->
-<!--
-<script>
-var nextButton = document.querySelector("#nextButton");
-     
-function setup() {
-    window.addEventListener("load", setInitialClass, false);
-    nextButton.addEventListener("mouseover", setInitialClass, false);
-    
-    nextButton.addEventListener("transitionend", loopTransition, false);
-    nextButton.addEventListener("webkitTransitionEnd", loopTransition, false);
-    nextButton.addEventListener("mozTransitionEnd", loopTransition, false);
-    nextButton.addEventListener("msTransitionEnd", loopTransition, false);
-    nextButton.addEventListener("oTransitionEnd", loopTransition, false);
-}
-setup();
-     
-function setInitialClass(e) {
-    nextButton.className = "stateTwo";
-}
-    
-function loopTransition(e) {
-    if (e.propertyName == "opacity") {
-        if (nextButton.className == "stateTwo") {
-            nextButton.className = "stateOne";
-        } else {
-            nextButton.className = "stateTwo";
-        }
-    }
-}
-</script>
--->
+<!--<i class="fa fa-arrow-left" aria-hidden="true">back button left hand corner</i>-->

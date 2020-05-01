@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
-import {
+/*import {
   trigger,
   state,
   style,
   animate,
   transition,
   // ...
-} from '@angular/animations';
+} from '@angular/animations';*/
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [
+  /*animations: [
     // animation triggers go here
-  ]
+  ]*/
 })
 export class AppComponent {
   title = 'starter-quiz';
