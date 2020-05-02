@@ -19,10 +19,6 @@ export class PlayerListAdminComponent implements OnInit {
 
   ngOnInit() {
   }
-/*
-  switchShowForm(show : boolean){
-    this.showForm = show;
-  }*/
 
   deletePlayer(player: Player) { this.playerService.deletePlayer(player); }
 }

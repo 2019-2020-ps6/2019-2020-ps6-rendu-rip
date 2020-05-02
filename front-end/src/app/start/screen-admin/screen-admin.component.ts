@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScreenAdminComponent implements OnInit {
 
+  headerTitle = "Menu"
+
   constructor() {
   }
 

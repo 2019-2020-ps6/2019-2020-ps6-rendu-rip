@@ -5,9 +5,6 @@
     width: 25%;
     min-height: 7rem;
     min-width: 7.1rem;//300px;
-    //border: dotted;
-    //border-radius: 2px;
-    //border-color: violet;
     margin-bottom: 1rem;
 }
 
@@ -15,10 +12,7 @@
     height: 25%;
     width: 25%;
     min-height: 7rem;
-    min-width: 15rem;//7.1rem;//300px;
-    //border: dotted;
-    //border-radius: 2px;
-    //border-color: violet;
+    min-width: 15rem;
     margin-bottom: 1rem;
 }
 
@@ -49,11 +43,6 @@
     flex-direction: column;
 }
 
-.responsive-list {
-    @extend .horizontal-layout;
-    flex-wrap: wrap;
-}
-
 .overflowing-text {
     white-space: nowrap;
     overflow: hidden;
@@ -65,20 +54,25 @@
 }
 
 .vertical-center{
-    margin: 0;
-    position: absolute;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    position: fixed;//absolute;
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
 
 .center{
-  margin: 0;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+    @extend .fixed-pos;
+    margin: 1rem;//0;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.fixed-pos {
+    position: fixed;
 }
 
 .horizontal-center{
@@ -87,3 +81,17 @@
     text-align: center;
 }
 
+.responsive-list {
+    @extend .horizontal-layout;
+    flex-wrap: wrap;
+}
+
+.quiz-list {
+    @extend .responsive-list;
+    text-align: center;
+    width: 100%;
+}
+  
+.fixed-container-bigger {
+    margin: 1rem;
+}

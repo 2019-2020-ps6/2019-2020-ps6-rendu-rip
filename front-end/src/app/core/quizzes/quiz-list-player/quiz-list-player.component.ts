@@ -3,6 +3,12 @@ import { QuizService } from 'src/services/quiz.service';
 import { Quiz } from 'src/models/quiz.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ThemeService } from 'src/services/theme.service';
+import { PlayerService } from 'src/services/player.service';
+import { Player } from 'src/models/player.model';
+import { ActivatedRoute } from '@angular/router';
+import { Img } from 'src/models/image.model';
+import { ImageService } from 'src/services/image.service';
+import { GlobalService } from 'src/services/global.service';
 
 @Component({
   selector: 'app-quiz-list-player',
@@ -14,18 +20,39 @@ export class QuizListPlayerComponent implements OnInit {
   public quizList: Quiz[] = [];
   public THEME_LIST: string[] = [];
   private ALL_QUIZZES: string='TOUS';
-
   themeForm: FormGroup;
 
-  headerTitle = "Liste des quiz"
+  private player: Player;
+  private image: Img = {} as Img;
 
-  constructor(public quizService: QuizService,
-              public formBuilder: FormBuilder, public themeService : ThemeService) {
+  headerTitle: string;
+
+  constructor(private route: ActivatedRoute, public quizService: QuizService, 
+    public globalService: GlobalService,
+    public formBuilder: FormBuilder, public themeService : ThemeService, 
+    public playerService: PlayerService, public imageService: ImageService) {
     this.quizService.quizzes$.subscribe((quizzes) => this.quizList = quizzes);
     this.themeFilteringSetup();
   }
 
   ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.playerService.playerSelected$.subscribe((player) => {
+      this.onPlayerSelected(player);
+      this.headerTitle = player.name;
+    });
+    this.playerService.setSelectedPlayer(id);
+  }
+
+  private onPlayerSelected(player: Player) {
+    this.player = player;
+    this.loadImage();
+  }
+  
+  loadImage(){
+    this.image = {} as Img;
+    const id = this.player.imageId;
+    this.imageService.loadPlayerImage(this.image, id);
   }
 
   themeFilteringSetup() {
@@ -36,7 +63,6 @@ export class QuizListPlayerComponent implements OnInit {
         this.THEME_LIST.push(themes[i].name)
       }
      });
- 
      this.themeForm = this.formBuilder.group({
        theme: this.ALL_QUIZZES
      });
@@ -51,7 +77,7 @@ export class QuizListPlayerComponent implements OnInit {
   }
 
   filteredQuizList() : Quiz[] {
-    var res =  this.quizList.filter((quiz) => this.hasSelectedTheme(quiz) && this.quizService.isValid(quiz));
+    var res =  this.quizList.filter((quiz) => this.hasSelectedTheme(quiz) && this.globalService.isValid(quiz));
     console.log(res);
     return res;
   }

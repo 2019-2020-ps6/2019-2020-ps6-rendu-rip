@@ -4,6 +4,7 @@ import { Img } from 'src/models/image.model';
 import { Location } from '@angular/common';
 import { QuizService } from 'src/services/quiz.service';
 import { ModalService } from 'src/services/modal.service';
+import { GlobalService } from 'src/services/global.service';
 
 @Component({
   selector: 'app-gallery',
@@ -18,25 +19,21 @@ export class GalleryComponent implements OnInit {
   imageSelected : Img;
   res :  Img = {} as Img;
   
-  constructor(public modalService :ModalService, public imageService:ImageService, public quizService : QuizService, private location: Location) {
+  constructor(public modalService :ModalService, public globalService: GlobalService, 
+    private location: Location) {
   }
 
   ngOnInit() {
-    this.imageService.loadAllImgs(this.images);
+    this.globalService.loadAllImgs(this.images);
   }
-
-  /*selectedImg(img : Img) {
-    this.imageSelected = img;
-    console.log(img);
-  }*/
 
   goBack() {
     this.location.back(); // <-- go back to previous location on cancel
   }
 
-  checkIfImageIsUsed(img : Img){
+  checkIfImageIsUsed(img: Img){
     this.imageSelected = img;
-    this.quizService.checkIfImageIsUsed(img.id,this.res)
+    this.globalService.checkIfImageIsUsed(img.id, this.res)
   }
 
   reset(){
@@ -51,8 +48,8 @@ export class GalleryComponent implements OnInit {
 
   deleteImg(img: Img) {
     this.imageSelected = img;
-    this.imageService.deleteImage(img, this.images);
+    this.globalService.deleteImage(img);
     this.images.length = 0;
-    this.imageService.loadAllImgs(this.images);
+    this.globalService.loadAllImgs(this.images);
   }
 }

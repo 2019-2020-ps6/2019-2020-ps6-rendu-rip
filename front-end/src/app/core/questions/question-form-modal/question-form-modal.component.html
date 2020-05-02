@@ -15,7 +15,7 @@
 	<div class="">
 	  Charger une image depuis :<br>
 	  <label for="image64QuestionForm" class="button-card chargingButton" >Cet appareil</label>
-	  <input type="file" class="hidden" id="image64QuestionForm" (change)="imageService.onChangeFile($event,imageTmp)" accept="image/*">
+	  <input type="file" class="hidden" id="image64QuestionForm" (change)="globalService.onChangeFile($event,imageTmp)" accept="image/*">
 	  <app-internet-image-modal [imageTmp] = "imageTmp"></app-internet-image-modal>
 	  <app-database-image-modal [imageTmp] = "imageTmp"></app-database-image-modal>
 	</div>
@@ -23,7 +23,7 @@
   
   <ng-template #displayImage>
 	<div class="frame image thumb-container-small" *ngIf="imageTmp.url">
-		<button class="delete" (click)="imageService.removeImg(imageTmp)"><i class="fas fa-times"></i></button>
-	  <img class="thumbnail" [src]="imageService.getImgSrc1(imageTmp)" alt="question image">
+		<button class="delete" (click)="globalService.removeImg(imageTmp)"><i class="fas fa-times"></i></button>
+	  <img class="thumbnail" [src]="globalService.getImgSrc1(imageTmp)" alt="question image">
 	</div>
   </ng-template>

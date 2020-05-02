@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { serverUrl, httpOptionsBase } from '../configs/server.config';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Img } from 'src/models/image.model';
 
 @Injectable({
@@ -11,23 +11,24 @@ import { Img } from 'src/models/image.model';
 export class ImageService {
 
   private httpOptions = httpOptionsBase;
-  public localType : string = "local";
-  public dataBaseType : string = "dataBase";
-  public internetType : string = "internet";
-  public defaultType : string = "default";
-  public rmImg: string = "remove from object";
-  public imageRemovedId = "-1";
-  public defaultQuizImageId = "1";
+  public localType: string      = "local";
+  public dataBaseType: string   = "dataBase";
+  public internetType: string   = "internet";
+  public defaultType: string    = "default";
+  public rmImg: string          = "remove from object";
+  public imageRemovedId         = "-1";
+  public defaultQuizImageId     = "1";
   public defaultQuestionImageId = "2";
-  public defaultAnswerImageId = "3";
-  public defaultPlayerImageId = "4";
+  public defaultAnswerImageId   = "3";
+  public defaultPlayerImageId   = "4";
+  
   constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
 
   public loadAllImgs(images: Img[]) {
     this.loadAllImages(images, "database");
   }
 
-  private loadAllImages(images: Img[], path: string){
+  private loadAllImages(images: Img[], path: string) {
     this.http.get<Img[]>( `${serverUrl}/images/${path}`, this.httpOptions).subscribe(imgs => {
       imgs.forEach(i => { 
         const ind = images.length;
@@ -36,7 +37,7 @@ export class ImageService {
     });
   }
 
-  private loadImage(image: Img, path: string){
+  private loadImage(image: Img, path: string) {
     this.http.get<Img>(`${serverUrl}/images/${path}`, this.httpOptions).subscribe(img => {
       if(this.isAnImage(img.id)){
         image.id = img.id;
@@ -46,22 +47,22 @@ export class ImageService {
     });
   }
 
-  loadQuizImage(image: Img, id: string){
+  loadQuizImage(image: Img, id: string) {
     if(!this.isAnImage(id)) this.loadImage(image, "default/"+ this.defaultQuizImageId);
     else  this.loadImage(image, "database/" + id);
   }
 
-  loadQuestionImage(image: Img, id: string){
+  loadQuestionImage(image: Img, id: string) {
     if(!this.isAnImage(id))return;
     else this.loadImage(image, `database/${id}`);
   }
 
-  loadAnswerImage(image: Img, id: string){
+  loadAnswerImage(image: Img, id: string) {
     if(!this.isAnImage(id))return;
     this.loadImage(image, `database/${id}`);
   }
 
-  loadPlayerImage(image: Img, id: string){
+  loadPlayerImage(image: Img, id: string) {
     if(!this.isAnImage(id)) {
       this.loadImage(image, "default/"+ this.defaultPlayerImageId);
     }
@@ -70,7 +71,7 @@ export class ImageService {
 
   sanitize(url: string) { return this.sanitizer.bypassSecurityTrustUrl(url); }
 
-  deleteImage(image: Img, images : Img[]) {
+  deleteImage(image: Img) {
     this.http.delete<Img>(`${serverUrl}/images/database/${image.id}`, this.httpOptions)
     .subscribe(() => {
       console.log("Image: deletion...")
@@ -82,7 +83,7 @@ export class ImageService {
     .subscribe(() => console.log("Image: deletion..."));
   }
 
-  imageFillIn(imageTmp : Img){
+  imageFillIn(imageTmp: Img): Img {
     const image = {} as Img;
     image.name = imageTmp.name;
     image.url = imageTmp.url;
@@ -91,7 +92,7 @@ export class ImageService {
     return image;
   }
 
-  onChangeFile(event, imageTmp : Img) {
+  onChangeFile(event, imageTmp: Img) {
     const reader = new FileReader();
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -105,7 +106,7 @@ export class ImageService {
     }
   }
 
-  onUrlClicked(modal, imageTmp : Img, url : string) {
+  onUrlClicked(modal, imageTmp: Img, url: string) {
     modal.close();
     imageTmp.name = "image web";
     imageTmp.url = url;
@@ -113,7 +114,7 @@ export class ImageService {
     imageTmp.id = undefined;
   }
 
-  onImgClicked(modal, imageTmp : Img, image : Img) {
+  onImgClicked(modal, imageTmp: Img, image: Img) {
     modal.close();
     imageTmp.name = image.name;
     imageTmp.url = image.url;
@@ -121,31 +122,27 @@ export class ImageService {
     imageTmp.id = image.id;
   }
 
-  getImgSrc(imageTmp : Img, image : Img) {
-    if (imageTmp && imageTmp.url) {
-      return this.sanitize(imageTmp.url);
-    }
-    if(image && image.url){
-      return this.sanitize(image.url);
-    }
-  }
-  getImgSrc1(imageTmp : Img) {
-    if (imageTmp && imageTmp.url) {
-      return this.sanitize(imageTmp.url);
-    }
-  }
-  isAnImage(id : string){
-    return id && id !== "" && id!== this.imageRemovedId;
-  }
-  isRemoved(id : string){
-    return id===this.imageRemovedId;
+  getImgSrc1(imageTmp: Img) {
+    if (imageTmp && imageTmp.url) return this.sanitize(imageTmp.url);
   }
 
-  removeImg(imageTmp : Img){
+  getImgSrc2(imageTmp: Img, image: Img) {
+    if (imageTmp && imageTmp.url) return this.sanitize(imageTmp.url);
+    if(image && image.url) return this.sanitize(image.url);
+  }
+
+  isAnImage(id: string): boolean {
+    return id && id !== "" && id!==this.imageRemovedId;
+  }
+
+  isRemoved(id: string): boolean {
+    return id === this.imageRemovedId;
+  }
+
+  removeImg(imageTmp: Img) {
     imageTmp.url = undefined;
     imageTmp.name = "removedImage";
     imageTmp.type = "removedImage"
     imageTmp.id = this.imageRemovedId;
   }
-
 }

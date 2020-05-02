@@ -1,9 +1,8 @@
 <button class="button-card" (click)="goBack()"> Retour </button>
 
-
 <div *ngIf="loaded()" >
     <h2>Résultats du quiz : {{quiz.name}} réalisé le {{attempt.date | date : 'dd/MM/yyyy'}} par {{player.name}} </h2>
-    <div *ngIf="quizImage.url" class="frame-little"><img class = "thumbnail" [src]="imageService.getImgSrc1(quizImage)" alt="quiz image"></div>
+    <div *ngIf="quizImage.url" class="frame-little"><img class = "thumbnail" [src]="globalService.getImgSrc1(quizImage)" alt="quiz image"></div>
     <div class="resultats" *ngIf="attempt.timeOuts===1">{{attempt.timeOuts}} perte d'attention</div>
     <div class="resultats" *ngIf="attempt.timeOuts>1">{{attempt.timeOuts}} pertes d'attention</div>
     <div *ngIf="attempt.wrongAnswers && attempt.wrongAnswers.length>0">

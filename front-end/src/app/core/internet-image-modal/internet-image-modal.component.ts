@@ -24,7 +24,6 @@ export class InternetImageModalComponent implements OnInit {
       if(!this.id) this.id = "";
     }
 
-
     initUrlForm() {
       this.urlForm = this.formBuilder.group({url: "",});
     } 

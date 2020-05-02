@@ -1,22 +1,21 @@
-<div class = "horizontal-center">
-
-  <button type="button" class="button-card" (click)="modalService.open(questionFormModal)"> 
-    <i class="fas fa-plus-circle"></i>Ajouter une question
-  </button>
-
-  <h2>Liste des questions : </h2>
-</div>
-
-<div class = "errorMessage" *ngIf = "quiz.questions.length==0">
-  Attention: Ajouter au moins une question
-</div>
-
-<div class="question-list"> 
-  <div class="question" *ngFor="let question of quiz.questions">
-    <app-question [quiz]="quiz" [question]="question"></app-question>
+<div class="main">
+  <div type="button" class="new-button" (click)="modalService.open(questionFormModal)"> 
+    <i class="fas fa-plus-circle"></i> Nouvelle question
+  </div>
+  <div class = "errorMessage" *ngIf = "quiz.questions.length==0">
+    Attention: Ajouter au moins une question
+  </div>
+  <div class="question-list">
+    <div class="" *ngFor="let question of quiz.questions">
+      <button class="delete-button" (click)="deleteQuestion(question)">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="question-card" routerLink= "./{{question.id}}">
+          <app-question [quiz]="quiz" [question]="question"></app-question>
+      </div>
+    </div>
   </div>
 </div>
-
 
 <ng-template #questionFormModal let-modal>
   <div class="modal-header">

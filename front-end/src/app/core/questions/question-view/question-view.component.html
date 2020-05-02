@@ -1,72 +1,73 @@
-<button class="button-card" *ngIf ="!question || question && !invalid()" (click)="goBack()">
+<app-header [title] = "headerTitle" [image] = "image"></app-header>
+<div class="goback-button" *ngIf ="!question || question && !invalid()" routerLink= "..">
   <i class="fa fa-arrow-left" aria-hidden="true"></i>
-</button>
-<button class="button-card" *ngIf ="question && invalid()" (click)="modalService.open(quitWithInvalidQuestion)"> Retour </button>
-
-<div class = "horizontal-center" *ngIf="allIsLoaded()">
-    <h1>Quiz : {{quiz.name}}</h1>
-    
-    <div class="horizontal-center ">
-        <div class = "questionLabel">Question : {{question.label}}</div> 
-        <div *ngIf="image.url" class="frame-little">
-            <img class = "thumbnail" [src]="imageService.getImgSrc1(image)" alt="question image">
-        </div>
-        <button class="button-card" (click)="modalService.open(questionEditModal)">Modifier</button>
-    </div>
-       
-    <h2>Réponses :</h2>
-    
-    <button id = "createAnswer" class="button-card" (click)="modalService.open(answerFormModal)"> 
-        <i class="fas fa-plus-circle"></i> Nouvelle Réponse 
-    </button>
-  
-
-    <div class="answer-list">
-        <div *ngFor="let answer of question.answers">
-                <app-answer-view [answer]="answer" [question]="question" [quiz]="quiz"></app-answer-view>
-        </div>
-    </div>
-
+</div>
+<div class="goback-button" *ngIf ="question && invalid()" (click)="modalService.open(quitWithInvalidQuestion)" routerLink= "..">
+  <i class="fa fa-arrow-left" aria-hidden="true"></i>
 </div>
 
+<div class="home-button" routerLink= "/">
+  <i class="fa fa-home" aria-hidden="true"></i>
+</div>
+
+<div class="img-edit-block">
+  <button class="edit-button" id="editQuestion" (click)="modalService.open(questionEditModal)">Modifier la Question</button>
+</div>
+
+<div class="main" *ngIf="allIsLoaded()">
+  <div type="button" class="new-button" (click)="modalService.open(answerFormModal)">
+    <i class="fas fa-plus-circle"></i> Nouvelle Réponse
+  </div>
+  <div class="answer-list">
+    <div class="fixed-container-bigger" *ngFor="let answer of question.answers">
+      <button class="delete-button" (click)="deleteAnswer(answer)">
+        <i class="fas fa-times"></i>
+      </button>
+      <!--<app-answer-view [answer]="answer" [question]="question" [quiz]="quiz"></app-answer-view>-->
+      <div class="quiz-card">
+        <app-answer-form [quiz] = "quiz" [question] = "question" [answer] = "answer"></app-answer-form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <ng-template #questionEditModal let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Modifier la question :</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-        <app-question-form-modal [quiz] = "quiz" [question] = "question" [image] = "image" (quitForm) = "modal.close()"></app-question-form-modal>
-    </div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Modifier la question :</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-question-form-modal [quiz] = "quiz" [question] = "question" [image] = "image" (quitForm) = "modal.close()"></app-question-form-modal>
+  </div>
 </ng-template>
 
 <ng-template #answerFormModal let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Ajouter une réponse :</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-        <app-answer-form [quiz] = "quiz" [question] = "question" (quitForm) = "modal.close()"></app-answer-form>
-    </div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Ajouter une réponse :</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-answer-form [quiz] = "quiz" [question] = "question" (quitForm) = "modal.close()"></app-answer-form>
+  </div>
 </ng-template>
 
 <ng-template #quitWithInvalidQuestion let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Question invalide</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class = "errorMessage">
-            {{invalid()}}
-        </div>
-        <button class="button-card" (click)="goBack();modal.close()"> Quitter quand même </button>
-        <button class="button-card" (click)="modal.close()"> Continuer l'édition </button>
-      </div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Question invalide</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class = "errorMessage">
+      {{invalid()}}
+    </div>
+    <button class="button-card" (click)="goBack();modal.close()"> Quitter quand même </button>
+    <button class="button-card" (click)="modal.close()"> Continuer l'édition </button>
+  </div>
 </ng-template>
 

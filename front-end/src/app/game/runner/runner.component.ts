@@ -10,6 +10,7 @@ import { Img } from 'src/models/image.model';
 import { ImageService } from 'src/services/image.service';
 import { Attempt } from 'src/models/attempt.model';
 import { AttemptService } from 'src/services/attempt.service';
+import { IfStmt } from '@angular/compiler';
 
 
 @Component({
@@ -29,11 +30,13 @@ export class RunnerComponent implements OnInit {
   @Output() showAnswer: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   headerTitle: string;
+  headerImage: Img;
 
   constructor(private route: ActivatedRoute, public quizService: QuizService, public imageService: ImageService, public attemptService: AttemptService) {
     this.quizService.quizSelected$.subscribe((quiz) => {
       this.quiz = quiz;
       this.headerTitle = this.quiz.name;
+      this.loadHeaderImage();
       if(quiz.questions) {
         this.questions = quiz.questions.map(e => ({ ... e }));
         this.questions.reverse();
@@ -42,7 +45,11 @@ export class RunnerComponent implements OnInit {
         this.initAttempt();
       }
     });
+  }
 
+  loadHeaderImage() {
+    this.headerImage = {} as Img;
+    this.imageService.loadQuizImage(this.headerImage, this.quiz.imageId);
   }
 
   initAttempt() {

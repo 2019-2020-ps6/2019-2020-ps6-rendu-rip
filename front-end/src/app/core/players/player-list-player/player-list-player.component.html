@@ -1,7 +1,7 @@
 <div class="player-list">
-    <div class="card player fixed-container" *ngFor="let player of playerList">
-        <button class="player-card" routerLink="./{{player.id}}">
+    <div class="fixed-container-bigger" *ngFor="let player of playerList">
+        <div class="quiz-card" routerLink="./{{player.id}}">
             <app-player [player]="player" (playerDeleted) = "deletePlayer($event)"></app-player>
-        </button>
+        </div>
     </div>
 </div>

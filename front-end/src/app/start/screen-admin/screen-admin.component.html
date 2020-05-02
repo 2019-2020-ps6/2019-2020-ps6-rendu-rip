@@ -1,10 +1,15 @@
-<button class="button-card" routerLink= "/home">
+<app-header [title] = "headerTitle"></app-header>
+<div class="goback-button" routerLink= "/">
     <i class="fa fa-arrow-left" aria-hidden="true"></i>
-</button>
-<button class="button-card" routerLink= "/home">Home</button>
+</div>
+<div class="home-button" routerLink= "/">
+    <i class="fa fa-home" aria-hidden="true"></i>
+</div>
 
-<div class="buttons-duo center">
-    <button class="button-card button-big" routerLink = "./gallery">Galerie</button> 
-    <button class="button-card button-big" routerLink= "./quiz-list">Quiz</button>
-    <button class="button-card button-big" routerLink= "./player-list">Accueillis</button>
+<div class="main">
+<div class="vertical-center">
+    <div class="big-button" routerLink = "./gallery">Galerie</div> 
+    <div class="big-button" routerLink= "./quiz-list">Quiz</div>
+    <div class="big-button" routerLink= "./player-list">Accueillis</div>
+</div>
 </div>

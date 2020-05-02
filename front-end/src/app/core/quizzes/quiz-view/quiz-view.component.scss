@@ -1,6 +1,7 @@
-@import 'src/styles/card.scss';
-@import 'src/styles/images.scss';
-@import 'src/styles/layout.scss';
+@import '../../../../styles/card.scss';
+@import '../../../../styles/images.scss';
+@import '../../../../styles/layout.scss';
+@import '../../../../styles/common.scss';
 
 .card {
     max-width: 60%;
@@ -17,6 +18,8 @@
     margin-right: auto;
     border-style: dashed;
     border-color:  rgb(243, 58, 144);
-    height: 30%;
-    width: 30%;
+    height: 10%;
+    width: 10%;
+    min-width: 20rem;
+    min-height: 20rem;
 }

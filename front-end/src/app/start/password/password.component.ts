@@ -9,6 +9,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class PasswordComponent implements OnInit {
 
+  headerTitle = "Connexion à l'espace du personnel";
+
   loginForm: FormGroup;
   isCorrect : boolean = true;
   counter : number = 0;

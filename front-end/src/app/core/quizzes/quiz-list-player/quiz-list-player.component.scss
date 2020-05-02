@@ -1,22 +1,11 @@
-@import 'src/styles/card.scss';
-@import 'src/styles/layout.scss';
-@import 'src/styles/common.scss';
+@import '../../../../styles/card.scss';
+@import '../../../../styles/layout.scss';
+@import '../../../../styles/common.scss';
 
 .quiz {
   padding: 0.5em;
   @extend .vertical-layout;
   text-align: center;
-}
-
-.quiz-list {
-  @extend .responsive-list;
-  text-align: center;
-}
-
-.quiz-card{
-  @extend .button-card;
-  @extend .quiz;
-  width: 100%;
 }
 
 #bouton {

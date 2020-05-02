@@ -1,10 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Question } from '../../../../models/Question.model';
 import { Quiz } from 'src/models/quiz.model';
-import { QuizService } from 'src/services/quiz.service';
 import { Img } from '../../../../models/image.model';
-import { ImageService } from 'src/services/image.service';
 import { Router } from '@angular/router';
+import { GlobalService } from 'src/services/global.service';
 
 @Component({
   selector: 'app-question',
@@ -17,7 +16,7 @@ export class QuestionComponent implements OnInit {
   @Input() quiz: Quiz;
   
   image: Img;
-  constructor(public quizService: QuizService, public imageService: ImageService, public router: Router) {
+  constructor(public globalService: GlobalService, public router: Router) {
   }
 
   ngOnInit() {
@@ -27,11 +26,10 @@ export class QuestionComponent implements OnInit {
   loadImage(){
     this.image = {} as Img;
     const id = this.question.imageId;
-    if(id) this.imageService.loadQuestionImage(this.image, id);
+    if(id) this.globalService.loadQuestionImage(this.image, id);
   }
   
   deleteQuestion() {
-    this.quizService.deleteQuestion(this.quiz, this.question);
+    this.globalService.deleteQuestion(this.quiz.id, this.question.id);
   }
-
 }

@@ -29,24 +29,37 @@ export class PlayerService {
 
   setPlayersFromUrl() { this.http.get<Player[]>(this.playerUrl).subscribe(players => this.setplayers(players)); }
 
-  setplayer(player: Player){ this.playerSelected$.next(player); }
+  setPlayer(player: Player){ this.playerSelected$.next(player); }
 
   setSelectedPlayer(playerId: string) {
     const url = `${this.playerUrl}/${playerId}`;
-    this.http.get<Player>(url).subscribe((player) => this.setplayer(player));
+    this.http.get<Player>(url).subscribe((player) => this.setPlayer(player));
   }
 
-  getplayer(usr: Player, playerId: string) {
+  getPlayer(usr: Player, playerId: string) {
     const url = `${this.playerUrl}/${playerId}`;
     this.http.get<Player>(url).subscribe((player) => {
       usr.id = player.id;
       usr.name = player.name;
       usr.imageId = usr.imageId;
-      this.setplayer(player);
+      this.setPlayer(player);
     });
   }
 
-  addplayer(player: Player) { 
+  getNameAndImage(playerId: string, name: string, image: Img) {
+    const url = `${this.playerUrl}/${playerId}`;
+    this.http.get<Player>(url).subscribe((player) => {
+      name = player.name;
+      console.log(name);
+      const urlImg = `${serverUrl}/images/player/${player.imageId}`;
+      this.http.get<Img>(urlImg).subscribe(img => {
+        image = img;
+        console.log(image);
+      });
+    });  
+  }
+
+  addPlayer(player: Player) { 
     this.http.post<Player>(this.playerUrl, player, this.httpOptions).subscribe(() => {
     this.setPlayersFromUrl()}); }
 
@@ -54,7 +67,7 @@ export class PlayerService {
     const url = `${serverUrl}/images/player`;
     this.http.post<Img>(url, image, this.httpOptions).subscribe(img => {
       player.imageId = img.id;//(img.id).toString();
-      this.addplayer(player);//met à jour observable
+      this.addPlayer(player);//met à jour observable
     });
   }
 
@@ -71,16 +84,14 @@ export class PlayerService {
     this.setPlayersFromUrl()});
   }
 
-
-  updateplayerWithImg(player: Player, imgToSave: Img) {
+  updatePlayerWithImg(player: Player, imgToSave: Img) {
     const url = `${serverUrl}/images/player`;
     this.http.post<Img>(url, imgToSave, this.httpOptions).subscribe(img => {
       player.imageId = img.id;
       this.updatePlayer(player);
     });
-
-    
   }
+
   playerInvalid(player: Player){
     if(!player){
       window.alert("Erreur");

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { QuizService } from 'src/services/quiz.service';
 import { Quiz } from 'src/models/quiz.model';
 import { ModalService } from 'src/services/modal.service';
 import { ThemeService } from 'src/services/theme.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { GlobalService } from 'src/services/global.service';
+import { QuizService } from 'src/services/quiz.service';
 
 @Component({
   selector: 'app-quiz-list-admin',
@@ -12,14 +13,16 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class QuizListAdminComponent implements OnInit {
 
+  headerTitle = "Liste des quiz"
+
   public quizList: Quiz[] = [];
   public THEME_LIST: string[] = [];
   private ALL_QUIZZES: string='TOUS';
 
   themeForm: FormGroup;
 
-  constructor(private modalService: ModalService, public quizService: QuizService,
-              public formBuilder: FormBuilder, public themeService : ThemeService) {
+  constructor(private modalService: ModalService, public globalService: GlobalService,
+    public quizService: QuizService, public formBuilder: FormBuilder, public themeService : ThemeService) {
     this.quizService.quizzes$.subscribe((quizzes) => this.quizList = quizzes);
     this.themeFilteringSetup();
   }
@@ -55,5 +58,4 @@ export class QuizListAdminComponent implements OnInit {
   ngOnInit() {}
   
   deleteQuiz(quiz: Quiz) { this.quizService.deleteQuiz(quiz); }
-
 }

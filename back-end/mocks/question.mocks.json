@@ -24,33 +24,10 @@
     "imageId": "1587915644507"
   },
   {
-    "label": "Quelle fleur pousse en haute montagne?",
-    "quizId": 1584997706362,
-    "id": 1587638191128,
-    "imageId": "1587993417723"
-  },
-  {
     "label": "Avec quel alcool fait-on le Bloody Mary ?",
     "quizId": 1585935848333,
     "id": 1587803400627,
     "imageId": "1588002054639"
-  },
-  {
-    "label": "La fleur de bleuet est-elle comestible ?",
-    "quizId": 1584997706362,
-    "id": 1587993851122,
-    "imageId": "1587994265221"
-  },
-  {
-    "label": "Qui possède des épines ?",
-    "quizId": 1584997706362,
-    "id": 1587994357603
-  },
-  {
-    "label": "Où est la lavande?",
-    "quizId": 1584997706362,
-    "imageId": 1587994838315,
-    "id": 1587994838512
   },
   {
     "label": "Qu'est-ce qui est fait avec du lait de coco et du jus d'ananas ?",
@@ -75,7 +52,7 @@
     "imageId": "1588004193940"
   },
   {
-    "label": "Quelle est la tenue du triathlète ?",
+    "label": "Quelle est la tenue du triathlte ?",
     "quizId": 1586251991064,
     "id": 1588004242982,
     "imageId": "1588004303414"

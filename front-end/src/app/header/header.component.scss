@@ -1,4 +1,6 @@
 @import "../../styles/variables";
+@import "../../styles/images.scss";
+@import "../../styles/common.scss";
 
 /**
  Use :host to apply some style to your entire component #24c6dc, #514a9d
@@ -11,13 +13,16 @@
 .header {
   float: center;
   width: 100%;
-  //background: $magenta;
-  //background-color: rgb(137, 2, 179);//$magenta;
-  background-color: rgb(151, 87, 255);//$magenta;
-  padding: 0.5em;
+  background-color: $light-purple;
+  padding: 0.55em;
   text-align: center;
   font-weight: bold;
   position: fixed;
   margin-top: -3rem;
   box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+}
+
+.header-img {
+  @extend .header;
+  padding: 0.3em;
 }

@@ -1,3 +1,9 @@
-<div class="header">
-    {{title}}
+<div *ngIf="image && image.url; else text" class="header-img">
+    - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> -
 </div>
+
+<ng-template #text>
+    <div class="header">
+        - {{title}} - 
+    </div>
+</ng-template>

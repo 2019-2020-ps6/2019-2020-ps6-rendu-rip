@@ -51,12 +51,12 @@ export class PlayerFormModalComponent implements OnInit {
     if(this.player) playerToSave.id = this.player.id;
     if(this.imageService.isRemoved(this.imageTmp.id))playerToSave.imageId = this.imageTmp.id;
     if(this.imageTmp.url){
-      if(this.player) this.playerService.updateplayerWithImg(playerToSave, this.imageService.imageFillIn(this.imageTmp));
+      if(this.player) this.playerService.updatePlayerWithImg(playerToSave, this.imageService.imageFillIn(this.imageTmp));
       else this.playerService.addPlayerWithImage(playerToSave, this.imageService.imageFillIn(this.imageTmp));
     }
     else{
       if(this.player) this.playerService.updatePlayer(playerToSave);
-      else this.playerService.addplayer(playerToSave);
+      else this.playerService.addPlayer(playerToSave);
     }
     this.reset();
     this.quitForm.emit(true);//false

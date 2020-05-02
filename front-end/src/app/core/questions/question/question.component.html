@@ -1,10 +1,7 @@
-
-<div *ngIf = "question" class="card">
+<div *ngIf = "question">
     {{question.label}}
     <div *ngIf="image.url"class="frame">
-        <img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="question image">
+        <img class="thumbnail" [src]="globalService.getImgSrc1(image)" alt="question image">
     </div>
     <div *ngIf = "question.answers"> {{question.answers.length}} réponses disponibles</div>
-    <button id = "modifyQuestion" class="button-card" routerLink= "./{{question.id}}">Modifier</button>
-    <button id = "deleteQuestion" class="button-card" (click)="deleteQuestion()">Supprimer</button>
 </div>

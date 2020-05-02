@@ -4,7 +4,7 @@ import { QuizService } from 'src/services/quiz.service';
 import { Quiz } from 'src/models/quiz.model';
 import { Img } from 'src/models/image.model';
 import { ImageService } from 'src/services/image.service';
-import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+//import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalService } from 'src/services/modal.service';
 
 @Component({
@@ -15,6 +15,7 @@ import { ModalService } from 'src/services/modal.service';
 
 export class QuizViewComponent implements OnInit {
  
+  headerTitle: string;
   quiz: Quiz;
   image: Img = {} as Img;
 
@@ -23,13 +24,18 @@ export class QuizViewComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.quizService.quizSelected$.subscribe((quiz) => this.onQuizSelected(quiz));
+    this.quizService.quizSelected$.subscribe((quiz) => {
+      this.onQuizSelected(quiz);
+      this.headerTitle = quiz.theme + " : " + quiz.name;
+    });
     this.quizService.setSelectedQuiz(id);
   }
+
   private onQuizSelected(quiz: Quiz) {
     this.quiz = quiz;
     this.loadImage();
   }
+  
   loadImage(){
     this.image = {} as Img;
     const id = this.quiz.imageId;//image par défaut si null

@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Answer } from 'src/models/answer.model';
 import { Question } from 'src/models/question.model';
 import { Quiz } from 'src/models/quiz.model';
-import { QuizService } from 'src/services/quiz.service';
 import { Img } from '../../../../models/image.model';
-import { ImageService } from 'src/services/image.service';
+
+import { GlobalService } from 'src/services/global.service';
 
 @Component({
   selector: 'app-answer-form',
@@ -23,7 +23,7 @@ export class AnswerFormComponent implements OnInit {
   
   imageTmp : Img = {} as Img;
   image : Img = {} as Img;
-  constructor(public formBuilder: FormBuilder, public quizService: QuizService, public imageService: ImageService) {}
+  constructor(public formBuilder: FormBuilder, public globalService: GlobalService) {}
 
   ngOnInit() {
     this.initializeAnswerForm();
@@ -47,7 +47,7 @@ export class AnswerFormComponent implements OnInit {
   }
 
   initImageTmp(){
-    if(this.image) this.imageTmp = this.imageService.imageFillIn(this.image);
+    if(this.image) this.imageTmp = this.globalService.imageFillIn(this.image);
     else this.imageTmp = {} as Img;
   }
 
@@ -56,17 +56,15 @@ export class AnswerFormComponent implements OnInit {
     if(this.answer){
       const id = this.answer.imageId;
       if(id) {
-        this.imageService.loadAnswerImage(this.image, id);
-        this.imageService.loadAnswerImage(this.imageTmp,id);
+        this.globalService.loadAnswerImage(this.image, id);
+        this.globalService.loadAnswerImage(this.imageTmp,id);
       }
     }
   }
 
-
   allIsLoaded(){
     return this.answer; //|| (this.image.url || (!this.answer.imageId || this.answer.imageId===this.imageService.imageRemovedId));
   }
-  
 
   submitAnswer() {
     let answerToSave: Answer = {} as Answer;
@@ -75,16 +73,16 @@ export class AnswerFormComponent implements OnInit {
     if(value!="") answerToSave.value = value;
     if(this.answer) answerToSave.id = this.answer.id;
     answerToSave.questionId = this.question.id;
-    if(this.quizService.answerInvalid(answerToSave,this.imageTmp.url))return;
+    if(this.globalService.answerInvalid(answerToSave, this.imageTmp.url))return;
     if(this.addImage()){
-      if(this.answer) this.quizService.updateAnswerWithImage(this.quiz.id,this.question.id,answerToSave,this.imageService.imageFillIn(this.imageTmp))
-      else this.quizService.addAnswerWithImage(this.quiz.id, this.question.id, answerToSave, this.imageService.imageFillIn(this.imageTmp));
+      if(this.answer) this.globalService.updateAnswerWithImage(this.quiz.id,this.question.id,answerToSave,this.globalService.imageFillIn(this.imageTmp))
+      else this.globalService.addAnswerWithImage(this.quiz.id, this.question.id, answerToSave, this.globalService.imageFillIn(this.imageTmp));
     }
     else{
-      if(this.imageService.isRemoved(this.imageTmp.id)) answerToSave.imageId = this.imageTmp.id;
+      if(this.globalService.isRemoved(this.imageTmp.id)) answerToSave.imageId = this.imageTmp.id;
       else if(this.imageTmp.id) answerToSave.imageId = this.imageTmp.id.toString();
-      if(this.answer) this.quizService.updateAnswer(this.question.quizId, this.question.id, answerToSave);
-      else this.quizService.addAnswer(this.question.quizId, this.question.id, answerToSave);
+      if(this.answer) this.globalService.updateAnswer(this.question.quizId, this.question.id, answerToSave);
+      else this.globalService.addAnswer(this.question.quizId, this.question.id, answerToSave);
     }
     this.reset();
   }
@@ -97,14 +95,14 @@ export class AnswerFormComponent implements OnInit {
   }
 
   addImage(){
-    if(this.imageService.isRemoved(this.imageTmp.id)) return false
-    if(this.imageTmp.type===this.imageService.defaultType) return false;
-    if(this.imageTmp.type===this.imageService.dataBaseType)return false;
-    return (this.imageTmp.url && (!this.image || this.image.url !== this.imageTmp.url))
+    if(this.globalService.isRemoved(this.imageTmp.id) ||
+    this.imageTmp.type===this.globalService.defaultType ||
+    this.imageTmp.type===this.globalService.dataBaseType) return false;
+    return (this.imageTmp.url && (!this.image || this.image.url !== this.imageTmp.url));
   }
   
   deleteAnswer() {
-    if(this.answer) this.quizService.deleteAnswer(this.quiz, this.question, this.answer);
+    if(this.answer) this.globalService.deleteAnswer(this.quiz.id, this.question.id, this.answer.id);
   }
 
   //Renvoi un id pour modals pour éviter le conflit
@@ -112,9 +110,9 @@ export class AnswerFormComponent implements OnInit {
     return this.answer ? this.answer.id : "";
   }
 
-sizeInput(){
-  if(!this.answer || !this.answer.value) return 20;
-  else if (this.answer.value.length>40)return 40;
-  else return this.answer.value.length;
-}
+  sizeInput(){
+    if(!this.answer || !this.answer.value) return 20;
+    else if (this.answer.value.length>40)return 40;
+    else return this.answer.value.length;
+  }
 }

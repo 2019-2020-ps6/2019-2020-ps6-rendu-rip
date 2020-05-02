@@ -1,16 +1,15 @@
-<div class="new-answer-form">
-  <div *ngIf = "allIsLoaded()">
+<div>
+  <!--<div *ngIf = "allIsLoaded()">-->
     <form [formGroup]="answerForm">
       <label for="name">Réponse</label><br>
       <input type="text" size = "{{sizeInput()}}" [formControlName]="'value'" id="name">
       <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>
       <ng-template [ngTemplateOutlet] ="displayImageAns"></ng-template>
       Correcte : <input type="checkbox" [formControlName]="'isCorrect'"> <br>
-      <button type="submit" id="submitAnswer" class="button-card" type="submit" (click)="submitAnswer()">Valider</button>
+      <button type="submit" id="submitAnswer" class="button-card" type="submit" (click)="submitAnswer()">Enregistrer</button>
       <button type="button" id="cancelAnswer" class="button-card" (click)="reset()">Annuler</button>
-      <button type="button" id="deleteAnswer" class="button-card" (click)="deleteAnswer()">Supprimer la réponse</button>
     </form>
-  </div>
+  <!--</div>-->
 </div>
 
 
@@ -18,7 +17,7 @@
 	<div class="label">
     Charger une image depuis :<br>
     <label for="image64AnswerForm{{setLabel()}}" class="button-card chargingButton" >Cet appareil</label>
-	  <input type="file" class="hidden" id="image64AnswerForm{{setLabel()}}" (change)="imageService.onChangeFile($event,imageTmp)" accept="image/*">
+	  <input type="file" class="hidden" id="image64AnswerForm{{setLabel()}}" (change)="globalService.onChangeFile($event,imageTmp)" accept="image/*">
     <app-database-image-modal [imageTmp] = "imageTmp" [id] = "setLabel()"></app-database-image-modal>
     <app-internet-image-modal [imageTmp] = "imageTmp" [id] = "setLabel()"></app-internet-image-modal>
   </div>
@@ -26,7 +25,7 @@
 
 <ng-template #displayImageAns>
 	<div class="frame image fixed-container" *ngIf="imageTmp.url">
-    <button type="button" class="delete" (click)="imageService.removeImg(imageTmp)"><i class="fas fa-times"></i></button>
-    <img class="thumbnail" [src]="imageService.getImgSrc1(imageTmp)" alt="answer image">
+    <button type="button" class="delete" (click)="globalService.removeImg(imageTmp)"><i class="fas fa-times"></i></button>
+    <img class="thumbnail" [src]="globalService.getImgSrc1(imageTmp)" alt="answer image">
   </div>
 </ng-template>

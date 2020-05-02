@@ -1,38 +1,39 @@
-<button class="button-card" routerLink= "/admin">
+<app-header [title] = "headerTitle"></app-header>
+<div class="goback-button" routerLink= "/admin">
     <i class="fa fa-arrow-left" aria-hidden="true"></i>
-</button>
-<button class="button-card" routerLink= "/">Home</button>
-<br>
-
-<form [formGroup]="themeForm">
-    <select name="Thème" id="selectTheme" [formControlName]="'theme'">
-        <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
-          {{current_theme}}
-        </option>
-    </select>
-</form>
-
-<div class="newQuiz">
-    <button type="button" class="button-card" (click)="modalService.open(quizFormModal)"> 
-        <i class="fas fa-plus-circle"></i> Nouveau Quiz
-    </button>
+</div>
+<div class="home-button" routerLink= "/">
+    <i class="fa fa-home" aria-hidden="true"></i>
 </div>
 
-<div class="quiz-list">
-    <div *ngIf="quizList && filteredQuizList().length!==0; else noQuizFound">
-        <div *ngFor="let quiz of filteredQuizList()">
-            <div class="card quiz fixed-container-bigger">
-                <div class = "invalid" *ngIf = "!quizService.isValid(quiz)">
-                    Incomplet
-                </div>
-                <button class="button-card delete" (click)="deleteQuiz(quiz)">
-                    <i class="fas fa-times"></i></button>
-                <button class="quiz-card" routerLink= "./{{quiz.id}}">
-                    <app-quiz [quiz]="quiz" (quizDeleted) = "deleteQuiz($event)"></app-quiz>
-                </button>        
-            </div>
+<div class="main">
+    <div class="new-button" (click)="modalService.open(quizFormModal)"> 
+        <i class="fas fa-plus-circle"></i> Nouveau Quiz
+    </div> 
+    <div class="theme-button">
+        <form [formGroup]="themeForm">
+            Thème:
+            <select name="Thème" id="selectTheme" [formControlName]="'theme'">
+                <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
+                  {{current_theme}}
+                </option>
+            </select>
+        </form>
+    </div> 
+<div class="quiz-list" *ngIf="quizList && filteredQuizList().length!==0; else noQuizFound">
+    <div class="fixed-container-bigger" *ngFor="let quiz of filteredQuizList()">
+        <div class = "tag" *ngIf = "!globalService.isValid(quiz)">
+            INCOMPLET
         </div>
+        <button class="delete-button" (click)="deleteQuiz(quiz)">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="quiz-card" routerLink= "./{{quiz.id}}">
+            <app-quiz [quiz]="quiz"></app-quiz>
+            <!-- (quizDeleted) = "deleteQuiz($event)"></app-quiz> -->
+        </div>       
     </div>
+</div>
 </div>
 
 <ng-template #noQuizFound let-modal>

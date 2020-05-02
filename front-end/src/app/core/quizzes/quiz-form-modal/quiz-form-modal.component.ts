@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { QuizService } from 'src/services/quiz.service';
 import { Quiz } from 'src/models/quiz.model';
 import { Img } from 'src/models/image.model';
-import { ImageService } from 'src/services/image.service';
 import { ThemeService } from 'src/services/theme.service';
+import { GlobalService } from 'src/services/global.service';
 
 @Component({
   selector: 'app-quiz-form-modal',
@@ -30,8 +29,8 @@ export class QuizFormModalComponent implements OnInit {
 
   public THEME_LIST : string[];
 
-  constructor(public imageService: ImageService, public quizService: QuizService, 
-    public formBuilder: FormBuilder, public themeService : ThemeService) {}
+  constructor(public globalService: GlobalService, public formBuilder: FormBuilder, 
+    public themeService : ThemeService) {}
 
   ngOnInit() {
     this.initImageTmp();
@@ -43,7 +42,7 @@ export class QuizFormModalComponent implements OnInit {
   }
 
   initImageTmp(){
-    if(this.image) this.imageTmp = this.imageService.imageFillIn(this.image);
+    if(this.image) this.imageTmp = this.globalService.imageFillIn(this.image);
     else this.imageTmp = {} as Img;
   }
   initQuizForm() {
@@ -70,24 +69,24 @@ export class QuizFormModalComponent implements OnInit {
   }
 
   addNewImage() {
-    if (this.imageService.isRemoved(this.imageTmp.id)) { return false; }
-    if (this.imageTmp.type === this.imageService.defaultType) { return false; }
-    if (this.imageTmp.type === this.imageService.dataBaseType) {return false; }
+    if (this.globalService.isRemoved(this.imageTmp.id)) { return false; }
+    if (this.imageTmp.type === this.globalService.defaultType) { return false; }
+    if (this.imageTmp.type === this.globalService.dataBaseType) {return false; }
     return (this.imageTmp.url && (!this.image || this.image.url !== this.imageTmp.url))
   }
 
   addOrUpdateQuiz() {
     let quizToSave: Quiz = this.quizFillIn();
-    if(this.quizService.quizInvalid(quizToSave))return;
+    if(this.globalService.quizInvalid(quizToSave))return;
     if(this.addNewImage()){
-      if(this.quiz)this.quizService.updateQuizWithImage(quizToSave,this.imageService.imageFillIn(this.imageTmp));
-      else this.quizService.addQuizWithImage(quizToSave, this.imageService.imageFillIn(this.imageTmp));
+      if(this.quiz)this.globalService.updateQuizWithImage(quizToSave,this.globalService.imageFillIn(this.imageTmp));
+      else this.globalService.addQuizWithImage(quizToSave, this.globalService.imageFillIn(this.imageTmp));
     }
     else{
-      if(this.imageService.isRemoved(this.imageTmp.id)) quizToSave.imageId = this.imageTmp.id;
+      if(this.globalService.isRemoved(this.imageTmp.id)) quizToSave.imageId = this.imageTmp.id;
       else if(this.imageTmp.id) quizToSave.imageId = this.imageTmp.id.toString();
-      if(this.quiz)this.quizService.updateQuiz(quizToSave);
-      else this.quizService.addQuiz(quizToSave);
+      if(this.quiz)this.globalService.updateQuiz(quizToSave);
+      else this.globalService.addQuiz(quizToSave);
   }
     this.reset();
     this.quitForm.emit(false);

@@ -2,6 +2,9 @@
 <div class="goback-button" (click)="goBack()">
     <i class="fa fa-arrow-left" aria-hidden="true"></i>
 </div>
+<div class="home-button" routerLink= "/">
+    <i class="fa fa-home" aria-hidden="true"></i>
+</div>
 <div class="main">
 <div class="responsive-list">
     <div *ngFor="let img of images">
@@ -9,7 +12,7 @@
                 <button class="delete" (click)="checkIfImageIsUsed(img);modalService.open(deleteImageUsed)">
                     <i class="fas fa-times" aria-hidden="true"></i>
                 </button>
-                <img class="frame thumbnail" [src]="imageService.getImgSrc1(img)" alt="answer image">
+                <img class="frame thumbnail" [src]="globalService.getImgSrc1(img)" alt="answer image">
         </div>
     </div>
 </div>
