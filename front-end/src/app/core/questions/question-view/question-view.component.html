@@ -2,7 +2,7 @@
 <div class="goback-button" *ngIf ="!question || question && !invalid()" (click)= "goBack()">
   <i class="fa fa-arrow-left" aria-hidden="true"></i>
 </div>
-<div class="goback-button" *ngIf ="question && invalid()" (click)="modalService.open(quitWithInvalidQuestion)" routerLink= "..">
+<div class="goback-button" *ngIf ="question && invalid()" (click)="modalService.open(quitWithInvalidQuestion)">
   <i class="fa fa-arrow-left" aria-hidden="true"></i>
 </div>
 

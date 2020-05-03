@@ -277,9 +277,13 @@ export class GlobalService {
   isValid(quiz: Quiz): boolean {
     if(!quiz || !quiz.name || !quiz.theme || !quiz.questions || quiz.questions.length === 0) 
       return false;
-    quiz.questions.forEach(question => {
+    for(var i =0;i<quiz.questions.length;i++){
+      if(this.answersInvalid(quiz.questions[i].answers)!=="") return false;     
+    }
+    /*quiz.questions.forEach(question => {
       if(this.answersInvalid(question.answers) === "-1") return false
     });
+    */
     return true;
   }
 }
