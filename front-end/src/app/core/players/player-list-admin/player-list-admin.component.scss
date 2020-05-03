@@ -1,5 +1,6 @@
 @import 'src/styles/card.scss';
 @import 'src/styles/layout.scss';
+@import '../../../../styles/common.scss';
 
 .player-list {
   @extend .responsive-list;

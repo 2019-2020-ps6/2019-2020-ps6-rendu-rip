@@ -38,8 +38,6 @@ import { PlayerListPlayerComponent } from './core/players/player-list-player/pla
 import { GalleryComponent } from './gallery/gallery.component';
 import { PasswordComponent } from './start/password/password.component';
 import { QuestionViewComponent} from './core/questions/question-view/question-view.component';
-import { AnswerViewComponent} from './core/answers/answer-view/answer-view.component';
-
 import { PlayerViewComponent } from './core/players/player-view/player-view.component';
 import { StatisticsComponent } from './results/statistics/statistics.component';
 import { QuizAttemptComponent } from './results/quiz-attempt/quiz-attempt.component';
@@ -78,7 +76,6 @@ import { DatabaseImageModalComponent } from './core/database-image-modal/databas
     GalleryComponent,
     PasswordComponent,
     QuestionViewComponent,
-    AnswerViewComponent,
     PlayerViewComponent,
     StatisticsComponent,
     QuizAttemptComponent,

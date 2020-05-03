@@ -64,3 +64,8 @@ h2 {
 .imageAndText{
     display: flex;
 }
+
+.quiz-card:hover {
+    cursor: default;
+    background-color: white;
+}

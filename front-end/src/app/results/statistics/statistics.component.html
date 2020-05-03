@@ -1,10 +1,16 @@
-<button class="button-card" (click)="goBack()"> Retour </button>
-
-<div *ngIf="player">
-    <!--<app-player [player]="player"></app-player>-->
-    <div class="flex-list">
-        <div *ngFor="let attempt of playerAttempts" >
-            <app-quiz-attempt [attempt]="attempt" routerLink="./{{attempt.id}}"></app-quiz-attempt>
+<app-header [title] = "headerTitle" [image] = "playerImage"></app-header>
+<div class="goback-button" routerLink= "..">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+</div>
+<div class="home-button" routerLink= "/">
+    <i class="fa fa-home" aria-hidden="true"></i>
+</div>
+<div class="main">
+    <div *ngIf="player">
+        <div class="flex-list">
+            <div *ngFor="let attempt of playerAttempts" >
+                <app-quiz-attempt [attempt]="attempt" routerLink="./{{attempt.id}}"></app-quiz-attempt>
+            </div>
         </div>
     </div>
 </div>

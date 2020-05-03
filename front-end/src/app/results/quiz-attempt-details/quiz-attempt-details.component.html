@@ -1,36 +1,56 @@
-<button class="button-card" (click)="goBack()"> Retour </button>
+<app-header [title] = "headerTitle"></app-header>
+<div class="goback-button" *ngIf ="!question || question && !invalid()" (click)= "goBack()">
+  <i class="fa fa-arrow-left" aria-hidden="true"></i>
+</div>
+<div class="goback-button" *ngIf ="question && invalid()" (click)="modalService.open(quitWithInvalidQuestion)" routerLink= "..">
+  <i class="fa fa-arrow-left" aria-hidden="true"></i>
+</div>
 
-<div *ngIf="loaded()" >
-    <h2>Résultats du quiz : {{quiz.name}} réalisé le {{attempt.date | date : 'dd/MM/yyyy'}} par {{player.name}} </h2>
-    <div *ngIf="quizImage.url" class="frame-little"><img class = "thumbnail" [src]="globalService.getImgSrc1(quizImage)" alt="quiz image"></div>
+<div class="home-button" routerLink= "/">
+  <i class="fa fa-home" aria-hidden="true"></i>
+</div>
+
+<div class="main" *ngIf="loaded()" >
+<div>
+    <div class="quiz-title">
+    <div *ngIf="quizImage">
+        <h3>{{player.name}} : {{quiz.name}} 
+        <img class = "thumbnail-header" [src]="globalService.getImgSrc1(quizImage)" alt="image">
+        ({{attempt.date | date : 'dd/MM/yyyy'}})</h3>
+    </div>
+    <div *ngIf="!quizImage">
+    <h3>{{player.name}} : {{quiz.name}} ({{attempt.date | date : 'dd/MM/yyyy'}})</h3>
+    </div>
     <div class="resultats" *ngIf="attempt.timeOuts===1">{{attempt.timeOuts}} perte d'attention</div>
     <div class="resultats" *ngIf="attempt.timeOuts>1">{{attempt.timeOuts}} pertes d'attention</div>
-    <div *ngIf="attempt.wrongAnswers && attempt.wrongAnswers.length>0">
-        <div class = "resultats" *ngIf="attempt.wrongAnswers.length===1">{{attempt.wrongAnswers.length}} faute </div>
-        <div class = "resultats" *ngIf="attempt.wrongAnswers.length!==1">{{attempt.wrongAnswers.length}} fautes </div>
-        <div class="question-list"> 
-            <div *ngFor="let question of quiz.questions"> 
-                <div class="card" *ngIf = "checkIfWrongQuestion(question)">
-                    A la question : {{question.label}}<br>
-                    Il a répondu : 
-                    <div class = "answerList">
-                        <div *ngFor="let answer of attempt.wrongAnswers">
-                            <div class = "card"*ngIf = "answerInQuestion(answer, question)">
-                                {{answer.value}}
-                            </div>
-                        </div>
-                    </div>
-                    au lieu de : <br>
-                    <div class = "card">
-                        {{setRightAnswer(question).value}}
-                    </div> 
-                    <br>
-                    <button class="button-card" (click)=seeQuestion(question.id)>Modifier la question</button>
-                </div>
-             </div> 
-        </div>
-    </div>
     <div class = "resultats" *ngIf = "!attempt.wrongAnswers || attempt.wrongAnswers.length===0">
         <h2>Sans faute</h2>
     </div>
+    <div class = "resultats" *ngIf="attempt.wrongAnswers.length===1">{{attempt.wrongAnswers.length}} faute </div>
+    <div class = "resultats" *ngIf="attempt.wrongAnswers.length>1">{{attempt.wrongAnswers.length}} fautes </div>
+    </div>
+    <div class="quiz-list"> 
+        <div class="fixed-container-bigger" *ngFor="let question of quiz.questions"> 
+            <div class="quiz-card" *ngIf = "checkIfWrongQuestion(question)" (click)=seeQuestion(question.id)>
+                A la question : {{question.label}}<br>
+                La personne a répondu : 
+                <div class = "answerList">
+                    <div *ngFor="let answer of attempt.wrongAnswers">
+                        <div class = "card" *ngIf = "answerInQuestion(answer, question)">
+                            {{answer.value}}
+                        </div>
+                    </div>
+                </div>
+                au lieu de : <br>
+                <div class = "card">
+                    {{setRightAnswer(question).value}}
+                </div>
+            </div>
+            <div class="quiz-card" *ngIf = "!checkIfWrongQuestion(question)">
+                A bien répondu! --> faire un tri (select wrongQuestions)
+                au préalable pour affichage correct
+            </div>
+        </div> 
+    </div>
+</div>
 </div>

@@ -24,22 +24,12 @@
 }
 
 .thumbnail-header {
-    //object-fit: cover;
-    //display: block; 
+    object-fit: cover;
     margin-left: auto;
     margin-right: auto;
-    height: 2rem;//100%;
-    width: 2rem;// 100%;
+    height: 2rem;
+    width: 2rem;
 }
-
-/*.frame-header {
-    height: 2.1rem;
-    width: 2.1rem;
-    margin-left: auto;
-    margin-right: auto;
-    //border-style: dashed;
-    //border-color: rgb(151, 87, 255);//rgb(243, 58, 144);
-}*/
 
 .hidden {
     opacity: 0;

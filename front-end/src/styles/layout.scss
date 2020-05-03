@@ -1,11 +1,19 @@
 @import '../styles/variables.scss';
 
+.fixed-container-smaller {
+    height: 20%;
+    width: 20%;
+    min-height: 4rem;
+    min-width: 4rem;
+    margin: 0.1rem;
+}
+
 .fixed-container {
     height: 25%;
     width: 25%;
     min-height: 7rem;
-    min-width: 7.1rem;//300px;
-    margin-bottom: 1rem;
+    min-width: 7rem;
+    margin: 0.1rem;
 }
 
 .fixed-container-bigger {
@@ -14,6 +22,7 @@
     min-height: 7rem;
     min-width: 15rem;
     margin-bottom: 1rem;
+    margin: 1rem;
 }
 
 .flex-compat {
@@ -90,8 +99,4 @@
     @extend .responsive-list;
     text-align: center;
     width: 100%;
-}
-  
-.fixed-container-bigger {
-    margin: 1rem;
 }

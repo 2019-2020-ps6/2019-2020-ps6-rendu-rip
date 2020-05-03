@@ -11,14 +11,21 @@
     flex-wrap: wrap;
 }
 
-.frame-list{
-    border: 1px solid black;
-    border-collapse: collapse;
+.delete-button {
+    padding: 0.1rem 0.4rem;
 }
 
-.delete-button {
-    //float: right;
-    position: relative;
-    //margin-left: 8rem;
-    padding: 0.3rem 0.4rem;
+.quiz-card {
+    padding: 0;
+    box-shadow: none;
+}
+
+.quiz-card:hover {
+    cursor: default;
+    background-color: white;
+}
+
+.frame{
+    border: none;
+    margin: 0;
 }

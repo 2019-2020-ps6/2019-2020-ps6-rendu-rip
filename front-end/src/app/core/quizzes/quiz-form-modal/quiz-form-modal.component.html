@@ -28,9 +28,12 @@
 </ng-template>
 
 <ng-template #displayImage>  
-  <div class="frame image thumb-container-small" *ngIf="imageTmp.url">
-      <button class="delete" (click)="globalService.removeImg(imageTmp)">	<i class="fas fa-times"></i></button>
-      <img class="thumbnail" [src]="globalService.getImgSrc1(imageTmp)" alt="quiz image">
-</div>
+  <div class="fixed-container" *ngIf="imageTmp.url">
+    <div class="delete-button" (click)="globalService.removeImg(imageTmp)">	
+      <i class="fas fa-times"></i>
+    </div>
+    <div class="quiz-card">
+      <img class="frame thumbnail" [src]="globalService.getImgSrc1(imageTmp)" alt="quiz image">
+    </div>
+  </div>
 </ng-template>
-

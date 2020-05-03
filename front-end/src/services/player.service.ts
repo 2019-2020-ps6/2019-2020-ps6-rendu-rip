@@ -73,7 +73,7 @@ export class PlayerService {
 
   deletePlayer(player: Player) {
     const urlWithId = `${this.playerUrl}/${player.id}`;
-    this.http.delete<Player>(urlWithId, this.httpOptions).subscribe(() => this.setPlayersFromUrl());
+    this.http.delete<Player>(urlWithId, this.httpOptions).subscribe(() => this.setPlayersFromUrl()); 
   }
 
   updatePlayer(player: Player) {

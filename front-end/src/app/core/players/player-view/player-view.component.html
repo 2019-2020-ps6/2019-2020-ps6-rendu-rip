@@ -1,28 +1,31 @@
-<button class="button-card" routerLink= "..">
-  <i class="fa fa-arrow-left" aria-hidden="true"></i>
-</button>
-<button class="button-card" routerLink= "/">Home</button>
-
-<div *ngIf="player && playerPhoto.url" class = "player">
-    <div class="name"><h1>{{player.name}}</h1></div> 
-    <div *ngIf="playerPhoto.url" class="frame-little">
-        <img class = "thumbnail" [src]="imageService.getImgSrc1(playerPhoto)" alt="photo">
-    </div>
-    <button class = "button-card" (click)="modalService.open(playerFormModal)">Modifier</button>
-    <br>
-    <button class = "button-card" routerLink= "./statistics">Voir les résultats</button>
+<app-header [title] = "headerTitle" [image] = "playerPhoto"></app-header>
+<div class="goback-button" routerLink= "..">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+</div>
+<div class="home-button" routerLink= "/">
+    <i class="fa fa-home" aria-hidden="true"></i>
+</div>
+<div class="img-edit-block">
+  <button class="edit-button" (click)="modalService.open(playerFormModal)">Modifier l'Accueilli</button>
 </div>
 
-
+<div class="main">
+  <div class = "new-button" routerLink= "./statistics">Voir les résultats</div>
+  <div class="center">
+    Here goes la liste des quiz visibles par l'accueilli, permet au personnel de les voir
+    et dans enlever (croix rouge --> ne supprime pas le quiz --> le retire seulement de la 
+    liste de quiz visibles par l'accueilli courant)
+  </div>
+</div>
 
 <ng-template #playerFormModal let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Modifier les informations de l'accueilli :</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-        <app-player-form-modal [player] = "player" [playerImage] = "playerPhoto" (quitForm) = "modal.close()"></app-player-form-modal>
-    </div>
-  </ng-template>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Modifier les informations de l'accueilli :</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <app-player-form-modal [player] = "player" [playerImage] = "playerPhoto" (quitForm) = "modal.close()"></app-player-form-modal>
+  </div>
+</ng-template>

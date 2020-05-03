@@ -15,18 +15,20 @@ import { Location } from '@angular/common';
 })
 export class StatisticsComponent implements OnInit {
 
+  headerTitle: string;
+
   player: Player;
-  playerImage: Img ={} as Img;
+  playerImage: Img = {} as Img;
   playerAttempts: Attempt[] = [];
 
   constructor(public playerService: PlayerService, public imageService: ImageService, 
     public router: ActivatedRoute, public attemptService: AttemptService,
-    private location: Location) {
-    }
+    private location: Location) {}
 
   ngOnInit() {
     this.playerService.playerSelected$.subscribe((player) => {
       this.player = player;
+      this.headerTitle = `Résultats de ${player.name}`;
       if(this.player.imageId){
         this.imageService.loadPlayerImage(this.playerImage, this.player.imageId);
       }

@@ -61,13 +61,13 @@ export class QuestionViewComponent implements OnInit {
     const quizId = this.route.snapshot.paramMap.get('id');
     const questionId = this.route.snapshot.paramMap.get('questionId');
     this.globalService.loadQuiz(quizId, this.quiz);
-    //this.quizService.setSelectedQuiz(quizId);
+    this.globalService.setSelectedQuiz(quizId);
     this.globalService.loadQuestionAndImage(quizId, questionId, this.headerTitle, this.question, this.image)//pas d'image par défaut et -1 si image supprimée
   }
 
   allIsLoaded() {//si il n'y a pas de question ou qu'elle est chargée
-    return this.quiz.id && this.question.id && (this.image.url||(!this.question.imageId 
-      || this.question.imageId===this.globalService.imageRemovedId));
+    return this.quiz.id && this.question.id && (this.image.url ||
+      (!this.question.imageId || this.question.imageId===this.globalService.imageRemovedId));
   }
 
   resetAll(){

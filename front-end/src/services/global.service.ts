@@ -196,8 +196,8 @@ export class GlobalService {
     this.imageService.deleteImage(image);
   }
 
-  deletePlayerPhoto(image: Img) {
-    this.imageService.deletePlayerPhoto(image);
+  deletePlayerPhoto(imageId: string) {
+    this.imageService.deletePlayerPhoto(imageId);
   }
 
   imageFillIn(imageTmp: Img): Img {
@@ -226,6 +226,10 @@ export class GlobalService {
 
   isAnImage(id: string): boolean {
     return this.imageService.isAnImage(id);
+  }
+
+  isDefaultImage(id: string) {
+    return this.imageService.isDefaultImage(id);
   }
 
   isRemoved(id: string): boolean{

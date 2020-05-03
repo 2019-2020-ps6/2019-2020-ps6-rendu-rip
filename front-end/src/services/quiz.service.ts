@@ -62,6 +62,7 @@ export class QuizService {
   
   setSelectedQuiz(quizId: string) {
     const url = `${this.quizUrl}/${quizId}`;
+    this.setQuizzesFromUrl();
     this.http.get<Quiz>(url).subscribe((quiz) => this.setQuiz(quiz));
   }
 

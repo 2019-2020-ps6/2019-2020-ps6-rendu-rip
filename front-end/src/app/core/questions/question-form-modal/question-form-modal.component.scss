@@ -1,8 +1,8 @@
 @import 'src/styles/card.scss';
 @import 'src/styles/images.scss';
 @import "src/styles/variables";
-
 @import 'src/styles/layout.scss';
+@import 'src/styles/common.scss';
 
 .new-question-form{
     margin-left: auto;
@@ -10,16 +10,33 @@
 }
 
 .label {
-    //margin-top: 0.5em;
     font-weight: bold;
-}
-
-.image {
-    float: right;
-    //width: 30%;//50%
 }
 
 .buttons-bottom {
     margin-top: 1em;
+}
+
+.delete-button {
+    padding: 0.1rem 0.4rem;
+}
+
+.fixed-container {
+    float: right;
+}
+
+.quiz-card {
+    padding: 0;
+    box-shadow: none;
+}
+
+.quiz-card:hover {
+    cursor: default;
+    background-color: white;
+}
+
+.frame{
+    border: none;
+    margin: 0;
 }
 

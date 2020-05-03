@@ -1,16 +1,30 @@
 @import 'src/styles/card.scss';
 @import 'src/styles/layout.scss';
 @import 'src/styles/images.scss';
+@import 'src/styles/common.scss';
 
-.question-list {  
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    overflow:auto; 
-    height: 400px; 
-    width: 50%; 
-    border: 1px solid #AAAAAA;
+.quiz-title {
+  margin-bottom: 2rem;
+  text-align: center;
 }
+
+.quiz-list {
+  margin-top: 2rem;
+}
+
+.flex-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.fixed-container-bigger {
+  @extend .flex-list;
+}
+
 .frame-little {
   margin-left: auto;
   margin-right: auto;
@@ -21,9 +35,17 @@
 }
 .resultats{
   text-align: center;
+  //margin: 1rem;
 }
 
 .answerList{
   @extend .horizontal-layout;
+}
+
+.attempt-card {
+  @extend .quiz-card;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 20%;
 }
 

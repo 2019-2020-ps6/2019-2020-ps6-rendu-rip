@@ -13,8 +13,10 @@ import { ModalService } from 'src/services/modal.service';
 })
 export class PlayerViewComponent implements OnInit {
 
+  headerTitle: string;
+
   player: Player;
-  playerPhoto: Img ={} as Img;
+  playerPhoto: Img = {} as Img;
 
   constructor(private modalService : ModalService, public playerService: PlayerService, public imageService: ImageService, 
     public router: ActivatedRoute) {
@@ -23,6 +25,7 @@ export class PlayerViewComponent implements OnInit {
   ngOnInit() {
     this.playerService.playerSelected$.subscribe((player) => {
       this.player = player;
+      this.headerTitle = player.name;
       this.imageService.loadPlayerImage(this.playerPhoto, this.player.imageId);
     });
     const playerId = this.router.snapshot.paramMap.get('id');

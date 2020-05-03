@@ -72,14 +72,22 @@ export class ImageService {
   sanitize(url: string) { return this.sanitizer.bypassSecurityTrustUrl(url); }
 
   deleteImage(image: Img) {
+    if(this.isDefaultImage(image.id)) {
+      console.log("Ne doit pas supprimer une image par défaut!");
+      return;
+    }
     this.http.delete<Img>(`${serverUrl}/images/database/${image.id}`, this.httpOptions)
     .subscribe(() => {
       console.log("Image: deletion...")
     });
   }
 
-  deletePlayerPhoto(image: Img) {
-    this.http.delete<Img>(`${serverUrl}/images/player/${image.id}`, this.httpOptions)
+  deletePlayerPhoto(imageId: string) {
+    if(this.isDefaultImage(imageId)) {
+      console.log("Ne doit pas supprimer une image par défaut!");
+      return;
+    }
+    this.http.delete<Img>(`${serverUrl}/images/player/${imageId}`, this.httpOptions)
     .subscribe(() => console.log("Image: deletion..."));
   }
 
@@ -133,6 +141,13 @@ export class ImageService {
 
   isAnImage(id: string): boolean {
     return id && id !== "" && id!==this.imageRemovedId;
+  }
+
+  isDefaultImage(id: string) {
+    return id == this.defaultQuizImageId ||
+    id == this.defaultQuestionImageId ||
+    id == this.defaultAnswerImageId ||
+    id == this.defaultPlayerImageId  ;
   }
 
   isRemoved(id: string): boolean {

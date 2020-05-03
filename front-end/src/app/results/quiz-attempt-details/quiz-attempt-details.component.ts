@@ -19,6 +19,8 @@ import { GlobalService } from 'src/services/global.service';
 })
 export class QuizAttemptDetailsComponent implements OnInit {
 
+  headerTitle: string; 
+
   player: Player = {} as Player;
   attempt: Attempt = {} as Attempt;
   quizId: string;
@@ -27,17 +29,19 @@ export class QuizAttemptDetailsComponent implements OnInit {
   quiz : Quiz = {} as Quiz
   quizImage : Img = {} as Img
 
-
   constructor(public playerService: PlayerService, public globalService: GlobalService, 
     public route: ActivatedRoute, public attemptService: AttemptService,
     public router: Router, private location: Location) {
-    }
+  }
 
   ngOnInit() {
+    this.headerTitle = "Résultats"
     const playerId = this.route.snapshot.paramMap.get('id');
     const attemptId = +this.route.snapshot.paramMap.get('attemptId')
     this.playerService.getPlayer(this.player, playerId);
     this.attemptService.getSpecificAllFromAttempt(this.globalService, playerId, attemptId, this.attempt, this.quiz, this.quizImage);
+    //"checkIfWrongQuestion(question)"
+    //fill in wrongQuestions!!!! in attempt service
   }
 
   loaded() {

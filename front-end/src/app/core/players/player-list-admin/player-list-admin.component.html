@@ -1,24 +1,25 @@
-<button class="button-card" routerLink= "..">
+<app-header [title] = "headerTitle"></app-header>
+<div class="goback-button" routerLink= "..">
     <i class="fa fa-arrow-left" aria-hidden="true"></i>
-</button>
-<button class="button-card" routerLink= "/">Home</button>
-<br>
-<div class = "createPlayer">
-<button type="button" class="button-card" (click)="modalService.open(playerFormModal)"> 
-    <i class="fas fa-plus-circle"></i> Nouvel Accueilli</button>
 </div>
-<div class="player-list">
-    <div class="card player fixed-container-bigger" *ngFor="let player of playerList">
-        <button class="button-card delete" (click)="deletePlayer(player)">
-            <i class="fas fa-times"></i>
-        </button>
-        <button class="player-card" routerLink= "./{{player.id}}"><!--/statistics">-->
-            <app-player [player]="player" (playerDeleted) = "deletePlayer($event)"></app-player>
-            <!--<button class = "button-card" routerLink= "./{{player.id}}">Modifier</button>-->
-        </button>
+<div class="home-button" routerLink= "/">
+    <i class="fa fa-home" aria-hidden="true"></i>
+</div>
+<div class="main">
+    <div class="new-button" (click)="modalService.open(playerFormModal)"> 
+        <i class="fas fa-plus-circle"></i> Nouveau Accueilli
+    </div>
+    <div class="player-list">
+        <div class="fixed-container-bigger" *ngFor="let player of playerList">
+            <button class="delete-button" (click)="deletePlayer(player)">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="quiz-card" routerLink= "./{{player.id}}">
+                <app-player [player]="player" (playerDeleted) = "deletePlayer($event)"></app-player>
+            </div>
+        </div>
     </div>
 </div>
-
 
 <ng-template #playerFormModal let-modal>
     <div class="modal-header">
@@ -30,4 +31,4 @@
     <div class="modal-body">
         <app-player-form-modal (quitForm) = "modal.close()"></app-player-form-modal>
     </div>
-  </ng-template>
+</ng-template>

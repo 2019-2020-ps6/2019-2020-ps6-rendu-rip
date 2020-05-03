@@ -1,20 +1,47 @@
 @import 'src/styles/card.scss';
 @import 'src/styles/images.scss';
+@import 'src/styles/common.scss';
+@import 'src/styles/layout.scss';
+
+.new-answer-form{
+    margin-left: auto;
+    margin-right: auto;
+}
 
 #chargerImage {
     border-radius: 1em;
 }
+
 .label {
-    //margin-top: 0.5em;
     margin-top: 0.3em;
 }
 
-.image {
-    float: right;
-    //width: 30%;//50%
+.buttons-bottom {
+    margin-top: 1em;
 }
 
-/*.new-answer-form{
-    margin-left: auto;
-    margin-right: auto;
-}*/
+.delete-button {
+    padding: 0.1rem 0.4rem;
+    background-color: rgb(104, 66, 66);
+}
+
+.fixed-container-smaller {
+    float: right;
+}
+
+.quiz-card {
+    padding: 0;
+    box-shadow: none;
+}
+
+.quiz-card:hover {
+    cursor: default;
+    background-color: white;
+}
+
+.frame{
+    height: 4rem;
+    width: 4rem;
+    border: none;
+    margin: 0;
+}

@@ -6,13 +6,15 @@
     <i class="fa fa-home" aria-hidden="true"></i>
 </div>
 <div class="main">
-<div class="responsive-list">
+<div class="quiz-list"><!--"responsive-list">-->
     <div *ngFor="let img of images">
-        <div *ngIf="img.url" class="fixed-container vertical-layout">
-                <button class="delete" (click)="checkIfImageIsUsed(img);modalService.open(deleteImageUsed)">
-                    <i class="fas fa-times" aria-hidden="true"></i>
-                </button>
+        <div *ngIf="img.url" class="fixed-container">
+            <div class="delete-button" (click)="checkIfImageIsUsed(img);modalService.open(deleteImageUsed)">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </div>
+            <div class="quiz-card">
                 <img class="frame thumbnail" [src]="globalService.getImgSrc1(img)" alt="answer image">
+            </div>
         </div>
     </div>
 </div>
