@@ -31,13 +31,13 @@ router.get('/:type/:id', (req, res) => {
     const img = imageStruct.getById(req.params.id)
     res.status(200).json(img)
   } catch (err) {
-    /*try {
+    try {
       const imgDef = DefaultImage.getById('2')//in case
       res.status(200).json(imgDef)
     }
     catch (err) {
       manageAllErrors(res, err)
-    }*/
+    }
   }
 })
 

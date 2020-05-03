@@ -11,6 +11,8 @@ import { ImageService } from './image.service';
 import { QuizService } from './quiz.service';
 import { QuestionService } from './question.service';
 import { AnswerService } from './answer.service';
+import { Player } from 'src/models/player.model';
+import { AttemptService } from './attempt.service';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +41,7 @@ export class GlobalService {
   public defaultPlayerImageId   = "4";
   //
 
-  constructor(private http: HttpClient, private quizService: QuizService, private questionService: QuestionService, private answerService: AnswerService, private imageService: ImageService) {
+  constructor(private http: HttpClient, private quizService: QuizService, private questionService: QuestionService, private answerService: AnswerService, private imageService: ImageService, private attemptService : AttemptService) {
   }
 
   //::::::::::::::::::::::::::::::Quiz::::::::::::::::::::::::::::::
@@ -241,35 +243,28 @@ export class GlobalService {
   }
 
   //::::::::::::::::::::::::::::::other::::::::::::::::::::::::::::::
-  //sert??
-  sizeInput(value: string){
-    if(!value) return 20;
-    if(value.length>40) return 40;
-    return value.length;
-  }
 
-  //TODO: rewrite (esthetic)
-  checkIfImageIsUsed(id: string, res: Img) {
+  checkIfImageIsUsed(id: string, quizs : Quiz[], questions : Question[], answers : Answer[], answerToQuiz : Quiz[] ) {
     this.http.get<Quiz[]>(serverUrl+"/quizzes", this.httpOptions).subscribe((quizzes) => {
-      quizzes.forEach(quiz => {
+      for(let quiz of quizzes){
         if(quiz.imageId==id){
           console.log(quiz)
-          res.name = "true";
+          quizs.push(quiz)
         }
-        quiz.questions.forEach(question => {
+        for(let question of quiz.questions){
           if(question.imageId==id){
             console.log(question)
-            res.name = "true";
+            questions.push(question)
           } 
-          question.answers.forEach(answer =>{
+          for(let answer of question.answers){
             if(answer.imageId==id){
-              console.log(answer)
-              res.name = "true";
-            } 
-          })
-        })
-      })
-      if(!res.name) res.name = "false";
+                console.log(answer)
+                answers.push(answer)
+                answerToQuiz.push(quiz);
+              }
+          }
+        }
+      }
     });
   }
 
@@ -277,13 +272,9 @@ export class GlobalService {
   isValid(quiz: Quiz): boolean {
     if(!quiz || !quiz.name || !quiz.theme || !quiz.questions || quiz.questions.length === 0) 
       return false;
-    for(var i =0;i<quiz.questions.length;i++){
-      if(this.answersInvalid(quiz.questions[i].answers)!=="") return false;     
+    for(let question of quiz.questions){
+      if(this.answersInvalid(question.answers)!=="") return false;     
     }
-    /*quiz.questions.forEach(question => {
-      if(this.answersInvalid(question.answers) === "-1") return false
-    });
-    */
     return true;
   }
 }

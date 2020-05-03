@@ -1,4 +1,4 @@
-<app-header [title] = "headerTitle" [image] = "image"></app-header>
+<app-header [title] = "setHeader()" [image] = "image"></app-header>
 <div class="goback-button" *ngIf ="!question || question && !invalid()" (click)= "goBack()">
   <i class="fa fa-arrow-left" aria-hidden="true"></i>
 </div>

@@ -35,23 +35,9 @@
     "imageId": "1588004401585"
   },
   {
-    "name": "dé",
-    "theme": "Autres",
-    "creationDate": "2020-05-01T08:07:44.840Z",
-    "imageId": "1588320464951",
-    "id": 1588320465001
-  },
-  {
     "name": "Toto non valid",
     "theme": "Sport",
     "creationDate": "2020-05-01T09:07:27.441Z",
     "id": 1588324047507
-  },
-  {
-    "name": "Test",
-    "theme": "Sport",
-    "creationDate": "2020-05-03T06:21:28.792Z",
-    "imageId": "1587862850887",
-    "id": 1588486368096
   }
 ]

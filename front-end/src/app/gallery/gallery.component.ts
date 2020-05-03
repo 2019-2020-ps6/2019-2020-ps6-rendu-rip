@@ -5,6 +5,10 @@ import { Location } from '@angular/common';
 import { QuizService } from 'src/services/quiz.service';
 import { ModalService } from 'src/services/modal.service';
 import { GlobalService } from 'src/services/global.service';
+import { Quiz } from 'src/models/quiz.model';
+import { Question } from 'src/models/question.model';
+import { Answer } from 'src/models/answer.model';
+import { Player } from 'src/models/player.model';
 
 @Component({
   selector: 'app-gallery',
@@ -17,8 +21,11 @@ export class GalleryComponent implements OnInit {
 
   images: Img[] = []
   imageSelected : Img;
-  res :  Img = {} as Img;
-  
+
+  quizToDeleteImage : Quiz[] = [];
+  questionToDeleteImage : Question[] = [];
+  answerToDeleteImage : Answer[] = [];
+  quizToAnswer : Quiz[] = [];//sert à connaitre l'id du quiz de l'answer qu'on récupère pour pouvoir faire un put sans load sa question (moche je suis d'accord)
   constructor(public modalService :ModalService, public globalService: GlobalService, 
     private location: Location) {
   }
@@ -33,22 +40,45 @@ export class GalleryComponent implements OnInit {
 
   checkIfImageIsUsed(img: Img){
     this.imageSelected = img;
-    this.globalService.checkIfImageIsUsed(img.id, this.res)
+    this.globalService.checkIfImageIsUsed(img.id, this.quizToDeleteImage, this.questionToDeleteImage, this.answerToDeleteImage,this.quizToAnswer);
   }
 
   reset(){
-    this.res = {} as Img;
+    this.quizToDeleteImage = [];
+    this.questionToDeleteImage = [];
+    this.answerToDeleteImage = [];
     this.imageSelected = {} as Img;
   }
 
-  used(res : string) {
-    if(res === "true") return true;
-    else if(res === "false") return false;
+  used() {
+    return this.quizToDeleteImage.length!==0 || this.questionToDeleteImage.length!==0 || this.answerToDeleteImage.length!==0;
   }
 
   deleteImg(img: Img) {
     this.imageSelected = img;
     this.globalService.deleteImage(img);
+    if(this.used()){
+      let imgTmp = {} as Img;
+      this.globalService.removeImg(imgTmp);
+      for(let quiz of this.quizToDeleteImage){
+        quiz.imageId = imgTmp.id;
+        console.log(quiz)
+        quiz.questions = undefined;//car du côté back, il n'y a pas cet attribut, il est construit à chaque get
+        this.globalService.updateQuiz(quiz);
+      }
+      for(let question of this.questionToDeleteImage){
+        question.imageId = imgTmp.id;
+        console.log(question);
+        question.answers = undefined;
+        this.globalService.updateQuestion(question.quizId,question);
+      }
+      for(var i = 0; i<this.answerToDeleteImage.length;i++){
+        this.answerToDeleteImage[i].imageId = imgTmp.id;
+        console.log(this.answerToDeleteImage[i]);
+  
+        this.globalService.updateAnswer(this.quizToAnswer[i].id,this.answerToDeleteImage[i].questionId,this.answerToDeleteImage[i]);
+      }
+    }
     this.images.length = 0;
     this.globalService.loadAllImgs(this.images);
   }

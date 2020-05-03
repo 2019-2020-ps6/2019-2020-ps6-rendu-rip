@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ModalService } from 'src/services/modal.service';
 import { Answer } from 'src/models/answer.model';
 import { GlobalService } from 'src/services/global.service';
+import { QuizService } from 'src/services/quiz.service';
 
 @Component({
     selector: 'app-question-view',
@@ -26,7 +27,7 @@ export class QuestionViewComponent implements OnInit {
 
   constructor(private modalService : ModalService, private location: Location, 
     private route: ActivatedRoute, public formBuilder: FormBuilder, 
-    public globalService: GlobalService) {}
+    public globalService: GlobalService, private quizService : QuizService ) {}
 
   
  /* ngOnInit() {
@@ -48,10 +49,14 @@ export class QuestionViewComponent implements OnInit {
   }*/
   
   ngOnInit() {
-    //this.quizService.quizSelected$.subscribe(() => this.load());
+    this.quizService.quizSelected$.subscribe(() => this.load());
     this.load();
-    //const id = this.route.snapshot.paramMap.get('id');
-    //this.quizService.setSelectedQuiz(id);
+    const quizId = this.route.snapshot.paramMap.get('id');
+    this.globalService.setSelectedQuiz(quizId);
+  }
+
+  setHeader(){
+    if(this.question.label) return this.question.label;
   }
 
   
@@ -61,7 +66,6 @@ export class QuestionViewComponent implements OnInit {
     const quizId = this.route.snapshot.paramMap.get('id');
     const questionId = this.route.snapshot.paramMap.get('questionId');
     this.globalService.loadQuiz(quizId, this.quiz);
-    this.globalService.setSelectedQuiz(quizId);
     this.globalService.loadQuestionAndImage(quizId, questionId, this.headerTitle, this.question, this.image)//pas d'image par défaut et -1 si image supprimée
   }
 

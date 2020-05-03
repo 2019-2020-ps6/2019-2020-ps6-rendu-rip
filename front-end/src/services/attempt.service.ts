@@ -17,10 +17,8 @@ export class AttemptService {
   constructor(private http: HttpClient) {}
 
   getPlayerAttempts(playerId: string, output: Attempt[]) {
-    console.log("wouuhou!");
     this.http.get<Attempt[]>(`${serverUrl}/players/${playerId}/attempts/`, this.httpOptions)
     .subscribe( attempts =>  {
-      console.log("double wouuuhouu!");
       attempts.forEach(element => output.push(element));
     });
   } 

@@ -57,5 +57,5 @@ export class QuizListAdminComponent implements OnInit {
 
   ngOnInit() {}
   
-  deleteQuiz(quiz: Quiz) { this.quizService.deleteQuiz(quiz); }
+  deleteQuiz(quiz: Quiz) { this.globalService.deleteQuiz(quiz); }
 }
