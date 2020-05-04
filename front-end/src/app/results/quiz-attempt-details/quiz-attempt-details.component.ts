@@ -39,9 +39,7 @@ export class QuizAttemptDetailsComponent implements OnInit {
     const playerId = this.route.snapshot.paramMap.get('id');
     const attemptId = +this.route.snapshot.paramMap.get('attemptId')
     this.playerService.getPlayer(this.player, playerId);
-    this.attemptService.getSpecificAllFromAttempt(this.globalService, playerId, attemptId, this.attempt, this.quiz, this.quizImage);
-    //"checkIfWrongQuestion(question)"
-    //fill in wrongQuestions!!!! in attempt service
+    this.attemptService.getAllFromSpecificAttempt(this.globalService, playerId, attemptId, this.attempt, this.quiz, this.quizImage);
   }
 
   loaded() {

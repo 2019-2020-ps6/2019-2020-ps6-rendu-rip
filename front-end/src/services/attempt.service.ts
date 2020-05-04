@@ -35,7 +35,7 @@ export class AttemptService {
     });
   }
 
-  getSpecificAllFromAttempt(globalService: GlobalService, playerId: string, attemptId: number, attemptToLoad: Attempt, quizToLoad : Quiz, imageToLoad : Img) {
+  getAllFromSpecificAttempt(globalService: GlobalService, playerId: string, attemptId: number, attemptToLoad: Attempt, quizToLoad : Quiz, imageToLoad : Img) {
     this.http.get<Attempt>(`${serverUrl}/players/${playerId}/attempts/${attemptId}`, this.httpOptions)
     .subscribe( attempt => {
       attemptToLoad.id = attempt.id;
