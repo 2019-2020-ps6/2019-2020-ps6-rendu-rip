@@ -9,7 +9,7 @@
       {{current_theme}}
     </option>
     </select>&nbsp;
-    <theme-form></theme-form>
+    <theme-form (themeAdded) = "initTheme($event)"></theme-form>
     <ng-template [ngTemplateOutlet] = "displayImage"></ng-template>
     <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>        
     <button class="button-card" id="confirmEdit" (click)="addOrUpdateQuiz()">Valider</button>

@@ -60,7 +60,10 @@ export class QuizFormModalComponent implements OnInit {
       });
     }
   }
-
+  initTheme(theme : String){
+    console.log(theme)
+    this.quizForm.controls['theme'].setValue(theme);
+  }
   reset(){
     this.quizForm.reset();
     this.initImageTmp();

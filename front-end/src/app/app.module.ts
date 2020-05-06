@@ -44,6 +44,7 @@ import { QuizAttemptComponent } from './results/quiz-attempt/quiz-attempt.compon
 import { QuizAttemptDetailsComponent } from './results/quiz-attempt-details/quiz-attempt-details.component';
 import { InternetImageModalComponent } from './core/internet-image-modal/internet-image-modal.component';
 import { DatabaseImageModalComponent } from './core/database-image-modal/database-image-modal.component';
+import { ThemeListComponent } from './theme-list/theme-list.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { DatabaseImageModalComponent } from './core/database-image-modal/databas
     QuizAttemptComponent,
     QuizAttemptDetailsComponent,
     InternetImageModalComponent,
-    DatabaseImageModalComponent
+    DatabaseImageModalComponent,
+    ThemeListComponent
   ],
   imports: [
     BrowserModule,

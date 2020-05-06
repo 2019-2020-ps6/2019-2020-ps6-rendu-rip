@@ -16,7 +16,7 @@ export class ThemeFormComponent implements OnInit {
   themeForm: FormGroup;
   
   @Output()
-  themeAdded: EventEmitter<boolean> = new EventEmitter<boolean>();
+  themeAdded: EventEmitter<String> = new EventEmitter<String>();
 
   constructor(private modalService : ModalService, public formBuilder: FormBuilder, public themeService: ThemeService) {}
 
@@ -29,11 +29,16 @@ export class ThemeFormComponent implements OnInit {
   saveTheme(): void {
     const themeToAdd: Theme =  this.themeForm.getRawValue() as Theme;
     this.themeService.addTheme(themeToAdd);
-    this.themeAdded.emit(true);
+    this.themeAdded.emit(themeToAdd.name);
+    this.reset();
     console.log(`la valeur de theme est : ${themeToAdd}`);
   }
 
+  reset(){
+    this.themeForm.reset();
+  }
+
   cancel(){
-    this.themeAdded.emit(false);
+    this.reset();
   }
 }

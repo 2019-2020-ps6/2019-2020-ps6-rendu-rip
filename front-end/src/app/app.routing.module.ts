@@ -17,6 +17,7 @@ import { QuestionViewComponent } from './core/questions/question-view/question-v
 import { PlayerViewComponent } from './core/players/player-view/player-view.component';
 import { StatisticsComponent } from './results/statistics/statistics.component';
 import { QuizAttemptDetailsComponent } from './results/quiz-attempt-details/quiz-attempt-details.component';
+import { ThemeListComponent } from './theme-list/theme-list.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -26,6 +27,7 @@ const routes: Routes = [
     { path: 'admin', component: ScreenAdminComponent },
 
     { path: 'admin/gallery', component: GalleryComponent},
+    { path : 'admin/theme-list', component: ThemeListComponent},
 
     { path: 'admin/quiz-list', component: QuizListAdminComponent },
     { path: 'admin/quiz-list/:id', component: QuizViewComponent },
