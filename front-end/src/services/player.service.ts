@@ -46,19 +46,6 @@ export class PlayerService {
     });
   }
 
-  getNameAndImage(playerId: string, name: string, image: Img) {
-    const url = `${this.playerUrl}/${playerId}`;
-    this.http.get<Player>(url).subscribe((player) => {
-      name = player.name;
-      console.log(name);
-      const urlImg = `${serverUrl}/images/player/${player.imageId}`;
-      this.http.get<Img>(urlImg).subscribe(img => {
-        image = img;
-        console.log(image);
-      });
-    });  
-  }
-
   addPlayer(player: Player) { 
     this.http.post<Player>(this.playerUrl, player, this.httpOptions).subscribe(() => {
     this.setPlayersFromUrl()}); }
@@ -78,7 +65,7 @@ export class PlayerService {
 
   updatePlayer(player: Player) {
     const urlWithId = `${this.playerUrl}/${player.id}`;
-    console.log( player);
+    console.log(player);
     this.http.put<Player>(urlWithId, player, this.httpOptions).subscribe((player) =>{
     this.setSelectedPlayer(player.id);
     this.setPlayersFromUrl()});
@@ -90,6 +77,28 @@ export class PlayerService {
       player.imageId = img.id;
       this.updatePlayer(player);
     });
+  }
+
+  quizVisibleByPlayer(player : Player, quizId : string){
+    if(player){
+      if(!player.quizVisible)player.quizVisible=[];
+      for(let qId of player.quizVisible){
+        if(qId==quizId){
+          return true;
+        }
+      }
+      return false;
+    }
+    return true;//devrait être false mais en pour les mocks en attendant
+  }
+
+  quizVisibleByAll(players : Player[],quizId: string){
+    for (let player of players){
+      if(!this.quizVisibleByPlayer(player,quizId)){
+        return false;
+      }
+    }
+    return true;
   }
 
   playerInvalid(player: Player){

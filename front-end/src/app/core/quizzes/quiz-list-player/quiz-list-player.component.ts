@@ -77,7 +77,7 @@ export class QuizListPlayerComponent implements OnInit {
   }
 
   filteredQuizList() : Quiz[] {
-    var res =  this.quizList.filter((quiz) => this.hasSelectedTheme(quiz) && this.globalService.isValid(quiz));
+    var res =  this.quizList.filter((quiz) => this.hasSelectedTheme(quiz) && this.globalService.isValid(quiz) && this.playerService.quizVisibleByPlayer(this.player,quiz.id));
     console.log(res);
     return res;
   }

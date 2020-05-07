@@ -48,7 +48,13 @@ export class PlayerFormModalComponent implements OnInit {
   addOrUpdatePlayer() {
     const playerToSave: Player = this.playerForm.getRawValue() as Player;
     if(this.playerService.playerInvalid(playerToSave)) return;
-    if(this.player) playerToSave.id = this.player.id;
+    if(this.player){
+      playerToSave.id = this.player.id;
+      playerToSave.quizVisible = this.player.quizVisible;
+    } 
+    else{
+      playerToSave.quizVisible = [];//par défaut il ne voit rien mais à changer
+    }
     if(this.imageService.isRemoved(this.imageTmp.id))playerToSave.imageId = this.imageTmp.id;
     if(this.imageTmp.url){
       if(this.player) this.playerService.updatePlayerWithImg(playerToSave, this.imageService.imageFillIn(this.imageTmp));

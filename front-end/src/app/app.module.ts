@@ -45,6 +45,8 @@ import { QuizAttemptDetailsComponent } from './results/quiz-attempt-details/quiz
 import { InternetImageModalComponent } from './core/internet-image-modal/internet-image-modal.component';
 import { DatabaseImageModalComponent } from './core/database-image-modal/database-image-modal.component';
 import { ThemeListComponent } from './theme-list/theme-list.component';
+import { VisibilityChoiceModal} from './core/quizzes/visibility/visibility-choice-modal.component'
+import { AssociatePlayerModal} from './core/quizzes/visibility/associate-player-modal.component'
 
 @NgModule({
   declarations: [
@@ -83,7 +85,10 @@ import { ThemeListComponent } from './theme-list/theme-list.component';
     QuizAttemptDetailsComponent,
     InternetImageModalComponent,
     DatabaseImageModalComponent,
-    ThemeListComponent
+    ThemeListComponent,
+    AssociatePlayerModal,
+    VisibilityChoiceModal,
+
   ],
   imports: [
     BrowserModule,
