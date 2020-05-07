@@ -17,8 +17,8 @@
             </select>
         </form>
     </div> 
-    <div class="quiz-list" *ngIf="quizList && filteredQuizList().length!==0; else noQuizFound">
-        <div class="fixed-container-bigger" *ngFor="let quiz of filteredQuizList()">
+    <div class="quiz-list" *ngIf="quizListFiltered && quizListFiltered.length!==0; else noQuizFound">
+        <div class="fixed-container-bigger" *ngFor="let quiz of quizListFiltered">
             <div class="quiz-card"  routerLink= "./game/{{quiz.id}}">
                 <app-quiz  [quiz]="quiz"></app-quiz>
             </div>

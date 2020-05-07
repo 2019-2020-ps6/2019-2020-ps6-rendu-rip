@@ -5,16 +5,27 @@
 <div class="home-button" routerLink= "/">
     <i class="fa fa-home" aria-hidden="true"></i>
 </div>
-<div class="img-edit-block">
-  <button class="edit-button" (click)="modalService.open(playerFormModal)">Modifier l'Accueilli</button>
+<div class="img-edit-block" *ngIf = "player && quizVisible">
+  <app-associate-quiz-modal [quizzes] = "quizzes" [player] = "player"></app-associate-quiz-modal>
+  <br> 
+  <button class="edit-button" (click)="modalService.open(playerFormModal)">Modifier l'accueilli</button>
 </div>
 
-<div class="main">
+<div class="main" *ngIf  = "player">
   <div class = "new-button" routerLink= "./statistics">Voir les résultats</div>
-  <div class="center">
-    Here goes la liste des quiz visibles par l'accueilli, permet au personnel de les voir
-    et dans enlever (croix rouge --> ne supprime pas le quiz --> le retire seulement de la 
-    liste de quiz visibles par l'accueilli courant)
+  <h2>Liste des quiz visibles par {{player.name}} : </h2>
+  <div *ngIf = "quizVisible" class="quiz-list">
+    <div class="fixed-container-bigger" *ngFor = "let quiz of quizVisible">
+      <div class = "tag" *ngIf = "!globalService.isValid(quiz)">
+          INCOMPLET
+      </div>
+      <button class="delete-button" (click)="removeVisibility(quiz)">
+          <i class="fas fa-times"></i>
+      </button>
+      <div class="quiz-card"  routerLink= "../../quiz-list/{{quiz.id}}">
+        <app-quiz  [quiz]="quiz"></app-quiz>
+    </div>
+    </div>    
   </div>
 </div>
 

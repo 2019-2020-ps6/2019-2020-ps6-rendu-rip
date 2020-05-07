@@ -83,13 +83,13 @@ export class PlayerService {
     if(player){
       if(!player.quizVisible)player.quizVisible=[];
       for(let qId of player.quizVisible){
-        if(qId==quizId){
+        if(qId===quizId){
           return true;
         }
       }
       return false;
     }
-    return true;//devrait être false mais en pour les mocks en attendant
+    return false;
   }
 
   quizVisibleByAll(players : Player[],quizId: string){

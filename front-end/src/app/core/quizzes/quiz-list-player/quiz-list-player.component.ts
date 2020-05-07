@@ -17,7 +17,8 @@ import { GlobalService } from 'src/services/global.service';
 })
 export class QuizListPlayerComponent implements OnInit {
 
-  public quizList: Quiz[] = [];
+  public quizList: Quiz[];
+  public quizListFiltered: Quiz[];
   public THEME_LIST: string[] = [];
   private ALL_QUIZZES: string='TOUS';
   themeForm: FormGroup;
@@ -31,16 +32,21 @@ export class QuizListPlayerComponent implements OnInit {
     public globalService: GlobalService,
     public formBuilder: FormBuilder, public themeService : ThemeService, 
     public playerService: PlayerService, public imageService: ImageService) {
-    this.quizService.quizzes$.subscribe((quizzes) => this.quizList = quizzes);
-    this.themeFilteringSetup();
   }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
+    this.themeFilteringSetup();
     this.playerService.playerSelected$.subscribe((player) => {
       this.onPlayerSelected(player);
       this.headerTitle = player.name;
+      this.quizService.quizzes$.subscribe((quizzes) => {
+        this.quizList = [];
+        this.quizList = quizzes
+        this.filteredQuizList(quizzes);
+      });
     });
+    this.quizService.setQuizzesFromUrl();
     this.playerService.setSelectedPlayer(id);
   }
 
@@ -64,8 +70,8 @@ export class QuizListPlayerComponent implements OnInit {
       }
      });
      this.themeForm = this.formBuilder.group({
-       theme: this.ALL_QUIZZES
-     });
+      theme: this.ALL_QUIZZES
+    });
   }
 
   hasSelectedTheme( quiz: Quiz ) {
@@ -76,9 +82,13 @@ export class QuizListPlayerComponent implements OnInit {
     return quiz.theme === theme;
   }
 
-  filteredQuizList() : Quiz[] {
-    var res =  this.quizList.filter((quiz) => this.hasSelectedTheme(quiz) && this.globalService.isValid(quiz) && this.playerService.quizVisibleByPlayer(this.player,quiz.id));
-    console.log(res);
-    return res;
+  filteredQuizList(quizzes : Quiz[]){
+    if(!quizzes)return null;
+    this.quizListFiltered = []
+    for (let quiz of quizzes){
+      if(this.hasSelectedTheme(quiz) && this.globalService.isValid(quiz) && this.playerService.quizVisibleByPlayer(this.player,quiz.id)){
+        this.quizListFiltered.push(quiz);
+      }
+    }
   }
 }

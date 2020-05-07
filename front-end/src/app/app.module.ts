@@ -47,6 +47,7 @@ import { DatabaseImageModalComponent } from './core/database-image-modal/databas
 import { ThemeListComponent } from './theme-list/theme-list.component';
 import { VisibilityChoiceModal} from './core/quizzes/visibility/visibility-choice-modal.component'
 import { AssociatePlayerModal} from './core/quizzes/visibility/associate-player-modal.component'
+import { AssociateQuizModal } from './core/quizzes/visibility/associate-quiz-modal.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { AssociatePlayerModal} from './core/quizzes/visibility/associate-player-
     ThemeListComponent,
     AssociatePlayerModal,
     VisibilityChoiceModal,
+    AssociateQuizModal
 
   ],
   imports: [
