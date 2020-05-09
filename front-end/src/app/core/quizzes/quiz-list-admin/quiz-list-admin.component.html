@@ -10,6 +10,7 @@
     <div class="new-button" (click)="modalService.open(quizFormModal)"> 
         <i class="fas fa-plus-circle"></i> Nouveau Quiz
     </div> 
+    <app-timer-form-modal></app-timer-form-modal>
     <div class="theme-button">
         <form [formGroup]="themeForm">
             Thème:
@@ -20,7 +21,7 @@
             </select>
         </form>
     </div> 
-<div class="quiz-list" *ngIf="quizListFiltered; else noQuizFound">
+<div class="quiz-list" *ngIf="quizListFiltered && quizListFiltered.length!==0; else noQuizFound">
     <div class="fixed-container-bigger" *ngFor="let quiz of quizListFiltered">
         <div class = "tag" *ngIf = "!globalService.isValid(quiz)">
             INCOMPLET
@@ -35,7 +36,7 @@
 </div>
 </div>
 
-<ng-template #noQuizFound let-modal>
+<ng-template #noQuizFound>
     <div class="center" id="redCenteredMsg"> Aucun quiz trouvé </div>
 </ng-template>
 

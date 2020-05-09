@@ -48,6 +48,7 @@ import { ThemeListComponent } from './theme-list/theme-list.component';
 import { VisibilityChoiceModal} from './core/quizzes/visibility/visibility-choice-modal.component'
 import { AssociatePlayerModal} from './core/quizzes/visibility/associate-player-modal.component'
 import { AssociateQuizModal } from './core/quizzes/visibility/associate-quiz-modal.component';
+import { TimerFormModalComponent } from './core/quizzes/timer-form-modal/timer-form-modal.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { AssociateQuizModal } from './core/quizzes/visibility/associate-quiz-mod
     ThemeListComponent,
     AssociatePlayerModal,
     VisibilityChoiceModal,
-    AssociateQuizModal
+    AssociateQuizModal,
+    TimerFormModalComponent
 
   ],
   imports: [

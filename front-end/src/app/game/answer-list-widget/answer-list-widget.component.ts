@@ -39,10 +39,10 @@ export class AnswerListWidgetComponent implements OnInit, AfterViewInit{
   answerSelected : Answer;
   display: number;
   //Pour la demo BESOIN de timers assez rapide...
-  private second = 1000;//1s = 1000ms
-  TIME_OUT_FOR_CHOSING_ANSWER: number = 10*this.second;//90*this.second;
-  TIME_OUT_DISPLAY_COMPARISON: number = 3*this.second;
-  TIME_OUT_DISPLAY_NEXT_BUTTON: number = 3*this.second;
+  static second = 1000;//1s = 1000ms
+  static TIME_OUT_FOR_CHOSING_ANSWER: number = 10* AnswerListWidgetComponent.second;
+  static TIME_OUT_DISPLAY_COMPARISON: number = 3* AnswerListWidgetComponent.second;
+  static TIME_OUT_DISPLAY_NEXT_BUTTON: number = 3*AnswerListWidgetComponent.second;
 
   SHOW_ANSWER_TO_CHOOSE: number = 0;
   SHOW_ANSWER_COMPARISON: number = 1;
@@ -140,7 +140,7 @@ export class AnswerListWidgetComponent implements OnInit, AfterViewInit{
       this.timerDisplayComparison = this.startTimerDisplayComparison();// on lance le timer suivant
     }
   }
-  , this.TIME_OUT_FOR_CHOSING_ANSWER);
+  , AnswerListWidgetComponent.TIME_OUT_FOR_CHOSING_ANSWER);
 
   //timer pour afficher la COMPARISON
   startTimerDisplayComparison = () => setTimeout(() => {// à la fin du timeOut
@@ -151,13 +151,13 @@ export class AnswerListWidgetComponent implements OnInit, AfterViewInit{
       this.timerDisplayRightAnswer = this.startTimerDisplayRightAnswer();// on lance le timer correspondant
     }
   }
-  , this.TIME_OUT_DISPLAY_COMPARISON);
+  , AnswerListWidgetComponent.TIME_OUT_DISPLAY_COMPARISON);
 
   //timer before 'next' button shows
   startTimerDisplayRightAnswer = () => setTimeout(() => {
     this.displayNextButton = true;
     }
-    , this.TIME_OUT_DISPLAY_NEXT_BUTTON);
+    , AnswerListWidgetComponent.TIME_OUT_DISPLAY_NEXT_BUTTON);
 
   //passage à la question
   nextQuestion(){
