@@ -6,6 +6,8 @@ import { Img } from 'src/models/image.model';
 import { ImageService } from 'src/services/image.service';
 //import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalService } from 'src/services/modal.service';
+import { GlobalService } from 'src/services/global.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-quiz-view',
@@ -18,8 +20,8 @@ export class QuizViewComponent implements OnInit {
   headerTitle: string;
   quiz: Quiz;
   image: Img = {} as Img;
-
-  constructor(private modalService: ModalService, private route: ActivatedRoute, public imageService: ImageService, public quizService: QuizService) {
+  hidden : boolean = true; // attention on a des erreurs value change after beeing checked dans certains cas et je sais pas trop comment les résoudre
+  constructor(private globalService : GlobalService, private modalService: ModalService, private location : Location, private route: ActivatedRoute, public imageService: ImageService, public quizService: QuizService) {
   }
 
   ngOnInit() {
@@ -40,6 +42,20 @@ export class QuizViewComponent implements OnInit {
     this.image = {} as Img;
     const id = this.quiz.imageId;//image par défaut si null
     this.imageService.loadQuizImage(this.image, id);
+  }
+
+  switchHidden(hidden : boolean){
+    this.hidden = hidden;
+  }
+
+  invalid(){
+    var res  = this.globalService.quizAndQuestionsInvalid(this.quiz);
+    if(res) return res;
+    if(this.hidden) return "Le quiz n'est actuellement visible par personne, \n vous pouvez changer cela en cliquant sur Modifier la visibilité";
+  }
+
+  goBack() {
+    this.location.back(); // <-- go back to previous location on cancel
   }
 }
 

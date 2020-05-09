@@ -29,25 +29,7 @@ export class QuestionViewComponent implements OnInit {
     private route: ActivatedRoute, public formBuilder: FormBuilder, 
     public globalService: GlobalService, private quizService : QuizService ) {}
 
-  
- /* ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    //this.quizService.quizSelected$.subscribe();
-    this.headerTitle = player.name;
-    this.quizService.setSelectedQuiz(id);
-  }
-  
-  private onQuizSelected(player: Player) {
-    this.player = player;
-    this.loadImage();
-  }
     
-  loadImage(){
-    this.image = {} as Img;
-    const id = this.player.imageId;
-    this.imageService.loadPlayerImage(this.image, id);
-  }*/
-  
   ngOnInit() {
     this.quizService.quizSelected$.subscribe(() => this.load());
     this.load();
@@ -60,7 +42,6 @@ export class QuestionViewComponent implements OnInit {
   }
 
   
-
   load(){
     this.image =  {} as Img;
     const quizId = this.route.snapshot.paramMap.get('id');

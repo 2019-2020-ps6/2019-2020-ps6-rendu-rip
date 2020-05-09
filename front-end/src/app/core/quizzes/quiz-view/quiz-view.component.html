@@ -1,5 +1,8 @@
 <app-header [title] = "headerTitle" [image] = "image"></app-header>
-<div class="goback-button" routerLink= "..">
+<div class="goback-button" *ngIf ="!quiz || quiz && !invalid()" (click)= "goBack()">
+  <i class="fa fa-arrow-left" aria-hidden="true"></i>
+</div>
+<div class="goback-button" *ngIf ="quiz && invalid()" (click)="modalService.open(quizInvalid)">
   <i class="fa fa-arrow-left" aria-hidden="true"></i>
 </div>
 <div class="home-button" routerLink= "/">
@@ -9,7 +12,7 @@
 <div *ngIf ="quiz" class="img-edit-block">
   <button class="edit-button" id = "editQuizName" (click)="modalService.open(quizEditModal)">Modifier le quiz</button>
   <br>
-  <app-visibility-choice-modal [quiz] = "quiz"></app-visibility-choice-modal>
+  <app-visibility-choice-modal [quiz] = "quiz" (hidden) = "switchHidden($event)"></app-visibility-choice-modal>
 </div>
 
 <div *ngIf ="quiz">
@@ -25,5 +28,21 @@
   </div>
   <div class="modal-body">
       <app-quiz-form-modal [quiz] = "quiz" [image] = "image" (quitForm) = "modal.close()"></app-quiz-form-modal>
+  </div>
+</ng-template>
+
+<ng-template #quizInvalid let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Quiz incomplet</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class = "errorMessage">
+      {{invalid()}}
+    </div>
+    <button class="button-card" (click)="goBack();modal.close()"> Quitter quand même </button>
+    <button class="button-card" (click)="modal.close()"> Continuer l'édition </button>
   </div>
 </ng-template>

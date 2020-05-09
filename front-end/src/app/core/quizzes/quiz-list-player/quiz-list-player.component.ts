@@ -43,7 +43,7 @@ export class QuizListPlayerComponent implements OnInit {
       this.quizService.quizzes$.subscribe((quizzes) => {
         this.quizList = [];
         this.quizList = quizzes
-        this.filteredQuizList(quizzes);
+        this.filteredQuizList();
       });
     });
     this.quizService.setQuizzesFromUrl();
@@ -82,10 +82,10 @@ export class QuizListPlayerComponent implements OnInit {
     return quiz.theme === theme;
   }
 
-  filteredQuizList(quizzes : Quiz[]){
-    if(!quizzes)return null;
+  filteredQuizList(){
+    if(!this.quizList)return null;
     this.quizListFiltered = []
-    for (let quiz of quizzes){
+    for (let quiz of this.quizList){
       if(this.hasSelectedTheme(quiz) && this.globalService.isValid(quiz) && this.playerService.quizVisibleByPlayer(this.player,quiz.id)){
         this.quizListFiltered.push(quiz);
       }

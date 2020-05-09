@@ -10,7 +10,7 @@
     <div class="theme-button">
         <form [formGroup]="themeForm">
             Thème:
-            <select name="Thème" id="selectTheme" [formControlName]="'theme'">
+            <select name="Thème" id="selectTheme" [formControlName]="'theme'" (change)="filteredQuizList()">
                 <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
                   {{current_theme}}
                 </option>

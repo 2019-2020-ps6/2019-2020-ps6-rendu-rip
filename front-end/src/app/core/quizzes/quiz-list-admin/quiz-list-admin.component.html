@@ -13,15 +13,15 @@
     <div class="theme-button">
         <form [formGroup]="themeForm">
             Thème:
-            <select name="Thème" id="selectTheme" [formControlName]="'theme'">
+            <select name="Thème" id="selectTheme" [formControlName]="'theme'" (change)="filteredQuizList()">
                 <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
                   {{current_theme}}
                 </option>
             </select>
         </form>
     </div> 
-<div class="quiz-list" *ngIf="quizList && filteredQuizList().length!==0; else noQuizFound">
-    <div class="fixed-container-bigger" *ngFor="let quiz of filteredQuizList()">
+<div class="quiz-list" *ngIf="quizListFiltered; else noQuizFound">
+    <div class="fixed-container-bigger" *ngFor="let quiz of quizListFiltered">
         <div class = "tag" *ngIf = "!globalService.isValid(quiz)">
             INCOMPLET
         </div>

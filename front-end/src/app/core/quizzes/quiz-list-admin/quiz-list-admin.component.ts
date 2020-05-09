@@ -15,7 +15,8 @@ export class QuizListAdminComponent implements OnInit {
 
   headerTitle = "Liste des quiz"
 
-  public quizList: Quiz[] = [];
+  public quizList: Quiz[];
+  public quizListFiltered: Quiz[];
   public THEME_LIST: string[] = [];
   private ALL_QUIZZES: string='TOUS';
 
@@ -23,9 +24,16 @@ export class QuizListAdminComponent implements OnInit {
 
   constructor(private modalService: ModalService, public globalService: GlobalService,
     public quizService: QuizService, public formBuilder: FormBuilder, public themeService : ThemeService) {
-    this.quizService.quizzes$.subscribe((quizzes) => this.quizList = quizzes);
-    this.themeFilteringSetup();
+      this.themeFilteringSetup();
+      this.quizService.quizzes$.subscribe((quizzes) =>{
+        this.quizList = [];
+        this.quizList = quizzes;
+        this.filteredQuizList();
+    })
+    
   }
+
+  ngOnInit() {}
 
   themeFilteringSetup() {
     this.themeService.themes$.subscribe((themes) =>{
@@ -50,12 +58,9 @@ export class QuizListAdminComponent implements OnInit {
   }
 
   filteredQuizList() : Quiz[] {
-    var res =  this.quizList.filter((quiz) => this.hasSelectedTheme(quiz));
-    console.log(res);
-    return res;
+    if(!this.quizList) return;
+    this.quizListFiltered = this.quizList.filter((quiz) => this.hasSelectedTheme(quiz));
   }
-
-  ngOnInit() {}
   
   deleteQuiz(quiz: Quiz) { this.globalService.deleteQuiz(quiz); }
 }

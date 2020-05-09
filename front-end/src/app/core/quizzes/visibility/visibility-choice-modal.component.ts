@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ModalService } from 'src/services/modal.service';
 import { Quiz } from 'src/models/quiz.model';
 import { Player } from 'src/models/player.model';
@@ -18,6 +18,8 @@ export class VisibilityChoiceModal implements OnInit {
     playersToSetVisibility : Player[] = [];
     playersToUnsetVisibility : Player[] = [];
     all : boolean;
+    @Output()
+    hidden : EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private modalService: ModalService, public playerService : PlayerService) {
 
@@ -27,6 +29,7 @@ export class VisibilityChoiceModal implements OnInit {
     this.playerService.players$.subscribe((players) => {
       this.players = players;
       this.all = this.playerService.quizVisibleByAll(this.players,this.quiz.id);
+      this.hidden.emit(this.playerService.quizVisibleByNobody(this.players,this.quiz.id))
     });
   this.playerService.setPlayersFromUrl();
   }
@@ -55,6 +58,7 @@ export class VisibilityChoiceModal implements OnInit {
         this.playerService.updatePlayer(player);
       }
     }
+    this.hidden.emit(this.playerService.quizVisibleByNobody(this.playersToSetVisibility,this.quiz.id));
     this.reset();
   }
 

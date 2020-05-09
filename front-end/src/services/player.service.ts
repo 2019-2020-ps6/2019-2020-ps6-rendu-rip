@@ -101,6 +101,15 @@ export class PlayerService {
     return true;
   }
 
+  quizVisibleByNobody(players : Player[], quizId : string){
+    for (let player of players){
+      if(this.quizVisibleByPlayer(player,quizId)){
+        return false;
+      }
+    }
+    return true;
+  }
+
   playerInvalid(player: Player){
     if(!player){
       window.alert("Erreur");

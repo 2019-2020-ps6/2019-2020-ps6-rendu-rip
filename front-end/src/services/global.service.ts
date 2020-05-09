@@ -93,6 +93,9 @@ export class GlobalService {
     return this.quizService.quizInvalid(quiz);
   }
 
+  quizAndQuestionsInvalid(quiz : Quiz):string{
+    return this.quizService.quizAndQuestionsInvalid(quiz);
+  }
   //::::::::::::::::::::::::::::::Question::::::::::::::::::::::::::::::
   loadQuestion(question : Question, quizId: string, questionId: string) {
     const url = `${this.quizUrl}/${quizId}/${this.questionsPath}/${questionId}`;
