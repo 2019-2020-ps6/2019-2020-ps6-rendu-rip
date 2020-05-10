@@ -160,7 +160,7 @@ export class AnswerListWidgetComponent implements OnInit, AfterViewInit{
     , AnswerListWidgetComponent.TIME_OUT_DISPLAY_NEXT_BUTTON);
 
   //passage à la question
-  nextQuestion(){
+  nextQuestion() {
     this.stop(this.timerDisplayRightAnswer);
     if(this.answerSelected === null) this.selected.emit(null);//pour que soit intercept et sache --> rep enregistrée dans bd: null si non rep --> perte focus
     this.next.emit(true);

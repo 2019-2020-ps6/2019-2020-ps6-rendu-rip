@@ -14,7 +14,7 @@
 </div>
 
 <div *ngIf="display === SHOW_RIGHT_ANSWER">
-    <div *ngIf="displayNextButton" class="bottomBtn shazamButton" [@shazam]='zoom' (click)="nextQuestion()">
+    <div *ngIf="displayNextButton" class="shazamButton" [@shazam]='zoom' (click)="nextQuestion()">
         <div>Suivant <i class="fa fa-arrow-right" aria-hidden="true"></i></div>
     </div>
 </div>

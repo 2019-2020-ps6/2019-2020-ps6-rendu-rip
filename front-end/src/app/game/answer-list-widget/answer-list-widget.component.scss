@@ -11,7 +11,7 @@
 }
 
 .grid { // ok pour le moment mais faudrait le rendre plus générique
-    margin-top: 5rem;
+    margin-top: 2rem;
     display: grid;
     grid-template-columns: repeat(2, minmax(50%, 1fr));
     grid-gap: 10px;
@@ -19,16 +19,11 @@
 }
 // Lien utile : https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Auto-placement_in_CSS_Grid_Layout
 
-.bottomBtn{
-    
-}
-
 .shazamButton {
-    position: fixed;
+    /*position: fixed;
     bottom: -9rem;
     left: 0;
-    right: 0;
-
+    right: 0;*/
     background-color: rgb(38, 139, 255);//default
     border-radius: 75px;
     height: 7rem;
@@ -41,6 +36,7 @@
     font-weight: bold;
     color: white;
     box-shadow: 0 6px 10px rgba(33, 34, 65, 0.2), 0 0 6px rgba(57, 44, 88, 0.15);
+    margin-top: 2rem;
 }
 
 .shazamButton:hover {
