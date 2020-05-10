@@ -3,16 +3,18 @@
     <i class="fa fa-arrow-left" aria-hidden="true"></i>
 </div>
 <div class="main">
-    <div class = "box">
-        <div *ngIf = "quiz">
+    <div *ngIf = "quiz">
+        <div *ngIf = "currentQuestion">
+            <div *ngIf="currentQuestion.label"><h2>{{currentQuestion.label}}</h2></div>
+            <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="question image"></div>
+        </div>
+        <div class = "box">
             <div *ngIf = "currentQuestion">
-                <div *ngIf="currentQuestion.label"><h2>{{currentQuestion.label}}</h2></div>
-                <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="question image"></div>
                 <app-right-answer [answers] = "currentQuestion.answers"></app-right-answer>
             </div>
-            <div *ngIf = "questions.length===0">
-                <button class="button-card" routerLink= "../end">Fin</button>
-            </div>
+        </div>
+        <div *ngIf = "currentQuestion && questions.length===0" class="place-bottom">
+            <div class="button-end" routerLink= "../end">Fin</div>
         </div>
     </div>
 </div>

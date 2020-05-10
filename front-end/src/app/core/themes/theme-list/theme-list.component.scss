@@ -1,0 +1,32 @@
+@import '../../../../styles/card.scss';
+@import '../../../../styles/layout.scss';
+@import '../../../../styles/common.scss';
+@import '../../../../styles/images.scss';
+
+
+.theme-list {
+  @extend .responsive-list;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.theme-card {
+  @extend .quiz-card;
+  width: 40%;
+  margin: 0.5rem;
+  font-size: large;
+  box-shadow: none;
+  border-bottom: dotted 1.5px rosybrown;
+  border-right: dotted 1.5px rosybrown;
+}
+
+.theme-card:hover {
+  background-color: white;
+  cursor: default;
+}
+/*
+.fixed-container{
+  border: solid;
+  width: 20%;
+  //height: 10;
+}*/

@@ -4,16 +4,18 @@
 </div>
 
 <div class="main">
-<div class="box" *ngIf = "quiz">
-    <div *ngIf = "currentQuestion; else elseBlock">
-        <div class = "labelandimage">
-            <div *ngIf="currentQuestion.label"><h4>{{currentQuestion.label}}</h4></div>
-            <div *ngIf="image.url" class="question-image"><img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="question image"></div>
-        </div>
-        <app-answer-list-widget [answers] = "currentQuestion.answers" (selected) = "onSelectedAnswer($event)" (next) = "onNext($event)" (wrongAnswerEvent) = "onWrongAnswer($event)" (timeOutEvent) = "onTimeOut()"></app-answer-list-widget>
+    <div class="questionQuiz" *ngIf = "currentQuestion">
+        <div *ngIf="currentQuestion.label"><h1>{{currentQuestion.label}}</h1></div>
+        <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="question image"></div>
     </div>
-    <ng-template #elseBlock>
-        <button class="button-card button-recap" (click)="sendAttempt()" routerLink= "./recap">Récapitulatif</button>
-    </ng-template>
-</div>
+    <div class="vertical-center">
+        <div class="box" *ngIf = "quiz">
+            <div *ngIf = "currentQuestion; else elseBlock">
+                <app-answer-list-widget [answers] = "currentQuestion.answers" (selected) = "onSelectedAnswer($event)" (next) = "onNext($event)" (wrongAnswerEvent) = "onWrongAnswer($event)" (timeOutEvent) = "onTimeOut()"></app-answer-list-widget>
+            </div>
+            <ng-template #elseBlock>
+                <div class="big-button" (click)="sendAttempt()" routerLink= "./recap">Récapitulatif</div>
+            </ng-template>
+        </div>
+    </div>
 </div>

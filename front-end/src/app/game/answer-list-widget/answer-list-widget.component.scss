@@ -1,47 +1,48 @@
 @import '../../../styles/card.scss';
+@import '../../../styles/common.scss';
 
 .answers-list {
     width: 100%;
     height: 100%;
     margin: auto;
-    //border-style: solid;
-    //border-color:  rgb(179, 11, 89);
     text-align: center;
     margin: auto;
     display: table;
 }
 
 .grid { // ok pour le moment mais faudrait le rendre plus générique
+    margin-top: 5rem;
     display: grid;
     grid-template-columns: repeat(2, minmax(50%, 1fr));
     grid-gap: 10px;
     grid-auto-rows: 50%;
 }
-
 // Lien utile : https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/Auto-placement_in_CSS_Grid_Layout
 
-/*#nextButton {
-    background-color: #2693FF;
-    border-radius: 75px;
-    height: 50px;
-    margin: auto;
-    width: 150px;
-    transition: transform 1.8s ease-in-out, opacity 1.8s ease-in-out;
-}*/
+.bottomBtn{
+    
+}
+
 .shazamButton {
+    position: fixed;
+    bottom: -9rem;
+    left: 0;
+    right: 0;
+
     background-color: rgb(38, 139, 255);//default
-    //background-color: rgb(127, 74, 250);
     border-radius: 75px;
-    height: 50px;
-    line-height: 50px;//to vertically center
+    height: 7rem;
+    line-height: 7rem;//to vertically center
     margin: auto;
-    width: 120px;
+    width: 16rem;
     padding: auto;
     text-align: center;
+    font-size: 3rem;
     font-weight: bold;
     color: white;
     box-shadow: 0 6px 10px rgba(33, 34, 65, 0.2), 0 0 6px rgba(57, 44, 88, 0.15);
 }
+
 .shazamButton:hover {
     cursor: pointer;
 }

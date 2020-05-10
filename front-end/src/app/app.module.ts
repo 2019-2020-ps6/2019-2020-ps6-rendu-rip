@@ -32,7 +32,7 @@ import { ScreenPlayerComponent } from './start/screen-player/screen-player.compo
 import { RecapComponent } from './game/recap/recap.component';
 import { EndComponent } from './game/end/end.component';
 import { RightAnswerComponent } from './game/right-answer/right-answer.component';
-import { ThemeFormComponent } from './core/quizzes/theme-form/theme-form.component';
+import { ThemeFormComponent } from './core/themes/theme-form/theme-form.component';
 import { SelectedVSRightAnswerComponent } from './game/selected-vs-right-answer/selected-vs-right-answer.component';
 import { PlayerListPlayerComponent } from './core/players/player-list-player/player-list-player.component';
 import { GalleryComponent } from './gallery/gallery.component';
@@ -44,7 +44,7 @@ import { QuizAttemptComponent } from './results/quiz-attempt/quiz-attempt.compon
 import { QuizAttemptDetailsComponent } from './results/quiz-attempt-details/quiz-attempt-details.component';
 import { InternetImageModalComponent } from './core/internet-image-modal/internet-image-modal.component';
 import { DatabaseImageModalComponent } from './core/database-image-modal/database-image-modal.component';
-import { ThemeListComponent } from './theme-list/theme-list.component';
+import { ThemeListComponent } from './core/themes/theme-list/theme-list.component';
 import { VisibilityChoiceModal} from './core/quizzes/visibility/visibility-choice-modal.component'
 import { AssociatePlayerModal} from './core/quizzes/visibility/associate-player-modal.component'
 import { AssociateQuizModal } from './core/quizzes/visibility/associate-quiz-modal.component';

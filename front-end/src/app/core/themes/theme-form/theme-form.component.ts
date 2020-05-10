@@ -6,7 +6,7 @@ import { Theme } from 'src/models/theme.model';
 import { ModalService } from 'src/services/modal.service';
 
 @Component({
-  selector: 'theme-form',
+  selector: 'app-theme-form',
   templateUrl: './theme-form.component.html',
   styleUrls: ['./theme-form.component.scss']
 })
@@ -18,7 +18,7 @@ export class ThemeFormComponent implements OnInit {
   @Output()
   themeAdded: EventEmitter<String> = new EventEmitter<String>();
 
-  constructor(private modalService : ModalService, public formBuilder: FormBuilder, public themeService: ThemeService) {}
+  constructor(public formBuilder: FormBuilder, public themeService: ThemeService) {}
 
   ngOnInit() {
     this.themeForm = this.formBuilder.group({
@@ -40,5 +40,6 @@ export class ThemeFormComponent implements OnInit {
 
   cancel(){
     this.reset();
+    this.themeAdded.emit("canceled");
   }
 }

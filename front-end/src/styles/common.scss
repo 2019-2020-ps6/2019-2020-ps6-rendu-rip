@@ -31,7 +31,6 @@
     left: 0.5rem;
 }
 
-
 .home-button {
     @extend .button-purple-theme;
     position: fixed;
@@ -42,7 +41,7 @@
 .theme-button {
     @extend .button-purple-theme;
     position: fixed;
-    right: 2rem;
+    right: 1rem;
 }
 
 .theme-button:hover {
@@ -58,6 +57,12 @@
     position: fixed;
     /*margin-top: 0rem;
     margin-left: 0;//0.5rem;*/
+}
+
+.left-button {
+    @extend .button-purple-theme;
+    position: fixed;
+    left: 2rem;
 }
 
 .edit-button {
@@ -86,6 +91,9 @@
     font-weight: bold;
     padding: 0.5em 1em;
     font-size: 300%;
+
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 
 .delete-button {
@@ -101,4 +109,14 @@
 
 .delete-button:active {
     background-color: rgb(226, 25, 25); 
+}
+
+.submitBtn {
+    margin-top: 1rem;
+    margin-right: 1rem;
+}
+
+.cancelBtn {
+    margin-top: 1rem;
+    margin-left: 1rem;
 }

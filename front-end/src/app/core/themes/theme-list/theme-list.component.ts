@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from 'src/services/theme.service';
 import { Theme } from 'src/models/theme.model';
+import { ModalService } from 'src/services/modal.service';
 
 @Component({
   selector: 'app-theme-list',
@@ -13,7 +14,7 @@ export class ThemeListComponent implements OnInit {
 
   THEME_LIST : Theme[];
 
-  constructor(public themeService : ThemeService) {
+  constructor(private modalService : ModalService, public themeService : ThemeService) {
   }
 
   ngOnInit() {

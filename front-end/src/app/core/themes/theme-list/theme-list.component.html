@@ -1,0 +1,36 @@
+<app-header [title] = "headerTitle"></app-header>
+<div class="goback-button" routerLink= "..">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+</div>
+<div class="home-button" routerLink= "/">
+    <i class="fa fa-home" aria-hidden="true"></i>
+</div>
+
+<div class="main">
+    <div class="new-button" (click)="modalService.open(themeFormModal)"> 
+        <i class="fas fa-plus-circle"></i> Nouveau Thème
+    </div>
+    <!--<theme-form></theme-form>-->
+    <div class = "theme-list" *ngIf = "THEME_LIST">
+        <div class="theme-card" *ngFor = "let theme of THEME_LIST">
+            <button class="delete-button" (click)="deleteTheme(theme)">
+                <i class="fas fa-times"></i>
+            </button>
+            <div>
+                {{theme.name}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #themeFormModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Ajouter un thème</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <app-theme-form (themeAdded) = "modal.close()"></app-theme-form>
+    </div>
+</ng-template>

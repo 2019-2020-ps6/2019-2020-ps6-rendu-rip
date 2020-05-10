@@ -1,5 +1,7 @@
 @import '../../../styles/images.scss';
+@import '../../../styles/layout.scss';
 
+/*
 .box-answers {
     //margin-top: auto
     margin-bottom: auto;
@@ -10,18 +12,43 @@
     display: flex;
     flex-wrap: wrap;
     text-align: center;
-}
+}*/
 
-.answer-li {
-    margin: auto;
-}
 .separation{
     width:5px;
     border-left:1px solid gray;
 }
 
 .victory-message{
-    color: red;
+    color: purple;
+    font-weight: bold;
     font-family: futura;
     font-style: italic;
+    text-align: center;
+}
+
+.frame {
+    width: 15rem;
+    height: 15rem;
+}
+
+.givenAnswer {
+    margin-right: 1rem;
+}
+
+.rightAnswer {
+    margin-left: 1rem;
+}
+
+.vsBlock {
+    text-align: center;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.txtAns {
+    font-weight: bold;
+    font-size: 2rem;
 }
