@@ -1,5 +1,4 @@
 const { Router } = require('express')
-//const { DefaultImage, QuizImage, QuestionImage, AnswerImage, UserImage } = require('../../models')
 const { DefaultImage, Image, PlayerPhoto } = require('../../models')
 const manageAllErrors = require('../../utils/routes/error-management')
 
