@@ -50,7 +50,7 @@ export class QuizViewComponent implements OnInit {
 
   invalid(){
     var res  = this.globalService.quizAndQuestionsInvalid(this.quiz);
-    if(res) return res;
+    if(res!=="") return res;
     if(this.hidden) return "Le quiz n'est actuellement visible par personne, \n vous pouvez changer cela en cliquant sur Modifier la visibilité";
   }
 

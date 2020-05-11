@@ -12,7 +12,7 @@
 <div *ngIf ="quiz" class="img-edit-block">
   <button class="edit-button" id = "editQuizName" (click)="modalService.open(quizEditModal)">Modifier le quiz</button>
 </div>
-<app-visibility-choice-modal [quiz] = "quiz" (hidden) = "switchHidden($event)"></app-visibility-choice-modal>
+<div *ngIf = "quiz" ><app-visibility-choice-modal [quiz] = "quiz" (hidden) = "switchHidden($event)"></app-visibility-choice-modal></div>
 
 <div *ngIf ="quiz">
   <app-question-list [quiz]="quiz"></app-question-list>

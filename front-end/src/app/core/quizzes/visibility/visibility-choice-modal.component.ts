@@ -58,7 +58,9 @@ export class VisibilityChoiceModal implements OnInit {
         this.playerService.updatePlayer(player);
       }
     }
-    this.hidden.emit(this.playerService.quizVisibleByNobody(this.playersToSetVisibility,this.quiz.id));
+    const res = this.players;
+    res.concat(this.players.filter(player => this.playersToUnsetVisibility.indexOf(player) < 0));
+    this.hidden.emit(this.playerService.quizVisibleByNobody(res,this.quiz.id));
     this.reset();
   }
 
