@@ -1,0 +1,8 @@
+[
+  {
+    "timerToAnswer": 200000,
+    "timerComparison": 5000,
+    "timerRightAnswer": 3000,
+    "id": 0
+  }
+]
