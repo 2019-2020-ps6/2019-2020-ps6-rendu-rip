@@ -40,8 +40,8 @@ export class AnswerListWidgetComponent implements OnInit, AfterViewInit{
   display: number;
   //Pour la demo BESOIN de timers assez rapide...
   static second = 1000;//1s = 1000ms
-  static TIME_OUT_FOR_CHOSING_ANSWER: number = 10* AnswerListWidgetComponent.second;
-  static TIME_OUT_DISPLAY_COMPARISON: number = 3* AnswerListWidgetComponent.second;
+  static TIME_OUT_FOR_CHOSING_ANSWER: number = 200* AnswerListWidgetComponent.second;
+  static TIME_OUT_DISPLAY_COMPARISON: number = 5* AnswerListWidgetComponent.second;
   static TIME_OUT_DISPLAY_NEXT_BUTTON: number = 3*AnswerListWidgetComponent.second;
 
   SHOW_ANSWER_TO_CHOOSE: number = 0;
