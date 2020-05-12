@@ -11,6 +11,6 @@ router.use('/quizzes', QuizzesRouter)
 router.use('/players', PlayerRouter)
 router.use('/images', ImageRouter)
 router.use('/themes', ThemeRouter)
-router.use('/config', TimerConfigRouter)
+router.use('/timerconfig', TimerConfigRouter)
 
 module.exports = router

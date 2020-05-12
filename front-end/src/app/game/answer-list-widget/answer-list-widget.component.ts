@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, ViewChildren } from '@angular/core';
 import { Answer } from 'src/models/answer.model';
 import { trigger, state, transition, style, animate } from '@angular/animations';
+import { GlobalService } from 'src/services/global.service';
 
 const shazam = trigger('shazam', [
   state('zoomIn', style({ 
@@ -72,7 +73,9 @@ export class AnswerListWidgetComponent implements OnInit, AfterViewInit{
   , this.TIME_OUT_SHAZAM_TRANSITION);
   //::::::::::::::shazam button::::::::::::::::::::
 
-  constructor(private elementRef: ElementRef) {
+  constructor(private elementRef: ElementRef, public globalService: GlobalService) {
+    globalService.getTimers()
+
     // Copy answers / Nécessaire pour le pop des questions
     if(this.answers) {
       this.answers = this.answers.map(e => ({ ... e }));

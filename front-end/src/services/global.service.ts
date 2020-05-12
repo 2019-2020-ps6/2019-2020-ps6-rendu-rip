@@ -13,6 +13,8 @@ import { QuestionService } from './question.service';
 import { AnswerService } from './answer.service';
 import { Player } from 'src/models/player.model';
 import { AttemptService } from './attempt.service';
+import { TimerConfig } from 'src/models/timerconfig.model'
+import { AnswerListWidgetComponent } from 'src/app/game/answer-list-widget/answer-list-widget.component';
 
 @Injectable({
   providedIn: 'root'
@@ -280,4 +282,27 @@ export class GlobalService {
     }
     return true;
   }
+
+  //:::::::::::::::::::::::::::::: Timer Config ::::::::::::::::::::::::::::::
+
+  getTimers() {
+    this.http.get<TimerConfig>(serverUrl+"/timerconfig", this.httpOptions).subscribe(
+      (config) => {
+        AnswerListWidgetComponent.TIME_OUT_FOR_CHOSING_ANSWER = config.timerToAnswer;
+        AnswerListWidgetComponent.TIME_OUT_DISPLAY_COMPARISON = config.timerComparison;
+        AnswerListWidgetComponent.TIME_OUT_DISPLAY_NEXT_BUTTON = config.timerRightAnswer;
+      })
+  }
+
+  updateTimers(timerToAnswer:number, timerComparison:number, timerRightAnswer: number) {
+    let config = {} as TimerConfig
+    config.timerToAnswer = timerToAnswer
+    config.timerComparison = timerComparison
+    config.timerRightAnswer = timerRightAnswer
+    
+    this.http.put<TimerConfig>(serverUrl+"/timerconfig", config , this.httpOptions).subscribe( 
+      () => this.getTimers()
+    );
+  }
+
 }
