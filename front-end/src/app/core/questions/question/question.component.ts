@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Question } from '../../../../models/Question.model';
+import { Question } from '../../../../models/question.model';
 import { Quiz } from 'src/models/quiz.model';
 import { Img } from '../../../../models/image.model';
 import { Router } from '@angular/router';

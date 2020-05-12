@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { Question } from '../../../../models/Question.model';
+import { Question } from '../../../../models/question.model';
 import { FormBuilder } from '@angular/forms';
 import { Quiz } from 'src/models/quiz.model';
 import { Img } from '../../../../models/image.model';
