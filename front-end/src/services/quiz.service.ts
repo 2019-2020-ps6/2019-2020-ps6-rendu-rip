@@ -50,7 +50,6 @@ export class QuizService {
   }
 
   setQuizzes(quizzes: Quiz[]) {
-    console.log("In setQuizzes");
     console.log(quizzes);
     this.quizzes = quizzes;
     this.quizzes$.next(this.quizzes);

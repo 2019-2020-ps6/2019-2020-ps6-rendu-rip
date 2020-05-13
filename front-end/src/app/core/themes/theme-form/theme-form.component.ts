@@ -28,10 +28,13 @@ export class ThemeFormComponent implements OnInit {
 
   saveTheme(): void {
     const themeToAdd: Theme =  this.themeForm.getRawValue() as Theme;
+    if(themeToAdd.name===""){
+      this.cancel();
+      return;
+    }
     this.themeService.addTheme(themeToAdd);
     this.themeAdded.emit(themeToAdd.name);
     this.reset();
-    console.log(`la valeur de theme est : ${themeToAdd}`);
   }
 
   reset(){
@@ -39,7 +42,7 @@ export class ThemeFormComponent implements OnInit {
   }
 
   cancel(){
+    this.themeAdded.emit("");
     this.reset();
-    this.themeAdded.emit("canceled");
   }
 }

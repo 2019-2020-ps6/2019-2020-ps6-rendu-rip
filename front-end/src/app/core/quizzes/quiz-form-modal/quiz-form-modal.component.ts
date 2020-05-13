@@ -5,6 +5,7 @@ import { Quiz } from 'src/models/quiz.model';
 import { Img } from 'src/models/image.model';
 import { ThemeService } from 'src/services/theme.service';
 import { GlobalService } from 'src/services/global.service';
+import { ModalService } from 'src/services/modal.service';
 
 @Component({
   selector: 'app-quiz-form-modal',
@@ -30,7 +31,7 @@ export class QuizFormModalComponent implements OnInit {
   public THEME_LIST : string[];
 
   constructor(public globalService: GlobalService, public formBuilder: FormBuilder, 
-    public themeService : ThemeService) {}
+    public themeService : ThemeService, private modalService : ModalService) {}
 
   ngOnInit() {
     this.initImageTmp();
@@ -61,8 +62,7 @@ export class QuizFormModalComponent implements OnInit {
     }
   }
   initTheme(theme : String){
-    console.log(theme)
-    this.quizForm.controls['theme'].setValue(theme);
+    if(theme!=="")this.quizForm.controls['theme'].setValue(theme);
   }
   reset(){
     this.quizForm.reset();

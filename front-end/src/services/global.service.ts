@@ -254,17 +254,14 @@ export class GlobalService {
     this.http.get<Quiz[]>(serverUrl+"/quizzes", this.httpOptions).subscribe((quizzes) => {
       for(let quiz of quizzes){
         if(quiz.imageId==id){
-          console.log(quiz)
           quizs.push(quiz)
         }
         for(let question of quiz.questions){
           if(question.imageId==id){
-            console.log(question)
             questions.push(question)
           } 
           for(let answer of question.answers){
             if(answer.imageId==id){
-                console.log(answer)
                 answers.push(answer)
                 answerToQuiz.push(quiz);
               }
@@ -289,7 +286,6 @@ export class GlobalService {
   getTimers() {
     this.http.get<TimerConfig>(serverUrl+"/timerconfig", this.httpOptions).subscribe(
       (config) => {
-        console.log(config)
         this.timers$.next(config);
       })
   }
