@@ -43,7 +43,6 @@ export class QuizAttemptDetailsComponent implements OnInit {
   }
 
   loaded() {
-    console.log(this.attempt)
     return this.player.id && this.attempt.id && this.quiz.id && this.quizImage.url;
   }
 
@@ -52,13 +51,12 @@ export class QuizAttemptDetailsComponent implements OnInit {
   }
 
   checkIfWrongQuestion(question : Question){
-    let res = false;
-    this.attempt.wrongAnswers.forEach((answer)=>{
-      if(answer.questionId===question.id){
-        res = true;
+    for(let answer of this.attempt.wrongAnswers){
+        if(answer.questionId===question.id){
+          return true;
       }
-    })
-    return res;
+    }
+    return false;
   }
 
   
@@ -72,7 +70,6 @@ export class QuizAttemptDetailsComponent implements OnInit {
         break;
       }
     }
-    console.log(rightAnswer)
     return rightAnswer;
   }
 

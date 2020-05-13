@@ -42,6 +42,10 @@
   @extend .horizontal-layout;
 }
 
+.quiz-card{
+  margin: 1em;
+}
+
 .attempt-card {
   @extend .quiz-card;
   margin-left: auto;

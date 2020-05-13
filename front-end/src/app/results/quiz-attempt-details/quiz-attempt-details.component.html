@@ -30,7 +30,7 @@
     <div class = "resultats" *ngIf="attempt.wrongAnswers.length>1">{{attempt.wrongAnswers.length}} fautes </div>
     </div>
     <div class="quiz-list"> 
-        <div class="fixed-container-bigger" *ngFor="let question of quiz.questions"> 
+        <div *ngFor="let question of quiz.questions"> 
             <div class="quiz-card" *ngIf = "checkIfWrongQuestion(question)" (click)=seeQuestion(question.id)>
                 A la question : {{question.label}}<br>
                 La personne a répondu : 
@@ -45,10 +45,6 @@
                 <div class = "card">
                     {{setRightAnswer(question).value}}
                 </div>
-            </div>
-            <div class="quiz-card" *ngIf = "!checkIfWrongQuestion(question)">
-                A bien répondu! --> faire un tri (select wrongQuestions)
-                au préalable pour affichage correct
             </div>
         </div> 
     </div>
