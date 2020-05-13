@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { serverUrl, httpOptionsBase } from '../configs/server.config';
 
@@ -11,10 +11,8 @@ import { ImageService } from './image.service';
 import { QuizService } from './quiz.service';
 import { QuestionService } from './question.service';
 import { AnswerService } from './answer.service';
-import { Player } from 'src/models/player.model';
 import { AttemptService } from './attempt.service';
 import { TimerConfig } from 'src/models/timerconfig.model'
-import { AnswerListWidgetComponent } from 'src/app/game/answer-list-widget/answer-list-widget.component';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +26,9 @@ export class GlobalService {
   private imgUrl        = `${serverUrl}/images/database`;
   private questionsPath = 'questions';
   private answersPath   = 'answers';
+  public timers$: Subject<TimerConfig> = new Subject();
+  public static second = 1000;
+
   
 
   //TODO clean a bit
@@ -288,21 +289,19 @@ export class GlobalService {
   getTimers() {
     this.http.get<TimerConfig>(serverUrl+"/timerconfig", this.httpOptions).subscribe(
       (config) => {
-        AnswerListWidgetComponent.TIME_OUT_FOR_CHOSING_ANSWER = config.timerToAnswer;
-        AnswerListWidgetComponent.TIME_OUT_DISPLAY_COMPARISON = config.timerComparison;
-        AnswerListWidgetComponent.TIME_OUT_DISPLAY_NEXT_BUTTON = config.timerRightAnswer;
+        console.log(config)
+        this.timers$.next(config);
       })
   }
 
-  updateTimers(timerToAnswer:number, timerComparison:number, timerRightAnswer: number) {
+  updateTimers(timers : TimerConfig) {
     let config = {} as TimerConfig
-    config.timerToAnswer = timerToAnswer
-    config.timerComparison = timerComparison
-    config.timerRightAnswer = timerRightAnswer
+    config.timerToAnswer = timers.timerToAnswer
+    config.timerComparison = timers.timerComparison
+    config.timerRightAnswer = timers.timerRightAnswer
     
     this.http.put<TimerConfig>(serverUrl+"/timerconfig", config , this.httpOptions).subscribe( 
-      () => this.getTimers()
-    );
+      () => this.getTimers());
   }
 
 }

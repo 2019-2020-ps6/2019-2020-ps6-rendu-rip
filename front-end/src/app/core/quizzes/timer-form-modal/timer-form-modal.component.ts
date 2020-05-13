@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ModalService } from 'src/services/modal.service';
 import { AnswerListWidgetComponent } from 'src/app/game/answer-list-widget/answer-list-widget.component';
 import { GlobalService } from 'src/services/global.service';
+import { TimerConfig } from 'src/models/timerconfig.model';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-timer-form-modal',
@@ -13,38 +15,38 @@ import { GlobalService } from 'src/services/global.service';
 export class TimerFormModalComponent implements OnInit {
 
   timerForm: FormGroup;
+  timers : TimerConfig;
   
   constructor(private modalService : ModalService, public formBuilder: FormBuilder, public globalService:GlobalService) {
-    globalService.getTimers()
+    this.globalService.timers$.subscribe((timers) => {
+      this.timers = timers;
+      this.initTimerForm(this.timers);
+    })
   }
 
   ngOnInit() {
-    this.initTimerForm();
+    this.globalService.getTimers();
   }
 
 
-  initTimerForm(){
+  initTimerForm(timers : TimerConfig){
     this.timerForm = this.formBuilder.group({
-        timerToAnswer: [AnswerListWidgetComponent.TIME_OUT_FOR_CHOSING_ANSWER/AnswerListWidgetComponent.second],
-        timerComparison: [AnswerListWidgetComponent.TIME_OUT_DISPLAY_COMPARISON/AnswerListWidgetComponent.second],
-        timerRightAnswer: [AnswerListWidgetComponent.TIME_OUT_DISPLAY_NEXT_BUTTON/AnswerListWidgetComponent.second]
+        timerToAnswer: [timers.timerToAnswer/GlobalService.second],
+        timerComparison: [timers.timerComparison/GlobalService.second],
+        timerRightAnswer: [timers.timerRightAnswer/GlobalService.second]
       });
   }
   
-  save(value : any, modal){
-      let timerToAnswer:number, timerComparison:number, timerRightAnswer:number
-      
-      timerToAnswer = (value.timerToAnwer) ? value.timerToAnswer*AnswerListWidgetComponent.second : AnswerListWidgetComponent.TIME_OUT_FOR_CHOSING_ANSWER
-      timerComparison = (value.timerComparison) ? value.timerComparison*AnswerListWidgetComponent.second : AnswerListWidgetComponent.TIME_OUT_DISPLAY_COMPARISON
-      timerRightAnswer = (value.timerRightAnswer) ? value.timerRightAnswer*AnswerListWidgetComponent.second : AnswerListWidgetComponent.TIME_OUT_DISPLAY_NEXT_BUTTON
-      this.globalService.updateTimers( timerToAnswer, timerComparison, timerRightAnswer )
-
-      this.reset();
-      modal.close();
+  save(){
+      let timersToUpdate = this.timerForm.getRawValue() as TimerConfig;
+      timersToUpdate.timerToAnswer = timersToUpdate.timerToAnswer * GlobalService.second;
+      timersToUpdate.timerComparison = timersToUpdate.timerComparison * GlobalService.second;
+      timersToUpdate.timerRightAnswer = timersToUpdate.timerRightAnswer * GlobalService.second;
+      this.globalService.updateTimers(timersToUpdate);
   }
 
   reset(){
       this.timerForm.reset();
-      this.initTimerForm();
+      this.initTimerForm(this.timers);
   }
 }

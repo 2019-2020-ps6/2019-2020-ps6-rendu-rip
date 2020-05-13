@@ -9,7 +9,7 @@
       </button>
     </div>
     <div class="modal-body">
-        <form #form = "ngForm" [formGroup]="timerForm" (ngSubmit)="save(timerForm.value, modal)">
+        <form #form = "ngForm" [formGroup]="timerForm">
             <label>
                 Temps limite pour choisir une réponse : <input type="number" [formControlName]="'timerToAnswer'">secondes
             </label>
@@ -21,8 +21,7 @@
             </label>
             <br>
             <div class = "button-bottom" >
-                Ca marche pas si on reload: plus compliqué que prévu^^
-                <button class="button-card" type="submit">Enregistrer</button>
+                <button class="button-card" (click)= "save();modal.close()">Enregistrer</button>
                 <button class = "button-card" (click) = "reset();modal.close()">Annuler</button>
             </div>
         </form>

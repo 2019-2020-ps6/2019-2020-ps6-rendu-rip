@@ -21,7 +21,7 @@ const shazam = trigger('shazam', [
   styleUrls: ['./answer-list-widget.component.scss'],
   animations: [ shazam ]
 })
-export class AnswerListWidgetComponent implements OnInit, AfterViewInit{
+export class AnswerListWidgetComponent implements OnInit{
 
   @Input()
   answers: Answer[];
@@ -40,10 +40,9 @@ export class AnswerListWidgetComponent implements OnInit, AfterViewInit{
   answerSelected : Answer;
   display: number;
   //Pour la demo BESOIN de timers assez rapide...
-  static second = 1000;//1s = 1000ms
-  static TIME_OUT_FOR_CHOSING_ANSWER: number = 200* AnswerListWidgetComponent.second;
-  static TIME_OUT_DISPLAY_COMPARISON: number = 5* AnswerListWidgetComponent.second;
-  static TIME_OUT_DISPLAY_NEXT_BUTTON: number = 3*AnswerListWidgetComponent.second;
+  TIME_OUT_FOR_CHOSING_ANSWER: number = 200* GlobalService.second;
+  TIME_OUT_DISPLAY_COMPARISON: number = 5* GlobalService.second;
+  TIME_OUT_DISPLAY_NEXT_BUTTON: number = 3*GlobalService.second;
 
   SHOW_ANSWER_TO_CHOOSE: number = 0;
   SHOW_ANSWER_COMPARISON: number = 1;
@@ -74,15 +73,18 @@ export class AnswerListWidgetComponent implements OnInit, AfterViewInit{
   //::::::::::::::shazam button::::::::::::::::::::
 
   constructor(private elementRef: ElementRef, public globalService: GlobalService) {
-    globalService.getTimers()
+    this.globalService.timers$.subscribe((timers) => {
+      this.TIME_OUT_FOR_CHOSING_ANSWER = timers.timerToAnswer;
+      this.TIME_OUT_DISPLAY_COMPARISON = timers.timerComparison;
+      this.TIME_OUT_DISPLAY_NEXT_BUTTON = timers.timerRightAnswer;
+      this.init();   
+      this.initShazamTimer();
+    })
 
     // Copy answers / Nécessaire pour le pop des questions
     if(this.answers) {
       this.answers = this.answers.map(e => ({ ... e }));
     }
-  }
-
-  ngAfterViewInit() {
   }
 
   initShazamTimer() {
@@ -91,8 +93,7 @@ export class AnswerListWidgetComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit() {
-    this.init();    
-    this.initShazamTimer();
+    this.globalService.getTimers();
   }
      
   ngOnChanges(){
@@ -143,7 +144,7 @@ export class AnswerListWidgetComponent implements OnInit, AfterViewInit{
       this.timerDisplayComparison = this.startTimerDisplayComparison();// on lance le timer suivant
     }
   }
-  , AnswerListWidgetComponent.TIME_OUT_FOR_CHOSING_ANSWER);
+  , this.TIME_OUT_FOR_CHOSING_ANSWER);
 
   //timer pour afficher la COMPARISON
   startTimerDisplayComparison = () => setTimeout(() => {// à la fin du timeOut
@@ -154,13 +155,13 @@ export class AnswerListWidgetComponent implements OnInit, AfterViewInit{
       this.timerDisplayRightAnswer = this.startTimerDisplayRightAnswer();// on lance le timer correspondant
     }
   }
-  , AnswerListWidgetComponent.TIME_OUT_DISPLAY_COMPARISON);
+  , this.TIME_OUT_DISPLAY_COMPARISON);
 
   //timer before 'next' button shows
   startTimerDisplayRightAnswer = () => setTimeout(() => {
     this.displayNextButton = true;
     }
-    , AnswerListWidgetComponent.TIME_OUT_DISPLAY_NEXT_BUTTON);
+    , this.TIME_OUT_DISPLAY_NEXT_BUTTON);
 
   //passage à la question
   nextQuestion() {
