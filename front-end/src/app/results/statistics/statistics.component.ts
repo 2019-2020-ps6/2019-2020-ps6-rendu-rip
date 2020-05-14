@@ -23,11 +23,17 @@ export class StatisticsComponent implements OnInit {
 
   constructor(public playerService: PlayerService, public imageService: ImageService, 
     public router: ActivatedRoute, public attemptService: AttemptService,
-    private location: Location) {}
+    private location: Location) {
+      this.attemptService.attempts$.subscribe(()=>{
+        const playerId = this.router.snapshot.paramMap.get('id');
+        this.playerService.setSelectedPlayer(playerId);
+      })
+    }
 
   ngOnInit() {
     this.playerService.playerSelected$.subscribe((player) => {
       this.player = player;
+      this.playerAttempts = [];
       this.headerTitle = `Résultats de ${player.name}`;
       if(this.player.imageId){
         this.imageService.loadPlayerImage(this.playerImage, this.player.imageId);
@@ -40,5 +46,9 @@ export class StatisticsComponent implements OnInit {
 
   goBack() {
     this.location.back(); // <-- go back to previous location on cancel
+  }
+
+  deleteAttempt(attempt : Attempt){
+    this.attemptService.deleteAttempt(attempt);
   }
 }

@@ -6,6 +6,7 @@ import { Attempt } from 'src/models/attempt.model';
 import { Quiz } from 'src/models/quiz.model';
 import { Img } from 'src/models/image.model';
 import { GlobalService } from './global.service';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ import { GlobalService } from './global.service';
 
 export class AttemptService {
   private httpOptions = httpOptionsBase;
+  public attempts$: Subject<boolean> = new Subject();
 
   constructor(private http: HttpClient) {}
 
@@ -51,5 +53,12 @@ export class AttemptService {
   sendAttempt(attempt: Attempt) {
     this.http.post<Attempt>(`${serverUrl}/players/${attempt.playerId}/attempts/`, attempt, this.httpOptions)
     .subscribe(() => console.log("Sending attempt .."));
+  }
+
+  deleteAttempt(attempt : Attempt){
+    this.http.delete<Attempt>(`${serverUrl}/players/${attempt.playerId}/attempts/${attempt.id}`,this.httpOptions)
+    .subscribe(()=>{
+      this.attempts$.next(true);
+    })
   }
 }
