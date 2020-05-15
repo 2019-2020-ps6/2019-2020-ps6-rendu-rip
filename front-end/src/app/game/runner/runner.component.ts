@@ -40,6 +40,14 @@ export class RunnerComponent implements OnInit {
       if(quiz.questions) {
         this.questions = quiz.questions.map(e => ({ ... e }));
         this.questions.reverse();
+        if(this.quiz.random){
+          this.quizService.shuffleArray(this.questions);
+          this.questions.forEach(question => {
+            this.quizService.shuffleArray(question.answers);
+          });
+          
+
+        }
         this.changeQuestion();
 
         this.initAttempt();
@@ -98,6 +106,12 @@ export class RunnerComponent implements OnInit {
     if(this.currentQuestion) id = this.currentQuestion.imageId;
     if(id) this.imageService.loadQuestionImage(this.image, id);
   }
+
+  shuffle(): void{
+    
+  }
+
+
 }
 
 
