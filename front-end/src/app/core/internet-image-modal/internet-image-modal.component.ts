@@ -16,6 +16,7 @@ export class InternetImageModalComponent implements OnInit {
   @Input()
   id : string;
   urlForm: FormGroup;
+  @Output() onChangeFile_bis: EventEmitter<boolean> = new EventEmitter<boolean>();
     
     constructor(public formBuilder: FormBuilder,private modalService: ModalService, public imageService : ImageService){}
 
@@ -31,5 +32,6 @@ export class InternetImageModalComponent implements OnInit {
     onUrlClicked(modal) {
       this.imageService.onUrlClicked(modal,this.imageTmp,this.urlForm.getRawValue().url)
       this.urlForm.reset();
+      this.onChangeFile_bis.emit(true);
     }
 }

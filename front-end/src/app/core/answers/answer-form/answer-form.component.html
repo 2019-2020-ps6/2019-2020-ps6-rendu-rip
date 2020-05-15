@@ -4,7 +4,7 @@
       <input type="text" size = "{{sizeInput()}}" [formControlName]="'value'" id="name">
       <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>
       Correcte : <input type="checkbox" [formControlName]="'isCorrect'"> <br>
-      <div class="buttons-bottom" *ngIf = "showButton || !answer">
+      <div class="buttons-bottom" *ngIf = "showButton || !answer || onChangeFile || removeImgisCalled">
         <button type="submit" id="submitAnswer" class="btn btn-success" type="submit" (click)="submitAnswer()">Enregistrer</button>
         <button type="button" id="cancelAnswer" class="btn btn-warning" (click)="reset()">Annuler</button>
       </div>
@@ -16,17 +16,17 @@
     Charger une image depuis :<br>
     <ng-template [ngTemplateOutlet] ="displayImageAns"></ng-template>
     <label for="image64AnswerForm{{setLabel()}}" class="button-card chargingButton" >Cet appareil</label>
-	  <input type="file" class="hidden" id="image64AnswerForm{{setLabel()}}" (change)="globalService.onChangeFile($event,imageTmp)" accept="image/*">
+	  <input type="file" class="hidden" id="image64AnswerForm{{setLabel()}}" (change)="onChange($event,imageTmp)" accept="image/*">
     <br>
-    <app-database-image-modal [imageTmp] = "imageTmp" [id] = "setLabel()"></app-database-image-modal>
+    <app-database-image-modal [imageTmp] = "imageTmp" [id] = "setLabel()" (onChangeFile_bis)="received($event)"></app-database-image-modal>
     <br>
-    <app-internet-image-modal [imageTmp] = "imageTmp" [id] = "setLabel()"></app-internet-image-modal>
+    <app-internet-image-modal [imageTmp] = "imageTmp" [id] = "setLabel()" (onChangeFile_bis)="received($event)"></app-internet-image-modal>
   </div>
 </ng-template>
 
 <ng-template #displayImageAns>  
 	<div class="fixed-container-smaller" *ngIf="imageTmp.url">
-		<div class="delete-button" (click)="globalService.removeImg(imageTmp)">	
+		<div class="delete-button" (click)="removeImg(imageTmp)">	
 			<i class="fas fa-times"></i>
 	  	</div>
 	  	<div class="quiz-card">

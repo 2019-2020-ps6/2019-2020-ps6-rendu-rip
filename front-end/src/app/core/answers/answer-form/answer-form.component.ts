@@ -19,8 +19,10 @@ export class AnswerFormComponent implements OnInit {
   @Input() answer : Answer;
   @Output() quitForm: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  removeImgisCalled: boolean = false;
   answerForm: FormGroup;
   showButton: boolean = false;
+  onChangeFile: boolean = false;
   
   imageTmp : Img = {} as Img;
   image : Img = {} as Img;
@@ -30,16 +32,18 @@ export class AnswerFormComponent implements OnInit {
     this.initializeAnswerForm();
     this.loadImage();
     this.onFormChanges();
+    
   }
 
-  onFormChanges(){
+  onFormChanges() {
     this.answerForm.valueChanges.subscribe(val => {
-      this.showButton=true;
-      console.log("coucou")
+      this.showButton = true;
+      this.removeImgisCalled = true;
+      this.onChangeFile = true;
     });
   }
   private initializeAnswerForm() {
-    if(!this.answer){
+    if (!this.answer) {
       this.answerForm = this.formBuilder.group({
         value: [''],
         isCorrect: false,
@@ -124,5 +128,18 @@ export class AnswerFormComponent implements OnInit {
     if(!this.answer || !this.answer.value) return 20;
     else if (this.answer.value.length>40)return 40;
     else return this.answer.value.length;
+  }
+  removeImg(img: Img): void {
+    console.log('were here!');
+    this.removeImgisCalled = true;
+    this.globalService.removeImg(img);
+  }
+  onChange(event: any, img: Img): void {
+    this.onChangeFile = true;
+    this.globalService.onChangeFile(event, img);
+  }
+
+  received(element: boolean): void {
+    this.onChangeFile = element;
   }
 }
