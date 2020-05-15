@@ -4,9 +4,9 @@
       <input type="text" size = "{{sizeInput()}}" [formControlName]="'value'" id="name">
       <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>
       Correcte : <input type="checkbox" [formControlName]="'isCorrect'"> <br>
-      <div class="buttons-bottom">
-        <button type="submit" id="submitAnswer" class="button" type="submit" (click)="submitAnswer()">Enregistrer</button>
-        <button type="button" id="cancelAnswer" class="button btn" (click)="reset()">Annuler</button>
+      <div class="buttons-bottom" *ngIf = "showButton || !answer">
+        <button type="submit" id="submitAnswer" class="btn btn-success" type="submit" (click)="submitAnswer()">Enregistrer</button>
+        <button type="button" id="cancelAnswer" class="btn btn-warning" (click)="reset()">Annuler</button>
       </div>
     </form>
 </div>

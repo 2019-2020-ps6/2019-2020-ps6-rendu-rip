@@ -1,4 +1,4 @@
-<div class="left-button" (click)="modalService.open(timerFormModal)"> 
+<div class="btn btn-info" (click)="modalService.open(timerFormModal)"> 
     <i class="fas fa-cogs"></i> Paramètres
 </div>
 <ng-template #timerFormModal let-modal>
@@ -10,19 +10,19 @@
     </div>
     <div class="modal-body">
         <form #form = "ngForm" [formGroup]="timerForm">
-            <label>
-                Temps limite pour choisir une réponse : <input type="number" [formControlName]="'timerToAnswer'">secondes
+            <label class="formulaire">
+                Temps limite pour choisir une réponse : <input class = "timer" type="number" [formControlName]="'timerToAnswer'"> secondes
             </label>
-            <label>
-                Temps d'affichage comparaison bonne/mauvaise : <input type="number" [formControlName]="'timerComparison'">secondes
+            <label class="formulaire">
+                Temps d'affichage comparaison bonne/mauvaise : <input class = "timer" type="number" [formControlName]="'timerComparison'"> secondes
             </label>
-            <label>
-                Temps d'affichage bonne réponse : <input type="number" [formControlName]="'timerRightAnswer'">secondes
+            <label class="formulaire">
+                Temps d'affichage bonne réponse : <input class = "timer" type="number" [formControlName]="'timerRightAnswer'"> secondes
             </label>
             <br>
             <div class = "button-bottom" >
-                <button class="button-card" (click)= "save();modal.close()">Enregistrer</button>
-                <button class = "button-card" (click) = "reset();modal.close()">Annuler</button>
+                <button class="btn btn-success button-modal" (click)= "save();modal.close()">Enregistrer</button>
+                <button class = "btn btn-warning button-modal" (click) = "reset();modal.close()">Annuler</button>
             </div>
         </form>
     </div>

@@ -2,3 +2,36 @@
 @import "src/styles/variables";
 @import 'src/styles/images.scss';
 @import '../../../../styles/common.scss';
+
+
+.timer{
+    text-align: center;
+}
+.btn:hover{
+    cursor: pointer;
+}
+
+.button-bottom{
+    text-align: center;
+    margin-top: 4em;
+}
+
+.button-modal{
+ margin-right: 2em;
+}
+
+.close:hover{
+    background-color: rgba($color: red, $alpha: 0.8);
+}
+
+.modal-body {
+    height: calc(100vh - 143px);
+    min-height: 10em;
+    max-height: 28em;
+    overflow-y: auto; 
+}
+
+.formulaire{
+    margin-top: 1em;
+    text-align: center;
+}

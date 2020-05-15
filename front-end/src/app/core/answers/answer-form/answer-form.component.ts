@@ -20,6 +20,7 @@ export class AnswerFormComponent implements OnInit {
   @Output() quitForm: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   answerForm: FormGroup;
+  showButton: boolean = false;
   
   imageTmp : Img = {} as Img;
   image : Img = {} as Img;
@@ -28,8 +29,15 @@ export class AnswerFormComponent implements OnInit {
   ngOnInit() {
     this.initializeAnswerForm();
     this.loadImage();
+    this.onFormChanges();
   }
 
+  onFormChanges(){
+    this.answerForm.valueChanges.subscribe(val => {
+      this.showButton=true;
+      console.log("coucou")
+    });
+  }
   private initializeAnswerForm() {
     if(!this.answer){
       this.answerForm = this.formBuilder.group({
@@ -89,9 +97,11 @@ export class AnswerFormComponent implements OnInit {
 
   reset(){
     this.answerForm.reset();
+    this.onFormChanges();
     this.initializeAnswerForm();
     this.initImageTmp();
     this.quitForm.emit(false);
+    //this.showButton=false; //Marche pas car l'observable ne marche plus.
   }
 
   addImage(){
