@@ -6,5 +6,6 @@ module.exports = new BaseModel('Quiz', {
   theme: Joi.string().required(),
   creationDate: Joi.string(),
   //questions: Joi.array(),//sert à quoi au juste?
-  imageId: Joi.string()
+  imageId: Joi.string(),
+  random: Joi.boolean()
 })

@@ -50,14 +50,16 @@ export class QuizFormModalComponent implements OnInit {
     if(!this.quiz) {
       this.quizForm = this.formBuilder.group({
         name: "",
-        theme: ""
+        theme: "",
+        random: false
       });
       this.quizForm.reset();
     }
     else {
       this.quizForm = this.formBuilder.group({
         name: this.quiz.name,
-        theme: this.quiz.theme
+        theme: this.quiz.theme,
+        random: this.quiz.random
       });
     }
   }
@@ -98,6 +100,10 @@ export class QuizFormModalComponent implements OnInit {
   quizFillIn() {
     const quizToSave: Quiz = this.quizForm.getRawValue() as Quiz;
     quizToSave.creationDate = new Date();
+    if(!quizToSave.random){
+      quizToSave.random = false;
+    }
+    console.log(quizToSave);
     if(this.quiz) quizToSave.id = this.quiz.id;
     return quizToSave;
   }

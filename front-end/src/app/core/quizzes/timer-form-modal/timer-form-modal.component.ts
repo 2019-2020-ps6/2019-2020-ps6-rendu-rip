@@ -5,6 +5,7 @@ import { AnswerListWidgetComponent } from 'src/app/game/answer-list-widget/answe
 import { GlobalService } from 'src/services/global.service';
 import { TimerConfig } from 'src/models/timerconfig.model';
 import { timer } from 'rxjs';
+import { Quiz } from 'src/models/quiz.model';
 
 @Component({
   selector: 'app-timer-form-modal',

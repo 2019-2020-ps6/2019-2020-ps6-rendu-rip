@@ -3,6 +3,10 @@
     <label class = "name" for="name">Nom du quiz : </label>  
     <input class="quizName" size = "{{sizeInput()}}" type="text" id="name" [formControlName]="'name'">     
     <br>
+    
+    <label class = "theme" for="random">Déroulement aléatoire:</label>
+      <input class = "random_selcted" id="random" type="checkbox" [formControlName]="'random'">
+    <br>
     <label class = "theme" for="selectTheme">Thème : </label>
     <select name="Thème" id="selectTheme" [formControlName]="'theme'">
     <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">

@@ -3,7 +3,7 @@
 </div>
 <ng-template #timerFormModal let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Changer la durée des timers :</h4>
+      <h4 class="modal-title" id="modal-basic-title">Paramètres :</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -19,11 +19,13 @@
             <label class="formulaire">
                 Temps d'affichage bonne réponse : <input class = "timer" type="number" [formControlName]="'timerRightAnswer'"> secondes
             </label>
+           
             <br>
             <div class = "button-bottom" >
                 <button class="btn btn-success button-modal" (click)= "save();modal.close()">Enregistrer</button>
                 <button class = "btn btn-warning button-modal" (click) = "reset();modal.close()">Annuler</button>
             </div>
+            
         </form>
     </div>
 </ng-template>

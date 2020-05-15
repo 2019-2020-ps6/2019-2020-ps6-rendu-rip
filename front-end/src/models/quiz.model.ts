@@ -8,4 +8,5 @@ export interface Quiz {
     questions?: Question[];
     creationDate?: Date;
     imageId?: string;
+    random?: boolean;
 }
