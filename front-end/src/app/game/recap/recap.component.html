@@ -1,26 +1,19 @@
-<!--
-<app-header [title] = "headerTitle"></app-header>
-<div class="goback-button" routerLink= "../../..">
-    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-</div>
-<div class="main">-->
-    <div *ngIf = "quiz">
-        <div id="questionQuiz" *ngIf="currentQuestion">
-            <div *ngIf="image.url; else noImage">
-                <div *ngIf="currentQuestion.label; else noTxt">
-                    <div class="textItem">{{currentQuestion.label}}</div>
-                    <img [src]="imageService.getImgSrc1(image)" alt="question image">
-                </div>
-                <ng-template #noTxt>
-                    <img class="bigImg" [src]="imageService.getImgSrc1(image)" alt="question image">
-                </ng-template>
+<div *ngIf = "quiz">
+    <div id="questionQuiz" *ngIf="currentQuestion">
+        <div *ngIf="image.url; else noImage">
+            <div *ngIf="currentQuestion.label; else noTxt">
+                <div class="textItem">{{currentQuestion.label}}</div>
+                <img [src]="imageService.getImgSrc1(image)" alt="question image">
             </div>
-            <ng-template #noImage>
-                <div *ngIf="currentQuestion.label" class="textItemAlone">{{currentQuestion.label}}</div>
+            <ng-template #noTxt>
+                <img class="bigImg" [src]="imageService.getImgSrc1(image)" alt="question image">
             </ng-template>
         </div>
-        <div *ngIf = "currentQuestion">
-            <app-right-answer [answers]="currentQuestion.answers" [whatRight]="'recapEnd'"></app-right-answer>
-        </div>
+        <ng-template #noImage>
+            <div *ngIf="currentQuestion.label" class="textItemAlone">{{currentQuestion.label}}</div>
+        </ng-template>
     </div>
-<!--</div>-->
+    <div *ngIf = "currentQuestion">
+        <app-right-answer [answers]="currentQuestion.answers" [whatRight]="'recapEnd'"></app-right-answer>
+    </div>
+</div>

@@ -5,28 +5,28 @@
             <div *ngIf="rightAnswer.value" class = "label-for-recap">{{rightAnswer.value}}</div>
         </div>
     </div>
-<ng-template #recap>
-    <div *ngIf="whatRight=='recapIntermed'; else recapEnd">
-        <div id="container-right">
-            <div class="box">
-            <div *ngIf="image.url"><img [src]="imageService.getImgSrc1(image)" alt="answer image"></div>
-            <div *ngIf="rightAnswer.value" class = "label-for-recap">{{rightAnswer.value}}</div>
-            </div>
-        </div>
-    </div>
-    <ng-template #recapEnd>
-        <div id="container-right-end">
-            <div class="box">
-                <div *ngIf="image.url"><img class="imgBigger" [src]="imageService.getImgSrc1(image)" alt="answer image"></div>
+    <ng-template #recap>
+        <div *ngIf="whatRight=='recapIntermed'; else recapEnd">
+            <div id="container-right">
+                <div class="box">
+                <div *ngIf="image.url"><img [src]="imageService.getImgSrc1(image)" alt="answer image"></div>
                 <div *ngIf="rightAnswer.value" class = "label-for-recap">{{rightAnswer.value}}</div>
+                </div>
             </div>
         </div>
+        <ng-template #recapEnd>
+            <div id="container-right-end">
+                <div class="box">
+                    <div *ngIf="image.url"><img class="imgBigger" [src]="imageService.getImgSrc1(image)" alt="answer image"></div>
+                    <div *ngIf="rightAnswer.value" class = "label-for-recap">{{rightAnswer.value}}</div>
+                </div>
+            </div>
+        </ng-template>
     </ng-template>
-</ng-template>
 </div>
 
 <ng-template #noAnswer>
-<div>
-    Oops! Aucune bonne réponse... :(
-</div>
+    <div>
+        Oops! Aucune bonne réponse... :(
+    </div>
 </ng-template>
