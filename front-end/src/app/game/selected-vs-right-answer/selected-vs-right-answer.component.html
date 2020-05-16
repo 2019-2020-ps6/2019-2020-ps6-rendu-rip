@@ -15,6 +15,6 @@ id="container-compare">
 <ng-template #elseBlock>
     <div id="correct-choice">
     <div class = "victory-message" *ngIf = "answerSelected===rightAnswer">Bravo ! C'était : </div>
-    <app-right-answer [answers]=answers [correct]="true"></app-right-answer>
+    <app-right-answer [answers]=answers [whatRight]="'selected'"></app-right-answer>
     </div>
 </ng-template>

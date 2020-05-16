@@ -20,7 +20,7 @@
             </ng-template>
         </div>
         <div *ngIf = "currentQuestion">
-            <app-right-answer [answers]="currentQuestion.answers" [correct]="false"></app-right-answer>
+            <app-right-answer [answers]="currentQuestion.answers" [whatRight]="'recapEnd'"></app-right-answer>
         </div>
     </div>
 <!--</div>-->

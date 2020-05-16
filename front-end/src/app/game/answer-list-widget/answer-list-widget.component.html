@@ -9,7 +9,7 @@
 </div>
 
 <div id="container-right" *ngIf="display === SHOW_RIGHT_ANSWER ">
-    <app-right-answer [answers]=answers [correct]="false"></app-right-answer>
+    <app-right-answer [answers]=answers [whatRight]="'recapIntermed'"></app-right-answer>
 </div>
 
 <div *ngIf="display === SHOW_RIGHT_ANSWER">

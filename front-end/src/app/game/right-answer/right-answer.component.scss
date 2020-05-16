@@ -2,6 +2,14 @@
 @import '../../../styles/card.scss';
 @import '../../../styles/layout.scss';
 
+.box {
+    background-color: rgb(250, 153, 153);
+    display: flex;
+    justify-content: center; /*horizontal centering*/
+    align-items:center;     /*vertical centering*/
+    flex-direction: column;
+}
+
 #container-right {
     position: absolute;
     box-sizing: border-box; 
@@ -19,12 +27,20 @@
     flex-direction: row;
 }
 
-.box {
-    background-color: rgb(250, 153, 153);
+#container-right-end {
+    position: absolute;
+    box-sizing: border-box; 
+    top: 35%;
+    left: 5%;
+    right: 5%;
+    height: 65%; 
+    width: 90%; 
+    background-color: #563d7c; 
+    text-align: center;
     display: flex;
     justify-content: center; /*horizontal centering*/
     align-items:center;     /*vertical centering*/
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .label-for-recap{
@@ -46,4 +62,9 @@ img {
     max-height: 100%;
     display: block;      /* remove extra space below image */
     @extend .thumbnailItem;
+}
+
+.imgBigger {
+    width: 20rem;
+    height: 18rem;
 }

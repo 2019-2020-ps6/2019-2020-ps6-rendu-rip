@@ -15,7 +15,7 @@ export class RightAnswerComponent implements OnInit {
   answers: Answer[];
 
   @Input()
-  correct: boolean;
+  whatRight: String;
 
   rightAnswer:Answer;
 
