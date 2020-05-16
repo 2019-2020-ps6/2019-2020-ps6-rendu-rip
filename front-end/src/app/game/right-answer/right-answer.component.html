@@ -1,7 +1,22 @@
-<div *ngIf = "rightAnswer">
-    <div *ngIf="rightAnswer.value" class = "label-for-recap">{{rightAnswer.value}}</div>
-    <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="answer image"></div>
+<div *ngIf="rightAnswer; else noAnswer">
+    <div *ngIf="correct; else recap">
+        <div class="box">
+            <div *ngIf="image.url"><img [src]="imageService.getImgSrc1(image)" alt="answer image"></div>
+            <div *ngIf="rightAnswer.value" class = "label-for-recap">{{rightAnswer.value}}</div>
+        </div>
+    </div>
+<ng-template #recap>
+    <div id="container-right">
+        <div class="box">
+        <div *ngIf="image.url"><img [src]="imageService.getImgSrc1(image)" alt="answer image"></div>
+        <div *ngIf="rightAnswer.value" class = "label-for-recap">{{rightAnswer.value}}</div>
+        </div>
+    </div>
+</ng-template>
 </div>
-<div *ngIf = "!rightAnswer">Réponse:<br>
-    Il n'y avait pas de bonne réponses :(
+
+<ng-template #noAnswer>
+<div>
+    Oops! Aucune bonne réponse... :(
 </div>
+</ng-template>

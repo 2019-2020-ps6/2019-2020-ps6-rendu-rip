@@ -1,25 +1,26 @@
-<app-header [title] = "headerTitle" [image] = "headerImage"></app-header>
+<!--<app-header [title] = "headerTitle" [image] = "headerImage"></app-header>
 <div class="goback-button" routerLink= "../..">
     <i class="fa fa-arrow-left" aria-hidden="true"></i>
-</div>
-
-<div class="main">
-    <div>
-    <div class="questionQuiz" *ngIf = "currentQuestion">
-        <div *ngIf="currentQuestion.label"><h1>{{currentQuestion.label}}</h1></div>
-        <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="question image"></div>
-    </div>
-    <div class=""><!--"vertical-center">-->
-        <div class="box" *ngIf = "quiz">
-            <div *ngIf = "currentQuestion; else elseBlock">
-                <app-answer-list-widget [answers] = "currentQuestion.answers" (selected) = "onSelectedAnswer($event)" (next) = "onNext($event)" (wrongAnswerEvent) = "onWrongAnswer($event)" (timeOutEvent) = "onTimeOut()"></app-answer-list-widget>
+</div>-->
+<div *ngIf = "quiz && currentQuestion; else elseBlock">
+    <div id="questionQuiz">
+        <div *ngIf="image.url; else noImage">
+            <div *ngIf="currentQuestion.label; else noTxt">
+                <div class="textItem">{{currentQuestion.label}}</div>
+                <img [src]="imageService.getImgSrc1(image)" alt="question image">
             </div>
+            <ng-template #noTxt>
+                <img class="bigImg" [src]="imageService.getImgSrc1(image)" alt="question image">
+            </ng-template>
         </div>
-    </div>
-    <div class="vertical-center">
-        <ng-template #elseBlock>
-            <div class="big-button" (click)="sendAttempt()" routerLink= "./recap">Récapitulatif</div>
+        <ng-template #noImage>
+            <div *ngIf="currentQuestion.label" class="textItemAlone">{{currentQuestion.label}}</div>
         </ng-template>
     </div>
+    <app-answer-list-widget [answers] = "currentQuestion.answers" (selected) = "onSelectedAnswer($event)" (next) = "onNext($event)" (wrongAnswerEvent) = "onWrongAnswer($event)" (timeOutEvent) = "onTimeOut()"></app-answer-list-widget>
 </div>
-</div>
+<ng-template #elseBlock>
+    <div id="recapButton">
+        <div class="recapButton" (click)="sendAttempt()" routerLink= "./recap">Récapitulatif</div>
+    </div>    
+</ng-template>

@@ -1,20 +1,26 @@
+<!--
 <app-header [title] = "headerTitle"></app-header>
 <div class="goback-button" routerLink= "../../..">
     <i class="fa fa-arrow-left" aria-hidden="true"></i>
 </div>
-<div class="main">
+<div class="main">-->
     <div *ngIf = "quiz">
-        <div *ngIf = "currentQuestion" class="questionAndImage">
-            <div *ngIf="currentQuestion.label"><h2>{{currentQuestion.label}}</h2></div>
-            <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="question image"></div>
-        </div>
-        <div class = "box">
-            <div *ngIf = "currentQuestion">
-                <app-right-answer [answers] = "currentQuestion.answers"></app-right-answer>
+        <div id="questionQuiz" *ngIf="currentQuestion">
+            <div *ngIf="image.url; else noImage">
+                <div *ngIf="currentQuestion.label; else noTxt">
+                    <div class="textItem">{{currentQuestion.label}}</div>
+                    <img [src]="imageService.getImgSrc1(image)" alt="question image">
+                </div>
+                <ng-template #noTxt>
+                    <img class="bigImg" [src]="imageService.getImgSrc1(image)" alt="question image">
+                </ng-template>
             </div>
+            <ng-template #noImage>
+                <div *ngIf="currentQuestion.label" class="textItemAlone">{{currentQuestion.label}}</div>
+            </ng-template>
         </div>
-        <div *ngIf = "currentQuestion && questions.length===0" class="place-bottom">
-            <div class="button-end" routerLink= "../end">Fin</div>
+        <div *ngIf = "currentQuestion">
+            <app-right-answer [answers]="currentQuestion.answers" [correct]="false"></app-right-answer>
         </div>
     </div>
-</div>
+<!--</div>-->

@@ -45,11 +45,8 @@ export class RunnerComponent implements OnInit {
           this.questions.forEach(question => {
             this.quizService.shuffleArray(question.answers);
           });
-          
-
         }
         this.changeQuestion();
-
         this.initAttempt();
       }
     });

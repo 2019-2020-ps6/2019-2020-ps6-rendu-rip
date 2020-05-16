@@ -1,16 +1,15 @@
-<div *ngIf="display === SHOW_ANSWER_TO_CHOOSE" class="grid">
+<div id="container" *ngIf="display === SHOW_ANSWER_TO_CHOOSE">
     <div class="answer" *ngFor = "let answer of answers">
         <app-answer-widget [answer] = "answer" (selected) = "onAnswerSelected($event)"></app-answer-widget>
     </div>
 </div>
 
-<div class ="answer-comparison" *ngIf="display === SHOW_ANSWER_COMPARISON">
+<div *ngIf="display === SHOW_ANSWER_COMPARISON">
     <app-selected-vs-right-answer [answerSelected] = "answerSelected" [answers] = "answers"></app-selected-vs-right-answer >
 </div>
 
-
-<div *ngIf="display === SHOW_RIGHT_ANSWER ">
-    <app-right-answer [answers]=answers></app-right-answer>
+<div id="container-right" *ngIf="display === SHOW_RIGHT_ANSWER ">
+    <app-right-answer [answers]=answers [correct]="false"></app-right-answer>
 </div>
 
 <div *ngIf="display === SHOW_RIGHT_ANSWER">

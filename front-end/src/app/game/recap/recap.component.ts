@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Question } from 'src/models/question.model';
 import { Quiz } from 'src/models/quiz.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from 'src/services/quiz.service';
 import { Img } from 'src/models/image.model';
 import { ImageService } from 'src/services/image.service';
@@ -23,7 +23,7 @@ export class RecapComponent implements OnInit {
 
   headerTitle = "Récapitulatif - "
 
-  constructor(private route: ActivatedRoute, public quizService: QuizService, public imageService: ImageService) {
+  constructor(private router : Router, private route: ActivatedRoute, public quizService: QuizService, public imageService: ImageService) {
     this.quizService.quizSelected$.subscribe((quiz) => {
       this.quiz = quiz;
       this.headerTitle += quiz.name;
@@ -45,6 +45,10 @@ export class RecapComponent implements OnInit {
       this.loadImage();
       this.timerDisplayRightAnswer = this.startTimerDisplayRightAnswer();
     }
+    else {//fin
+      this.router.navigate(['../end'], { relativeTo: this.route });
+      //routerLink= "../end"
+    }
   }
 
   //passage automatique à la question suivante après avoir lu la réponse
@@ -63,6 +67,5 @@ export class RecapComponent implements OnInit {
     const id = this.currentQuestion.imageId;
     if(id) this.imageService.loadQuestionImage(this.image, id);
   }
-
 }
 

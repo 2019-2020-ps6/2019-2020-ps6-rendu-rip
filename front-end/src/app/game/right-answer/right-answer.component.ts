@@ -14,6 +14,9 @@ export class RightAnswerComponent implements OnInit {
   @Input()
   answers: Answer[];
 
+  @Input()
+  correct: boolean;
+
   rightAnswer:Answer;
 
   image: Img;

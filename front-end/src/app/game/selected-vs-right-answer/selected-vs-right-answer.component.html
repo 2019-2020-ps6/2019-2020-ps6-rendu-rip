@@ -1,18 +1,20 @@
-<div *ngIf="answerSelected !==null && answerSelected!=rightAnswer; else elseBlock"
-class="vsBlock">
-    <div class="same-line">
-        <div class="givenAnswer"><span class="italic">Votre réponse:</span><br>
-            <div *ngIf="answerSelected.value" class="txtAns">{{answerSelected.value}}</div>
-            <div *ngIf="imageSel.url" class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(imageSel)" alt="answer image"></div>
-        </div>
-        <div class="separation"></div>
-        <div *ngIf = "rightAnswer" class="answer-li"> <span class="italic">Réponse attendue :</span><br>
-            <div *ngIf="rightAnswer.value" class="txtAns">{{rightAnswer.value}}</div>
-            <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="answer image"></div>
-        </div>
+<div *ngIf="answerSelected!==null && answerSelected!=rightAnswer; else elseBlock"
+id="container-compare">
+    <div class="givenAnswer">
+        <div class="txt-small">Votre réponse :</div>
+        <div *ngIf="imageSel.url" class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(imageSel)" alt="answer image"></div>
+        <div *ngIf="answerSelected.value" class="txtAns">{{answerSelected.value}}</div>
+    </div>
+    <div class="separation"></div>
+    <div *ngIf="rightAnswer" class="rightAnswer">
+        <div class="txt-small">Réponse attendue :</div>
+        <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="answer image"></div>
+        <div *ngIf="rightAnswer.value" class="txtAns">{{rightAnswer.value}}</div>
     </div>
 </div>
 <ng-template #elseBlock>
+    <div id="correct-choice">
     <div class = "victory-message" *ngIf = "answerSelected===rightAnswer">Bravo ! C'était : </div>
-    <app-right-answer [answers]=answers></app-right-answer>
+    <app-right-answer [answers]=answers [correct]="true"></app-right-answer>
+    </div>
 </ng-template>

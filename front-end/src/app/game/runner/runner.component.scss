@@ -3,13 +3,68 @@
 @import '../../../styles/layout.scss';
 @import '../../../styles/common.scss';
 
-
-.questionQuiz {
+#questionQuiz {
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    margin-top: auto;
+    background-color: rgb(255, 206, 206);  
+    height: 35%;
+    display: flex;
+    justify-content: center; /*horizontal centering*/
+    align-items:center; /*vertical centering*/
     text-align: center;
-    font-size: 100%;
 }
 
-.frame {
-    height: 8rem;
-    width: 12rem;
+#recapButton {
+    position: absolute;
+    left: 20%;
+    right: 20%;
+    //background-color: rgb(255, 206, 206);  
+    top: 35%;
+    bottom: 35%;
+    height: 30%;
+    display: flex;
+    justify-content: center; /*horizontal centering*/
+    align-items:center; /*vertical centering*/
+    text-align: center;
+}
+
+.recapButton {
+    @extend .button-purple-theme;
+    display: flex;
+    justify-content: center; /*horizontal centering*/
+    align-items:center; /*vertical centering*/
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    font-size: 300%;
+}
+
+img {
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;      /* remove extra space below image */
+    @extend .thumbnailItem;
+}
+
+.thumbnailItem {
+    width: 13rem;
+    height: 9rem;
+    object-fit: cover;
+}
+
+.bigImg {
+    @extend img;
+    width: 15rem;
+    height: 11rem;
+}
+
+.textItem {
+    font-size: 200%;
+}
+
+.textItemAlone {
+    font-size: 250%;
 }

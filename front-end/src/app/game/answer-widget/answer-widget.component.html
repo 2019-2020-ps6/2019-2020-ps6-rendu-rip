@@ -1,4 +1,16 @@
-<button class="button-card answer" (click) = "answerSelected()">
-    <div *ngIf="answer.value">{{answer.value}}</div>
-    <div *ngIf="image.url" class="frame"><img class="thumbnail" [src]="imageService.getImgSrc1(image)" alt="answer image"></div>
-</button>
+<div id="item">
+    <div class="clickableItem" (click) = "answerSelected()">
+        <div *ngIf="image.url; else noImage">
+            <div *ngIf="answer.value; else noTxt">
+                <img [src]="imageService.getImgSrc1(image)" alt="answer image">
+                <div class="textItem">{{answer.value}}</div>
+            </div>
+            <ng-template #noTxt>
+                <img class="bigImg" [src]="imageService.getImgSrc1(image)" alt="answer image">
+            </ng-template>
+        </div>
+        <ng-template #noImage>
+            <div *ngIf="answer.value" class="textItemAlone">{{answer.value}}</div>
+        </ng-template>
+    </div>
+</div>

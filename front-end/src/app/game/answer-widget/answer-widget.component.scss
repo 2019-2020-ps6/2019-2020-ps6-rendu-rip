@@ -2,13 +2,49 @@
 @import '../../../styles/variables.scss';
 @import '../../../styles/images.scss';
 
-.answer{
-    font-size: 1em;//100%; --> à voir... essayer d'avoir les 4     1 2
-    margin: 0.5em; //                                              3 4 peu importe l'écran
-    font-size: x-large;//--> responsive then
+#item {
+    margin: auto;
+    background-color: rgb(255, 206, 206);  
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center; /*horizontal centering*/
+    align-items:center; /*vertical centering*/
 }
 
-.frame {
-    height: 10rem;
-    width: 10rem;
+.clickableItem {
+    background-color: rgb(250, 153, 153);
+    width: 90%;
+    height: 90%;
+    display: flex;
+    justify-content: center; /*horizontal centering*/
+    align-items:center;     /*vertical centering*/
+    flex-direction: column;
+}
+
+.thumbnailItem {
+    width: 11rem;
+    height: 8rem;
+    object-fit: cover;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;      /* remove extra space below image */
+    @extend .thumbnailItem;
+}
+
+.bigImg {
+    @extend img;
+    width: 12rem;
+    height: 9.5rem;
+}
+
+.textItem {
+    font-size: 175%;
+}
+
+.textItemAlone {
+    font-size: 200%;
 }
