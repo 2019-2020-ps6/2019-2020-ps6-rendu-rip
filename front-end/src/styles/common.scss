@@ -24,6 +24,17 @@
     background-color: $deep-purple;   
 }
 
+.button-blue-theme {
+    @extend .button-purple-theme;
+    background-color: $blue;
+    border-color: $very-light-blue;
+    box-shadow: 0 6px 10px rgba(33, 34, 65, 0.2), 0 0 6px rgba(57, 44, 88, 0.15);
+}
+
+.button-blue-theme:active {
+    background-color: $deep-blue;   
+}
+
 .goback-button {
     @extend .button-purple-theme;
     position: fixed;
@@ -39,9 +50,11 @@
 }
 
 .theme-button {
-    @extend .button-purple-theme;
+    @extend .button-blue-theme;
     position: fixed;
     right: 1rem;
+    /*background-color: $grey;
+    border-color: $light-grey;*/
 }
 
 .theme-button:hover {
@@ -49,14 +62,12 @@
 }
 
 .theme-button:active {
-    background: $purple;
+    background: $blue;
 }
 
 .new-button {
-    @extend .button-purple-theme;
+    @extend .button-blue-theme;
     position: fixed;
-    /*margin-top: 0rem;
-    margin-left: 0;//0.5rem;*/
 }
 
 .left-button {

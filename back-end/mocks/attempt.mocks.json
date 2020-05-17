@@ -783,5 +783,32 @@
     "timeOuts": 1,
     "wrongAnswers": [],
     "id": 1589672548301
+  },
+  {
+    "playerId": "1588004538366",
+    "quizId": 1586251991064,
+    "date": "2020-05-17T00:16:39.254Z",
+    "timeOuts": 0,
+    "wrongAnswers": [
+      {
+        "isCorrect": false,
+        "value": "la trilopète",
+        "questionId": 1588004242982,
+        "id": 1588004268076
+      },
+      {
+        "isCorrect": false,
+        "value": "la triforce",
+        "questionId": 1588004242982,
+        "id": 1588004261120
+      },
+      {
+        "isCorrect": false,
+        "value": "la trilogie",
+        "questionId": 1588004242982,
+        "id": 1588004272305
+      }
+    ],
+    "id": 1589674628953
   }
 ]
