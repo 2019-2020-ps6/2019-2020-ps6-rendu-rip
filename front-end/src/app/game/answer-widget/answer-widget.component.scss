@@ -4,7 +4,7 @@
 
 #item {
     margin: auto;
-    background-color: rgb(255, 206, 206);  
+    //background-color: rgb(255, 206, 206);  
     height: 100%;
     width: 100%;
     display: flex;
@@ -13,13 +13,16 @@
 }
 
 .clickableItem {
-    background-color: rgb(250, 153, 153);
+    background-color: rgba(pink, 40%);
     width: 90%;
     height: 90%;
     display: flex;
     justify-content: center; /*horizontal centering*/
     align-items:center;     /*vertical centering*/
     flex-direction: column;
+}
+.clickableItem:hover{
+    cursor: pointer;
 }
 
 .thumbnailItem {

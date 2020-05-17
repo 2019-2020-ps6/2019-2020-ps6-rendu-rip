@@ -18,7 +18,7 @@ export class ThemeFormComponent implements OnInit {
   @Output()
   themeAdded: EventEmitter<String> = new EventEmitter<String>();
 
-  constructor(public formBuilder: FormBuilder, public themeService: ThemeService) {}
+  constructor(public modalService : ModalService, public formBuilder: FormBuilder, public themeService: ThemeService) {}
 
   ngOnInit() {
     this.themeForm = this.formBuilder.group({

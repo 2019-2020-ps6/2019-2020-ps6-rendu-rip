@@ -1,5 +1,7 @@
 @import 'src/styles/card.scss';
 @import 'src/styles/images.scss';
+@import '../../../../styles/common.scss';
+
 
 .image {
     float: right;
@@ -28,4 +30,19 @@
 .label {
     padding-top: 5%;
     text-align: center;
+}
+.new-button {
+    position: unset;
+}
+
+.modal-larger {
+    height: calc(100vh - 143px);
+    min-height: 10em;
+    max-height: 15em;
+    overflow-y: auto; 
+}
+
+.titre {
+    font-weight: bold;
+    margin-right: 1em;
 }

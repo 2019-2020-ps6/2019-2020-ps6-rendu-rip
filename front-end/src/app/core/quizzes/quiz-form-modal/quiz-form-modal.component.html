@@ -1,57 +1,78 @@
-<div class="edit-quiz-form">
-  <form [formGroup]="quizForm">
-    <label class = "name" for="name">Nom du quiz : </label>  
-    <input class="quizName" size = "{{sizeInput()}}" type="text" id="name" [formControlName]="'name'">     
-    <br>
-    
-    <label class = "theme" for="random">Déroulement aléatoire:</label>
-      <input class = "random_selcted" id="random" type="checkbox" [formControlName]="'random'">
-    <br>
-    <label class = "theme" for="selectTheme">Thème : </label>
-    <select name="Thème" id="selectTheme" [formControlName]="'theme'">
-    <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
-      {{current_theme}}
-    </option>
-    </select>&nbsp;
-    <div class="button-card" (click)="modalService.open(themeFormModal)"> 
-      <i class="fas fa-plus-circle"></i> Nouveau Thème
-  </div>
-    <ng-template [ngTemplateOutlet] = "displayImage"></ng-template>
-    <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>        
-    <button class="button-card" id="confirmEdit" (click)="addOrUpdateQuiz()">Valider</button>
-    <button class="button-card" id="cancel" (click)="reset()">Annuler</button>
-  </form>
+
+<div *ngIf = "!quiz" class="new-button" (click)="modalService.open(quizFormModal)"> 
+  <i class="fas fa-plus-circle"></i> Nouveau Quiz
+</div>
+<div *ngIf = "quiz" class="new-button" (click)="modalService.open(quizFormModal)"> 
+  Editer le Quiz
 </div>
 
-<ng-template #buttonCharging>
-  <div class="label">
-    Charger une image depuis :<br>
-    <label for="image64QuizForm" class="button-card chargingButton" >Cet appareil</label>
-    <input type="file" class="hidden" id="image64QuizForm" (change)="globalService.onChangeFile($event,imageTmp)" accept="image/*">
-    <app-internet-image-modal [imageTmp] = "imageTmp"></app-internet-image-modal>
-    <app-database-image-modal [imageTmp] = "imageTmp"></app-database-image-modal>
-  </div>
-</ng-template>
-
-<ng-template #displayImage>  
-  <div class="fixed-container" *ngIf="imageTmp.url">
-    <div class="delete-button" (click)="globalService.removeImg(imageTmp)">	
-      <i class="fas fa-times"></i>
-    </div>
-    <div class="quiz-card">
-      <img class="frame thumbnail" [src]="globalService.getImgSrc1(imageTmp)" alt="quiz image">
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #themeFormModal let-modal>
+<ng-template #quizFormModal let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Ajouter un thème</h4>
+    <h4 *ngIf = "quiz" class="modal-title" id="modal-basic-title">Modifier le quiz :</h4>
+    <h4 *ngIf = "!quiz" class="modal-title" id="modal-basic-title">Créer un nouveau quiz :</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-      <app-theme-form (themeAdded) = "initTheme($event); modal.close()"></app-theme-form>
+  <div class="modal-body modal-larger">
+    <div >
+      <form [formGroup]="quizForm">
+        <label class = "titre" for="name">Nom du quiz : </label>  
+        <input class="quizName" size = "{{sizeInput()}}" type="text" id="name" [formControlName]="'name'">     
+        <br>
+        <br>
+        <label class = "titre" for="selectTheme">Thème : </label>
+        <select name="Thème" id="selectTheme" [formControlName]="'theme'">
+        <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
+          {{current_theme}}
+        </option>
+        </select><app-theme-form (themeAdded) = "initTheme($event)"></app-theme-form>
+        <br>
+        <br>
+        <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>   
+        <br>
+        <br>
+        <label class = "titre" for="random">Déroulement aléatoire:</label>
+        <input id="random" type="checkbox" [formControlName]="'random'">
+        <ng-template [ngTemplateOutlet] = "displayImage"></ng-template>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click) = "reset();modal.close()">Annuler</button>
+    <button type="button" class="btn btn-primary" (click)= "addOrUpdateQuiz();modal.close()">Valider</button>
+  </div>
+</ng-template>
+
+
+<ng-template #buttonCharging>
+  <div class="dropdown">
+    <button class="new-button dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Ajouter une image depuis :
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <app-database-image-modal [imageTmp] = "imageTmp"></app-database-image-modal>
+      <br>
+      <app-internet-image-modal [imageTmp] = "imageTmp"></app-internet-image-modal>
+      <br>
+      <label for="image64QuizForm" class="btn btn-success" >Cet appareil</label>
+      <input type="file" class="hidden" id="image64QuizForm" (change)="globalService.onChangeFile($event,imageTmp)" accept="image/*">
+    </div>
+  </div>
+  <!--<div>
+    <div class = "titre">Ajouter une image depuis :</div>
+    <label for="image64QuizForm" class="button-card chargingButton" >Cet appareil</label>
+    <input type="file" class="hidden" id="image64QuizForm" (change)="globalService.onChangeFile($event,imageTmp)" accept="image/*">
+    <app-internet-image-modal [imageTmp] = "imageTmp"></app-internet-image-modal>
+    <app-database-image-modal [imageTmp] = "imageTmp"></app-database-image-modal>
+  </div>-->
+</ng-template>
+
+<ng-template #displayImage>  
+  <div class="fixed-container" *ngIf="imageTmp.url">
+    <div class="quiz-card">
+      <button class="delete-button" (click)="globalService.removeImg(imageTmp)"><i class="fas fa-times"></i></button>
+      <img class="frame thumbnail" [src]="globalService.getImgSrc1(imageTmp)" alt="quiz image">
+    </div>
   </div>
 </ng-template>

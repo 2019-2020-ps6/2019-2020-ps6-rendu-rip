@@ -1,7 +1,6 @@
 @import '../../../../styles/card.scss';
 @import '../../../../styles/layout.scss';
 @import '../../../../styles/common.scss';
-
 .card {
   background-color: rgba(255, 255, 255, 0);
   border-color: rgba(255, 255, 255, 0);
@@ -24,9 +23,7 @@
 }
 
 .newQuiz{
-  margin-left: auto;
-  margin-right: auto;
-  width: 10em;
+  position: fixed;
 }
 
 #redCenteredMsg {

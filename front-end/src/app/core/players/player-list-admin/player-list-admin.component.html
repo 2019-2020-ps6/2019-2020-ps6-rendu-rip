@@ -6,8 +6,8 @@
     <i class="fa fa-home" aria-hidden="true"></i>
 </div>
 <div class="main">
-    <div class="new-button" (click)="modalService.open(playerFormModal)"> 
-        <i class="fas fa-plus-circle"></i> Nouvel Accueilli
+    <div class="new-player"> 
+        <app-player-form-modal></app-player-form-modal>
     </div>
     <div class="player-list">
         <div class="fixed-container-bigger" *ngFor="let player of playerList">
@@ -20,15 +20,3 @@
         </div>
     </div>
 </div>
-
-<ng-template #playerFormModal let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Créer un nouvel accueilli :</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-        <app-player-form-modal (quitForm) = "modal.close()"></app-player-form-modal>
-    </div>
-</ng-template>

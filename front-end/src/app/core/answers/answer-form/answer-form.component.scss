@@ -45,3 +45,15 @@
     border: none;
     margin: 0;
 }
+
+.titre {
+    font-weight: bold;
+    margin-right: 1em;
+}
+
+.modal-larger {
+    height: calc(100vh - 143px);
+    min-height: 10em;
+    max-height: 18em;
+    overflow-y: auto; 
+}

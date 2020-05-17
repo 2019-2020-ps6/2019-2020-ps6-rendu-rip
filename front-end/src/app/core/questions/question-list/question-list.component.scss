@@ -15,7 +15,12 @@
   margin-bottom: 1rem;
 }
   
-.errorMessage{
-  color: rgb(238, 12, 12);
-  font-weight: bold;;
+#redCenteredMsg {
+  color: red;
+  text-align: center;
+  font-size: 3em;
+}
+
+.new-question{
+  position: fixed;
 }

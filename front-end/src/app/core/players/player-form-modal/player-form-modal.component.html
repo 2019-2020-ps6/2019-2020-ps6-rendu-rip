@@ -1,19 +1,45 @@
-<form class="player-form" [formGroup]="playerForm">
-  <label for="name">Nom: </label>  
-  <input class="input-custom" type="text" size = "{{sizeInput()}}" id="name" [formControlName]="'name'">
-  <br>
-  <div class = "imageAndButton">
-    <ng-template [ngTemplateOutlet] = "displayImage"></ng-template>
-    <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>        
+<div *ngIf = "!player" class="new-button" (click)="modalService.open(playerFormModal)"> 
+  <i class="fas fa-plus-circle"></i> Nouvel Accueilli
+</div>
+
+<div *ngIf = "player" class="new-button" (click)="modalService.open(playerFormModal)"> 
+  Modifier ses informations
+</div>
+
+
+
+<ng-template #playerFormModal let-modal>
+  <div class="modal-header">
+    <h4 *ngIf = "!player" class="modal-title" id="modal-basic-title">Créer un nouvel accueilli :</h4>
+    <h4 *ngIf = "player" class="modal-title" id="modal-basic-title">Modifier les informations de l'accueilli :</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
-  <button type="submit" id="sumbit" class="button-card" (click)="addOrUpdatePlayer()">Enregistrer</button>
-  <button type="button" id="cancelAnswer" class="button-card" (click)="reset()">Annuler</button>
-</form>
+  <div class="modal-body modal-larger">
+    <form class="player-form" [formGroup]="playerForm">
+      <label class = "titre" for="name">Nom: </label>  
+      <input type="text" size = "{{sizeInput()}}" id="name" [formControlName]="'name'">
+      <br>
+      <div class = "imageAndButton">
+        <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>    
+        <ng-template [ngTemplateOutlet] = "displayImage"></ng-template>    
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+		<button type="button" id="reset" class="btn btn-secondary" (click) = "reset();modal.close()">Annuler</button>
+		<button type="submit" id="createQuestion" class="btn btn-primary" (click)="addOrUpdatePlayer();modal.close()">Valider</button>
+	</div>
+</ng-template>
+
+
+
 
 <ng-template #buttonCharging>
   <div class="label">
-    Charger une image depuis :<br>
-    <label for="image64playerForm" class="button-card chargingButton" id = "chargerImage">Cet appareil</label>
+    <div class = "titre"> Ajouter une image depuis :</div><br><br>
+    <label for="image64playerForm" class="btn btn-success" id = "chargerImage">Cet appareil</label>
     <input type="file" class="hidden" id="image64playerForm" (change)="imageService.onChangeFile($event,imageTmp)" accept="image/*">
     <!--<app-database-image-modal [imageTmp] = "imageTmp"></app-database-image-modal>-->
     <!--<app-internet-image-modal [imageTmp] = "imageTmp"></app-internet-image-modal>-->

@@ -56,3 +56,7 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.close:hover{
+  background-color: rgba($color: red, $alpha: 0.8);
+}

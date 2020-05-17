@@ -5,15 +5,22 @@
 <div class="home-button" routerLink= "/">
     <i class="fa fa-home" aria-hidden="true"></i>
 </div>
-<div class="img-edit-block" *ngIf = "player && quizVisible">
-  <app-associate-quiz-modal [quizzes] = "quizzes" [player] = "player"></app-associate-quiz-modal>
-  <br> 
-  <button class="edit-button" (click)="modalService.open(playerFormModal)">Modifier l'accueilli</button>
-</div>
+
+
 
 <div class="main" *ngIf  = "player">
-  <div class = "new-button" routerLink= "./statistics">Voir les résultats</div>
-  <h2>Liste des quiz visibles par {{player.name}} : </h2>
+  <div *ngIf = "playerPhoto.url">
+    <app-player-form-modal [player] = "player" [playerImage] = "playerPhoto"></app-player-form-modal>
+  </div>
+
+  <div class="img-edit-block" *ngIf = "quizVisible">
+    <app-associate-quiz-modal [quizzes] = "quizzes" [player] = "player"></app-associate-quiz-modal>
+  </div>
+
+  <div class = "new-button" routerLink= "./statistics">
+    Voir les résultats
+  </div>
+
   <div *ngIf = "quizVisible" class="quiz-list">
     <div class="fixed-container-bigger" *ngFor = "let quiz of quizVisible">
       <div class = "tag" *ngIf = "!globalService.isValid(quiz)">
@@ -29,14 +36,3 @@
   </div>
 </div>
 
-<ng-template #playerFormModal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Modifier les informations de l'accueilli :</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-      <app-player-form-modal [player] = "player" [playerImage] = "playerPhoto" (quitForm) = "modal.close()"></app-player-form-modal>
-  </div>
-</ng-template>

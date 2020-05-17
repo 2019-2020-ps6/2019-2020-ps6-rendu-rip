@@ -1,24 +1,52 @@
-<div class="new-question-form">
-	<form [formGroup]="questionForm">
-	<label class = "label" for="questionName">Intitulé : </label>&nbsp;
-	<input type="text" size = "{{sizeInput()}}" [formControlName]="'label'" id="questionName">
-	<br>
-	<ng-template [ngTemplateOutlet] ="displayImage"></ng-template>
-    <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>   
-	<button type="submit" id="createQuestion" class="button-card" (click)="addOrUpdateQuestion()">Valider</button>
-	<button type="button" id="reset" class="button-card" (click) = "reset()">Annuler</button>
-	</form>
+<div *ngIf = "!question" type="button" class="new-button" (click)="modalService.open(questionFormModal)"> 
+    <i class="fas fa-plus-circle"></i> Nouvelle question
+</div>
+<div *ngIf = "question" type="button" class="new-button" (click)="modalService.open(questionFormModal)"> 
+    Modifier la question
 </div>
 
-<ng-template #buttonCharging>
-	<div class="">
-	  Charger une image depuis :<br>
-	  <label for="image64QuestionForm" class="button-card chargingButton" >Cet appareil</label>
-	  <input type="file" class="hidden" id="image64QuestionForm" (change)="globalService.onChangeFile($event,imageTmp)" accept="image/*">
-	  <app-internet-image-modal [imageTmp] = "imageTmp"></app-internet-image-modal>
-	  <app-database-image-modal [imageTmp] = "imageTmp"></app-database-image-modal>
+<ng-template #questionFormModal let-modal>
+	<div class="modal-header">
+	  <h4 *ngIf = "!question" class="modal-title" id="modal-basic-title">Créer une nouvelle question :</h4>
+	  <h4 *ngIf = "question" class="modal-title" id="modal-basic-title">Modifier la question :</h4>
+	  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	  </button>
 	</div>
-</ng-template>
+	<div class="modal-body modal-larger">
+		<div class="new-question-form">
+			<form [formGroup]="questionForm">
+			<label class = "label" for="questionName">Intitulé : </label>&nbsp;
+			<input type="text" size = "{{sizeInput()}}" [formControlName]="'label'" id="questionName">
+			<br>
+			<br>
+			<ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>  
+			<ng-template [ngTemplateOutlet] ="displayImage"></ng-template> 
+			</form>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" id="reset" class="btn btn-secondary" (click) = "reset();modal.close()">Annuler</button>
+		<button type="submit" id="createQuestion" class="btn btn-primary" (click)="addOrUpdateQuestion();modal.close()">Valider</button>
+	</div>
+  </ng-template>
+
+
+  <ng-template #buttonCharging>
+	<div class="dropdown">
+	  <button class="new-button dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Ajouter une image depuis :
+	  </button>
+	  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		<app-database-image-modal [imageTmp] = "imageTmp"></app-database-image-modal>
+		<br>
+		<app-internet-image-modal [imageTmp] = "imageTmp"></app-internet-image-modal>
+		<br>
+		<label for="image64QuizForm" class="btn btn-success" >Cet appareil</label>
+		<input type="file" class="hidden" id="image64QuizForm" (change)="globalService.onChangeFile($event,imageTmp)" accept="image/*">
+	  </div>
+	</div>
+  </ng-template>
 
 <ng-template #displayImage>  
 	<div class="fixed-container" *ngIf="imageTmp.url">

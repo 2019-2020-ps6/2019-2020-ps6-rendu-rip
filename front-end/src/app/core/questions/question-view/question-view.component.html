@@ -10,13 +10,13 @@
   <i class="fa fa-home" aria-hidden="true"></i>
 </div>
 
-<div class="img-edit-block">
-  <button class="edit-button" id="editQuestion" (click)="modalService.open(questionEditModal)">Modifier la Question</button>
+<div class="img-edit-block" *ngIf = "allIsLoaded()">
+  <app-question-form-modal [quiz] = "quiz" [question] = "question" [image] = "image" ></app-question-form-modal>
 </div>
 
 <div class="main" *ngIf="allIsLoaded()">
-  <div type="button" class="new-button" (click)="modalService.open(answerFormModal)">
-    <i class="fas fa-plus-circle"></i> Nouvelle Réponse
+  <div>
+    <app-answer-form [quiz] = "quiz" [question] = "question"></app-answer-form>
   </div>
   <div class="answer-list">
     <div class="fixed-container-bigger" *ngFor="let answer of question.answers">
@@ -30,29 +30,6 @@
   </div>
 </div>
 
-<ng-template #questionEditModal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Modifier la question :</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <app-question-form-modal [quiz] = "quiz" [question] = "question" [image] = "image" (quitForm) = "modal.close()"></app-question-form-modal>
-  </div>
-</ng-template>
-
-<ng-template #answerFormModal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Ajouter une réponse :</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <app-answer-form [quiz] = "quiz" [question] = "question" (quitForm) = "modal.close()"></app-answer-form>
-  </div>
-</ng-template>
 
 <ng-template #quitWithInvalidQuestion let-modal>
   <div class="modal-header">

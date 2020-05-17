@@ -1,26 +1,76 @@
-<div class="new-answer-form">
+<div *ngIf = "answer" class="new-answer-form">
     <form [formGroup]="answerForm">
+
       <label for="name">Réponse</label><br>
       <input type="text" size = "{{sizeInput()}}" [formControlName]="'value'" id="name">
+      <ng-template [ngTemplateOutlet] ="displayImageAns"></ng-template>
       <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>
       Correcte : <input type="checkbox" [formControlName]="'isCorrect'"> <br>
       <div class="buttons-bottom" *ngIf = "showButton || !answer || onChangeFile || removeImgisCalled">
-        <button type="submit" id="submitAnswer" class="btn btn-success" type="submit" (click)="submitAnswer()">Enregistrer</button>
-        <button type="button" id="cancelAnswer" class="btn btn-warning" (click)="reset()">Annuler</button>
+        <button type="button" id="cancelAnswer" class="btn btn-secondary" (click)="reset()">Annuler</button>
+        <button type="submit" id="submitAnswer" class="btn btn-primary" type="submit" (click)="submitAnswer()">Enregistrer</button>
       </div>
     </form>
 </div>
 
+<div *ngIf = "!answer" class="new-answer-form">
+  <div type="button" class="new-button" (click)="modalService.open(answerFormModal)">
+    <i class="fas fa-plus-circle"></i> Nouvelle Réponse
+  </div>  
+</div>
+  
+<ng-template #answerFormModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Ajouter une réponse :</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modal-larger">
+    <form [formGroup]="answerForm">
+      <label class = "titre" for="name">Réponse :</label>
+      <input type="text" size = "{{sizeInput()}}" [formControlName]="'value'" id="name">
+      <br>
+      <label for = "correct" class = "titre"> Correcte : </label>
+      <input id = "correct" type="checkbox" [formControlName]="'isCorrect'">
+      <br>
+      <ng-template [ngTemplateOutlet]="buttonCharging1"></ng-template>
+      <ng-template [ngTemplateOutlet] ="displayImageAns"></ng-template>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click) = "reset();modal.close()">Annuler</button>
+    <button type="button" class="btn btn-primary" (click)= "submitAnswer();modal.close()">Valider</button>
+  </div>
+</ng-template>
+
+
 <ng-template #buttonCharging>
 	<div class="label">
-    Charger une image depuis :<br>
-    <ng-template [ngTemplateOutlet] ="displayImageAns"></ng-template>
-    <label for="image64AnswerForm{{setLabel()}}" class="button-card chargingButton" >Cet appareil</label>
+    Ajouter une image depuis :<br>
+    <label for="image64AnswerForm{{setLabel()}}" class="btn btn-success" >Cet appareil</label>
 	  <input type="file" class="hidden" id="image64AnswerForm{{setLabel()}}" (change)="onChange($event,imageTmp)" accept="image/*">
     <br>
     <app-database-image-modal [imageTmp] = "imageTmp" [id] = "setLabel()" (onChangeFile_bis)="received($event)"></app-database-image-modal>
     <br>
     <app-internet-image-modal [imageTmp] = "imageTmp" [id] = "setLabel()" (onChangeFile_bis)="received($event)"></app-internet-image-modal>
+  </div>
+</ng-template>
+
+<ng-template #buttonCharging1>
+  <div class="dropdown">
+    <button class="new-button dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Ajouter une image depuis :
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <app-database-image-modal [imageTmp] = "imageTmp" [id] = "setLabel()" (onChangeFile_bis)="received($event)"></app-database-image-modal>
+      <br>
+      <app-internet-image-modal [imageTmp] = "imageTmp" [id] = "setLabel()" (onChangeFile_bis)="received($event)"></app-internet-image-modal>
+      <br>
+      <label for="image64QuizForm{{setLabel()}}" class="btn btn-success" >Cet appareil</label>
+      <input type="file" class="hidden" id="image64QuizForm{{setLabel()}}" (change)="globalService.onChangeFile($event,imageTmp)" accept="image/*">
+    </div>
   </div>
 </ng-template>
 

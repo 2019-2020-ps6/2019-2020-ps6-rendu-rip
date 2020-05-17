@@ -1,8 +1,8 @@
 <div class="main">
-  <div type="button" class="new-button" (click)="modalService.open(questionFormModal)"> 
-    <i class="fas fa-plus-circle"></i> Nouvelle question
+  <div class = "new-question">
+    <app-question-form-modal [quiz] = "quiz" ></app-question-form-modal>
   </div>
-  <div class="question-list">
+  <div class="question-list" *ngIf = "quiz.questions && quiz.questions.length>0;else noQuestions">
     <div class="" *ngFor="let question of quiz.questions">
       <button class="delete-button" (click)="deleteQuestion(question)">
         <i class="fas fa-times"></i>
@@ -14,14 +14,6 @@
   </div>
 </div>
 
-<ng-template #questionFormModal let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Créer une nouvelle question :</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-      <app-question-form-modal [quiz] = "quiz" (quitForm) = "modal.close()"></app-question-form-modal>
-  </div>
+<ng-template #noQuestions>
+  <div class="center" id="redCenteredMsg"> Il n'y a pas de questions </div>
 </ng-template>

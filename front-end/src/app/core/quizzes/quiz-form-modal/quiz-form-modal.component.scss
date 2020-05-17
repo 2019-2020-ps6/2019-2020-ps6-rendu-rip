@@ -3,19 +3,9 @@
 @import 'src/styles/images.scss';
 @import 'src/styles/common.scss';
 
-.quiz-form{
-    max-width: 300px;
-}
-.edit-quiz-form{
-    margin-left: auto;
-    margin-right: auto;
-}
 
-.name {
-    font-weight: bold;
-    margin-right: 1em;
-}
-.theme {
+
+.titre {
     font-weight: bold;
     margin-right: 1em;
 }
@@ -38,7 +28,18 @@
     background-color: white;
 }
 
+.new-button{
+    position: unset;
+}
+
 .frame{
     border: none;
     margin: 0;
+}
+
+.modal-larger {
+    height: calc(100vh - 143px);
+    min-height: 10em;
+    max-height: 22em;
+    overflow-y: auto; 
 }

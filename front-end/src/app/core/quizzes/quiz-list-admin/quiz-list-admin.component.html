@@ -7,9 +7,9 @@
 </div>
 
 <div class="main">
-    <div class="new-button" (click)="modalService.open(quizFormModal)"> 
-        <i class="fas fa-plus-circle"></i> Nouveau Quiz
-    </div> 
+    <div class="newQuiz"> 
+        <app-quiz-form-modal></app-quiz-form-modal>
+    </div>
     <div class="theme-button">
         <form [formGroup]="themeForm">
             Thème:
@@ -20,9 +20,7 @@
             </select>
         </form>
     </div>
-    <br> 
     <app-timer-form-modal></app-timer-form-modal>
-    <br>
     <div class="quiz-list" *ngIf="quizListFiltered && quizListFiltered.length!==0; else noQuizFound">
         <div class="fixed-container-bigger" *ngFor="let quiz of quizListFiltered">
             <div class = "tag" *ngIf = "!globalService.isValid(quiz)">
@@ -41,17 +39,4 @@
 <ng-template #noQuizFound>
     <div class="center" id="redCenteredMsg"> Aucun quiz trouvé </div>
 </ng-template>
-
-<ng-template #quizFormModal let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Créer un nouveau quiz :</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-        <app-quiz-form-modal (quitForm) = "modal.close()"></app-quiz-form-modal>
-    </div>
-</ng-template>
-
 

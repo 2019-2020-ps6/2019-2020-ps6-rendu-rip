@@ -18,7 +18,7 @@
       <app-associate-player-modal [players] = "players" [all] = "all" [quiz] = "quiz" (selected) = "setPlayersSelected($event)"></app-associate-player-modal>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="save();modal.close()">Enregistrer</button>
-      <button type="button" class="btn btn-outline-dark" (click)="reset();modal.close()">Annuler</button>
+      <button type="button" class="btn btn-secondary" (click)="reset();modal.close()">Annuler</button>
+      <button type="button" class="btn btn-primary" (click)="save();modal.close()">Enregistrer</button>
     </div>
   </ng-template>

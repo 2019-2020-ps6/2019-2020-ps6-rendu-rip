@@ -22,7 +22,7 @@ export class QuizListAdminComponent implements OnInit {
 
   themeForm: FormGroup;
 
-  constructor(private modalService: ModalService, public globalService: GlobalService,
+  constructor(public globalService: GlobalService,
     public quizService: QuizService, public formBuilder: FormBuilder, public themeService : ThemeService) {
       this.themeFilteringSetup();
       this.quizService.quizzes$.subscribe((quizzes) =>{

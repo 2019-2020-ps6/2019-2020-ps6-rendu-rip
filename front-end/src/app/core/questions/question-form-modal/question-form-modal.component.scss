@@ -40,3 +40,13 @@
     margin: 0;
 }
 
+.new-button{
+    position: unset;
+}
+
+.modal-larger {
+    height: calc(100vh - 143px);
+    min-height: 10em;
+    max-height: 18em;
+    overflow-y: auto; 
+}

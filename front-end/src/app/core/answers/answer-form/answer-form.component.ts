@@ -6,6 +6,7 @@ import { Quiz } from 'src/models/quiz.model';
 import { Img } from '../../../../models/image.model';
 
 import { GlobalService } from 'src/services/global.service';
+import { ModalService } from 'src/services/modal.service';
 
 @Component({
   selector: 'app-answer-form',
@@ -26,7 +27,7 @@ export class AnswerFormComponent implements OnInit {
   
   imageTmp : Img = {} as Img;
   image : Img = {} as Img;
-  constructor(public formBuilder: FormBuilder, public globalService: GlobalService) {}
+  constructor(public modalService : ModalService, public formBuilder: FormBuilder, public globalService: GlobalService) {}
 
   ngOnInit() {
     this.initializeAnswerForm();

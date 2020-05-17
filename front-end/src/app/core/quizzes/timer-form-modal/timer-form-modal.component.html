@@ -18,14 +18,11 @@
             </label>
             <label class="formulaire">
                 Temps d'affichage bonne réponse : <input class = "timer" type="number" [formControlName]="'timerRightAnswer'"> secondes
-            </label>
-           
-            <br>
-            <div class = "button-bottom" >
-                <button class="btn btn-success button-modal" (click)= "save();modal.close()">Enregistrer</button>
-                <button class = "btn btn-warning button-modal" (click) = "reset();modal.close()">Annuler</button>
-            </div>
-            
+            </label>          
         </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click) = "reset();modal.close()">Annuler</button>
+        <button type="button" class="btn btn-primary" (click)= "save();modal.close()">Enregistrer</button>
     </div>
 </ng-template>
