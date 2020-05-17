@@ -1,24 +1,66 @@
 <div *ngIf="rightAnswer; else noAnswer">
     <div *ngIf="whatRight=='selected'; else recap">
         <div class="box">
+
+            <div *ngIf="image.url; else noImage">
+                <div *ngIf="rightAnswer.value; else noTxt">
+                    <img [src]="imageService.getImgSrc1(image)" alt="answer image">
+                    <div class="textItem">{{rightAnswer.value}}</div>
+                </div>
+                <ng-template #noTxt>
+                    <img class="bigImg" [src]="imageService.getImgSrc1(image)" alt="answer image">
+                </ng-template>
+            </div>
+            <ng-template #noImage>
+                <div *ngIf="rightAnswer.value" class="textItemAlone">{{rightAnswer.value}}</div>
+            </ng-template>
+<!--
             <div *ngIf="image.url"><img [src]="imageService.getImgSrc1(image)" alt="answer image"></div>
-            <div *ngIf="rightAnswer.value" class = "label-for-recap">{{rightAnswer.value}}</div>
+            <div *ngIf="rightAnswer.value" class = "label-for-recap">{{rightAnswer.value}}</div>-->
         </div>
     </div>
     <ng-template #recap>
         <div *ngIf="whatRight=='recapIntermed'; else recapEnd">
             <div id="container-right">
                 <div class="box">
-                <div *ngIf="image.url"><img [src]="imageService.getImgSrc1(image)" alt="answer image"></div>
+               <!--
+                    <div *ngIf="image.url"><img [src]="imageService.getImgSrc1(image)" alt="answer image"></div>
                 <div *ngIf="rightAnswer.value" class = "label-for-recap">{{rightAnswer.value}}</div>
+               -->
+               <div *ngIf="image.url; else noImage">
+                <div *ngIf="rightAnswer.value; else noTxt">
+                    <img [src]="imageService.getImgSrc1(image)" alt="answer image">
+                    <div class="textItem">{{rightAnswer.value}}</div>
                 </div>
+                <ng-template #noTxt>
+                    <img class="bigImg" [src]="imageService.getImgSrc1(image)" alt="answer image">
+                </ng-template>
+            </div>
+            <ng-template #noImage>
+                <div *ngIf="rightAnswer.value" class="textItemAlone">{{rightAnswer.value}}</div>
+            </ng-template>    
+            </div>
             </div>
         </div>
         <ng-template #recapEnd>
             <div id="container-right-end">
                 <div class="box">
+                    <!--
                     <div *ngIf="image.url"><img class="imgBigger" [src]="imageService.getImgSrc1(image)" alt="answer image"></div>
                     <div *ngIf="rightAnswer.value" class = "label-for-recap">{{rightAnswer.value}}</div>
+                    -->
+                    <div *ngIf="image.url; else noImage">
+                        <div *ngIf="rightAnswer.value; else noTxt">
+                            <img [src]="imageService.getImgSrc1(image)" alt="answer image">
+                            <div class="textItem">{{ritghAnswer.value}}</div>
+                        </div>
+                        <ng-template #noTxt>
+                            <img class="bigImg" [src]="imageService.getImgSrc1(image)" alt="answer image">
+                        </ng-template>
+                    </div>
+                    <ng-template #noImage>
+                        <div *ngIf="rightAnswer.value" class="textItemAlone">{{rightAnswer.value}}</div>
+                    </ng-template>
                 </div>
             </div>
         </ng-template>

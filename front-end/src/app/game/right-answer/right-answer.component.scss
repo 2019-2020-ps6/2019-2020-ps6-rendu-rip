@@ -43,12 +43,14 @@
     flex-direction: row;
 }
 
+/*
 .label-for-recap{
     font-size: larger;
     font-weight: bold;
     margin-bottom: 10px;
     text-align: center;
-}
+}*/
+
 
 .thumbnailItem {
     width: 20rem;
@@ -63,8 +65,22 @@ img {
     display: block;      /* remove extra space below image */
     @extend .thumbnailItem;
 }
-
+/*
 .imgBigger {
     width: 20rem;
     height: 18rem;
+}*/
+
+.bigImg {
+    @extend img;
+    width: 20rem;
+    height: 18rem;
+}
+
+.textItem {
+    font-size: 175%;
+}
+
+.textItemAlone {
+    font-size: 200%;
 }
