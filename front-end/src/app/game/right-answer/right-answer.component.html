@@ -52,7 +52,7 @@
                     <div *ngIf="image.url; else noImage">
                         <div *ngIf="rightAnswer.value; else noTxt">
                             <img [src]="imageService.getImgSrc1(image)" alt="answer image">
-                            <div class="textItem">{{ritghAnswer.value}}</div>
+                            <div class="textItem">{{rightAnswer.value}}</div>
                         </div>
                         <ng-template #noTxt>
                             <img class="bigImg" [src]="imageService.getImgSrc1(image)" alt="answer image">
