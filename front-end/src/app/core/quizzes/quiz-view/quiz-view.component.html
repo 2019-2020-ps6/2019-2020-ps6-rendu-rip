@@ -1,10 +1,12 @@
 <app-header [title] = "headerTitle" [image] = "image"></app-header>
-<div class="goback-button" *ngIf ="!quiz || quiz && !invalid()" (click)= "goBack()">
+<div class="goback-button" *ngIf ="quiz && invalid(); else validBack" (click)="modalService.open(quizInvalid)">
   <i class="fa fa-arrow-left" aria-hidden="true"></i>
 </div>
-<div class="goback-button" *ngIf ="quiz && invalid()" (click)="modalService.open(quizInvalid)">
+<ng-template #validBack>
+<div class="goback-button" (click)= "goBack()">
   <i class="fa fa-arrow-left" aria-hidden="true"></i>
 </div>
+</ng-template>
 <div class="home-button" routerLink= "/">
   <i class="fa fa-home" aria-hidden="true"></i>
 </div>
