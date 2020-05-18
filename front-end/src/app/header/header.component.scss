@@ -2,13 +2,36 @@
 @import "../../styles/images.scss";
 @import "../../styles/common.scss";
 
+.navbar-text {
+  //float: none;
+  position: absolute;
+  width: 30%;
+  right: 35%;
+  //right: 60%;
+  text-align: center;
+}
+
+.nav-link {
+  color: rgb(148, 0, 148);
+}
+
+.nav-link:hover {
+  color: rgb(97, 0, 97);
+  cursor: pointer;
+}
+
+#navbar {
+  width: 100%;
+}
 /**
  Use :host to apply some style to your entire component #24c6dc, #514a9d
  #0f0c29, #302b63, #24243e linear-gradient(to right,#302b63, #0f0c29, #302b63);
  */
+ /*
 :host {
   color: $white;
 }
+
 
 .header {
   float: center;
@@ -26,3 +49,4 @@
   @extend .header;
   padding: 0.3em;
 }
+*/

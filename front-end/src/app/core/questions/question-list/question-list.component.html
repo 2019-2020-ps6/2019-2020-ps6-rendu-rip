@@ -1,7 +1,5 @@
-<div class="main">
-  <div class = "new-question">
-    <app-question-form-modal [quiz] = "quiz" ></app-question-form-modal>
-  </div>
+
+  <app-question-form-modal [quiz] = "quiz" ></app-question-form-modal>
   <div class="question-list" *ngIf = "quiz.questions && quiz.questions.length>0;else noQuestions">
     <div class="" *ngFor="let question of quiz.questions">
       <button class="delete-button" (click)="deleteQuestion(question)">
@@ -12,7 +10,6 @@
       </div>
     </div>
   </div>
-</div>
 
 <ng-template #noQuestions>
   <div class="center" id="redCenteredMsg"> Il n'y a pas de questions </div>

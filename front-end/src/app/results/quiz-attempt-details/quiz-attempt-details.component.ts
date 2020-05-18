@@ -59,7 +59,6 @@ export class QuizAttemptDetailsComponent implements OnInit {
     return false;
   }
 
-  
   setRightAnswer(question : Question) {
     let rightAnswer ={} as Answer;
     if(!question.answers)return;
@@ -73,13 +72,11 @@ export class QuizAttemptDetailsComponent implements OnInit {
     return rightAnswer;
   }
 
-
-
   answerInQuestion(answer : Answer, question : Question){
     return answer.questionId === question.id;
   }
 
   goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
+    this.location.back(); // <-- go back to previous location
   }
 }

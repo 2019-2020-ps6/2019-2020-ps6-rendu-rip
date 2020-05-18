@@ -1,4 +1,6 @@
-<app-header [title] = "headerTitle" [image] = "image"></app-header>
+<body>
+<app-header [type]="'quizInfo'"[title] = "headerTitle" [image] = "image"></app-header>
+<!--
 <div class="goback-button" *ngIf ="isValid(); else invalidBack" (click)="goBack()">
   <i class="fa fa-arrow-left" aria-hidden="true"></i>
 </div>
@@ -6,20 +8,17 @@
 <div class="goback-button" (click)="modalService.open(quizInvalid)">
   <i class="fa fa-arrow-left" aria-hidden="true"></i>
 </div>
-</ng-template>
-<div class="home-button" routerLink= "/">
-  <i class="fa fa-home" aria-hidden="true"></i>
-</div>
+</ng-template>-->
 
 <div *ngIf ="quiz && image.url" class="img-edit-block">
   <app-quiz-form-modal [quiz] = "quiz" [image] = "image" ></app-quiz-form-modal>
+  <app-visibility-choice-modal [quiz] = "quiz" (hidden) = "switchHidden($event)"></app-visibility-choice-modal>
 </div>
-<div *ngIf = "quiz" ><app-visibility-choice-modal [quiz] = "quiz" (hidden) = "switchHidden($event)"></app-visibility-choice-modal></div>
 
 <div *ngIf ="quiz && quiz.questions">
   <app-question-list [quiz]="quiz"></app-question-list>
 </div>
-
+</body>
 
 <ng-template #quizInvalid let-modal>
   <div class="modal-header">

@@ -7,7 +7,6 @@
 .theme-list {
   @extend .responsive-list;
   text-align: center;
-  margin-top: 3rem;
 }
 
 .theme-card {
@@ -24,9 +23,3 @@
   background-color: white;
   cursor: default;
 }
-/*
-.fixed-container{
-  border: solid;
-  width: 20%;
-  //height: 10;
-}*/

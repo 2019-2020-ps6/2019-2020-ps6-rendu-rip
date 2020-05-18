@@ -11,6 +11,7 @@ import { ImageService } from 'src/services/image.service';
 import { Attempt } from 'src/models/attempt.model';
 import { AttemptService } from 'src/services/attempt.service';
 import { IfStmt } from '@angular/compiler';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class RunnerComponent implements OnInit {
   headerTitle: string;
   headerImage: Img;
 
-  constructor(private route: ActivatedRoute, public quizService: QuizService, public imageService: ImageService, public attemptService: AttemptService) {
+  constructor(private location: Location, private route: ActivatedRoute, public quizService: QuizService, public imageService: ImageService, public attemptService: AttemptService) {
     this.quizService.quizSelected$.subscribe((quiz) => {
       this.quiz = quiz;
       this.headerTitle = this.quiz.name;
@@ -104,11 +105,11 @@ export class RunnerComponent implements OnInit {
     if(id) this.imageService.loadQuestionImage(this.image, id);
   }
 
-  shuffle(): void{
-    
+  shuffle(): void{ 
   }
 
-
+  goBack() {
+    this.location.back(); // <-- go back to previous location
+  }
 }
-
 

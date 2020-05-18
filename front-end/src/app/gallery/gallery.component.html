@@ -1,24 +1,18 @@
-<app-header [title] = "headerTitle"></app-header>
-<div class="goback-button" (click)="goBack()">
-    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-</div>
-<div class="home-button" routerLink= "/">
-    <i class="fa fa-home" aria-hidden="true"></i>
-</div>
-<div class="main">
-<div class="quiz-list"><!--"responsive-list">-->
+<body>
+<app-header [type]="'general'"></app-header>
+<div class="image-list"><!--"responsive-list">-->
     <div *ngFor="let img of images">
         <div *ngIf="img.url" class="fixed-container">
             <div class="delete-button" (click)="checkIfImageIsUsed(img);modalService.open(deleteImageUsed)">
                 <i class="fas fa-times" aria-hidden="true"></i>
             </div>
-            <div class="quiz-card">
+            <div class="image-card">
                 <img class="frame thumbnail" [src]="globalService.getImgSrc1(img)" alt="answer image">
             </div>
         </div>
     </div>
 </div>
-</div>
+</body>
 
 <ng-template #deleteImageUsed let-modal>
     <div  class="modal-header">

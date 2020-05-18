@@ -1,6 +1,6 @@
-<label for="modal-associate-quiz" class="edit-button">Rendre des quiz visibles</label>
-<button type="button" class="hidden" id="modal-associate-quiz" (click)="modalService.open(associateQuiz)"></button>
-
+<button class="btn btn-info" (click)="modalService.open(associateQuiz)">
+  Rendre des quiz visibles
+</button>
 
 <ng-template #associateQuiz let-modal>
     <div class="modal-header">

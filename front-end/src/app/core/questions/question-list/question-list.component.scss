@@ -4,23 +4,17 @@
 
 .question-list {  
   width: 80%;
-  //margin-right: 1rem;
-  margin-top: 3rem;
+  margin: auto;
 }
 
 .question-card {
   @extend .quiz-card;
   text-align: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem auto;
 }
   
 #redCenteredMsg {
   color: red;
   text-align: center;
   font-size: 3em;
-}
-
-.new-question{
-  position: fixed;
 }

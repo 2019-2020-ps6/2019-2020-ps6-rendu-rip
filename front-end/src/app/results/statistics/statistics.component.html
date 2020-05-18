@@ -1,19 +1,10 @@
-<app-header [title] = "headerTitle" [image] = "playerImage"></app-header>
-<div class="goback-button" routerLink= "..">
-    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-</div>
-<div class="home-button" routerLink= "/">
-    <i class="fa fa-home" aria-hidden="true"></i>
-</div>
-<div class="main">
     <div *ngIf="player">
         <div class="flex-list">
             <div *ngFor="let attempt of playerAttempts" >
                 <button class="delete-button" (click)="deleteAttempt(attempt)">
                     <i class="fas fa-times"></i>
                 </button>
-                <app-quiz-attempt [attempt]="attempt" routerLink="./{{attempt.id}}"></app-quiz-attempt>
+                <app-quiz-attempt [attempt]="attempt" routerLink="./statistics/{{attempt.id}}"></app-quiz-attempt>
             </div>
         </div>
     </div>
-</div>

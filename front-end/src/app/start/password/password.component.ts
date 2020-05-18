@@ -30,7 +30,7 @@ export class PasswordComponent implements OnInit {
     this.counter++;
     const password = this.loginForm.get('password').value;
     if (password === '1111' || password === '') {
-      this.router.navigate(['admin']);
+      this.router.navigate(['admin/quiz-list']);
       return;
     }
     this.isCorrect = false;

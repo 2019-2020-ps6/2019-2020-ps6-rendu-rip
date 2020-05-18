@@ -1,38 +1,31 @@
-<app-header [title] = "headerTitle" [image] = "playerPhoto"></app-header>
-<div class="goback-button" routerLink= "..">
-    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-</div>
-<div class="home-button" routerLink= "/">
-    <i class="fa fa-home" aria-hidden="true"></i>
-</div>
+<body>
+<app-header [type]="'playerInfo'" [title]="headerTitle" [image]="playerPhoto" (tab)="onNavTabClicked($event)"></app-header>
+<div *ngIf  = "player">
 
-
-
-<div class="main" *ngIf  = "player">
-  <div *ngIf = "playerPhoto.url">
+  <div *ngIf="currentTab=='info' && playerPhoto.url">
     <app-player-form-modal [player] = "player" [playerImage] = "playerPhoto"></app-player-form-modal>
   </div>
 
-  <div class="img-edit-block" *ngIf = "quizVisible">
-    <app-associate-quiz-modal [quizzes] = "quizzes" [player] = "player"></app-associate-quiz-modal>
-  </div>
-
-  <div class = "new-button" routerLink= "./statistics">
-    Voir les résultats
-  </div>
-
-  <div *ngIf = "quizVisible" class="quiz-list">
-    <div class="fixed-container-bigger" *ngFor = "let quiz of quizVisible">
-      <div class = "tag" *ngIf = "!globalService.isValid(quiz)">
-          INCOMPLET
+  <div *ngIf="currentTab=='quizzes' && quizVisible">
+    <app-associate-quiz-modal [quizzes]="quizzes" [player]="player"></app-associate-quiz-modal>
+    <div class="quiz-list">
+      <div class="fixed-container-bigger" *ngFor = "let quiz of quizVisible">
+        <div class = "tag" *ngIf = "!globalService.isValid(quiz)">
+            INCOMPLET
+        </div>
+        <button class="delete-button" (click)="removeVisibility(quiz)">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="quiz-card"  routerLink= "../../quiz-list/{{quiz.id}}">
+          <app-quiz  [quiz]="quiz"></app-quiz>
       </div>
-      <button class="delete-button" (click)="removeVisibility(quiz)">
-          <i class="fas fa-times"></i>
-      </button>
-      <div class="quiz-card"  routerLink= "../../quiz-list/{{quiz.id}}">
-        <app-quiz  [quiz]="quiz"></app-quiz>
+      </div>    
     </div>
-    </div>    
+  </div>
+
+  <div *ngIf="currentTab=='stats' || currentTab!='quizzes' && currentTab!='info'">
+    <app-statistics></app-statistics>
   </div>
 </div>
+</body>
 

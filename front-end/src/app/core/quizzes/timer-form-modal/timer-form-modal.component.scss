@@ -3,14 +3,10 @@
 @import 'src/styles/images.scss';
 @import '../../../../styles/common.scss';
 
-#settingsBtn {
-    position: fixed;
-    left: 2%;
-}
-
 .timer{
     text-align: center;
 }
+
 .btn:hover{
     cursor: pointer;
 }
@@ -21,13 +17,13 @@
 }
 
 .modal-body {
-    height: calc(100vh - 143px);
+    /*height: calc(100vh - 143px);
     min-height: 10em;
     max-height: 22em;
-    overflow-y: auto; 
+    overflow-y: auto; */
 }
 
-.formulaire{
+.field {
     margin-top: 1em;
-    text-align: center;
+    //text-align: center;
 }

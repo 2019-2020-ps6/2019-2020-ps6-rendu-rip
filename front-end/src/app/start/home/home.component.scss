@@ -1,3 +1,19 @@
 @import '../../../styles/card.scss';
 @import '../../../styles/layout.scss';
 @import '../../../styles/common.scss';
+
+.btns-column {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.big-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

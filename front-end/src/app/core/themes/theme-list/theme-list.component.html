@@ -1,17 +1,5 @@
-<app-header [title] = "headerTitle"></app-header>
-<div class="goback-button" routerLink= "..">
-    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-</div>
-<div class="home-button" routerLink= "/">
-    <i class="fa fa-home" aria-hidden="true"></i>
-</div>
-
-<div class="main">
-    <!--
-    <div class="new-button" (click)="modalService.open(themeFormModal)"> 
-        <i class="fas fa-plus-circle"></i> Nouveau Thème
-    </div>-->
-    <!--<theme-form></theme-form>-->
+<app-header [type]="'general'"></app-header>
+<body>
     <div class = "theme-list" *ngIf = "THEME_LIST">
         <div class="theme-card" *ngFor = "let theme of THEME_LIST">
             <button class="delete-button" (click)="deleteTheme(theme)">
@@ -22,7 +10,7 @@
             </div>
         </div>
     </div>
-</div>
+</body>
 
 <ng-template #themeFormModal let-modal>
     <div class="modal-header">

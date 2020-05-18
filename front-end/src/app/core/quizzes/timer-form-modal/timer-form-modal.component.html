@@ -1,4 +1,4 @@
-<div id="settingsBtn" class="btn btn-secondary" (click)="modalService.open(timerFormModal)"> 
+<div class="btn btn-secondary" (click)="modalService.open(timerFormModal)"> 
     <i class="fas fa-cogs"></i> Paramètres
 </div>
 <ng-template #timerFormModal let-modal>
@@ -10,13 +10,13 @@
     </div>
     <div class="modal-body">
         <form #form = "ngForm" [formGroup]="timerForm">
-            <label class="formulaire">
+            <label class="field">
                 Temps limite pour choisir une réponse : <input class = "timer" type="number" [formControlName]="'timerToAnswer'"> secondes
             </label>
-            <label class="formulaire">
+            <label class="field">
                 Temps d'affichage comparaison bonne/mauvaise : <input class = "timer" type="number" [formControlName]="'timerComparison'"> secondes
             </label>
-            <label class="formulaire">
+            <label class="field">
                 Temps d'affichage bonne réponse : <input class = "timer" type="number" [formControlName]="'timerRightAnswer'"> secondes
             </label>          
         </form>

@@ -1,6 +1,5 @@
-<div *ngIf = "answer" class="new-answer-form">
+<div *ngIf="answer; else noAnswerYet" class="new-answer-form">
     <form [formGroup]="answerForm">
-
       <label for="name">Réponse</label><br>
       <input type="text" size = "{{sizeInput()}}" [formControlName]="'value'" id="name">
       <ng-template [ngTemplateOutlet] ="displayImageAns"></ng-template>
@@ -13,11 +12,11 @@
     </form>
 </div>
 
-<div *ngIf = "!answer" class="new-answer-form">
-  <div type="button" class="new-button" (click)="modalService.open(answerFormModal)">
+<ng-template #noAnswerYet>
+  <button type="button" class="btn btn-primary" (click)="modalService.open(answerFormModal)">
     <i class="fas fa-plus-circle"></i> Nouvelle Réponse
-  </div>  
-</div>
+  </button>  
+</ng-template>
   
 <ng-template #answerFormModal let-modal>
   <div class="modal-header">

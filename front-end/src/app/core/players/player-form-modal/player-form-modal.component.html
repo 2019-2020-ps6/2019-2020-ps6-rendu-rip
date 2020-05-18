@@ -1,12 +1,12 @@
-<div *ngIf = "!player" class="new-button" (click)="modalService.open(playerFormModal)"> 
-  <i class="fas fa-plus-circle"></i> Nouvel Accueilli
-</div>
-
-<div *ngIf = "player" class="new-button" (click)="modalService.open(playerFormModal)"> 
+<button *ngIf="player; else noPlayerYet" class="btn btn-primary" (click)="modalService.open(playerFormModal)"> 
   Modifier ses informations
-</div>
+</button>
 
-
+<ng-template #noPlayerYet>
+  <button class="btn btn-primary" (click)="modalService.open(playerFormModal)"> 
+    <i class="fas fa-plus-circle"></i> Nouvel Accueilli
+  </button>
+</ng-template>
 
 <ng-template #playerFormModal let-modal>
   <div class="modal-header">
@@ -33,16 +33,11 @@
 	</div>
 </ng-template>
 
-
-
-
 <ng-template #buttonCharging>
   <div class="label">
     <div class = "titre"> Ajouter une image depuis :</div><br><br>
     <label for="image64playerForm" class="btn btn-success" id = "chargerImage">Cet appareil</label>
     <input type="file" class="hidden" id="image64playerForm" (change)="imageService.onChangeFile($event,imageTmp)" accept="image/*">
-    <!--<app-database-image-modal [imageTmp] = "imageTmp"></app-database-image-modal>-->
-    <!--<app-internet-image-modal [imageTmp] = "imageTmp"></app-internet-image-modal>-->
   </div>
 </ng-template>
 

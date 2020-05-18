@@ -3,29 +3,34 @@
 @import '../../styles/card.scss';
 @import '../../styles/common.scss';
 
-.responsive-list {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    flex-wrap: wrap;
+.image-list {
+    @extend .quiz-list;
+}
+
+.image-card {
+    @extend .quiz-card;
+    padding: 0;
+    box-shadow: none;
+}
+
+.image-card:hover {
+    cursor: default;
+    background-color: white;
 }
 
 .delete-button {
     padding: 0.1rem 0.4rem;
 }
 
-.quiz-card {
-    padding: 0;
-    box-shadow: none;
-}
-
-.quiz-card:hover {
-    cursor: default;
-    background-color: white;
-}
-
 .frame{
     border: none;
     margin: 0;
 }
+/*
+.responsive-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}*/

@@ -1,6 +1,21 @@
 @import '../../../../styles/card.scss';
 @import '../../../../styles/layout.scss';
 @import '../../../../styles/common.scss';
+
+.top-btns {
+  width: 100%;
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#newQuiz {
+  margin: auto;
+}
+
+.container {
+  width: 100%;
+  //margin-top: 70px;
+}
 .card {
   background-color: rgba(255, 255, 255, 0);
   border-color: rgba(255, 255, 255, 0);
@@ -23,15 +38,11 @@
 }
 
 .newQuiz{
-  position: fixed;
+  //position: fixed;
 }
 
 #redCenteredMsg {
   color: red;
   text-align: center;
   font-size: 3em;
-}
-
-.quiz-list {
-  margin-top: 3rem;
 }

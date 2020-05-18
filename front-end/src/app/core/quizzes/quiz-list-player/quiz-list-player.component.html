@@ -1,22 +1,17 @@
-<app-header [title] = "headerTitle" [image] = "image"></app-header>
-<div class="goback-button" routerLink= "/players">
-    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-</div>
-<div class="home-button" routerLink= "/">
-    <i class="fa fa-home" aria-hidden="true"></i>
-</div>
-
-<div class="main">
-    <div class="theme-button">
-        <form [formGroup]="themeForm">
-            Thème:
-            <select name="Thème" id="selectTheme" [formControlName]="'theme'" (change)="filteredQuizList()">
-                <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
-                  {{current_theme}}
-                </option>
-            </select>
-        </form>
-    </div> 
+<body>
+<app-header [title]="headerTitle" [image]="image" [isHomeBrand]="false"></app-header>
+    <div><!-- just here to fit below div -->
+        <div class="btn btn-secondary" style="border: dotted; color: blue; background-color: #ffffff00; float: right;">
+            <form [formGroup]="themeForm">
+                Thème:
+                <select name="Thème" id="selectTheme" [formControlName]="'theme'" (change)="filteredQuizList()">
+                    <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
+                    {{current_theme}}
+                    </option>
+                </select>
+            </form>
+        </div>
+    </div>
     <div class="quiz-list" *ngIf="quizListFiltered && quizListFiltered.length!==0; else noQuizFound">
         <div class="fixed-container-bigger" *ngFor="let quiz of quizListFiltered">
             <div class="quiz-card"  routerLink= "./game/{{quiz.id}}">
@@ -27,4 +22,4 @@
     <ng-template #noQuizFound>
         <div class="center" id="redCenteredMsg"> Aucun quiz trouvé </div>
     </ng-template>
-</div>
+</body>

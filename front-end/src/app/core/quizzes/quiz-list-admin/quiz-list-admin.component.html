@@ -1,26 +1,21 @@
-<app-header [title] = "headerTitle"></app-header>
-<div class="goback-button" routerLink= "/admin">
-    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-</div>
-<div class="home-button" routerLink= "/">
-    <i class="fa fa-home" aria-hidden="true"></i>
-</div>
-
-<div class="main">
-    <div class="newQuiz"> 
-        <app-quiz-form-modal></app-quiz-form-modal>
+<body>
+    <app-header [type]="'general'"></app-header>
+    <div class="top-btns">
+        <app-timer-form-modal></app-timer-form-modal>
+        <div id="newQuiz"><app-quiz-form-modal></app-quiz-form-modal></div>
+        <div><!-- just here to fit below div -->
+            <div class="btn btn-secondary" style="border: dotted; color: grey; background-color: #ffffff00; float: right;">
+                <form [formGroup]="themeForm">
+                    Thème:
+                    <select name="Thème" id="selectTheme" [formControlName]="'theme'" (change)="filteredQuizList()">
+                        <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
+                        {{current_theme}}
+                        </option>
+                    </select>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="theme-button">
-        <form [formGroup]="themeForm">
-            Thème:
-            <select name="Thème" id="selectTheme" [formControlName]="'theme'" (change)="filteredQuizList()">
-                <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
-                  {{current_theme}}
-                </option>
-            </select>
-        </form>
-    </div>
-    <app-timer-form-modal></app-timer-form-modal>
     <div class="quiz-list" *ngIf="quizListFiltered && quizListFiltered.length!==0; else noQuizFound">
         <div class="fixed-container-bigger" *ngFor="let quiz of quizListFiltered">
             <div class = "tag" *ngIf = "!globalService.isValid(quiz)">
@@ -34,9 +29,8 @@
             </div>       
         </div>
     </div>
-</div>
-
-<ng-template #noQuizFound>
-    <div class="center" id="redCenteredMsg"> Aucun quiz trouvé </div>
-</ng-template>
+    <ng-template #noQuizFound>
+        <div class="center" id="redCenteredMsg"> Aucun quiz trouvé </div>
+    </ng-template>
+</body>
 

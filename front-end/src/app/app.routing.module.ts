@@ -39,7 +39,7 @@ const routes: Routes = [
     { path: 'admin/player-list/:id/statistics/:attemptId', component: QuizAttemptDetailsComponent },
 
 
-    { path: 'players', component: ScreenPlayerComponent },
+    { path: 'players', component: PlayerListPlayerComponent },
     { path: 'players/:id', component: QuizListPlayerComponent },
     { path: 'players/:id/game/:quizId', component: RunnerComponent },
     { path: 'players/:id/game/:quizId/recap', component: RecapComponent },

@@ -1,7 +1,7 @@
-<div *ngIf = "!question" type="button" class="new-button" (click)="modalService.open(questionFormModal)"> 
+<div *ngIf = "!question" type="button" class="btn btn-primary" (click)="modalService.open(questionFormModal)"> 
     <i class="fas fa-plus-circle"></i> Nouvelle question
 </div>
-<div *ngIf = "question" type="button" class="new-button" (click)="modalService.open(questionFormModal)"> 
+<div *ngIf = "question" type="button" class="btn btn-primary" (click)="modalService.open(questionFormModal)"> 
     Modifier la question
 </div>
 

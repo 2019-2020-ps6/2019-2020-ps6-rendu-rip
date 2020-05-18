@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Img } from 'src/models/image.model';
 import { ImageService } from 'src/services/image.service';
 import { Player } from 'src/models/player.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -11,14 +12,42 @@ import { Player } from 'src/models/player.model';
 export class HeaderComponent implements OnInit {
 
   @Input()
+  type: string;
+
+  @Input()
+  isHomeBrand: boolean;
+
+  @Input()
   title: string;
 
   @Input()
   image: Img = {} as Img;
+
+  @Output()
+  tab: EventEmitter<string> = new EventEmitter<string>();
   
-  constructor(public imageService: ImageService) {}
+  private adminGeneralNav: boolean;
+  private adminQuizInfoNav: boolean;
+  private adminPlayerInfoNav: boolean;
+  private basicNav: boolean;
+
+  constructor(public imageService: ImageService, private location: Location) {}
 
   ngOnInit() {
+    switch(this.type) {
+      case "general": this.adminGeneralNav = true; break;
+      case "quizInfo": this.adminQuizInfoNav = true; break;
+      case "playerInfo": this.adminPlayerInfoNav = true; break;
+      default: this.basicNav = true;
+    }
     this.title = this.title == null? this.title = "Pas de titre" : `${this.title}`
+  }
+
+  onclickTab(clicked: string) {
+    this.tab.emit(clicked);
+  }
+
+  goBack() {
+    this.location.back(); // <-- go back to previous location
   }
 }

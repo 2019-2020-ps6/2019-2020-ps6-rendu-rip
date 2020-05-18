@@ -1,7 +1,10 @@
-<div class="player-list">
-    <div class="fixed-container-bigger" *ngFor="let player of playerList">
-        <div class="quiz-card" routerLink="./{{player.id}}">
-            <app-player [player]="player" (playerDeleted) = "deletePlayer($event)"></app-player>
+<body>
+    <app-header [isHomeBrand]="true" [title]="'Sélection d\'un profil'"></app-header>
+    <div class="player-list">
+        <div class="fixed-container-bigger" *ngFor="let player of playerList">
+            <div class="quiz-card" routerLink="./{{player.id}}">
+                <app-player [player]="player" (playerDeleted) = "deletePlayer($event)"></app-player>
+            </div>
         </div>
     </div>
-</div>
+</body>

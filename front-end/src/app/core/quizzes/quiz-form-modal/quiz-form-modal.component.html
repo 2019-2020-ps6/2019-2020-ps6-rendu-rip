@@ -1,10 +1,10 @@
 
-<div *ngIf = "!quiz" class="new-button" (click)="modalService.open(quizFormModal)"> 
+<button *ngIf = "!quiz" class="btn btn-primary" (click)="modalService.open(quizFormModal)"> 
   <i class="fas fa-plus-circle"></i> Nouveau Quiz
-</div>
-<div *ngIf = "quiz" class="new-button" (click)="modalService.open(quizFormModal)"> 
+</button>
+<button *ngIf = "quiz" class="btn btn-primary" (click)="modalService.open(quizFormModal)"> 
   Editer le Quiz
-</div>
+</button>
 
 <ng-template #quizFormModal let-modal>
   <div class="modal-header">
@@ -59,13 +59,6 @@
       <input type="file" class="hidden" id="image64QuizForm" (change)="globalService.onChangeFile($event,imageTmp)" accept="image/*">
     </div>
   </div>
-  <!--<div>
-    <div class = "titre">Ajouter une image depuis :</div>
-    <label for="image64QuizForm" class="button-card chargingButton" >Cet appareil</label>
-    <input type="file" class="hidden" id="image64QuizForm" (change)="globalService.onChangeFile($event,imageTmp)" accept="image/*">
-    <app-internet-image-modal [imageTmp] = "imageTmp"></app-internet-image-modal>
-    <app-database-image-modal [imageTmp] = "imageTmp"></app-database-image-modal>
-  </div>-->
 </ng-template>
 
 <ng-template #displayImage>  

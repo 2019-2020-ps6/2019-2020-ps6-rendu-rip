@@ -1,14 +1,6 @@
-<app-header [title] = "headerTitle"></app-header>
-<div class="goback-button" routerLink= "..">
-    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-</div>
-<div class="home-button" routerLink= "/">
-    <i class="fa fa-home" aria-hidden="true"></i>
-</div>
-<div class="main">
-    <div class="new-player"> 
-        <app-player-form-modal></app-player-form-modal>
-    </div>
+<body>
+    <app-header [type]="'general'"></app-header>
+    <div class="new-player"><app-player-form-modal></app-player-form-modal></div>
     <div class="player-list">
         <div class="fixed-container-bigger" *ngFor="let player of playerList">
             <button class="delete-button" (click)="deletePlayer(player)">
@@ -19,4 +11,4 @@
             </div>
         </div>
     </div>
-</div>
+</body>

@@ -1,9 +1,50 @@
-<div *ngIf="image && image.url; else text" class="header-img">
-    - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> -
-</div>
-
-<ng-template #text>
-    <div class="header">
-        - {{title}} - 
-    </div>
-</ng-template>
+<nav *ngIf="adminGeneralNav" class="navbar navbar-light fixed-top" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" routerLink= "/">
+      <i class="fa fa-home" aria-hidden="true"></i> Accueil
+    </a>
+    <p class="nav justify-content-end">
+      <a class="nav-link" routerLink= "/admin/player-list">Accueillis</a>
+      <a class="nav-link" routerLink= "/admin/quiz-list">Quiz</a>
+      <a class="nav-link" routerLink= "/admin/gallery">Galerie</a>
+      <a class="nav-link" routerLink= "/admin/theme-list">Thèmes</a>
+    </p>
+</nav>
+<nav *ngIf="adminQuizInfoNav" class="navbar navbar-light fixed-top" style="background-color: #e3f2fd;">
+  <a class="navbar-brand" (click)="goBack()">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+  </a>
+  <p *ngIf="image && image.url; else text" class="navbar-text"> 
+    - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> - </p>
+  <ng-template #text style="margin: auto;"><p class="navbar-text"> - {{title}} - </p></ng-template>
+  <p class="nav justify-content-end">
+    <span class="nav-link" (click)="onclickTab('info')">Infos</span>
+    <span class="nav-link" (click)="onclickTab('questions')">Questions</span>
+    <span class="nav-link" (click)="onclickTab('visibility')">Visibilité</span>
+  </p>
+</nav>
+<nav *ngIf="adminPlayerInfoNav" class="navbar navbar-light fixed-top" style="background-color: #e3f2fd;">
+    <a class="navbar-brand" (click)="goBack()">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    </a>
+    <p *ngIf="image && image.url; else text" class="navbar-text"> 
+      - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> - </p>
+    <ng-template #text style="margin: auto;"><p class="navbar-text"> - {{title}} - </p></ng-template>
+    <p class="nav justify-content-end">
+      <span class="nav-link" (click)="onclickTab('info')">Infos</span>
+      <span class="nav-link" (click)="onclickTab('stats')">Résultats</span>
+      <span class="nav-link" (click)="onclickTab('quizzes')">Quiz visibles</span>
+    </p>
+</nav>
+<nav *ngIf="basicNav" class="navbar navbar-light fixed-top" style="background-color: #e3f2fd;">
+    <a *ngIf="isHomeBrand; else backBrand" class="navbar-brand" routerLink= "/">
+      <i class="fa fa-home" aria-hidden="true"></i> Accueil
+    </a>
+    <ng-template #backBrand>
+      <a class="navbar-brand" (click)="goBack()">
+        <i class="fa fa-angle-left" aria-hidden="true" style="color: grey"></i>
+      </a>
+    </ng-template>
+    <p *ngIf="image && image.url; else text" class="navbar-text"> 
+      - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> - </p>
+    <ng-template #text style="margin: auto;"><p class="navbar-text"> - {{title}} - </p></ng-template>
+</nav>

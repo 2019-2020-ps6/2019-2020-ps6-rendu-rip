@@ -23,6 +23,8 @@ export class PlayerViewComponent implements OnInit {
   quizVisible: Quiz[];
   quizzes: Quiz[];
 
+  private currentTab: string;
+
   constructor(private globalService :GlobalService, private quizService : QuizService, private modalService : ModalService, public playerService: PlayerService, public imageService: ImageService, 
     public router: ActivatedRoute) {
   }
@@ -49,5 +51,9 @@ export class PlayerViewComponent implements OnInit {
   removeVisibility(quiz : Quiz){
     this.player.quizVisible = this.player.quizVisible.filter((quizId) => quizId!==quiz.id )  
     this.playerService.updatePlayer(this.player); 
+  }
+
+  onNavTabClicked(tab: string) {
+    this.currentTab = tab;
   }
 }

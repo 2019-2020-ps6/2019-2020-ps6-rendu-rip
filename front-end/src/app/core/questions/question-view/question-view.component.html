@@ -1,36 +1,30 @@
-<app-header [title] = "setHeader()" [image] = "image"></app-header>
+<body>
+<app-header [title]="setHeader()" [image]="image"></app-header>
+
+<!--
 <div class="goback-button" *ngIf ="!question || question && !invalid()" (click)= "goBack()">
   <i class="fa fa-arrow-left" aria-hidden="true"></i>
 </div>
 <div class="goback-button" *ngIf ="question && invalid()" (click)="modalService.open(quitWithInvalidQuestion)">
   <i class="fa fa-arrow-left" aria-hidden="true"></i>
-</div>
-
-<div class="home-button" routerLink= "/">
-  <i class="fa fa-home" aria-hidden="true"></i>
-</div>
-
-<div class="img-edit-block" *ngIf = "allIsLoaded()">
-  <app-question-form-modal [quiz] = "quiz" [question] = "question" [image] = "image" ></app-question-form-modal>
-</div>
-
-<div class="main" *ngIf="allIsLoaded()">
-  <div>
-    <app-answer-form [quiz] = "quiz" [question] = "question"></app-answer-form>
-  </div>
+</div>-->
+<div *ngIf = "allIsLoaded()">
+  <app-answer-form [quiz]="quiz" [question]="question"></app-answer-form>
+  <app-question-form-modal [quiz]="quiz" [question]="question" [image]="image" ></app-question-form-modal>
   <div class="answer-list">
-    <div class="fixed-container-bigger" *ngFor="let answer of question.answers">
+    <div class="answer" *ngFor="let answer of question.answers">
+      <div class="fixed-container-bigger">
       <button class="delete-button" (click)="deleteAnswer(answer)">
         <i class="fas fa-times"></i>
       </button>
-      <div class="quiz-card">
+      <div class="answer-card">
         <app-answer-form [quiz] = "quiz" [question] = "question" [answer] = "answer"></app-answer-form>
       </div>
     </div>
+    </div>
   </div>
 </div>
-
-
+</body>
 <ng-template #quitWithInvalidQuestion let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Question invalide</h4>
