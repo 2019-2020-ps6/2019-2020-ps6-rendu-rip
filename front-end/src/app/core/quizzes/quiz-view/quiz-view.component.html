@@ -1,9 +1,9 @@
 <app-header [title] = "headerTitle" [image] = "image"></app-header>
-<div class="goback-button" *ngIf ="quiz && invalid(); else validBack" (click)="modalService.open(quizInvalid)">
+<div class="goback-button" *ngIf ="isValid(); else invalidBack" (click)="goBack()">
   <i class="fa fa-arrow-left" aria-hidden="true"></i>
 </div>
-<ng-template #validBack>
-<div class="goback-button" (click)= "goBack()">
+<ng-template #invalidBack>
+<div class="goback-button" (click)="modalService.open(quizInvalid)">
   <i class="fa fa-arrow-left" aria-hidden="true"></i>
 </div>
 </ng-template>
@@ -30,7 +30,7 @@
   </div>
   <div class="modal-body">
     <div class = "errorMessage">
-      {{invalid()}}
+      {{invalidMsg()}}
     </div>
     <button class="button-card" (click)="goBack();modal.close()"> Quitter quand même </button>
     <button class="button-card" (click)="modal.close()"> Continuer l'édition </button>

@@ -117,13 +117,8 @@ export class QuizService {
     return false;
   }
 
-  quizAndQuestionsInvalid(quiz : Quiz): string {
-    let errorMessage = "";
-    if(!quiz || !quiz.questions || quiz.questions.length<1){
-      errorMessage = "Attention il n'y a pas de questions"
-      return errorMessage;
-    }
-    return errorMessage;
+  areQuizAndQuestionsInvalid(quiz : Quiz): boolean {
+    return !quiz || !quiz.questions || quiz.questions.length<1;
   }
 
   /* 

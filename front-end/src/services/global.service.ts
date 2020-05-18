@@ -96,11 +96,11 @@ export class GlobalService {
     return this.quizService.quizInvalid(quiz);
   }
 
-  quizAndQuestionsInvalid(quiz : Quiz):string{
-    return this.quizService.quizAndQuestionsInvalid(quiz);
+  areQuizAndQuestionsInvalid(quiz: Quiz): boolean{
+    return this.quizService.areQuizAndQuestionsInvalid(quiz);
   }
   //::::::::::::::::::::::::::::::Question::::::::::::::::::::::::::::::
-  loadQuestion(question : Question, quizId: string, questionId: string) {
+  loadQuestion(question: Question, quizId: string, questionId: string) {
     const url = `${this.quizUrl}/${quizId}/${this.questionsPath}/${questionId}`;
     this.questionService.loadQuestion(question, url);
   }

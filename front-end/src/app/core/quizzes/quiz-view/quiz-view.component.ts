@@ -48,10 +48,13 @@ export class QuizViewComponent implements OnInit {
     this.hidden = hidden;
   }
 
-  invalid(){
-    var res  = this.globalService.quizAndQuestionsInvalid(this.quiz);
-    if(res!=="") return res;
+  invalidMsg(){
+    if(this.globalService.areQuizAndQuestionsInvalid(this.quiz)) return "Attention il n'y a pas de questions";
     if(this.hidden) return "Le quiz n'est actuellement visible par personne, \n vous pouvez changer cela en cliquant sur Modifier la visibilité";
+  }
+
+  isValid(): boolean {
+    return this.quiz==undefined || this.quiz==null || !this.globalService.areQuizAndQuestionsInvalid(this.quiz);
   }
 
   goBack() {
