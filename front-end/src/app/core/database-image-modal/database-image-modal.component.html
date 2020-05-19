@@ -1,7 +1,6 @@
 
-<label for="modal-databaseimage{{id}}" class="btn btn-success">Banque d'images</label>
+<label id="imgBtn" for="modal-databaseimage{{id}}" class="btn btn-sm btn-secondary">Banque d'images</label>
 <button type="button" class="hidden" id="modal-databaseimage{{id}}" (click)="modalService.open(imgdbmodal)"></button>
-
 
 <ng-template #imgdbmodal let-modal>
     <div class="modal-header">

@@ -2,6 +2,10 @@
 @import "src/styles/variables";
 @import 'src/styles/images.scss';
 
+#imgBtn:hover {
+    cursor: pointer;
+}
+
 .responsive-list {
     display: flex;
     flex-direction: row;

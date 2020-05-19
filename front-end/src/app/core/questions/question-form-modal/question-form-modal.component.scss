@@ -49,9 +49,13 @@
     position: unset;
 }
 
+#image64Btn:hover {
+  cursor: pointer;
+}
+
 .modal-larger {
-    height: calc(100vh - 143px);
+    /*height: calc(100vh - 143px);
     min-height: 10em;
     max-height: 18em;
-    overflow-y: auto; 
+    overflow-y: auto; */
 }

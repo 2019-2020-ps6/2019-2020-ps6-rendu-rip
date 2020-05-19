@@ -15,7 +15,7 @@
 		<span aria-hidden="true">&times;</span>
 	  </button>
 	</div>
-	<div class="modal-body modal-larger">
+	<div class="modal-body">
 		<div class="new-question-form">
 			<form [formGroup]="questionForm">
 			<label class = "label" for="questionName">Intitulé : </label>&nbsp;
@@ -33,20 +33,14 @@
 	</div>
   </ng-template>
 
-
   <ng-template #buttonCharging>
-	<div class="dropdown">
-	  <button class="new-button dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		Ajouter une image depuis :
-	  </button>
-	  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+	<button type="button" class="btn btn-sm btn-info" data-toggle="collapse" data-target="#demo">Ajouter une image 
+		<i class="fas fa-angle-down"></i></button>
+	<div id="demo" class="collapse">
 		<app-database-image-modal [imageTmp] = "imageTmp"></app-database-image-modal>
-		<br>
 		<app-internet-image-modal [imageTmp] = "imageTmp"></app-internet-image-modal>
-		<br>
-		<label for="image64QuizForm" class="btn btn-success" >Cet appareil</label>
+	    <label id="image64Btn" for="image64QuizForm" class="btn btn-sm btn-secondary">Cet appareil</label>
 		<input type="file" class="hidden" id="image64QuizForm" (change)="globalService.onChangeFile($event,imageTmp)" accept="image/*">
-	  </div>
 	</div>
   </ng-template>
 
