@@ -18,29 +18,29 @@
 	<div class="modal-body">
 		<div class="new-question-form">
 			<form [formGroup]="questionForm">
-			<label class = "label" for="questionName">Intitulé : </label>&nbsp;
+			<label class = "label" for="questionName" style="margin-bottom: 1em;">Intitulé : </label>&nbsp;
 			<input type="text" size = "{{sizeInput()}}" [formControlName]="'label'" id="questionName">
-			<br>
-			<br>
 			<ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>  
 			<ng-template [ngTemplateOutlet] ="displayImage"></ng-template> 
 			</form>
 		</div>
 	</div>
 	<div class="modal-footer">
-		<button type="button" id="reset" class="btn btn-secondary" (click) = "reset();modal.close()">Annuler</button>
 		<button type="submit" id="createQuestion" class="btn btn-primary" (click)="addOrUpdateQuestion();modal.close()">Valider</button>
+	    <button type="button" id="reset" class="btn btn-outline-secondary" (click) = "reset();modal.close()">Annuler</button>
 	</div>
   </ng-template>
 
   <ng-template #buttonCharging>
-	<button type="button" class="btn btn-sm btn-info" data-toggle="collapse" data-target="#demo">Ajouter une image 
+	<button type="button" class="btn btn-sm btn-info" data-toggle="collapse" data-target="#imgBtns">Ajouter une image 
 		<i class="fas fa-angle-down"></i></button>
-	<div id="demo" class="collapse">
+	<div id="imgBtns" class="collapse">
+		<span id="imageBtns">
 		<app-database-image-modal [imageTmp] = "imageTmp"></app-database-image-modal>
 		<app-internet-image-modal [imageTmp] = "imageTmp"></app-internet-image-modal>
 	    <label id="image64Btn" for="image64QuizForm" class="btn btn-sm btn-secondary">Cet appareil</label>
 		<input type="file" class="hidden" id="image64QuizForm" (change)="globalService.onChangeFile($event,imageTmp)" accept="image/*">
+	    </span>
 	</div>
   </ng-template>
 

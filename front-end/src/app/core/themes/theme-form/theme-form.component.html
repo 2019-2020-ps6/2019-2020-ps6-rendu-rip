@@ -1,5 +1,4 @@
-<button class = "new-button add-theme" (click)="modalService.open(themeFormModal)"><i class="fas fa-plus-circle"></i> Nouveau Thème</button>
-
+<button class = "btn btn-sm btn-info" (click)="modalService.open(themeFormModal)"><i class="fas fa-plus-circle"></i> Nouveau Thème</button>
 
 <ng-template #themeFormModal let-modal>
   <div class="modal-header">
@@ -18,7 +17,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click) = "cancel();modal.close()">Annuler</button>
     <button type="button" class="btn btn-primary" (click)= "saveTheme();modal.close()">Valider</button>
+    <button type="button" class="btn btn-outline-secondary" (click) = "cancel();modal.close()">Annuler</button>
   </div>
 </ng-template>

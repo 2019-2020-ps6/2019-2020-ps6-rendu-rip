@@ -53,6 +53,12 @@
   cursor: pointer;
 }
 
+#imageBtns {
+    margin-top: 0.5em;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+}
+
 .modal-larger {
     /*height: calc(100vh - 143px);
     min-height: 10em;

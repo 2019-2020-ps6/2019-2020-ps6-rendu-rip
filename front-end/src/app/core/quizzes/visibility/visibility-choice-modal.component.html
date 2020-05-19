@@ -14,13 +14,12 @@
     <div class="modal-body" *ngIf = "players">
       <div class="custom-control custom-switch">
         <input type="checkbox" class="custom-control-input" id="customSwitches" [checked]="all" (change)="all = !all">
-        <label class="custom-control-label" for="customSwitches">Tous</label>
+        <label class="custom-control-label" for="customSwitches" style="margin-bottom: 1em;">Tous</label>
       </div>
-      <br>
       <app-associate-player-modal [players] = "players" [all] = "all" [quiz] = "quiz" (selected) = "setPlayersSelected($event)"></app-associate-player-modal>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="reset();modal.close()">Annuler</button>
       <button type="button" class="btn btn-primary" (click)="save();modal.close()">Enregistrer</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="reset();modal.close()">Annuler</button>
     </div>
   </ng-template>
