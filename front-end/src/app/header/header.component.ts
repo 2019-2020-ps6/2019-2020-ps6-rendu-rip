@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Img } from 'src/models/image.model';
 import { ImageService } from 'src/services/image.service';
-import { Player } from 'src/models/player.model';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 

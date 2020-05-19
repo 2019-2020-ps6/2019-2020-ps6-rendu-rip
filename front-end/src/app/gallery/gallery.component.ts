@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ImageService } from 'src/services/image.service';
 import { Img } from 'src/models/image.model';
 import { Location } from '@angular/common';
-import { QuizService } from 'src/services/quiz.service';
 import { ModalService } from 'src/services/modal.service';
 import { GlobalService } from 'src/services/global.service';
 import { Quiz } from 'src/models/quiz.model';
 import { Question } from 'src/models/question.model';
 import { Answer } from 'src/models/answer.model';
-import { Player } from 'src/models/player.model';
 
 @Component({
   selector: 'app-gallery',

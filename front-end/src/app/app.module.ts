@@ -27,8 +27,6 @@ import { RunnerComponent} from './game/runner/runner.component';
 import { AnswerWidgetComponent} from './game/answer-widget/answer-widget.component';
 import { AnswerListWidgetComponent} from './game/answer-list-widget/answer-list-widget.component';
 import { HomeComponent } from './start/home/home.component';
-import { ScreenAdminComponent } from './start/screen-admin/screen-admin.component';
-import { ScreenPlayerComponent } from './start/screen-player/screen-player.component';
 import { RecapComponent } from './game/recap/recap.component';
 import { EndComponent } from './game/end/end.component';
 import { RightAnswerComponent } from './game/right-answer/right-answer.component';
@@ -70,8 +68,6 @@ import { TimerFormModalComponent } from './core/quizzes/timer-form-modal/timer-f
     AnswerWidgetComponent,
     AnswerListWidgetComponent,
     HomeComponent,
-    ScreenAdminComponent,
-    ScreenPlayerComponent,
     RecapComponent,
     EndComponent,
     RightAnswerComponent,

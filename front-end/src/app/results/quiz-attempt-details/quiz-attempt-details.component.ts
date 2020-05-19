@@ -3,7 +3,6 @@ import { Player } from 'src/models/player.model';
 import { Img } from 'src/models/image.model';
 import { Attempt } from 'src/models/attempt.model';
 import { PlayerService } from 'src/services/player.service';
-import { ImageService } from 'src/services/image.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AttemptService } from 'src/services/attempt.service';
 import { Answer } from 'src/models/answer.model';
