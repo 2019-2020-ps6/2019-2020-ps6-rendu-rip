@@ -49,14 +49,24 @@
     position: unset;
 }
 
+#image64Btn {
+    width: 9em;
+}
+
 #image64Btn:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 #imageBtns {
+    margin-left: 0.5;
     margin-top: 0.5em;
     display: grid;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: auto;
+}
+
+.imageAndButton{
+    display: grid;
+    grid-template-columns: repeat(2, auto);
 }
 
 .modal-larger {

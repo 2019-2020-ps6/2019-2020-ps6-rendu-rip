@@ -22,6 +22,8 @@ export class GalleryComponent implements OnInit {
   images: Img[] = []
   imageSelected : Img;
 
+  isUsed: boolean = false;
+
   quizToDeleteImage : Quiz[] = [];
   questionToDeleteImage : Question[] = [];
   answerToDeleteImage : Answer[] = [];
@@ -41,6 +43,8 @@ export class GalleryComponent implements OnInit {
   checkIfImageIsUsed(img: Img){
     this.imageSelected = img;
     this.globalService.checkIfImageIsUsed(img.id, this.quizToDeleteImage, this.questionToDeleteImage, this.answerToDeleteImage,this.quizToAnswer);
+    this.isUsed = this.used();
+    //this.used();
   }
 
   reset(){
@@ -50,14 +54,15 @@ export class GalleryComponent implements OnInit {
     this.imageSelected = {} as Img;
   }
 
-  used() {
+  used(): boolean {
     return this.quizToDeleteImage.length!==0 || this.questionToDeleteImage.length!==0 || this.answerToDeleteImage.length!==0;
   }
 
   deleteImg(img: Img) {
     this.imageSelected = img;
     this.globalService.deleteImage(img);
-    if(this.used()){
+    this.isUsed = this.used();
+    if(this.isUsed){
       let imgTmp = {} as Img;
       this.globalService.removeImg(imgTmp);
       for(let quiz of this.quizToDeleteImage){

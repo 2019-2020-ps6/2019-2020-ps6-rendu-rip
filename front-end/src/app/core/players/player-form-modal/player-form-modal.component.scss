@@ -7,9 +7,10 @@
     justify-content: center;
 }
 
+/*
 .image {
     float: right;
-}
+}*/
 
 .player{
     text-align: center;
@@ -20,11 +21,36 @@
 }
 
 .imageAndButton{
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+}
+
+/*
+.frame{
+    margin-left: 1em;;
+}*/
+
+.delete-button {
+    padding: 0.1rem 0.4rem;
+}
+
+.fixed-container {
+    float: right;
+}
+
+.quiz-card {
+    padding: 0;
+    box-shadow: none;
+}
+
+.quiz-card:hover {
+    cursor: default;
+    background-color: white;
 }
 
 .frame{
-    margin-left: 1em;;
+    border: none;
+    margin: 0;
 }
 
 .chargingButton {
@@ -39,14 +65,19 @@
     position: unset;
 }
 
+/*
 .modal-larger {
     height: calc(100vh - 143px);
     min-height: 10em;
     max-height: 15em;
     overflow-y: auto; 
-}
+}*/
 
 .titre {
     font-weight: bold;
     margin-right: 1em;
+}
+
+#imageBtn:hover {
+  cursor: pointer;
 }
