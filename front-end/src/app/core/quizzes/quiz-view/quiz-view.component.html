@@ -11,13 +11,13 @@
 </ng-template>-->
 
 <div *ngIf ="quiz && image.url">
-  <div *ngIf="currentTab=='info' || currentTab!='questions' && currentTab!='visibility'">
+  <div *ngIf="currentTab=='info'">
     <app-quiz-form-modal [quiz] = "quiz" [image] = "image" ></app-quiz-form-modal>
   </div>
   <div *ngIf="currentTab=='visibility'">
     <app-visibility-choice-modal [quiz] = "quiz" (hidden) = "switchHidden($event)"></app-visibility-choice-modal>
   </div>
-  <div *ngIf="currentTab=='questions' && quiz.questions">
+  <div *ngIf="quiz.questions && currentTab!='info' && currentTab!='visibility'">
     <app-question-list [quiz]="quiz"></app-question-list>
   </div>
 </div>

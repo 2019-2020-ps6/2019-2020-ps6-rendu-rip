@@ -22,7 +22,6 @@ export class AnswerFormComponent implements OnInit {
 
   removeImgisCalled: boolean = false;
   answerForm: FormGroup;
-  showButton: boolean = false;
   onChangeFile: boolean = false;
   
   imageTmp : Img = {} as Img;
@@ -38,7 +37,6 @@ export class AnswerFormComponent implements OnInit {
 
   onFormChanges() {
     this.answerForm.valueChanges.subscribe(val => {
-      this.showButton = true;
       this.removeImgisCalled = true;
       this.onChangeFile = true;
     });
@@ -102,11 +100,12 @@ export class AnswerFormComponent implements OnInit {
 
   reset(){
     this.answerForm.reset();
-    this.onFormChanges();
     this.initializeAnswerForm();
     this.initImageTmp();
     this.quitForm.emit(false);
-    //this.showButton=false; //Marche pas car l'observable ne marche plus.
+    this.onChangeFile = false;
+    this.removeImgisCalled = false;
+    this.onFormChanges();
   }
 
   addImage(){

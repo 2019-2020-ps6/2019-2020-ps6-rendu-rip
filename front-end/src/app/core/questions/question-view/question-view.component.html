@@ -1,5 +1,5 @@
 <body>
-<app-header [title]="setHeader()" [image]="image"></app-header>
+<app-header [type]="'questionInfo'" [title]="setHeader()" [image]="image" (tab)="onNavTabClicked($event)"></app-header>
 
 <!--
 <div class="goback-button" *ngIf ="!question || question && !invalid()" (click)= "goBack()">
@@ -9,7 +9,10 @@
   <i class="fa fa-arrow-left" aria-hidden="true"></i>
 </div>-->
 <div *ngIf = "allIsLoaded()">
-  <app-question-form-modal [quiz]="quiz" [question]="question" [image]="image" ></app-question-form-modal>
+  <div *ngIf="currentTab=='info'">
+    <app-question-form-modal [quiz]="quiz" [question]="question" [image]="image" ></app-question-form-modal>
+  </div>
+  <div *ngIf="currentTab!='info'">
   <app-answer-form [quiz]="quiz" [question]="question"></app-answer-form>
   <div class="answer-list">
     <div class="answer" *ngFor="let answer of question.answers">
@@ -22,6 +25,7 @@
       </div>
     </div>
     </div>
+  </div>
   </div>
 </div>
 </body>

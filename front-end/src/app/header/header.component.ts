@@ -3,6 +3,7 @@ import { Img } from 'src/models/image.model';
 import { ImageService } from 'src/services/image.service';
 import { Player } from 'src/models/player.model';
 import { Location } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +19,9 @@ export class HeaderComponent implements OnInit {
   isHomeBrand: boolean;
 
   @Input()
+  backIter: string = "-1";
+
+  @Input()
   title: string;
 
   @Input()
@@ -28,15 +32,17 @@ export class HeaderComponent implements OnInit {
   
   private adminGeneralNav: boolean;
   private adminQuizInfoNav: boolean;
+  private adminQuestionInfoNav: boolean;
   private adminPlayerInfoNav: boolean;
   private basicNav: boolean;
 
-  constructor(public imageService: ImageService, private location: Location) {}
+  constructor(private router: Router, private route: ActivatedRoute, public imageService: ImageService, private location: Location) {}
 
   ngOnInit() {
     switch(this.type) {
       case "general": this.adminGeneralNav = true; break;
       case "quizInfo": this.adminQuizInfoNav = true; break;
+      case "questionInfo": this.adminQuestionInfoNav = true; break;
       case "playerInfo": this.adminPlayerInfoNav = true; break;
       default: this.basicNav = true;
     }
@@ -48,6 +54,10 @@ export class HeaderComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back(); // <-- go back to previous location
+    switch(this.backIter) {
+      case "1": this.router.navigate(['..'], {relativeTo: this.route}); break;
+      case "2": this.router.navigate(['../..'], {relativeTo: this.route}); break;
+      default: this.location.back(); // <-- go back to previous location
+    }
   }
 }

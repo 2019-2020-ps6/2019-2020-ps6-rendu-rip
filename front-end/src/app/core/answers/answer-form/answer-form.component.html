@@ -5,17 +5,19 @@
       <ng-template [ngTemplateOutlet] ="displayImageAns"></ng-template>
       <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>
       Correcte : <input type="checkbox" [formControlName]="'isCorrect'"> <br>
-      <div class="buttons-bottom" *ngIf = "showButton || !answer || onChangeFile || removeImgisCalled">
-        <button type="button" id="cancelAnswer" class="btn btn-secondary" (click)="reset()">Annuler</button>
-        <button type="submit" id="submitAnswer" class="btn btn-primary" type="submit" (click)="submitAnswer()">Enregistrer</button>
+      <div class="buttons-bottom" *ngIf = "!answer || onChangeFile || removeImgisCalled">
+        <button type="submit" id="submitAnswer" class="btn btn-primary" type="submit" (click)="submitAnswer();">Enregistrer</button>
+        <button type="button" id="cancelAnswer" class="btn btn-outline-secondary" (click)="reset();">Annuler</button>
       </div>
     </form>
 </div>
 
 <ng-template #noAnswerYet>
-  <button type="button" class="btn btn-primary" (click)="modalService.open(answerFormModal)">
+  <div class="top-btn">
+  <button type="button" class="btn btn-info" (click)="modalService.open(answerFormModal)">
     <i class="fas fa-plus-circle"></i> Nouvelle Réponse
   </button>  
+  </div>
 </ng-template>
   
 <ng-template #answerFormModal let-modal>
@@ -39,8 +41,8 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click) = "reset();modal.close()">Annuler</button>
     <button type="button" class="btn btn-primary" (click)= "submitAnswer();modal.close()">Valider</button>
+    <button type="button" class="btn btn-outline-secondary" (click) = "reset();modal.close()">Annuler</button>
   </div>
 </ng-template>
 

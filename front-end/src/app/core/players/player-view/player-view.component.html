@@ -2,7 +2,7 @@
 <app-header [type]="'playerInfo'" [title]="headerTitle" [image]="playerPhoto" (tab)="onNavTabClicked($event)"></app-header>
 <div *ngIf  = "player">
 
-  <div *ngIf="playerPhoto.url && (currentTab=='info' || currentTab!='stats' && currentTab!='quizzes')">
+  <div *ngIf="playerPhoto.url && currentTab=='info'">
     <app-player-form-modal [player] = "player" [playerImage] = "playerPhoto"></app-player-form-modal>
   </div>
 
@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  <div *ngIf="currentTab=='stats'">
+  <div *ngIf="currentTab!='info' && currentTab!='quizzes'">
     <h3 style="text-align: center; margin-top: 0.5em; margin-bottom: 0.5em;">Résultats obtenus: </h3>
     <app-statistics></app-statistics>
   </div>

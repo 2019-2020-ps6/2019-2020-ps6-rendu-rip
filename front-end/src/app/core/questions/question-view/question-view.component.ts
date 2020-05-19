@@ -25,6 +25,8 @@ export class QuestionViewComponent implements OnInit {
     
   headerTitle: string;
 
+  private currentTab: string;
+
   constructor(private modalService : ModalService, private location: Location, 
     private route: ActivatedRoute, public formBuilder: FormBuilder, 
     public globalService: GlobalService, private quizService : QuizService ) {}
@@ -69,5 +71,9 @@ export class QuestionViewComponent implements OnInit {
 
   deleteAnswer(answer: Answer) {
     if(answer) this.globalService.deleteAnswer(this.quiz.id, this.question.id, answer.id);
+  }
+
+  onNavTabClicked(tab: string) {
+    this.currentTab = tab;
   }
 }

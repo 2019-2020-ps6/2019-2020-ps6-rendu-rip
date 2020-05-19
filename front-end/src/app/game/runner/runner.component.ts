@@ -1,18 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Question } from 'src/models/question.model';
 import { Quiz } from 'src/models/quiz.model';
 import { ActivatedRoute } from '@angular/router';
 import { QuizService } from 'src/services/quiz.service';
-import { BehaviorSubject } from 'rxjs';
-import { AnswerListWidgetComponent } from '../answer-list-widget/answer-list-widget.component';
 import { Answer } from 'src/models/answer.model';
 import { Img } from 'src/models/image.model';
 import { ImageService } from 'src/services/image.service';
 import { Attempt } from 'src/models/attempt.model';
 import { AttemptService } from 'src/services/attempt.service';
-import { IfStmt } from '@angular/compiler';
-import { Location } from '@angular/common';
-
 
 @Component({
   selector: 'app-runner',
@@ -33,7 +28,7 @@ export class RunnerComponent implements OnInit {
   headerTitle: string;
   headerImage: Img;
 
-  constructor(private location: Location, private route: ActivatedRoute, public quizService: QuizService, public imageService: ImageService, public attemptService: AttemptService) {
+  constructor(private route: ActivatedRoute, public quizService: QuizService, public imageService: ImageService, public attemptService: AttemptService) {
     this.quizService.quizSelected$.subscribe((quiz) => {
       this.quiz = quiz;
       this.headerTitle = this.quiz.name;
@@ -103,13 +98,6 @@ export class RunnerComponent implements OnInit {
     let id = null;
     if(this.currentQuestion) id = this.currentQuestion.imageId;
     if(id) this.imageService.loadQuestionImage(this.image, id);
-  }
-
-  shuffle(): void{ 
-  }
-
-  goBack() {
-    this.location.back(); // <-- go back to previous location
   }
 }
 

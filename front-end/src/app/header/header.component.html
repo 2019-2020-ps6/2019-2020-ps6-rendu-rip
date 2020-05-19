@@ -17,9 +17,21 @@
     - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> - </span>
   <ng-template #text style="margin: auto;"><span class="navbar-text"> - {{title}} - </span></ng-template>
   <p class="nav justify-content-end">
-    <span class="nav-link" (click)="onclickTab('info')">Infos</span>
     <span class="nav-link" (click)="onclickTab('questions')">Questions</span>
     <span class="nav-link" (click)="onclickTab('visibility')">Visibilité</span>
+    <span class="nav-link" (click)="onclickTab('info')">Infos</span>
+  </p>
+</nav>
+<nav *ngIf="adminQuestionInfoNav" class="navbar navbar-light fixed-top" style="background-color: #e3f2fd;">
+  <a class="navbar-brand" (click)="goBack()">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+  </a>
+  <span *ngIf="image && image.url; else text" class="navbar-text"> 
+    - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> - </span>
+  <ng-template #text style="margin: auto;"><span class="navbar-text"> - {{title}} - </span></ng-template>
+  <p class="nav justify-content-end">
+    <span class="nav-link" (click)="onclickTab('answers')">Réponses</span>
+    <span class="nav-link" (click)="onclickTab('info')">Infos</span>
   </p>
 </nav>
 <nav *ngIf="adminPlayerInfoNav" class="navbar navbar-light fixed-top" style="background-color: #e3f2fd;">
@@ -30,9 +42,9 @@
       - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> - </span>
     <ng-template #text style="margin: auto;"><span class="navbar-text"> - {{title}} - </span></ng-template>
     <p class="nav justify-content-end">
-      <span class="nav-link" (click)="onclickTab('info')">Infos</span>
       <span class="nav-link" (click)="onclickTab('stats')">Résultats</span>
       <span class="nav-link" (click)="onclickTab('quizzes')">Quiz visibles</span>
+      <span class="nav-link" (click)="onclickTab('info')">Infos</span>
     </p>
 </nav>
 <nav *ngIf="basicNav" class="navbar navbar-light fixed-top" style="background-color: #e3f2fd;">
