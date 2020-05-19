@@ -4,6 +4,11 @@
 @import 'src/styles/layout.scss';
 @import 'src/styles/common.scss';
 
+.top-btn {
+    display: flex;
+    justify-content: center;
+}
+
 .new-question-form{
     margin-left: auto;
     margin-right: auto;

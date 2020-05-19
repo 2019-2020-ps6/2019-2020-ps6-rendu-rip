@@ -4,6 +4,7 @@
 @import 'src/styles/layout.scss';
 @import 'src/styles/common.scss';
 
-.left-button{
-   font-size: 1.5vw;
+.top-btn {
+   display: flex;
+   justify-content: center;
 }

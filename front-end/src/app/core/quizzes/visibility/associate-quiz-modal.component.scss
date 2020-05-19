@@ -3,3 +3,9 @@
 @import 'src/styles/images.scss';
 @import 'src/styles/layout.scss';
 @import 'src/styles/common.scss';
+
+.top-btn {
+    //width: 100%;
+    display: flex;
+    justify-content: center;
+}

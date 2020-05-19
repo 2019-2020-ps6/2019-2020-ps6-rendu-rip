@@ -2,6 +2,10 @@
 @import 'src/styles/images.scss';
 @import '../../../../styles/common.scss';
 
+.top-btn {
+    display: flex;
+    justify-content: center;
+}
 
 .image {
     float: right;

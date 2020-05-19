@@ -13,9 +13,9 @@
   <a class="navbar-brand" (click)="goBack()">
     <i class="fa fa-arrow-left" aria-hidden="true"></i>
   </a>
-  <p *ngIf="image && image.url; else text" class="navbar-text"> 
-    - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> - </p>
-  <ng-template #text style="margin: auto;"><p class="navbar-text"> - {{title}} - </p></ng-template>
+  <span *ngIf="image && image.url; else text" class="navbar-text"> 
+    - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> - </span>
+  <ng-template #text style="margin: auto;"><span class="navbar-text"> - {{title}} - </span></ng-template>
   <p class="nav justify-content-end">
     <span class="nav-link" (click)="onclickTab('info')">Infos</span>
     <span class="nav-link" (click)="onclickTab('questions')">Questions</span>
@@ -26,9 +26,9 @@
     <a class="navbar-brand" (click)="goBack()">
       <i class="fa fa-arrow-left" aria-hidden="true"></i>
     </a>
-    <p *ngIf="image && image.url; else text" class="navbar-text"> 
-      - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> - </p>
-    <ng-template #text style="margin: auto;"><p class="navbar-text"> - {{title}} - </p></ng-template>
+    <span *ngIf="image && image.url; else text" class="navbar-text"> 
+      - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> - </span>
+    <ng-template #text style="margin: auto;"><span class="navbar-text"> - {{title}} - </span></ng-template>
     <p class="nav justify-content-end">
       <span class="nav-link" (click)="onclickTab('info')">Infos</span>
       <span class="nav-link" (click)="onclickTab('stats')">Résultats</span>
@@ -44,7 +44,7 @@
         <i class="fa fa-angle-left" aria-hidden="true" style="color: grey"></i>
       </a>
     </ng-template>
-    <p *ngIf="image && image.url; else text" class="navbar-text"> 
+    <p *ngIf="image && image.url; else text" class="navbar-text text-center"> 
       - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> - </p>
-    <ng-template #text style="margin: auto;"><p class="navbar-text"> - {{title}} - </p></ng-template>
+    <ng-template #text style="margin: auto;"><p class="navbar-text text-center"> - {{title}} - </p></ng-template>
 </nav>

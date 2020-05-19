@@ -21,6 +21,9 @@ export class QuizViewComponent implements OnInit {
   quiz: Quiz;
   image: Img = {} as Img;
   hidden : boolean = true; // attention on a des erreurs value change after beeing checked dans certains cas et je sais pas trop comment les résoudre
+  
+  private currentTab: string;
+
   constructor(private globalService : GlobalService, private modalService: ModalService, private location : Location, private route: ActivatedRoute, public imageService: ImageService, public quizService: QuizService) {
   }
 
@@ -28,7 +31,7 @@ export class QuizViewComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.quizService.quizSelected$.subscribe((quiz) => {
       this.onQuizSelected(quiz);
-      this.headerTitle = quiz.theme + " : " + quiz.name;
+      this.headerTitle = quiz.name;
     });
     this.quizService.setSelectedQuiz(id);
   }
@@ -59,6 +62,10 @@ export class QuizViewComponent implements OnInit {
 
   goBack() {
     this.location.back(); // <-- go back to previous location on cancel
+  }
+
+  onNavTabClicked(tab: string) {
+    this.currentTab = tab;
   }
 }
 

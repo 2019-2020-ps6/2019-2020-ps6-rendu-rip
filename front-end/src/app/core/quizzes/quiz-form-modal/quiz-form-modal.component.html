@@ -1,10 +1,11 @@
-
+<div class="top-btn">
 <button *ngIf = "!quiz" class="btn btn-primary" (click)="modalService.open(quizFormModal)"> 
   <i class="fas fa-plus-circle"></i> Nouveau Quiz
 </button>
-<button *ngIf = "quiz" class="btn btn-primary" (click)="modalService.open(quizFormModal)"> 
-  Editer le Quiz
+<button *ngIf = "quiz" class="btn btn-info" (click)="modalService.open(quizFormModal)"> 
+  Modifier le Quiz
 </button>
+</div>
 
 <ng-template #quizFormModal let-modal>
   <div class="modal-header">

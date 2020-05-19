@@ -2,12 +2,15 @@
 @import "../../styles/images.scss";
 @import "../../styles/common.scss";
 
+a:hover {
+  cursor: pointer;
+}
 .navbar-text {
-  //float: none;
-  position: absolute;
-  width: 30%;
-  right: 35%;
-  //right: 60%;
+  margin: auto;
+}
+
+.text-center {
+  width: 90%;
   text-align: center;
 }
 

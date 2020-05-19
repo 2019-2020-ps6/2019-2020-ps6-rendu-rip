@@ -3,7 +3,10 @@
 @import 'src/styles/images.scss';
 @import 'src/styles/common.scss';
 
-
+.top-btn {
+    display: flex;
+    justify-content: center;
+}
 
 .titre {
     font-weight: bold;

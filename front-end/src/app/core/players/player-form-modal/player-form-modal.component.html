@@ -1,6 +1,8 @@
-<button *ngIf="player; else noPlayerYet" class="btn btn-primary" (click)="modalService.open(playerFormModal)"> 
+<div class="top-btn">
+<button *ngIf="player; else noPlayerYet" class="btn btn-info" (click)="modalService.open(playerFormModal)"> 
   Modifier ses informations
 </button>
+</div>
 
 <ng-template #noPlayerYet>
   <button class="btn btn-primary" (click)="modalService.open(playerFormModal)"> 

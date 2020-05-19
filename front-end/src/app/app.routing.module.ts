@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './start/home/home.component';
-import { ScreenAdminComponent } from './start/screen-admin/screen-admin.component';
-import { ScreenPlayerComponent } from './start/screen-player/screen-player.component';
 import { QuizListAdminComponent } from './core/quizzes/quiz-list-admin/quiz-list-admin.component';
 import { QuizListPlayerComponent } from './core/quizzes/quiz-list-player/quiz-list-player.component';
 import { QuizViewComponent } from './core/quizzes/quiz-view/quiz-view.component';
@@ -24,7 +22,7 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent },
 
     { path: 'login', component: PasswordComponent },
-    { path: 'admin', component: ScreenAdminComponent },
+    { path: 'admin', component: QuizListAdminComponent },//quiz-list -> default
 
     { path: 'admin/gallery', component: GalleryComponent},
     { path : 'admin/theme-list', component: ThemeListComponent},

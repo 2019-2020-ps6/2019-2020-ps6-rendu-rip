@@ -9,8 +9,8 @@
   <i class="fa fa-arrow-left" aria-hidden="true"></i>
 </div>-->
 <div *ngIf = "allIsLoaded()">
-  <app-answer-form [quiz]="quiz" [question]="question"></app-answer-form>
   <app-question-form-modal [quiz]="quiz" [question]="question" [image]="image" ></app-question-form-modal>
+  <app-answer-form [quiz]="quiz" [question]="question"></app-answer-form>
   <div class="answer-list">
     <div class="answer" *ngFor="let answer of question.answers">
       <div class="fixed-container-bigger">
@@ -25,6 +25,7 @@
   </div>
 </div>
 </body>
+
 <ng-template #quitWithInvalidQuestion let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Question invalide</h4>
