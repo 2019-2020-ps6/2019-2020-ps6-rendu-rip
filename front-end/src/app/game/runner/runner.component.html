@@ -1,5 +1,5 @@
 <div *ngIf = "quiz && currentQuestion; else elseBlock">
-    <span class="navbar-brand" (click)="goBack()" style="color: grey; margin-left: 0.5em; float: left;">
+    <span class="navbar-brand" routerLink="../.." style="color: grey; margin-left: 0.5em; float: left;">
         <i class="fa fa-angle-left" aria-hidden="true"></i>
     </span>
     <div id="questionQuiz">
