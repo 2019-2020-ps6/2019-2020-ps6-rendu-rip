@@ -15,7 +15,7 @@ export class RecapComponent implements OnInit {
   quiz : Quiz;
   questions: Question[] = [];
   currentQuestion : Question;
-  TIME_OUT_DISPLAY_RIGHT_ANSWER: number = 5000; 
+  TIME_OUT_DISPLAY_RIGHT_ANSWER: number = 10000; 
 
   image: Img;
 

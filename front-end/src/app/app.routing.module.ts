@@ -14,6 +14,8 @@ import { PasswordComponent } from './start/password/password.component';
 import { QuestionViewComponent } from './core/questions/question-view/question-view.component';
 import { PlayerViewComponent } from './core/players/player-view/player-view.component';
 import { ThemeListComponent } from './core/themes/theme-list/theme-list.component';
+import { StatisticsComponent } from './results/statistics/statistics.component';
+import { QuizAttemptDetailsComponent } from './results/quiz-attempt-details/quiz-attempt-details.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -31,6 +33,8 @@ const routes: Routes = [
 
     { path: 'admin/player-list', component: PlayerListAdminComponent },
     { path: 'admin/player-list/:id', component: PlayerViewComponent },
+    { path: 'admin/player-list/:id/statistics', component: StatisticsComponent },
+    { path: 'admin/player-list/:id/statistics/:attemptId', component: QuizAttemptDetailsComponent },
 
     { path: 'players', component: PlayerListPlayerComponent },
     { path: 'players/:id', component: QuizListPlayerComponent },

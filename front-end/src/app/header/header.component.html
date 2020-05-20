@@ -1,4 +1,4 @@
-<nav *ngIf="adminGeneralNav" class="navbar navbar-light fixed-top" style="background-color: #e3f2fd;">
+<nav *ngIf="adminGeneralNav" class="navbar navbar-light fixed-top boostrapNavbar">
     <a class="navbar-brand" routerLink= "/">
       <i class="fa fa-home" aria-hidden="true"></i> Accueil
     </a>
@@ -9,7 +9,8 @@
       <a class="nav-link" routerLink= "/admin/theme-list">Thèmes</a>
     </p>
 </nav>
-<nav *ngIf="adminQuizInfoNav" class="navbar navbar-light fixed-top" style="background-color: #e3f2fd;">
+
+<nav *ngIf="adminQuizInfoNav" class="navbar navbar-light fixed-top boostrapNavbar">
   <a class="navbar-brand" (click)="goBack()">
     <i class="fa fa-arrow-left" aria-hidden="true"></i>
   </a>
@@ -22,7 +23,9 @@
     <span class="nav-link" (click)="onclickTab('info')">Infos</span>
   </p>
 </nav>
-<nav *ngIf="adminQuestionInfoNav" class="navbar navbar-light fixed-top" style="background-color: #e3f2fd;">
+
+
+<nav *ngIf="adminQuestionInfoNav" class="navbar navbar-light fixed-top boostrapNavbar">
   <a class="navbar-brand" (click)="goBack()">
     <i class="fa fa-arrow-left" aria-hidden="true"></i>
   </a>
@@ -34,7 +37,9 @@
     <span class="nav-link" (click)="onclickTab('info')">Infos</span>
   </p>
 </nav>
-<nav *ngIf="adminPlayerInfoNav" class="navbar navbar-light fixed-top" style="background-color: #e3f2fd;">
+
+
+<nav *ngIf="adminPlayerInfoNav" class="navbar navbar-light fixed-top boostrapNavbar">
     <a class="navbar-brand" (click)="goBack()">
       <i class="fa fa-arrow-left" aria-hidden="true"></i>
     </a>
@@ -47,13 +52,14 @@
       <span class="nav-link" (click)="onclickTab('info')">Infos</span>
     </p>
 </nav>
-<nav *ngIf="basicNav" class="navbar navbar-light fixed-top" style="background-color: #e3f2fd;">
+
+<nav *ngIf="basicNav" class="navbar navbar-light fixed-top boostrapNavbar">
     <a *ngIf="isHomeBrand; else backBrand" class="navbar-brand" routerLink= "/">
       <i class="fa fa-home" aria-hidden="true"></i> Accueil
     </a>
     <ng-template #backBrand>
       <a class="navbar-brand" (click)="goBack()">
-        <i class="fa fa-angle-left" aria-hidden="true" style="color: grey"></i>
+        <i class="fa fa-angle-left goBackButton" aria-hidden="true"></i>
       </a>
     </ng-template>
     <p *ngIf="image && image.url; else text" class="navbar-text text-center"> 
