@@ -9,15 +9,16 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class PasswordComponent implements OnInit {
 
+  private PWD = '1234';
   headerTitle = "Connexion à l'espace du personnel";
 
   loginForm: FormGroup;
-  isCorrect : boolean = true;
-  counter : number = 0;
+  isCorrect: boolean = true;
+  counter: number = 0;
 
   constructor(private router: Router) {
     this.loginForm = new FormGroup({
-      password : new FormControl('', [
+      password: new FormControl('', [
         Validators.required
       ])
     });
@@ -29,14 +30,14 @@ export class PasswordComponent implements OnInit {
   loginUser() {
     this.counter++;
     const password = this.loginForm.get('password').value;
-    if (password === '1111' || password === '') {
+    if (password === this.PWD) {
       this.router.navigate(['admin/quiz-list']);
       return;
     }
     this.isCorrect = false;
     if (this.counter === 3) { // if entered password 3 times wrong that means it's a user who want to acces and not a staff !!
-        this.counter = 0; // reset on 0
-        this.router.navigate(['home']); // redirect to home page
+      this.counter = 0; // reset on 0
+      this.router.navigate(['home']); // redirect to home page
     }//bootstrap modal error
   }
 }
