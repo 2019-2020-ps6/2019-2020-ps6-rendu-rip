@@ -11,3 +11,23 @@
     font-size: 3rem;
     font-weight: bold;
 }
+
+.main{
+    text-align: center;
+}
+
+.btns-column {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.big-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

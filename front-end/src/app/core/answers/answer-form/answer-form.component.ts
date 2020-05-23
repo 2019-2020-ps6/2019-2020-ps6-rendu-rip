@@ -23,6 +23,7 @@ export class AnswerFormComponent implements OnInit {
   removeImgisCalled: boolean = false;
   answerForm: FormGroup;
   onChangeFile: boolean = false;
+  moreFourAnswers: boolean;
   
   imageTmp : Img = {} as Img;
   image : Img = {} as Img;
@@ -32,7 +33,7 @@ export class AnswerFormComponent implements OnInit {
     this.initializeAnswerForm();
     this.loadImage();
     this.onFormChanges();
-    
+    this.moreFourAnswers = this.question.answers.length >= 4;
   }
 
   onFormChanges() {
@@ -130,7 +131,6 @@ export class AnswerFormComponent implements OnInit {
     else return this.answer.value.length;
   }
   removeImg(img: Img): void {
-    console.log('were here!');
     this.removeImgisCalled = true;
     this.globalService.removeImg(img);
   }

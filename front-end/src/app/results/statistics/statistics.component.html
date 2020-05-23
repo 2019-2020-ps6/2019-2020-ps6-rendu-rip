@@ -1,6 +1,6 @@
     <div *ngIf="player">
         <div class="flex-list">
-            <div *ngFor="let attempt of playerAttempts" >
+            <div *ngFor="let attempt of playerAttempts.reverse()" >
                 <button class="delete-button" (click)="deleteAttempt(attempt)">
                     <i class="fas fa-times"></i>
                 </button>

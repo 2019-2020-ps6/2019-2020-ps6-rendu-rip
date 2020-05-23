@@ -19,7 +19,7 @@ export class StatisticsComponent implements OnInit {
 
   player: Player;
   playerImage: Img = {} as Img;
-  playerAttempts: Attempt[] = [];
+  playerAttempts: Attempt[];
 
   constructor(public playerService: PlayerService, public imageService: ImageService, 
     public router: ActivatedRoute, public attemptService: AttemptService,
