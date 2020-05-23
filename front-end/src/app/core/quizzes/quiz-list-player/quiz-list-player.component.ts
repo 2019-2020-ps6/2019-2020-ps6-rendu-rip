@@ -36,14 +36,18 @@ export class QuizListPlayerComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.themeFilteringSetup();
+    //this.themeFilteringSetup();
+    this.themeForm = this.formBuilder.group({
+      theme: this.ALL_QUIZZES
+    });
     this.playerService.playerSelected$.subscribe((player) => {
       this.onPlayerSelected(player);
       this.headerTitle = player.name;
       this.quizService.quizzes$.subscribe((quizzes) => {
         this.quizList = [];
         this.quizList = quizzes
-        this.filteredQuizList();
+        this.themeFilteringSetup();
+        //this.filteredQuizList();
       });
     });
     this.quizService.setQuizzesFromUrl();
@@ -65,13 +69,13 @@ export class QuizListPlayerComponent implements OnInit {
     this.themeService.themes$.subscribe((themes) =>{
       this.THEME_LIST = [];
       this.THEME_LIST.push(this.ALL_QUIZZES);
+      this.filteredQuizList();
       for(var i =0 ; i<themes.length;i++) {
-        this.THEME_LIST.push(themes[i].name)
+        if(this.themeService.themeIsUsed(themes[i],themes,this.quizListFiltered)){
+          this.THEME_LIST.push(themes[i].name)
+        }
       }
      });
-     this.themeForm = this.formBuilder.group({
-      theme: this.ALL_QUIZZES
-    });
   }
 
   hasSelectedTheme( quiz: Quiz ) {

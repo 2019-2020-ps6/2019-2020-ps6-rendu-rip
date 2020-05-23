@@ -25,7 +25,7 @@
         <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
           {{current_theme}}
         </option>
-        </select><app-theme-form (themeAdded) = "initTheme($event)"></app-theme-form>  
+        </select>&nbsp;<app-theme-form (themeAdded) = "initTheme($event)"></app-theme-form>  
         <label class = "titre" for="random" style="margin-bottom: 1em">Déroulement aléatoire:</label>
         <input id="random" type="checkbox" [formControlName]="'random'">
         <div class = "imageAndButton">

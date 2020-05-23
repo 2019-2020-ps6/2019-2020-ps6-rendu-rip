@@ -24,11 +24,10 @@ export class QuizListAdminComponent implements OnInit {
 
   constructor(public globalService: GlobalService,
     public quizService: QuizService, public formBuilder: FormBuilder, public themeService : ThemeService) {
-      this.themeFilteringSetup();
       this.quizService.quizzes$.subscribe((quizzes) =>{
         this.quizList = [];
         this.quizList = quizzes;
-        this.filteredQuizList();
+        this.themeFilteringSetup();
     })
     
   }
@@ -36,16 +35,18 @@ export class QuizListAdminComponent implements OnInit {
   ngOnInit() {}
 
   themeFilteringSetup() {
+    this.themeForm = this.formBuilder.group({
+      theme: this.ALL_QUIZZES
+    });
     this.themeService.themes$.subscribe((themes) =>{
       this.THEME_LIST = [];
       this.THEME_LIST.push(this.ALL_QUIZZES);
+      this.filteredQuizList();
       for(var i =0 ; i<themes.length;i++) {
-        this.THEME_LIST.push(themes[i].name)
+        if(this.themeService.themeIsUsed(themes[i],themes,this.quizListFiltered)){
+          this.THEME_LIST.push(themes[i].name)
+        }
       }
-     });
- 
-     this.themeForm = this.formBuilder.group({
-       theme: this.ALL_QUIZZES
      });
   }
 

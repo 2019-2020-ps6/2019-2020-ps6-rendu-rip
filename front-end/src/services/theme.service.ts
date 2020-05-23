@@ -38,4 +38,14 @@ export class ThemeService {
   }
 
 
+  themeIsUsed(theme : Theme, themeList : Theme[], quizList : Quiz[]){
+    for(let quiz of quizList){
+      if(quiz.theme === theme.name){
+        return true;
+      }
+    }
+    return false;
+  }
+
+
 }
