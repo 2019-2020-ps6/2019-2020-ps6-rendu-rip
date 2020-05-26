@@ -36,6 +36,7 @@ export class StatisticsComponent implements OnInit {
     this.ordreChro = true;
     this.playerService.playerSelected$.subscribe((player) => {
       this.player = player;
+      console.log(this.player)
       this.playerAttempts = [];
       this.headerTitle = `Résultats de ${player.name}`;
       if(this.player.imageId){
