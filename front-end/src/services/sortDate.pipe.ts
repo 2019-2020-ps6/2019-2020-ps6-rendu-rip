@@ -4,7 +4,9 @@ import { Injectable, Pipe, PipeTransform } from '@angular/core';
     name: 'sortDate'
 })
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class SortDatePipe implements PipeTransform {
     transform(array: Array<any>, args: string): Array<any> {
         if (typeof args[0] === "undefined"||!array) {
