@@ -10,6 +10,7 @@ import { ModalService } from 'src/services/modal.service';
 import { Answer } from 'src/models/answer.model';
 import { GlobalService } from 'src/services/global.service';
 import { QuizService } from 'src/services/quiz.service';
+import { ImageService } from 'src/services/image.service';
 
 @Component({
     selector: 'app-question-view',
@@ -29,7 +30,7 @@ export class QuestionViewComponent implements OnInit {
 
   constructor(private modalService : ModalService, private location: Location, 
     private route: ActivatedRoute, public formBuilder: FormBuilder, 
-    public globalService: GlobalService, private quizService : QuizService ) {}
+    public globalService: GlobalService, private quizService : QuizService, private imageService : ImageService ) {}
 
     
   ngOnInit() {

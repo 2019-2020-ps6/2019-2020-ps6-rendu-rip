@@ -4,6 +4,12 @@
 
   <div *ngIf="playerPhoto.url && currentTab=='info'">
     <app-player-form-modal [player] = "player" [playerImage] = "playerPhoto"></app-player-form-modal>
+      <div class="horizontal-center">
+        <h2>{{player.name}}</h2>
+        <div class="fixed-container">
+            <img class="frame thumbnail" [src]="imageService.getImgSrc1(playerPhoto)" alt="photo">
+        </div>
+    </div>
   </div>
 
   <div *ngIf="currentTab=='quizzes' && quizVisible">

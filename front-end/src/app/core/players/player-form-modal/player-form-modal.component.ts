@@ -67,12 +67,16 @@ export class PlayerFormModalComponent implements OnInit {
     this.reset();
     this.quitForm.emit(true);//false
   }
- 
+
+  ngOnChanges(){
+    this.reset()
+  }
+
   reset(){
-    this.playerForm.reset()
+    if(this.playerForm)this.playerForm.reset()
     this.imageTmp = {} as Img;
-    this.initplayerForm();
     this.initImageTmp();
+    this.initplayerForm();
     this.quitForm.emit(false);
   }
   sizeInput(){

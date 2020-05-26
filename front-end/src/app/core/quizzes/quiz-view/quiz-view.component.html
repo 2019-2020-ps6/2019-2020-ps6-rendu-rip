@@ -12,6 +12,13 @@
 
 <div *ngIf ="quiz && image.url">
   <div *ngIf="currentTab=='info'">
+    <div class="horizontal-center">
+      <h2>{{quiz.name}}</h2>
+      {{quiz.theme}}
+      <div class="fixed-container">
+          <img class="frame thumbnail" [src]="imageService.getImgSrc1(image)" alt="photo">
+      </div>
+    </div>
     <app-quiz-form-modal [quiz] = "quiz" [image] = "image" ></app-quiz-form-modal>
   </div>
   <div *ngIf="currentTab=='visibility'">
