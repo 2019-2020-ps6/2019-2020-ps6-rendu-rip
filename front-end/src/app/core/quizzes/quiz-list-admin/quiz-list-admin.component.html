@@ -14,10 +14,10 @@
                     </select>
                 </form>
             </div>
-            <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="customSwitches" (change)="switchOrder()">
-                <label class="custom-control-label" for="customSwitches" style="margin-bottom: 1em;">Ordre chronologique</label>
-            </div>
+        </div>
+        <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="customSwitches" (change)="switchOrder()">
+            <label class="custom-control-label" for="customSwitches" style="margin-bottom: 1em;">Ordre chronologique</label>
         </div>
     </div>
     <div class="quiz-list" *ngIf="quizListFiltered && quizListFiltered.length!==0; else noQuizFound">
