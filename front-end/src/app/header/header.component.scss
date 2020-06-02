@@ -6,12 +6,6 @@ a:hover {
   cursor: pointer;
 }
 
-/*
-.navbar-text {
-  margin: auto;
-  text-align: center;
-}*/
-
 .text-center {
   position: absolute;
   left: 50%;
@@ -29,12 +23,16 @@ i {
 }
 
 .nav-link {
-  color: rgb(0, 49, 163);
+  color: rgb(0, 38, 128);
 }
 
 .nav-link:hover {
   color: rgb(199, 80, 0);
   cursor: pointer;
+}
+
+.active {
+  color: rgb(143, 57, 0);
 }
 
 #navbar {

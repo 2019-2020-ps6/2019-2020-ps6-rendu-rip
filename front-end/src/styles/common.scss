@@ -7,9 +7,14 @@ body {
     padding-right: 5%;
 }
 
-.main {
-    /*margin-top: 3rem;
-    margin-bottom: 1rem;*/
+button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+div:focus {
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 .button-purple-theme {
@@ -27,76 +32,6 @@ body {
 
 .button-purple-theme:active {
     background-color: $deep-purple;   
-}
-
-.button-blue-theme {
-    @extend .button-purple-theme;
-    background-color: $blue;
-    border-color: $very-light-blue;
-    box-shadow: 0 6px 10px rgba(33, 34, 65, 0.2), 0 0 6px rgba(57, 44, 88, 0.15);
-}
-
-.button-blue-theme:active {
-    background-color: $deep-blue;   
-}
-
-.goback-button {
-    @extend .button-purple-theme;
-    width: 5%;
-    /*position: fixed;
-    margin-top: -2.8rem;
-    left: 0.5rem;*/
-}
-
-.home-button {
-    @extend .button-purple-theme;
-    width: 5%;
-    /*position: fixed;
-    margin-top: -2.8rem;
-    right: 0.5rem;*/
-}
-
-.theme-button {
-    @extend .button-blue-theme;
-    /*position: fixed;
-    right: 1rem;*/
-    /*background-color: $grey;
-    border-color: $light-grey;*/
-}
-
-.theme-button:hover {
-    cursor: default;
-}
-
-.theme-button:active {
-    background: $blue;
-}
-
-.new-button {
-    @extend .button-blue-theme;
-    //position: fixed;
-}
-
-.left-button {
-    @extend .button-purple-theme;
-   /* position: fixed;
-    left: 2rem;*/
-}
-
-.edit-button {
-    @extend .button-purple-theme;
-    border: none;//thin white;
-}
-
-.img-edit-block {
-    position: fixed;
-    right: 1rem;
-    text-align: center;
-}
-
-.img-in-header {
-    /*position: fixed;
-    margin-top: -2.8rem;*/
 }
 
 .big-button {
@@ -134,4 +69,8 @@ body {
 .cancelBtn {
     margin-top: 1rem;
     margin-left: 1rem;
+}
+
+.close:hover{
+    background-color: rgba($color: red, $alpha: 0.8);
 }
