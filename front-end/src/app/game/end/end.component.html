@@ -1,9 +1,5 @@
-<div class="main">
-    <div *ngIf="player">
-        <div class="bravoName">Bravo {{player.name}} !</div>
-    </div>
-    <div *ngIf="player" class="btns-column">
-        <div class="big-button" routerLink= "..">Recommencer</div>
-        <div class="big-button" routerLink= "/players/{{player.id}}">Choisir un autre quiz</div>
-    </div>
+<div *ngIf="player" id="box-vertical">
+    <div class="bravoName">Bravo {{player.name}} !</div>
+    <div class="item-vertical" routerLink= "..">Recommencer</div>
+    <div class="item-vertical" routerLink= "/players/{{player.id}}">Choisir un autre quiz</div>
 </div>
