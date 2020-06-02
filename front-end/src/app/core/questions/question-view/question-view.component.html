@@ -10,6 +10,12 @@
 </div>-->
 <div *ngIf = "allIsLoaded()">
   <div *ngIf="currentTab=='info'">
+    <div class="horizontal-center">
+    <h2>{{question.label}}</h2>
+    <div class="fixed-container">
+        <img class="frame thumbnail" [src]="imageService.getImgSrc1(image)" alt="photo">
+    </div>
+    </div>
     <app-question-form-modal [quiz]="quiz" [question]="question" [image]="image" ></app-question-form-modal>
   </div>
   <div *ngIf="currentTab!='info'">

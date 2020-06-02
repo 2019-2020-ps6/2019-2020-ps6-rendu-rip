@@ -7,6 +7,7 @@ import { Player } from 'src/models/player.model';
 import { Img } from 'src/models/image.model';
 import { Attempt } from 'src/models/attempt.model';
 import { Location } from '@angular/common';
+import { SortDatePipe } from 'src/services/sortDate.pipe';
 
 @Component({
   selector: 'app-statistics',
@@ -19,9 +20,10 @@ export class StatisticsComponent implements OnInit {
 
   player: Player;
   playerImage: Img = {} as Img;
-  playerAttempts: Attempt[] = [];
+  playerAttempts: Attempt[];
+  ordreChro : boolean;
 
-  constructor(public playerService: PlayerService, public imageService: ImageService, 
+  constructor(private sortDate : SortDatePipe,public playerService: PlayerService, public imageService: ImageService, 
     public router: ActivatedRoute, public attemptService: AttemptService,
     private location: Location) {
       this.attemptService.attempts$.subscribe(()=>{
@@ -31,8 +33,10 @@ export class StatisticsComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.ordreChro = true;
     this.playerService.playerSelected$.subscribe((player) => {
       this.player = player;
+      console.log(this.player)
       this.playerAttempts = [];
       this.headerTitle = `Résultats de ${player.name}`;
       if(this.player.imageId){
@@ -50,5 +54,14 @@ export class StatisticsComponent implements OnInit {
 
   deleteAttempt(attempt : Attempt){
     this.attemptService.deleteAttempt(attempt);
+  }
+
+  
+  switchOrder(){
+    this.ordreChro = !this.ordreChro;
+    if(this.ordreChro)
+      this.sortDate.transform(this.playerAttempts,"date")
+    else
+      this.sortDate.transform(this.playerAttempts,"-date")
   }
 }

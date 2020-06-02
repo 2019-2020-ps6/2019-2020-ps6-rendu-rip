@@ -73,7 +73,6 @@ export class ImageService {
 
   deleteImage(image: Img) {
     if(this.isDefaultImage(image.id)) {
-      console.log("Ne doit pas supprimer une image par défaut!");
       return;
     }
     this.http.delete<Img>(`${serverUrl}/images/database/${image.id}`, this.httpOptions)
@@ -84,7 +83,6 @@ export class ImageService {
 
   deletePlayerPhoto(imageId: string) {
     if(this.isDefaultImage(imageId)) {
-      console.log("Ne doit pas supprimer une image par défaut!");
       return;
     }
     this.http.delete<Img>(`${serverUrl}/images/player/${imageId}`, this.httpOptions)

@@ -3,8 +3,8 @@
       <label for="name" style="margin-bottom: 0.5em;">Réponse: </label>
       <input type="text" style="margin-left: 1em;" size = "{{sizeInput()}}" [formControlName]="'value'" id="name">
       <div class = "imageAndButton" style="margin-bottom: 0.5em;">
-      <ng-template [ngTemplateOutlet]="buttonCharging0"></ng-template>
       <ng-template [ngTemplateOutlet] ="displayImageAns"></ng-template>
+      <ng-template [ngTemplateOutlet]="buttonCharging0"></ng-template>
       </div>
       Correcte : <input type="checkbox" [formControlName]="'isCorrect'">
       <div class="buttons-bottom" *ngIf = "!answer || onChangeFile || removeImgisCalled">
@@ -16,7 +16,7 @@
 
 <ng-template #noAnswerYet>
   <div class="top-btn">
-  <button type="button" class="btn btn-info" (click)="modalService.open(answerFormModal)">
+  <button [disabled]="moreFourAnswers" type="button" class="btn btn-info" (click)="modalService.open(answerFormModal)">
     <i class="fas fa-plus-circle"></i> Nouvelle Réponse
   </button>  
   </div>
@@ -64,10 +64,10 @@
 
 <ng-template #buttonCharging0>
   <div>
-    <span id="imageBtns">Charger une image : 
+    <span id="imageBtns0">Charger une image : 
     <app-database-image-modal [imageTmp]="imageTmp" [id]="setLabel()" (onChangeFile_bis)="received($event)"></app-database-image-modal>
 		<app-internet-image-modal [imageTmp]="imageTmp" [id]="setLabel()" (onChangeFile_bis)="received($event)"></app-internet-image-modal>
-	    <label id="image64Btn" style="margin-left: 0.5em;" for="image64QuizForm{{setLabel()}}" class="btn btn-sm btn-secondary">Cet appareil</label>
+	    <label id="image64Btn"  for="image64QuizForm{{setLabel()}}" class="btn btn-sm btn-secondary">Cet appareil</label>
 		<input type="file" class="hidden" id="image64QuizForm{{setLabel()}}" (change)="onChange($event,imageTmp)" accept="image/*">
   </span>
   </div>

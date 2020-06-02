@@ -56,6 +56,12 @@
     margin-right: 1em;
 }
 
+#imageBtns0 {
+    margin-left: 0.5em;
+    margin-top: 0.5em;
+    //display: grid;
+    grid-template-columns: auto;
+}
 #imageBtns {
     margin-left: 0.5em;
     margin-top: 0.5em;

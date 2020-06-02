@@ -1,4 +1,8 @@
     <div *ngIf="player">
+        <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="customSwitches" [checked] = "ordreChro" (change)="switchOrder()">
+            <label class="custom-control-label" for="customSwitches" style="margin-bottom: 1em;">Ordre chronologique</label>
+        </div>
         <div class="flex-list">
             <div *ngFor="let attempt of playerAttempts" >
                 <button class="delete-button" (click)="deleteAttempt(attempt)">

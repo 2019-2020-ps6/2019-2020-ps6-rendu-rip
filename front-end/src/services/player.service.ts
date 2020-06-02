@@ -33,6 +33,7 @@ export class PlayerService {
 
   setSelectedPlayer(playerId: string) {
     const url = `${this.playerUrl}/${playerId}`;
+    console.log(playerId)
     this.http.get<Player>(url).subscribe((player) => this.setPlayer(player));
   }
 
@@ -65,7 +66,6 @@ export class PlayerService {
 
   updatePlayer(player: Player) {
     const urlWithId = `${this.playerUrl}/${player.id}`;
-    console.log(player);
     this.http.put<Player>(urlWithId, player, this.httpOptions).subscribe((player) =>{
     this.setSelectedPlayer(player.id);
     this.setPlayersFromUrl()});

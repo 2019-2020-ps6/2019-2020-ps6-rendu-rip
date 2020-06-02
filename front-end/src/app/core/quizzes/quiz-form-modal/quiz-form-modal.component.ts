@@ -103,7 +103,6 @@ export class QuizFormModalComponent implements OnInit {
     if(!quizToSave.random){
       quizToSave.random = false;
     }
-    console.log(quizToSave);
     if(this.quiz) quizToSave.id = this.quiz.id;
     return quizToSave;
   }

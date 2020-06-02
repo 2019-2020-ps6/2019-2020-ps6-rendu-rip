@@ -64,18 +64,13 @@ export class RunnerComponent implements OnInit {
 
   onTimeOut() {
     this.currentAttempt.timeOuts += 1;
-    console.log("ET 1 time out UN ..");
   }
 
   onWrongAnswer(wrongAnswer: Answer) {
     this.currentAttempt.wrongAnswers.push(wrongAnswer);
-    console.log("Poin poin poin poin poiiiin ..");
-    console.log(wrongAnswer);
   }
 
   sendAttempt() {
-    console.log("sending attempt ..");
-    console.log(this.currentAttempt);
     this.attemptService.sendAttempt(this.currentAttempt);
   }
 

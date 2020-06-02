@@ -47,6 +47,7 @@ import { VisibilityChoiceModal} from './core/quizzes/visibility/visibility-choic
 import { AssociatePlayerModal} from './core/quizzes/visibility/associate-player-modal.component'
 import { AssociateQuizModal } from './core/quizzes/visibility/associate-quiz-modal.component';
 import { TimerFormModalComponent } from './core/quizzes/timer-form-modal/timer-form-modal.component';
+import { SortDatePipe } from 'src/services/sortDate.pipe';
 
 @NgModule({
   declarations: [
@@ -87,7 +88,8 @@ import { TimerFormModalComponent } from './core/quizzes/timer-form-modal/timer-f
     AssociatePlayerModal,
     VisibilityChoiceModal,
     AssociateQuizModal,
-    TimerFormModalComponent
+    TimerFormModalComponent,
+    SortDatePipe
 
   ],
   imports: [

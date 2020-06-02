@@ -64,20 +64,16 @@ export class GalleryComponent implements OnInit {
       this.globalService.removeImg(imgTmp);
       for(let quiz of this.quizToDeleteImage){
         quiz.imageId = imgTmp.id;
-        console.log(quiz)
         quiz.questions = undefined;//car du côté back, il n'y a pas cet attribut, il est construit à chaque get
         this.globalService.updateQuiz(quiz);
       }
       for(let question of this.questionToDeleteImage){
         question.imageId = imgTmp.id;
-        console.log(question);
         question.answers = undefined;
         this.globalService.updateQuestion(question.quizId,question);
       }
       for(var i = 0; i<this.answerToDeleteImage.length;i++){
-        this.answerToDeleteImage[i].imageId = imgTmp.id;
-        console.log(this.answerToDeleteImage[i]);
-  
+        this.answerToDeleteImage[i].imageId = imgTmp.id;  
         this.globalService.updateAnswer(this.quizToAnswer[i].id,this.answerToDeleteImage[i].questionId,this.answerToDeleteImage[i]);
       }
     }

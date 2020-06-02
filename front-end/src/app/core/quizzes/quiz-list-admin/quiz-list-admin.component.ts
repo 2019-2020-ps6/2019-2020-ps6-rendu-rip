@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Quiz } from 'src/models/quiz.model';
-import { ModalService } from 'src/services/modal.service';
 import { ThemeService } from 'src/services/theme.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { GlobalService } from 'src/services/global.service';
 import { QuizService } from 'src/services/quiz.service';
+import { SortDatePipe } from 'src/services/sortDate.pipe';
 
 @Component({
   selector: 'app-quiz-list-admin',
@@ -19,10 +19,11 @@ export class QuizListAdminComponent implements OnInit {
   public quizListFiltered: Quiz[];
   public THEME_LIST: string[] = [];
   private ALL_QUIZZES: string='TOUS';
+  private ordreChro : boolean; 
 
   themeForm: FormGroup;
 
-  constructor(public globalService: GlobalService,
+  constructor(private sortDate : SortDatePipe, public globalService: GlobalService,
     public quizService: QuizService, public formBuilder: FormBuilder, public themeService : ThemeService) {
       this.quizService.quizzes$.subscribe((quizzes) =>{
         this.quizList = [];
@@ -61,6 +62,16 @@ export class QuizListAdminComponent implements OnInit {
   filteredQuizList() : Quiz[] {
     if(!this.quizList) return;
     this.quizListFiltered = this.quizList.filter((quiz) => this.hasSelectedTheme(quiz));
+    this.ordreChro = false;
+    this.sortDate.transform(this.quizListFiltered,"-creationDate")
+  }
+
+  switchOrder(){
+    this.ordreChro = !this.ordreChro;
+    if(this.ordreChro)
+      this.sortDate.transform(this.quizListFiltered,"creationDate")
+    else
+      this.sortDate.transform(this.quizListFiltered,"-creationDate")
   }
   
   deleteQuiz(quiz: Quiz) { this.globalService.deleteQuiz(quiz); }
