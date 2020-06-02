@@ -2,50 +2,11 @@
 @import '../../../styles/layout.scss';
 @import '../../../styles/common.scss';
 
-.box{
-    @extend .vertical-layout;
-    text-align: center;
-}
-
-.bravoName {
-    font-size: 3rem;
-    font-weight: bold;
-    display: flex;
-    justify-content: center; /*horizontal centering*/
-    align-items:center; /*vertical centering*/
-    text-align: center;
-    width: 100%;
-    height: auto;
-    //margin-top: 2.5%;
-    margin-bottom: 5%;
-    padding: 0.5em;
-}
-
-/*
-.btns-column {
-    display: flex;
-    height: 100%;
-    width: 100%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.big-button {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}*/
-
 #box-vertical {
     position: absolute;
-    //left: 10%;
-    //right: 10%;
     height: 100%;
     width: 80%;
     left: 10%;
-    //max-height: 8rem;
     display: flex;
     flex-direction: column;
     justify-content: center; /*horizontal centering*/
@@ -54,12 +15,24 @@
 }
 
 .item-vertical {
-    @extend .big-button;//.button-purple-theme;
+    //@extend .big-button;//.button-purple-theme;
     display: flex;
     justify-content: center; /*horizontal centering*/
     align-items:center; /*vertical centering*/
     text-align: center;
     width: 100%;
     height: auto;
-    //font-size: 300%;
+    max-height: 28%;
+}
+
+.bravoName {
+    font-size: 300%;
+    font-weight: bold;
+    margin-bottom: 5%;
+    padding: 0.5em;
+}
+
+.big-button {
+    margin-top: 0;
+    margin-bottom: 5%;
 }

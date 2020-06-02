@@ -4,7 +4,7 @@
             <label class="custom-control-label" for="customSwitches" style="margin-bottom: 1em;">Ordre chronologique</label>
         </div>
         <div class="flex-list">
-            <div *ngFor="let attempt of playerAttempts" >
+            <div *ngFor="let attempt of playerAttempts" class="attempt-item">
                 <button class="delete-button" (click)="deleteAttempt(attempt)">
                     <i class="fas fa-times"></i>
                 </button>

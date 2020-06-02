@@ -38,6 +38,11 @@
   background-color: rgb(239, 230, 255);
 }
 
+.attempt-card {
+  @extend .quiz-card;
+  color: black;
+  margin: 1rem;
+}
 
 .buttons-duo {
   margin-left: auto;

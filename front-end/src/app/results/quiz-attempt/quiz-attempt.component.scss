@@ -1,5 +1,11 @@
-@import 'src/styles/card.scss';
+@import '../../../styles/card.scss';
+@import '../../../styles/common.scss';
 
 .card:hover{
     cursor: pointer;
 }
+
+/*
+.attempt-card {
+    @extend .quiz-card;
+}*/

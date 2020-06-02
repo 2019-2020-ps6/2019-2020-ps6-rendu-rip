@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="quiz-list" *ngIf="quizListFiltered && quizListFiltered.length!==0; else noQuizFound">
-        <div style="outline: none;" class="fixed-container-bigger" *ngFor="let quiz of quizListFiltered">
+        <div class="fixed-container-bigger" *ngFor="let quiz of quizListFiltered">
             <div class = "tag" *ngIf = "!globalService.isValid(quiz)">
                 INCOMPLET
             </div>

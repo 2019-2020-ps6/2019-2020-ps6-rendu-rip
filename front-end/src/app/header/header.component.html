@@ -18,7 +18,7 @@
     - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> - </span>
   <ng-template #text style="margin: auto;"><span class="coloredText"> - {{title}} - </span></ng-template>
   <p class="nav justify-content-end">
-    <span class="nav-link" (click)="onclickTab('questions')">Questions</span>
+    <span class="nav-link active" (click)="onclickTab('questions')">Questions</span>
     <span class="nav-link" (click)="onclickTab('visibility')">Visibilité</span>
     <span class="nav-link" (click)="onclickTab('info')">Infos</span>
   </p>
@@ -33,7 +33,7 @@
     - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> - </span>
   <ng-template #text style="margin: auto;"><span class="coloredText"> - {{title}} - </span></ng-template>
   <p class="nav justify-content-end">
-    <span class="nav-link" (click)="onclickTab('answers')">Réponses</span>
+    <span class="nav-link active" (click)="onclickTab('answers')">Réponses</span>
     <span class="nav-link" (click)="onclickTab('info')">Infos</span>
   </p>
 </nav>
@@ -47,7 +47,7 @@
       - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> - </span>
     <ng-template #text style="margin: auto;"><span class="coloredText"> - {{title}} - </span></ng-template>
     <p class="nav justify-content-end">
-      <span class="nav-link" (click)="onclickTab('stats')">Résultats</span>
+      <span class="nav-link active" (click)="onclickTab('stats')">Résultats</span>
       <span class="nav-link" (click)="onclickTab('quizzes')">Quiz visibles</span>
       <span class="nav-link" (click)="onclickTab('info')">Infos</span>
     </p>
