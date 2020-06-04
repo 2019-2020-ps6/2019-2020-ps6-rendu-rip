@@ -3,7 +3,7 @@
         <i class="fa fa-angle-left" aria-hidden="true"></i>
     </span>
     <div id="questionQuiz">
-        <div *ngIf="image.url; else noImage">
+        <div *ngIf="image && image.url; else noImage">
             <div *ngIf="currentQuestion.label; else noTxt">
                 <div class="textItem">{{currentQuestion.label}}</div>
                 <img [src]="imageService.getImgSrc1(image)" alt="question image">

@@ -42,8 +42,8 @@ export class RunnerComponent implements OnInit {
             this.quizService.shuffleArray(question.answers);
           });
         }
-        this.changeQuestion();
         this.initAttempt();
+        this.changeQuestion();
       }
     });
   }
@@ -60,10 +60,12 @@ export class RunnerComponent implements OnInit {
     this.currentAttempt.date = new Date();
     this.currentAttempt.timeOuts = 0;
     this.currentAttempt.wrongAnswers = [];
+    this.currentAttempt.questions = [];
+    this.currentAttempt.quiz = this.quiz;
   }
 
   onTimeOut() {
-    this.currentAttempt.timeOuts += 1;
+    this.currentAttempt.timeOuts++;// += 1;
   }
 
   onWrongAnswer(wrongAnswer: Answer) {
@@ -85,6 +87,7 @@ export class RunnerComponent implements OnInit {
 
   changeQuestion = () => {
     this.currentQuestion = this.questions.pop();
+    this.currentAttempt.questions.push(this.currentQuestion);
     this.loadImage();
   }
   
