@@ -9,9 +9,9 @@ module.exports = new BaseModel('Attempt', {
   quizId: Joi.number().required(),
   date: Joi.string(),
   timeOuts: Joi.number().required(),
-  quiz: Joi.object(Quiz),
-  questions: Joi.array().items(Joi.object(Question)),
-  wrongAnswers: Joi.array().items(Joi.object(Answer)) // .items(Joi.object(Answer))
+  quiz: Quiz,//Joi.object(Quiz),
+  questions: Joi.array(),//.items(Question),
+  wrongAnswers: Joi.array()//.items(Answer) // .items(Joi.object(Answer))
   //quiz to keep some data
   //array of Question-S           --> questions[]
   //array of wrong Answer-S given --> wrongAnswers[]
