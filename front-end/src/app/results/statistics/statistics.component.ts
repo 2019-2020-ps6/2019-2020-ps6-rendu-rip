@@ -21,47 +21,43 @@ export class StatisticsComponent implements OnInit {
   player: Player;
   playerImage: Img = {} as Img;
   playerAttempts: Attempt[];
-  ordreChro : boolean;
+  chronologicalOrder : boolean;
 
-  constructor(private sortDate : SortDatePipe,public playerService: PlayerService, public imageService: ImageService, 
+  constructor(private sortDate : SortDatePipe, public playerService: PlayerService, public imageService: ImageService, 
     public router: ActivatedRoute, public attemptService: AttemptService,
-    private location: Location) {
-      this.attemptService.attempts$.subscribe(()=>{
-        const playerId = this.router.snapshot.paramMap.get('id');
-        this.playerService.setSelectedPlayer(playerId);
-      })
-    }
+    private location: Location) {}
 
   ngOnInit() {
-    this.ordreChro = true;
-    this.playerService.playerSelected$.subscribe((player) => {
-      this.player = player;
-      console.log(this.player)
-      this.playerAttempts = [];
-      this.headerTitle = `Résultats de ${player.name}`;
-      if(this.player.imageId){
-        this.imageService.loadPlayerImage(this.playerImage, this.player.imageId);
-      }
-      this.attemptService.getPlayerAttempts(player.id, this.playerAttempts);
-    });
     const playerId = this.router.snapshot.paramMap.get('id');
     this.playerService.setSelectedPlayer(playerId);
+    
+    this.chronologicalOrder = false;
+    //this.attemptService.attempts$.subscribe();
+    this.playerService.playerSelected$.subscribe((player) => {
+      this.player = player;
+      this.playerAttempts = [];
+      this.headerTitle = `Résultats de ${player.name}`;
+      if(this.player.imageId) this.imageService.loadPlayerImage(this.playerImage, this.player.imageId);
+      this.attemptService.getPlayerAttempts(player.id, this.playerAttempts);
+    });
+    
+    /*const playerId = this.router.snapshot.paramMap.get('id');
+    this.playerService.setSelectedPlayer(playerId);*/
   }
 
   goBack() {
-    this.location.back(); // <-- go back to previous location on cancel
+    this.location.back(); // <-- go back to previous location
   }
 
   deleteAttempt(attempt : Attempt){
     this.attemptService.deleteAttempt(attempt);
   }
 
-  
   switchOrder(){
-    this.ordreChro = !this.ordreChro;
-    if(this.ordreChro)
-      this.sortDate.transform(this.playerAttempts,"date")
+    this.chronologicalOrder = !this.chronologicalOrder;
+    if(this.chronologicalOrder)
+      this.sortDate.transform(this.playerAttempts, "date")
     else
-      this.sortDate.transform(this.playerAttempts,"-date")
+      this.sortDate.transform(this.playerAttempts, "-date")
   }
 }

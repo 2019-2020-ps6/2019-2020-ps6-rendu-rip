@@ -7,6 +7,7 @@ import { Quiz } from 'src/models/quiz.model';
 import { Img } from 'src/models/image.model';
 import { GlobalService } from './global.service';
 import { Subject } from 'rxjs';
+import { SortDatePipe } from './sortDate.pipe';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +17,13 @@ export class AttemptService {
   private httpOptions = httpOptionsBase;
   public attempts$: Subject<boolean> = new Subject();
 
-  constructor(private http: HttpClient) {}
+  constructor(private sortDate : SortDatePipe, private http: HttpClient) {}
 
   getPlayerAttempts(playerId: string, output: Attempt[]) {
-    this.http.get<Attempt[]>(`${serverUrl}/players/${playerId}/attempts/`, this.httpOptions)
+    this.http.get<Attempt[]>(`${serverUrl}/players/${playerId}/attempts`, this.httpOptions)
     .subscribe( attempts =>  {
       attempts.forEach(element => output.push(element));
+      this.sortDate.transform(output, "-date")
     });
   } 
 
@@ -30,7 +32,7 @@ export class AttemptService {
     .subscribe( attempt => {
       output.id = attempt.id;
       output.playerId = attempt.playerId;
-      output.quizId = attempt.quizId;
+      output.quiz = attempt.quiz;
       output.date = attempt.date;
       output.timeOuts = attempt.timeOuts;
       output.wrongAnswers = attempt.wrongAnswers;
@@ -42,23 +44,25 @@ export class AttemptService {
     .subscribe( attempt => {
       attemptToLoad.id = attempt.id;
       attemptToLoad.playerId = attempt.playerId;
-      attemptToLoad.quizId = attempt.quizId;
+      attemptToLoad.quiz = attempt.quiz;
+      //load quiz image
+      //load questions images
+      //load answers/wrong answers images
       attemptToLoad.date = attempt.date;
       attemptToLoad.timeOuts = attempt.timeOuts;
       attemptToLoad.wrongAnswers = attempt.wrongAnswers;
-      globalService.loadQuizAndImage(attempt.quizId, quizToLoad, imageToLoad);
+
+      globalService.loadQuizAndImage(attempt.quiz.id, quizToLoad, imageToLoad);
     });
   }
 
   sendAttempt(attempt: Attempt) {
-    this.http.post<Attempt>(`${serverUrl}/players/${attempt.playerId}/attempts/`, attempt, this.httpOptions)
-    .subscribe(() => console.log("Sending attempt .."));
+    this.http.post<Attempt>(`${serverUrl}/players/${attempt.playerId}/attempts`, attempt, this.httpOptions)
+    .subscribe(() => console.log("Sending attempt... request OK"));
   }
 
   deleteAttempt(attempt : Attempt){
     this.http.delete<Attempt>(`${serverUrl}/players/${attempt.playerId}/attempts/${attempt.id}`,this.httpOptions)
-    .subscribe(()=>{
-      this.attempts$.next(true);
-    })
+    .subscribe(() => this.attempts$.next(true))
   }
 }

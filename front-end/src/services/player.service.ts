@@ -33,7 +33,7 @@ export class PlayerService {
 
   setSelectedPlayer(playerId: string) {
     const url = `${this.playerUrl}/${playerId}`;
-    console.log(playerId)
+    console.log(`Player ${playerId} selected`)
     this.http.get<Player>(url).subscribe((player) => this.setPlayer(player));
   }
 

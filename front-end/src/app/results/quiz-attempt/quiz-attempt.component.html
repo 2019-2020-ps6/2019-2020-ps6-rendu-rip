@@ -1,10 +1,17 @@
 <div *ngIf="loaded()">
     <div class="quiz-card">
-        <h5>{{quiz.name}}</h5>
+        <h5 class="title">{{quiz.name}}</h5>
+        <div *ngIf="quiz.imageId && image.url">
+            <img class="frame thumbnail" [src]="globalService.getImgSrc1(image)" alt="- Image quiz -">
+        </div>
         <ul>
-            <li *ngIf="attempt.timeOuts>0"> Pertes d'attention ({{attempt.timeOuts}})</li>
-            <li *ngIf="attempt.wrongAnswers && attempt.wrongAnswers.length>0; else perfect"> {{attempt.wrongAnswers.length}} faute(s)</li>
-            <ng-template #perfect><li>Sans faute</li></ng-template>
+            <li class = "resultats" *ngIf = "!attempt.wrongAnswers || attempt.wrongAnswers.length===0">
+                <h2>Sans faute</h2>
+            </li>
+            <li class = "resultats" *ngIf="attempt.wrongAnswers.length===1">{{attempt.wrongAnswers.length}} faute </li>
+            <li class = "resultats" *ngIf="attempt.wrongAnswers.length>1">{{attempt.wrongAnswers.length}} fautes </li>
+            <li class="resultats" *ngIf="attempt.timeOuts===1">{{attempt.timeOuts}} perte d'attention</li>
+            <li class="resultats" *ngIf="attempt.timeOuts>1">{{attempt.timeOuts}} pertes d'attention</li>
         </ul>
         <h6>{{attempt.date | date : 'dd/MM/yyyy'}}</h6>
     </div>

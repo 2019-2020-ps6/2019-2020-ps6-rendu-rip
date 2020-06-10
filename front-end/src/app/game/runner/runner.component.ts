@@ -56,12 +56,12 @@ export class RunnerComponent implements OnInit {
   initAttempt() {
     this.currentAttempt = {} as Attempt;
     this.currentAttempt.playerId = this.route.snapshot.paramMap.get('id');
-    this.currentAttempt.quizId = this.quiz.id;
+    //this.currentAttempt.quizId = this.quiz.id;
+    this.currentAttempt.quiz = this.quiz;
     this.currentAttempt.date = new Date();
     this.currentAttempt.timeOuts = 0;
     this.currentAttempt.wrongAnswers = [];
-    this.currentAttempt.questions = [];
-    this.currentAttempt.quiz = this.quiz;
+    //this.currentAttempt.questions = [];
   }
 
   onTimeOut() {
@@ -87,7 +87,7 @@ export class RunnerComponent implements OnInit {
 
   changeQuestion = () => {
     this.currentQuestion = this.questions.pop();
-    this.currentAttempt.questions.push(this.currentQuestion);
+    //this.currentAttempt.questions.push(this.currentQuestion);
     this.loadImage();
   }
   
@@ -99,3 +99,12 @@ export class RunnerComponent implements OnInit {
   }
 }
 
+/*
+playerId: Joi.number().required(),
+  quizId: Joi.number().required(),
+  date: Joi.string(),
+  timeOuts: Joi.number().required(),
+  quiz: Joi.any(),//Joi.object(Quiz.schema),//Quiz,//Joi.object(Quiz),
+  questions: Joi.array(),//.items(Question),
+  wrongAnswers: Joi.array()//.items(Answer) // .items(Joi.object(Answer))
+*/

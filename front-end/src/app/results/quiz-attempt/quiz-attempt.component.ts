@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Attempt } from 'src/models/attempt.model';
 import { QuizService } from 'src/services/quiz.service';
 import { Quiz } from 'src/models/quiz.model';
+import { GlobalService } from 'src/services/global.service';
+import { Img } from 'src/models/image.model';
 
 @Component({
   selector: 'app-quiz-attempt',
@@ -15,14 +17,13 @@ export class QuizAttemptComponent implements OnInit {
 
   quiz: Quiz = {} as Quiz;
 
-  constructor(public quizService: QuizService) {  
-  }
+  image: Img = {} as Img;
 
-  loaded() {
-    return this.attempt && this.quiz;
-  }
+  constructor(public globalService: GlobalService) {}
+
+  loaded() { return this.attempt && this.quiz; }
 
   ngOnInit() {
-    this.quizService.loadQuiz(this.attempt.quizId, this.quiz);
+    this.globalService.loadQuizAndImage(this.attempt.quiz.id, this.quiz, this.image);
   }
 }

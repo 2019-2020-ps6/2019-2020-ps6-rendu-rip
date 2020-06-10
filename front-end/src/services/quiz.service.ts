@@ -45,7 +45,7 @@ export class QuizService {
       output.questions = quiz.questions;
       output.theme = quiz.theme;
       output.imageId = quiz.imageId;
-      if(output.imageId) imageService.loadQuizImage(image,output.imageId);
+      if(output.imageId) imageService.loadQuizImage(image, output.imageId);
     });
   }
 

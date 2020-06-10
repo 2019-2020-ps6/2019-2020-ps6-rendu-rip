@@ -46,7 +46,7 @@ export class QuizAttemptDetailsComponent implements OnInit {
   }
 
   seeQuestion(questionId: string) {
-    this.router.navigate([`admin/quiz-list/${this.attempt.quizId}/${questionId}`]);
+    this.router.navigate([`admin/quiz-list/${this.attempt.quiz.id}/${questionId}`]);
   }
 
   checkIfWrongQuestion(question : Question){
