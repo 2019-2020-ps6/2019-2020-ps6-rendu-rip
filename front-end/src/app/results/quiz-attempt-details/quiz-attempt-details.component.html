@@ -2,13 +2,13 @@
 <app-header type="basic" [isHomeBrand]="false" [title]="headerTitle"></app-header>
 <div *ngIf="loaded()" >
     <div class="quiz-title">
-        <div *ngIf="quizImage">
-            <h3>{{player.name}} : {{quiz.name}} 
-            <img class = "thumbnail-header" [src]="globalService.getImgSrc1(quizImage)" alt="image">
+        <div *ngIf="attempt.quiz.image">
+            <h3>{{player.name}} : {{attempt.quiz.name}} 
+            <img class="thumbnail-header" [src]="globalService.getImgSrc1(attempt.quiz.image)" alt="image">
             ({{attempt.date | date : 'dd/MM/yyyy'}})</h3>
         </div>
-        <div *ngIf="!quizImage">
-            <h3>{{player.name}} : {{quiz.name}} ({{attempt.date | date : 'dd/MM/yyyy'}})</h3>
+        <div *ngIf="!attempt.quiz.image">
+            <h3>{{player.name}} : {{attempt.quiz.name}} ({{attempt.date | date : 'dd/MM/yyyy'}})</h3>
         </div>
         <div class = "resultats" *ngIf = "!attempt.wrongAnswers || attempt.wrongAnswers.length===0">
             <h2>Sans faute</h2>
@@ -19,21 +19,37 @@
         <div class="resultats" *ngIf="attempt.timeOuts>1">{{attempt.timeOuts}} pertes d'attention</div>
     </div>
     <div class="quiz-list"> 
-        <div *ngFor="let question of quiz.questions"> 
-
+        <div *ngFor="let question of attempt.quiz.questions"> 
+<!--TODO finish clickable or not-->
             <div *ngIf="true; else notClickable">
             <div class="quiz-card" *ngIf = "checkIfWrongQuestion(question)" (click)=seeQuestion(question.id)>
-                A la question : {{question.label}}<br>
-                La personne a répondu :
-                <div *ngFor="let answer of attempt.wrongAnswers" class = "answerList">
-                    <div class = "card" *ngIf = "answerInQuestion(answer, question)">
+                A la question :<br><br>
+                <div *ngIf="question.label">{{question.label}}</div>
+                <div *ngIf="question.imageId && question.image">
+                    <img class="frame thumbnail" [src]="globalService.getImgSrc1(question.image)" alt="Image question">
+                </div>
+                <br>
+                A répondu :
+                <ol>
+                <div *ngFor="let answer of attempt.wrongAnswers"> 
+                    <div *ngIf="answerInQuestion(answer, question)">
+                    <li>
+                        <div class="card">
+                        <div *ngIf="answer.imageId && answer.image">
+                            <img class="frame thumbnail" [src]="globalService.getImgSrc1(answer.image)" alt="Image reponse">
+                        </div>
                         <div *ngIf="answer.value">{{answer.value}}</div>
-                        <div *ngIf="answer.imageId">{{answer.imageId}}</div>
+                        </div>
+                    </li>
                     </div>
                 </div>
+                </ol>
                 au lieu de : <br>
-                <div class = "card">
-                    {{setRightAnswer(question).value}}
+                <div class = "card" *ngIf="setRightAnswer(question)">
+                    <div *ngIf="currentRightAnswer.imageId && currentRightAnswer.image">
+                        <img class="frame thumbnail" [src]="globalService.getImgSrc1(currentRightAnswer.image)" alt="Image reponse">
+                    </div>
+                    <div *ngIf="currentRightAnswer.value">{{currentRightAnswer.value}}</div>
                 </div>
             </div>
             </div>

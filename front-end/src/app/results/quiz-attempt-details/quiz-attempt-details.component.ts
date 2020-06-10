@@ -25,8 +25,10 @@ export class QuizAttemptDetailsComponent implements OnInit {
   quizId: string;
   questionId: string;
   wrongQuestions : Question[] = []
-  quiz : Quiz = {} as Quiz
-  quizImage : Img = {} as Img
+  //quiz : Quiz = {} as Quiz
+  //quizImage : Img = {} as Img
+
+  currentRightAnswer: Answer
 
   constructor(public playerService: PlayerService, public globalService: GlobalService, 
     public route: ActivatedRoute, public attemptService: AttemptService,
@@ -38,11 +40,11 @@ export class QuizAttemptDetailsComponent implements OnInit {
     const playerId = this.route.snapshot.paramMap.get('id');
     const attemptId = +this.route.snapshot.paramMap.get('attemptId')
     this.playerService.getPlayer(this.player, playerId);
-    this.attemptService.getAllFromSpecificAttempt(this.globalService, playerId, attemptId, this.attempt, this.quiz, this.quizImage);
+    this.attemptService.getAllFromSpecificAttempt(this.globalService, playerId, attemptId, this.attempt);
   }
 
   loaded() {
-    return this.player.id && this.attempt.id && this.quiz.id && this.quizImage.url;
+    return this.player.id && this.attempt.id && this.attempt;
   }
 
   seeQuestion(questionId: string) {
@@ -59,16 +61,15 @@ export class QuizAttemptDetailsComponent implements OnInit {
   }
 
   setRightAnswer(question : Question) {
-    let rightAnswer ={} as Answer;
-    if(!question.answers)return;
-    for (let index = 0; index < question.answers.length; index++) {
+    this.currentRightAnswer = null;
+    for (let index=0; index<question.answers.length; index++) {
       const curAns = question.answers[index];
       if(curAns.isCorrect){
-        rightAnswer = curAns;
+        this.currentRightAnswer = curAns;
         break;
       }
     }
-    return rightAnswer;
+    return this.currentRightAnswer;
   }
 
   answerInQuestion(answer : Answer, question : Question){

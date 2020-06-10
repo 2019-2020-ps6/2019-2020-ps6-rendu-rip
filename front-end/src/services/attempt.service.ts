@@ -39,20 +39,33 @@ export class AttemptService {
     });
   }
 
-  getAllFromSpecificAttempt(globalService: GlobalService, playerId: string, attemptId: number, attemptToLoad: Attempt, quizToLoad : Quiz, imageToLoad : Img) {
+  getAllFromSpecificAttempt(globalService: GlobalService, playerId: string, attemptId: number, attemptToLoad: Attempt) {
     this.http.get<Attempt>(`${serverUrl}/players/${playerId}/attempts/${attemptId}`, this.httpOptions)
     .subscribe( attempt => {
       attemptToLoad.id = attempt.id;
       attemptToLoad.playerId = attempt.playerId;
       attemptToLoad.quiz = attempt.quiz;
+      for(let quest of attemptToLoad.quiz.questions) {
+        quest.image = {} as Img;
+        globalService.loadQuestionImage(quest.image, quest.imageId);
+        for(let ans of quest.answers) {
+          ans.image = {} as Img;
+          globalService.loadAnswerImage(ans.image, ans.imageId);
+        }
+      }
       //load quiz image
       //load questions images
       //load answers/wrong answers images
       attemptToLoad.date = attempt.date;
       attemptToLoad.timeOuts = attempt.timeOuts;
       attemptToLoad.wrongAnswers = attempt.wrongAnswers;
-
-      globalService.loadQuizAndImage(attempt.quiz.id, quizToLoad, imageToLoad);
+      for(let ans of attemptToLoad.wrongAnswers) {
+        ans.image = {} as Img;
+        globalService.loadAnswerImage(ans.image, ans.imageId);
+      }
+      attemptToLoad.quiz.image = {} as Img;
+      globalService.loadQuizImage(attemptToLoad.quiz.image, attemptToLoad.quiz.imageId);
+      //globalService.loadQuizAndImage(attempt.quiz.id, quizToLoad, imageToLoad);
     });
   }
 
