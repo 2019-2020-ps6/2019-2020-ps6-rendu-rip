@@ -8,16 +8,12 @@
   text-align: center;
 }
 
-.quiz-list {
-  margin-top: 2rem;
-}
-
 .flex-list {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-
-  align-items: center;
+  margin: auto;
+  //align-items: center;
   justify-content: center;
 }
 
@@ -25,31 +21,53 @@
   @extend .flex-list;
 }
 
-.frame-little {
-  margin-left: auto;
-  margin-right: auto;
-  border-style: dashed;
-  border-color:  rgb(243, 58, 144);
-  height: 30%;
-  width: 30%;
-}
 .resultats{
   text-align: center;
-  //margin: 1rem;
 }
 
-.answerList{
-  //@extend .horizontal-layout;
-}
-
-.quiz-card{
-  margin: 1em;
+.attempt-list {
+  @extend .quiz-list;
 }
 
 .attempt-card {
   @extend .quiz-card;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 20%;
+  text-align: center;
+  margin: 1rem;// auto;
+  font-size: 20px;
+  font-weight: normal;
+  width: fit-content;
 }
 
+.frame-little {
+  @extend .frame;
+  height: 5rem;
+  width: 5rem;
+  border: none;
+}
+
+.frame-question {
+  @extend .frame;
+  border: none;
+  height: 6rem;
+  width: 6rem;
+}
+
+.card-answer {
+  @extend .card;
+  border-style: solid;
+  border-radius: 7px;
+  border-top: none;
+  border-bottom: none;
+  padding: 0;
+  padding-top: 0.3em;
+}
+
+.card-wrong {
+  @extend .card-answer;
+  border-color: rgb(255, 32, 32);
+}
+
+.card-right {
+  @extend .card-answer;
+  border-color: rgb(21, 255, 0);
+}
