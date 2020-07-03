@@ -12,7 +12,7 @@
   <div *ngIf="currentTab=='info'">
     <div class="horizontal-center">
     <h2>{{question.label}}</h2>
-    <div class="fixed-container">
+    <div class="fixed-container" *ngIf="image && image.url">
         <img class="frame thumbnail" [src]="imageService.getImgSrc1(image)" alt="photo">
     </div>
     </div>
