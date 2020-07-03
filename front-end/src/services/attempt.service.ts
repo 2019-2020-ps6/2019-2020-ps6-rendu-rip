@@ -8,6 +8,7 @@ import { Img } from 'src/models/image.model';
 import { GlobalService } from './global.service';
 import { Subject } from 'rxjs';
 import { SortDatePipe } from './sortDate.pipe';
+import { Question } from 'src/models/question.model';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class AttemptService {
     });
   }
 
-  getAllFromSpecificAttempt(globalService: GlobalService, playerId: string, attemptId: number, attemptToLoad: Attempt) {
+  getAllFromSpecificAttempt(globalService: GlobalService, playerId: string, attemptId: number, attemptToLoad: Attempt, questionsStillHere: Question[]) {
     this.http.get<Attempt>(`${serverUrl}/players/${playerId}/attempts/${attemptId}`, this.httpOptions)
     .subscribe( attempt => {
       attemptToLoad.id = attempt.id;
@@ -52,6 +53,10 @@ export class AttemptService {
           ans.image = {} as Img;
           globalService.loadAnswerImage(ans.image, ans.imageId);
         }
+        //ajout to know if question still here
+        questionsStillHere.push({} as Question);
+        questionsStillHere[questionsStillHere.length-1].id="not yet";
+        globalService.loadQuestion(questionsStillHere[questionsStillHere.length-1], quest.quizId, quest.id);
       }
       //load quiz image
       //load questions images
@@ -77,5 +82,12 @@ export class AttemptService {
   deleteAttempt(attempt : Attempt){
     this.http.delete<Attempt>(`${serverUrl}/players/${attempt.playerId}/attempts/${attempt.id}`,this.httpOptions)
     .subscribe(() => this.attempts$.next(true))
+  }
+
+  addQuestionIfStillHere(question : Question, questionsSet : Set<Question>) {
+    const url = `${serverUrl}}/quizzes/${question.quizId}/questions/${question.id}`;
+    this.http.get<Question>(url, this.httpOptions).subscribe(qu => {
+      questionsSet.add(qu);
+    });
   }
 }

@@ -21,7 +21,7 @@
     <div class="flex-list"> 
         <div *ngFor="let question of attempt.quiz.questions"> 
 <!--TODO finish clickable or not-->
-            <div *ngIf="true; else notClickable">
+            <div *ngIf="isQuestionStillHere(question); else notClickable">
             <div class="attempt-card" *ngIf = "checkIfWrongQuestion(question)" (click)=seeQuestion(question.id)>
                 <div *ngIf="question.label">{{question.label}}</div>
                 <div *ngIf="question.imageId && question.image">
@@ -54,7 +54,37 @@
             </div>
             </div>
             <ng-template #notClickable>
-                <div>not clickable because question no longer here</div>
+                <div class="attempt-card" *ngIf = "checkIfWrongQuestion(question)" style="background-color: plum; cursor: default; box-shadow: none; border: dotted rgb(146, 144, 144);">
+                    <span style="font-style: italic; font-size: smaller; color: brown;">(Question supprimée)</span><br>
+                    <div *ngIf="question.label">{{question.label}}</div>
+                    <div *ngIf="question.imageId && question.image">
+                        <img class="frame-question thumbnail" [src]="globalService.getImgSrc1(question.image)" alt="Image question">
+                    </div>
+                    <br>
+                    Réponse :
+                    <!--<ol>-->
+                    <div *ngFor="let answer of attempt.wrongAnswers"> 
+                        <div *ngIf="answerInQuestion(answer, question)">
+                        <!--<li>-->
+                            <div class="card-wrong">
+                            <div *ngIf="answer.imageId && answer.image">
+                                <img class="frame-little thumbnail" [src]="globalService.getImgSrc1(answer.image)" alt="Image reponse">
+                            </div>
+                            <div *ngIf="answer.value">{{answer.value}}</div>
+                            </div>
+                        <!--</li>-->
+                        </div>
+                    </div>
+                    <!--</ol>-->
+                    <br>
+                    Au lieu de : <br>
+                    <div class="card-right" *ngIf="setRightAnswer(question)">
+                        <div *ngIf="currentRightAnswer.imageId && currentRightAnswer.image">
+                            <img class="frame-little thumbnail" [src]="globalService.getImgSrc1(currentRightAnswer.image)" alt="Image reponse">
+                        </div>
+                        <div *ngIf="currentRightAnswer.value">{{currentRightAnswer.value}}</div>
+                    </div>
+                </div>
             </ng-template>
         </div> 
     </div>

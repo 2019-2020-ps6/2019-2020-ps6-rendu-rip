@@ -22,6 +22,7 @@ export class RunnerComponent implements OnInit {
   currentQuestion : Question;
   image: Img;
   currentAttempt: Attempt;
+  theEnd: boolean = false;
 
   @Output() showAnswer: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -89,6 +90,7 @@ export class RunnerComponent implements OnInit {
     this.currentQuestion = this.questions.pop();
     //this.currentAttempt.questions.push(this.currentQuestion);
     this.loadImage();
+    if(!this.currentQuestion) this.theEnd = true;
   }
   
   loadImage(){

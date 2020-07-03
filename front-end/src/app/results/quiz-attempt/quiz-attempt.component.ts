@@ -24,6 +24,8 @@ export class QuizAttemptComponent implements OnInit {
   loaded() { return this.attempt && this.quiz; }
 
   ngOnInit() {
-    this.globalService.loadQuizAndImage(this.attempt.quiz.id, this.quiz, this.image);
+    this.quiz = this.attempt.quiz;
+    this.globalService.loadQuizImage(this.image, this.quiz.imageId);
+    //this.globalService.loadQuizAndImage(this.attempt.quiz.id, this.quiz, this.image);
   }
 }

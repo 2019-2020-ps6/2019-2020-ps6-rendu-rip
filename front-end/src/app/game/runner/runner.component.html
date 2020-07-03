@@ -1,7 +1,7 @@
-<div *ngIf = "quiz && currentQuestion; else elseBlock">
-    <span class="navbar-brand" routerLink="../.." style="color: grey; margin-left: 0.5em; float: left;">
-        <i class="fa fa-angle-left" aria-hidden="true"></i>
-    </span>
+<span class="navbar-brand" routerLink="../.." style="color: grey; margin-left: 0.5em; float: left;">
+    <i class="fa fa-angle-left" aria-hidden="true"></i>
+</span>
+<div *ngIf = "quiz && currentQuestion"><!--; else elseBlock">-->
     <div id="questionQuiz">
         <div *ngIf="image && image.url; else noImage">
             <div *ngIf="currentQuestion.label; else noTxt">
@@ -18,8 +18,10 @@
     </div>
     <app-answer-list-widget [answers] = "currentQuestion.answers" (selected) = "onSelectedAnswer($event)" (next) = "onNext($event)" (wrongAnswerEvent) = "onWrongAnswer($event)" (timeOutEvent) = "onTimeOut()"></app-answer-list-widget>
 </div>
-<ng-template #elseBlock>
+<div *ngIf="theEnd">
+<!--<ng-template #elseBlock>-->
     <div id="recapButton">
         <div class="recapButton" (click)="sendAttempt()" routerLink= "./recap">Récapitulatif</div>
-    </div>    
-</ng-template>
+    </div>   
+</div> 
+<!--</ng-template>-->

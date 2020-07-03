@@ -1,7 +1,7 @@
 <div *ngIf="loaded()">
     <div class="quiz-card">
         <h5 class="title">{{quiz.name}}</h5>
-        <div *ngIf="quiz.imageId && image.url">
+        <div *ngIf="image.url">
             <img class="frame thumbnail" [src]="globalService.getImgSrc1(image)" alt="- Image quiz -">
         </div>
         <ul>

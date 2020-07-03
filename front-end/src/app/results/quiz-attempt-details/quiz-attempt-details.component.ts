@@ -22,13 +22,11 @@ export class QuizAttemptDetailsComponent implements OnInit {
 
   player: Player = {} as Player;
   attempt: Attempt = {} as Attempt;
-  quizId: string;
-  questionId: string;
-  wrongQuestions : Question[] = []
-  //quiz : Quiz = {} as Quiz
-  //quizImage : Img = {} as Img
-
   currentRightAnswer: Answer
+
+  //wrongQuestions: Set<Question>;
+  questionsStillHere: Question[];
+  //questionsStillHere: Set<Question>;
 
   constructor(public playerService: PlayerService, public globalService: GlobalService, 
     public route: ActivatedRoute, public attemptService: AttemptService,
@@ -40,15 +38,33 @@ export class QuizAttemptDetailsComponent implements OnInit {
     const playerId = this.route.snapshot.paramMap.get('id');
     const attemptId = +this.route.snapshot.paramMap.get('attemptId')
     this.playerService.getPlayer(this.player, playerId);
-    this.attemptService.getAllFromSpecificAttempt(this.globalService, playerId, attemptId, this.attempt);
+    this.questionsStillHere = new Array<Question>();
+    this.attemptService.getAllFromSpecificAttempt(this.globalService, playerId, attemptId, this.attempt, this.questionsStillHere);
+    //this.wrongQuestions = new Set<Question>();
   }
 
   loaded() {
     return this.player.id && this.attempt.id && this.attempt;
   }
 
-  seeQuestion(questionId: string) {
+  seeQuestion(questionId : string) {
     this.router.navigate([`admin/quiz-list/${this.attempt.quiz.id}/${questionId}`]);
+  }
+
+  isQuestionStillHere(question : Question){
+    /*this.attempt.quiz.questions.forEach(qu => {
+      if(this.checkIfWrongQuestion(qu)) {
+        this.wrongQuestions.add(qu);*/
+        //const qu = {} as Question;
+        //this.globalService.loadQuestion(qu, question.quizId, question.id);
+        //this.attemptService.addQuestionIfStillHere(qu, this.questionsStillHere);
+      /*}
+    });*/
+    for (const q of this.questionsStillHere) {
+      if(q.id == question.id) return true;
+    }
+    return false;
+    //return qu;//this.questionsStillHere.has(question);
   }
 
   checkIfWrongQuestion(question : Question){
