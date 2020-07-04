@@ -12,20 +12,20 @@
     <app-player-form-modal [player] = "player" [playerImage] = "playerPhoto"></app-player-form-modal>
   </div>
 
-  <div *ngIf="currentTab=='quizzes' && quizVisible">
+  <div *ngIf="currentTab=='quizzes' && quizzesVisible">
     <app-associate-quiz-modal [quizzes]="quizzes" [player]="player"></app-associate-quiz-modal>
     <h3 style="text-align: center; margin-top: 0.5em; margin-bottom: 0.5em;">Liste des quiz actuellement visibles: </h3>
     <div class="quiz-list">
-      <div class="fixed-container-bigger" *ngFor = "let quiz of quizVisible">
+      <div class="fixed-container-bigger" *ngFor = "let quiz of quizzesVisible">
         <div class = "tag" *ngIf = "!globalService.isValid(quiz)">
-            INCOMPLET
+          INCOMPLET
         </div>
         <button class="delete-button" (click)="removeVisibility(quiz)">
-            <i class="fas fa-times"></i>
+          <i class="fas fa-times"></i>
         </button>
         <div class="quiz-card"  routerLink= "../../quiz-list/{{quiz.id}}">
           <app-quiz  [quiz]="quiz"></app-quiz>
-      </div>
+        </div>
       </div>    
     </div>
   </div>

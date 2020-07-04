@@ -5,21 +5,21 @@
 </div>
 
 <ng-template #visibilityChoiceModal let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Choisir la visibilité</h4>
-      <button type="button" class="close" aria-label="Close" (click)="reset();modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Choisir la visibilité</h4>
+    <button type="button" class="close" aria-label="Close" (click)="reset();modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" *ngIf = "players">
+    <div class="custom-control custom-switch">
+      <input type="checkbox" class="custom-control-input" id="customSwitches" [checked]="all" (change)="all = !all">
+      <label class="custom-control-label" for="customSwitches" style="margin-bottom: 1em;">Tous</label>
     </div>
-    <div class="modal-body" *ngIf = "players">
-      <div class="custom-control custom-switch">
-        <input type="checkbox" class="custom-control-input" id="customSwitches" [checked]="all" (change)="all = !all">
-        <label class="custom-control-label" for="customSwitches" style="margin-bottom: 1em;">Tous</label>
-      </div>
-      <app-associate-player-modal [players] = "players" [all] = "all" [quiz] = "quiz" (selected) = "setPlayersSelected($event)"></app-associate-player-modal>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="save();modal.close()">Enregistrer</button>
-      <button type="button" class="btn btn-outline-secondary" (click)="reset();modal.close()">Annuler</button>
-    </div>
-  </ng-template>
+    <app-associate-player-modal [players] = "players" [all] = "all" [quiz] = "quiz" (selected) = "setPlayersSelected($event)"></app-associate-player-modal>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="save();modal.close()">Enregistrer</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="reset();modal.close()">Annuler</button>
+  </div>
+</ng-template>

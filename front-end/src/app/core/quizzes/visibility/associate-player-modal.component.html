@@ -3,23 +3,23 @@
 </button>
 
 <ng-template #associate let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Cocher les accueillis qui pourront jouer au quiz</h4>
-      <button type="button" class="close" aria-label="Close" (click)="reset();modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Cocher les accueillis qui pourront jouer au quiz</h4>
+    <button type="button" class="close" aria-label="Close" (click)="reset();modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="checkForm">
+      <div *ngFor="let player of players; let i = index">
+        <label formArrayName="checkBoxes">
+          <input type="checkbox" [formControlName]="i" />
+          {{players[i].name}}
+        </label>
+      </div>
+    </form>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary" (click)="submit();modal.close()">Ok</button>
     </div>
-    <div class="modal-body">
-        <form [formGroup]="checkForm">
-          <div *ngFor="let player of players; let i = index">
-            <label formArrayName="checkBoxes" >
-              <input type="checkbox" [formControlName]="i" />
-              {{players[i].name}}
-            </label>
-          </div>
-        </form>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" (click)="submit();modal.close()">Ok</button>
-        </div>
-    </div>
-  </ng-template>
+  </div>
+</ng-template>

@@ -8,6 +8,7 @@ import { ModalService } from 'src/services/modal.service';
 import { QuizService } from 'src/services/quiz.service';
 import { Quiz } from 'src/models/quiz.model';
 import { GlobalService } from 'src/services/global.service';
+import { SortDatePipe } from 'src/services/sortDate.pipe';
 
 @Component({
   selector: 'app-player-view',
@@ -20,12 +21,12 @@ export class PlayerViewComponent implements OnInit {
 
   player: Player;
   playerPhoto: Img = {} as Img;
-  quizVisible: Quiz[];
+  quizzesVisible: Quiz[];
   quizzes: Quiz[];
 
   private currentTab: string;
 
-  constructor(private globalService :GlobalService, private quizService : QuizService, private modalService : ModalService, public playerService: PlayerService, public imageService: ImageService, 
+  constructor(private sortDate : SortDatePipe, private globalService :GlobalService, private quizService : QuizService, private modalService : ModalService, public playerService: PlayerService, public imageService: ImageService, 
     public router: ActivatedRoute) {
   }
 
@@ -35,17 +36,22 @@ export class PlayerViewComponent implements OnInit {
       this.headerTitle = player.name;
       this.imageService.loadPlayerImage(this.playerPhoto, this.player.imageId);
       this.quizService.quizzes$.subscribe((quizzes) => {
-        this.quizVisible = [];
+        this.quizzesVisible = [];
         this.quizzes = quizzes;
         quizzes.forEach((quiz) =>{
-          if(this.playerService.quizVisibleByPlayer(this.player,quiz.id)){
-            this.quizVisible.push(quiz);
+          if(this.playerService.quizVisibleByPlayer(this.player, quiz.id)){
+            this.quizzesVisible.push(quiz);
           }
         })
+        this.timeOrderQuizList();
       });
     });
     const playerId = this.router.snapshot.paramMap.get('id');
     this.playerService.setSelectedPlayer(playerId);
+  }
+
+  timeOrderQuizList() {
+    this.sortDate.transform(this.quizzesVisible, "-creationDate")
   }
 
   removeVisibility(quiz : Quiz){

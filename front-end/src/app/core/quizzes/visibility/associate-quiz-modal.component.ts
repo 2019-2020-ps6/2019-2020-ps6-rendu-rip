@@ -17,44 +17,38 @@ import { Player } from 'src/models/player.model';
     @Input()
     player: Player
     @Input()
-    quizzes:Quiz[]
-
+    quizzes: Quiz[]
+ 
     checkForm : FormGroup;
-    quizSelected : Quiz[] = [];
 
     constructor(public playerService : PlayerService, public formBuilder : FormBuilder, public modalService : ModalService, public globalService : GlobalService ) {
-  
     }
 
-    ngOnInit(){
+    ngOnInit() {
       this.initCheckForm();
-  }
+    }
  
     private initCheckForm() {
-        this.checkForm = this.formBuilder.group({
+      this.checkForm = this.formBuilder.group({
         checkBoxes: new FormArray([])
-        });
-        this.quizzes.forEach((quiz) => {
-        const checkBox = new FormControl(this.playerService.quizVisibleByPlayer(this.player,quiz.id)); // dans les parenthèse pour init
+      }); 
+      this.quizzes.forEach((quiz) => {
+        const checkBox = new FormControl(this.playerService.quizVisibleByPlayer(this.player, quiz.id)); // dans les parenthèse pour init
         (this.checkForm.controls.checkBoxes as FormArray).push(checkBox);
-        });
+      });
     }
 
     submit() {
-      for(var i = 0; i<this.checkForm.value.checkBoxes.length;i++){
+      this.player.quizVisible = [];
+      for(let i = 0; i<this.checkForm.value.checkBoxes.length; i++){
         if(this.checkForm.value.checkBoxes[i]){
-          this.quizSelected.push(this.quizzes[i]);
-        }
-      }
-      for(let quiz of this.quizSelected){
-        if(!this.playerService.quizVisibleByPlayer(this.player,quiz.id)){
-            this.player.quizVisible.push(quiz.id);
+          this.player.quizVisible.push(this.quizzes[i].id);
         }
       }
       this.playerService.updatePlayer(this.player);
     }
 
     reset(){
-        this.quizSelected = [];
+      this.initCheckForm();
     }
-}
+  }

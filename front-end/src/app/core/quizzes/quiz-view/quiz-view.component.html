@@ -1,15 +1,5 @@
 <body>
 <app-header [type]="'quizInfo'"[title] = "headerTitle" [image] = "image" (tab)="onNavTabClicked($event)"></app-header>
-<!--
-<div class="goback-button" *ngIf ="isValid(); else invalidBack" (click)="goBack()">
-  <i class="fa fa-arrow-left" aria-hidden="true"></i>
-</div>
-<ng-template #invalidBack>
-<div class="goback-button" (click)="modalService.open(quizInvalid)">
-  <i class="fa fa-arrow-left" aria-hidden="true"></i>
-</div>
-</ng-template>-->
-
 <div *ngIf ="quiz && image.url">
   <div *ngIf="currentTab=='info'">
     <div class="horizontal-center">

@@ -1,27 +1,27 @@
 <div class="top-btn">
-<button class="btn btn-info" (click)="modalService.open(associateQuiz)">
-  Rendre des quiz visibles
-</button>
+  <button class="btn btn-info" (click)="modalService.open(associateQuiz)">
+    Rendre des quiz visibles
+  </button>
 </div>
 <ng-template #associateQuiz let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Cocher les quiz que {{player.name}} pourra voir</h4>
-      <button type="button" class="close" aria-label="Close" (click)="reset();modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Cocher les quiz que {{player.name}} pourra voir</h4>
+    <button type="button" class="close" aria-label="Close" (click)="reset();modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="checkForm">
+      <div *ngFor="let quiz of quizzes; let i = index">
+        <label formArrayName="checkBoxes" >
+          <input type="checkbox" [formControlName]="i" />
+          {{quizzes[i].name}}
+        </label>
+      </div>
+    </form>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="submit(); modal.close()">Enregistrer</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="reset(); modal.close()">Annuler</button>
     </div>
-    <div class="modal-body">
-        <form [formGroup]="checkForm">
-          <div *ngFor="let quiz of quizzes; let i = index">
-            <label formArrayName="checkBoxes" >
-              <input type="checkbox" [formControlName]="i" />
-              {{quizzes[i].name}}
-            </label>
-          </div>
-        </form>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="submit();modal.close()">Ajouter</button>
-          <button type="button" class="btn btn-outline-secondary" (click)="reset();modal.close()">Annuler</button>
-        </div>
-    </div>
-  </ng-template>
+  </div>
+</ng-template>

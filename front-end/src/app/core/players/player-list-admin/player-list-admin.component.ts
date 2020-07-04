@@ -13,31 +13,21 @@ export class PlayerListAdminComponent implements OnInit {
 
   headerTitle = "Liste des Accueillis";
 
-  public playerList: Player[] = [];
-  showForm : boolean = false;
+  public playerList: Player[];
 
   constructor(private modalService: ModalService, public globalService: GlobalService,
     public playerService: PlayerService) {
-    this.playerService.players$.subscribe((player) => {
-      this.playerList = player
-      this.findGuest();
+    this.playerService.players$.subscribe((players) => {
+      this.playerList = players.filter(p => p.id != "1");
     });
   }
 
-  findGuest(){
-    for(let player of this.playerList){
-      if(player.id=="1"){
-        this.playerList=  this.playerList.filter(pl=>pl!==player)
-      }
-    }
-  }
   ngOnInit() {
   }
 
   deletePlayer(player: Player) { 
     const imgId = player.imageId;
-    if(this.globalService.isAnImage(imgId) &&
-    !this.globalService.isDefaultImage(imgId)) this.globalService.deletePlayerPhoto(imgId);
+    if(this.globalService.isAnImage(imgId) && !this.globalService.isDefaultImage(imgId)) this.globalService.deletePlayerPhoto(imgId);
     this.playerService.deletePlayer(player);
-   }
+  }
 }

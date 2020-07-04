@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Img } from 'src/models/image.model';
 import { ImageService } from 'src/services/image.service';
 import { GlobalService } from 'src/services/global.service';
+import { SortDatePipe } from 'src/services/sortDate.pipe';
 
 @Component({
   selector: 'app-quiz-list-player',
@@ -28,7 +29,8 @@ export class QuizListPlayerComponent implements OnInit {
 
   headerTitle: string;
 
-  constructor(private route: ActivatedRoute, public quizService: QuizService, 
+  constructor(private sortDate : SortDatePipe,
+    private route: ActivatedRoute, public quizService: QuizService, 
     public globalService: GlobalService,
     public formBuilder: FormBuilder, public themeService : ThemeService, 
     public playerService: PlayerService, public imageService: ImageService) {
@@ -36,7 +38,6 @@ export class QuizListPlayerComponent implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    //this.themeFilteringSetup();
     this.themeForm = this.formBuilder.group({
       theme: this.ALL_QUIZZES
     });
@@ -45,9 +46,8 @@ export class QuizListPlayerComponent implements OnInit {
       this.headerTitle = player.name;
       this.quizService.quizzes$.subscribe((quizzes) => {
         this.quizList = [];
-        this.quizList = quizzes
-        this.themeFilteringSetup();
-        //this.filteredQuizList();
+        quizzes.map(q => this.quizList.push(q));
+        this.quizFilteringSetup();
       });
     });
     this.quizService.setQuizzesFromUrl();
@@ -65,34 +65,37 @@ export class QuizListPlayerComponent implements OnInit {
     this.imageService.loadPlayerImage(this.image, id);
   }
 
-  themeFilteringSetup() {
+  quizFilteringSetup() {
     this.themeService.themes$.subscribe((themes) =>{
       this.THEME_LIST = [];
       this.THEME_LIST.push(this.ALL_QUIZZES);
-      this.filteredQuizList();
-      for(var i =0 ; i<themes.length;i++) {
-        if(this.themeService.themeIsUsed(themes[i],themes,this.quizListFiltered)){
+      this.filterQuizList();
+      for(var i =0 ; i<themes.length; i++) {
+        if(this.themeService.themeIsUsed(themes[i], themes, this.quizListFiltered)){
           this.THEME_LIST.push(themes[i].name)
         }
       }
-     });
+    });
   }
 
-  hasSelectedTheme( quiz: Quiz ) {
-    let selectedTheme = this.themeForm.getRawValue() as {theme: string};
-    let theme = selectedTheme.theme;
-
-    if (theme===this.ALL_QUIZZES) return true;
-    return quiz.theme === theme;
+  hasSelectedTheme(quiz: Quiz) {
+    const selectedTheme = (this.themeForm.getRawValue() as {theme: string}).theme;
+    return selectedTheme == this.ALL_QUIZZES || selectedTheme == quiz.theme;
   }
 
-  filteredQuizList(){
-    if(!this.quizList)return null;
+  filterQuizList() {
+    if(!this.quizList) return;
     this.quizListFiltered = []
-    for (let quiz of this.quizList){
-      if(this.hasSelectedTheme(quiz) && this.globalService.isValid(quiz) && (this.playerService.quizVisibleByPlayer(this.player,quiz.id) || this.player.id=="1")){
+    for(let quiz of this.quizList) {
+      if(this.hasSelectedTheme(quiz) && this.globalService.isValid(quiz) && (this.playerService.quizVisibleByPlayer(this.player,quiz.id) || this.player.id=="1")) {
         this.quizListFiltered.push(quiz);
       }
     }
+    //ordering chrono inverse
+    this.timeOrderQuizList();
+  }
+
+  timeOrderQuizList() {
+    this.sortDate.transform(this.quizListFiltered, "-creationDate")
   }
 }

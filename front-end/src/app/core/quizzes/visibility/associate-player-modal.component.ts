@@ -25,26 +25,27 @@ import { Quiz } from 'src/models/quiz.model';
     selected: EventEmitter<Player[]> = new EventEmitter<Player[]>();
 
     checkForm : FormGroup;
-
     playersSelected : Player[] = [];
+
     constructor(public playerService : PlayerService, public formBuilder : FormBuilder, public modalService : ModalService, public globalService : GlobalService ) {
-  
     }
 
     ngOnInit(){
       this.initCheckForm();
-  }
-  ngOnChanges(){
-    this.initCheckForm();
-  }
-
+    }
+    
+    ngOnChanges(){
+      this.initCheckForm();
+    }
 
     private initCheckForm() {
       this.checkForm = this.formBuilder.group({
         checkBoxes: new FormArray([])
-        });
-      this.players.forEach( player => {
-        const checkBox = new FormControl(this.all || this.playerService.quizVisibleByPlayer(player,this.quiz.id)); // dans les parenthèse pour init
+      });
+      //filter out guest account
+      this.players = this.players.filter(p => p.id != "1");
+      this.players.forEach(player => {
+        const checkBox = new FormControl(this.all || this.playerService.quizVisibleByPlayer(player, this.quiz.id)); // dans les parenthèse pour init
         (this.checkForm.controls.checkBoxes as FormArray).push(checkBox);
       });
     }
@@ -57,7 +58,7 @@ import { Quiz } from 'src/models/quiz.model';
         }
       }
       this.selected.emit(this.playersSelected);
-      }
+    }
 
     reset(){
         this.playersSelected = [];

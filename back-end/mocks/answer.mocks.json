@@ -252,5 +252,29 @@
     "value": "la trilogie",
     "questionId": 1588004242982,
     "id": 1588004272305
+  },
+  {
+    "isCorrect": true,
+    "value": "R1",
+    "questionId": 1588004410042,
+    "id": 1593885974922
+  },
+  {
+    "isCorrect": false,
+    "value": "R2",
+    "questionId": 1588004410042,
+    "id": 1593885980963
+  },
+  {
+    "isCorrect": true,
+    "value": "Ok",
+    "questionId": 1593886315812,
+    "id": 1593886321543
+  },
+  {
+    "isCorrect": false,
+    "value": "Non ok",
+    "questionId": 1593886315812,
+    "id": 1593886326310
   }
 ]

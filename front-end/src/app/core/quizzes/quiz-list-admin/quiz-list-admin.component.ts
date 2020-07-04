@@ -52,11 +52,8 @@ export class QuizListAdminComponent implements OnInit {
   }
 
   hasSelectedTheme( quiz: Quiz ) {
-    let selectedTheme = this.themeForm.getRawValue() as {theme: string};
-    let theme = selectedTheme.theme;
-
-    if (theme===this.ALL_QUIZZES) return true;
-    return quiz.theme === theme;
+    const selectedTheme = (this.themeForm.getRawValue() as {theme: string}).theme;
+    return selectedTheme == this.ALL_QUIZZES || selectedTheme == quiz.theme;
   }
 
   filteredQuizList() : Quiz[] {
