@@ -74,7 +74,7 @@ export class RunnerComponent implements OnInit {
   }
 
   sendAttempt() {
-    this.attemptService.sendAttempt(this.currentAttempt);
+    if(this.route.snapshot.paramMap.get('id')!=="1") this.attemptService.sendAttempt(this.currentAttempt);
   }
 
   ngOnInit() {
@@ -90,7 +90,10 @@ export class RunnerComponent implements OnInit {
     this.currentQuestion = this.questions.pop();
     //this.currentAttempt.questions.push(this.currentQuestion);
     this.loadImage();
-    if(!this.currentQuestion) this.theEnd = true;
+    if(!this.currentQuestion) {
+      this.sendAttempt();
+      this.theEnd = true;
+    }
   }
   
   loadImage(){

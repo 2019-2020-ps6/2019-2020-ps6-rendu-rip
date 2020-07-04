@@ -19,15 +19,15 @@
   width: 100%;
 }
 
-.button-player:hover {
-  cursor: pointer;
-
-}
-
 .delete {
   align-self: flex-end;
 }
 
 .title {
   text-align: center;
+}
+
+.guest{
+  display: block;
+  margin: 0em;
 }

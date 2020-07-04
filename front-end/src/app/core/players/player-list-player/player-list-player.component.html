@@ -1,9 +1,13 @@
 <body>
     <app-header [isHomeBrand]="true" [title]="'Sélection d\'un profil'"></app-header>
+    <div *ngIf = "guest" class="quiz-card guest">
+        <app-player [player] = "guest" routerLink="./{{guest.id}}"></app-player>
+    </div>
+    <hr>
     <div class="player-list">
         <div class="fixed-container-bigger" *ngFor="let player of playerList">
             <div class="quiz-card" routerLink="./{{player.id}}">
-                <app-player [player]="player" (playerDeleted) = "deletePlayer($event)"></app-player>
+                <app-player [player]="player"></app-player>
             </div>
         </div>
     </div>

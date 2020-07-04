@@ -18,9 +18,19 @@ export class PlayerListAdminComponent implements OnInit {
 
   constructor(private modalService: ModalService, public globalService: GlobalService,
     public playerService: PlayerService) {
-    this.playerService.players$.subscribe((player) => this.playerList = player);
+    this.playerService.players$.subscribe((player) => {
+      this.playerList = player
+      this.findGuest();
+    });
   }
 
+  findGuest(){
+    for(let player of this.playerList){
+      if(player.id=="1"){
+        this.playerList=  this.playerList.filter(pl=>pl!==player)
+      }
+    }
+  }
   ngOnInit() {
   }
 

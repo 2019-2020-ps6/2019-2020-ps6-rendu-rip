@@ -90,7 +90,7 @@ export class QuizListPlayerComponent implements OnInit {
     if(!this.quizList)return null;
     this.quizListFiltered = []
     for (let quiz of this.quizList){
-      if(this.hasSelectedTheme(quiz) && this.globalService.isValid(quiz) && this.playerService.quizVisibleByPlayer(this.player,quiz.id)){
+      if(this.hasSelectedTheme(quiz) && this.globalService.isValid(quiz) && (this.playerService.quizVisibleByPlayer(this.player,quiz.id) || this.player.id=="1")){
         this.quizListFiltered.push(quiz);
       }
     }
