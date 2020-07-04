@@ -19,6 +19,7 @@ export class AnswerFormComponent implements OnInit {
   @Input() quiz: Quiz;
   @Input() question: Question;
   @Input() answer : Answer;
+  @Input() alreadyRightAnswer : boolean;
   @Output() quitForm: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   removeImgisCalled: boolean = false;
@@ -110,7 +111,7 @@ export class AnswerFormComponent implements OnInit {
     this.onChangeFile = false;
     this.removeImgisCalled = false;
     this.onFormChanges();
-    this.showError=false;
+    this.showError = false;
   }
 
   addImage(){

@@ -6,7 +6,18 @@
       <ng-template [ngTemplateOutlet] ="displayImageAns"></ng-template>
       <ng-template [ngTemplateOutlet]="buttonCharging0"></ng-template>
       </div>
-      Correcte : <input type="checkbox" [formControlName]="'isCorrect'">
+      <!--Correcte : <input type="checkbox" [formControlName]="'isCorrect'">-->
+      <div *ngIf = "!answer.isCorrect && this.answerService.nbCorrectAnswers(this.question.answers)>0; else noRightAnswerYet" (click)= "showError=!showError">
+        <label for = "correct" class = "titre" style="margin-bottom: 0.5em;"> Correcte : </label> 
+        <input id = "correct" type="checkbox" disabled>
+        <div *ngIf = "showError" class="errorMessage">Une seule réponse correcte est autorisée - Veuillez décocher la réponse "Correcte" avant d'en cocher une autre</div>
+      </div>
+      <ng-template #noRightAnswerYet >
+      <div>
+        <label for = "correct" class = "titre" style="margin-bottom: 0.5em;"> Correcte : </label> 
+        <input id = "correct" type="checkbox" [formControlName]="'isCorrect'">
+      </div>
+      </ng-template>
       <div class="buttons-bottom" *ngIf = "!answer || onChangeFile || removeImgisCalled">
         <button type="submit" id="submitAnswer" class="btn btn-primary" type="submit" (click)="submitAnswer();">Enregistrer</button>
         <button type="button" id="cancelAnswer" class="btn btn-outline-secondary" (click)="reset();">Annuler</button>
@@ -33,15 +44,17 @@
     <form [formGroup]="answerForm">
       <label class = "titre" for="name" style="margin-bottom: 0.5em;">Réponse :</label>
       <input type="text" size = "{{sizeInput()}}" [formControlName]="'value'" id="name"><br>
-      <div *ngIf = "this.answerService.nbCorrectAnswers(this.question.answers)>0" (click)= "showError=!showError">
+      <div *ngIf = "this.answerService.nbCorrectAnswers(this.question.answers)>0; else noRightAnswerYet2" (click)= "showError=!showError">
         <label for = "correct" class = "titre" style="margin-bottom: 0.5em;"> Correcte : </label> 
         <input id = "correct" type="checkbox" disabled>
-        <div *ngIf = "showError" class="errorMessage">Vous ne pouvez pas mettre 2 réponses correctes</div>
+        <div *ngIf = "showError" class="errorMessage">Une seule réponse correcte est autorisée - Veuillez décocher la réponse "Correcte" avant d'en cocher une autre</div>
       </div>
-      <div *ngIf = "!this.answerService.nbCorrectAnswers(this.question.answers)>0">
+      <ng-template #noRightAnswerYet2>
+      <div>
         <label for = "correct" class = "titre" style="margin-bottom: 0.5em;"> Correcte : </label> 
         <input id = "correct" type="checkbox" [formControlName]="'isCorrect'">
       </div>
+      </ng-template>
       <div class = "imageAndButton" style="margin-bottom: 0.5em;">
       <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>
       <ng-template [ngTemplateOutlet] ="displayImageAns"></ng-template>

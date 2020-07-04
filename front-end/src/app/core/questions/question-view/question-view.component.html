@@ -16,7 +16,7 @@
         <img class="frame thumbnail" [src]="imageService.getImgSrc1(image)" alt="photo">
     </div>
     </div>
-    <app-question-form-modal [quiz]="quiz" [question]="question" [image]="image" ></app-question-form-modal>
+    <app-question-form-modal [quiz]="quiz" [question]="question" [image]="image"></app-question-form-modal>
   </div>
   <div *ngIf="currentTab!='info'">
   <app-answer-form [quiz]="quiz" [question]="question"></app-answer-form>
@@ -27,7 +27,7 @@
         <i class="fas fa-times"></i>
       </button>
       <div class="answer-card">
-        <app-answer-form [quiz] = "quiz" [question] = "question" [answer] = "answer"></app-answer-form>
+        <app-answer-form [quiz]="quiz" [question]="question" [answer]="answer" [alreadyRightAnswer]="true"></app-answer-form>
       </div>
     </div>
     </div>
