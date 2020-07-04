@@ -7,6 +7,7 @@ import { Img } from '../../../../models/image.model';
 
 import { GlobalService } from 'src/services/global.service';
 import { ModalService } from 'src/services/modal.service';
+import { AnswerService } from 'src/services/answer.service';
 
 @Component({
   selector: 'app-answer-form',
@@ -25,15 +26,17 @@ export class AnswerFormComponent implements OnInit {
   onChangeFile: boolean = false;
   moreFourAnswers: boolean;
   
+  showError : boolean
   imageTmp : Img = {} as Img;
   image : Img = {} as Img;
-  constructor(public modalService : ModalService, public formBuilder: FormBuilder, public globalService: GlobalService) {}
+  constructor(public answerService : AnswerService, public modalService : ModalService, public formBuilder: FormBuilder, public globalService: GlobalService) {}
 
   ngOnInit() {
     this.initializeAnswerForm();
     this.loadImage();
     this.onFormChanges();
     this.moreFourAnswers = this.question.answers.length >= 4;
+    this.showError = false;
   }
 
   onFormChanges() {
@@ -107,6 +110,7 @@ export class AnswerFormComponent implements OnInit {
     this.onChangeFile = false;
     this.removeImgisCalled = false;
     this.onFormChanges();
+    this.showError=false;
   }
 
   addImage(){

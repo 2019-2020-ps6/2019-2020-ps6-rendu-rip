@@ -3,10 +3,10 @@
       <i class="fa fa-home" aria-hidden="true"></i> Accueil
     </a>
     <p class="nav justify-content-end">
-      <a class="nav-link" routerLink= "/admin/player-list">Accueillis</a>
-      <a class="nav-link active" routerLink= "/admin/quiz-list">Quiz</a>
-      <a class="nav-link" routerLink= "/admin/gallery">Galerie</a>
-      <a class="nav-link" routerLink= "/admin/theme-list">Thèmes</a>
+      <a class="nav-link" [routerLinkActive]="['active']"routerLink= "/admin/player-list">Accueillis</a>
+      <a class="nav-link" [routerLinkActive]="['active']" routerLink= "/admin/quiz-list">Quiz</a>
+      <a class="nav-link"[routerLinkActive]="['active']" routerLink= "/admin/gallery">Galerie</a>
+      <a class="nav-link" [routerLinkActive]="['active']"routerLink= "/admin/theme-list">Thèmes</a>
     </p>
 </nav>
 
@@ -18,9 +18,9 @@
     - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> - </span>
   <ng-template #text style="margin: auto;"><span class="coloredText"> - {{title}} - </span></ng-template>
   <p class="nav justify-content-end">
-    <span class="nav-link active" (click)="onclickTab('questions')">Questions</span>
-    <span class="nav-link" (click)="onclickTab('visibility')">Visibilité</span>
-    <span class="nav-link" (click)="onclickTab('info')">Infos</span>
+    <span class="nav-link" [class.active] = "goodTabQuestions()" (click)="onclickTab('questions')">Questions</span>
+    <span class="nav-link" [class.active] = "goodTabVisibility()" (click)="onclickTab('visibility')">Visibilité</span>
+    <span class="nav-link" [class.active] = "goodTabInfo()" (click)="onclickTab('info')">Infos</span>
   </p>
 </nav>
 
@@ -33,8 +33,8 @@
     - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> - </span>
   <ng-template #text style="margin: auto;"><span class="coloredText"> - {{title}} - </span></ng-template>
   <p class="nav justify-content-end">
-    <span class="nav-link active" (click)="onclickTab('answers')">Réponses</span>
-    <span class="nav-link" (click)="onclickTab('info')">Infos</span>
+    <span class="nav-link" [class.active] = "goodTabAnswers()"(click)="onclickTab('answers')">Réponses</span>
+    <span class="nav-link" [class.active] = "goodTabInfo()"(click)="onclickTab('info')">Infos</span>
   </p>
 </nav>
 
@@ -47,9 +47,9 @@
       - {{title}} <img class = "thumbnail-header" [src]="imageService.getImgSrc1(image)" alt="image"> - </span>
     <ng-template #text style="margin: auto;"><span class="coloredText"> - {{title}} - </span></ng-template>
     <p class="nav justify-content-end">
-      <span class="nav-link active" (click)="onclickTab('stats')">Résultats</span>
-      <span class="nav-link" (click)="onclickTab('quizzes')">Quiz visibles</span>
-      <span class="nav-link" (click)="onclickTab('info')">Infos</span>
+      <span class="nav-link" [class.active] = "goodTabStats()"(click)="onclickTab('stats')">Résultats</span>
+      <span class="nav-link" [class.active] = "goodTabQuizzes()"(click)="onclickTab('quizzes')">Quiz visibles</span>
+      <span class="nav-link" [class.active] = "goodTabInfo()"(click)="onclickTab('info')">Infos</span>
     </p>
 </nav>
 

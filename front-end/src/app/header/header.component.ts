@@ -28,6 +28,8 @@ export class HeaderComponent implements OnInit {
 
   @Output()
   tab: EventEmitter<string> = new EventEmitter<string>();
+
+  currentTab : string;
   
   private adminGeneralNav: boolean;
   private adminQuizInfoNav: boolean;
@@ -49,7 +51,30 @@ export class HeaderComponent implements OnInit {
   }
 
   onclickTab(clicked: string) {
+    this.currentTab = clicked;
     this.tab.emit(clicked);
+  }
+
+  goodTabInfo(){
+    return this.currentTab==="info";
+  }
+  goodTabVisibility(){
+    return this.currentTab==="visibility";
+  }
+  goodTabQuestions(){
+    if(!this.currentTab) return true
+    return this.currentTab==="questions";
+  }
+  goodTabAnswers(){
+    if(!this.currentTab) return true
+    return this.currentTab=== "answers";
+  }
+  goodTabStats(){
+    if(!this.currentTab) return true
+    return this.currentTab=== "stats";
+  }
+  goodTabQuizzes(){
+    return this.currentTab=== "quizzes";
   }
 
   goBack() {

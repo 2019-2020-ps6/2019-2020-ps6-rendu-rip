@@ -33,8 +33,15 @@
     <form [formGroup]="answerForm">
       <label class = "titre" for="name" style="margin-bottom: 0.5em;">Réponse :</label>
       <input type="text" size = "{{sizeInput()}}" [formControlName]="'value'" id="name"><br>
-      <label for = "correct" class = "titre" style="margin-bottom: 0.5em;"> Correcte : </label>
-      <input id = "correct" type="checkbox" [formControlName]="'isCorrect'">
+      <div *ngIf = "this.answerService.nbCorrectAnswers(this.question.answers)>0" (click)= "showError=!showError">
+        <label for = "correct" class = "titre" style="margin-bottom: 0.5em;"> Correcte : </label> 
+        <input id = "correct" type="checkbox" disabled>
+        <div *ngIf = "showError" class="errorMessage">Vous ne pouvez pas mettre 2 réponses correctes</div>
+      </div>
+      <div *ngIf = "!this.answerService.nbCorrectAnswers(this.question.answers)>0">
+        <label for = "correct" class = "titre" style="margin-bottom: 0.5em;"> Correcte : </label> 
+        <input id = "correct" type="checkbox" [formControlName]="'isCorrect'">
+      </div>
       <div class = "imageAndButton" style="margin-bottom: 0.5em;">
       <ng-template [ngTemplateOutlet]="buttonCharging"></ng-template>
       <ng-template [ngTemplateOutlet] ="displayImageAns"></ng-template>

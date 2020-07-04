@@ -49,19 +49,25 @@ export class AnswerService {
     this.http.delete<Answer>(url, this.httpOptions).subscribe(() => quizService.setSelectedQuiz(quizId));
   }
 
+
+  nbCorrectAnswers(answers : Answer[]){
+    var nbRightAnswers = 0
+    answers.forEach(element => { if(element.isCorrect) nbRightAnswers++ })
+    return nbRightAnswers
+  }
+
   answersInvalid(answers: Answer[]): string {
     let errorMessage = "";
     if(answers == null || answers.length<2){
       errorMessage = "Attention: 2 réponses minimum requises"
       return errorMessage;
     }
-    var oneRightAnswer = 0
-    answers.forEach(element => { if(element.isCorrect) oneRightAnswer++ })
-    if(oneRightAnswer>1){
+    var rightAnswers = this.nbCorrectAnswers(answers)
+    if(rightAnswers>1){
       errorMessage = "Erreur: 1 seule réponse correcte possible"// --> faire la verif avant d'enregistrer réponse
       // gérer autrement --> radio buttons
     }
-    if(oneRightAnswer===0){
+    if(rightAnswers===0){
       errorMessage = "Attention: il n'y a aucune réponse correcte"
     }
     return errorMessage;

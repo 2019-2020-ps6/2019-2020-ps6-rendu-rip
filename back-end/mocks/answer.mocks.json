@@ -84,6 +84,34 @@
     "imageId": "1587863031533"
   },
   {
+    "value": "La vache",
+    "isCorrect": false,
+    "questionId": 1586591670358,
+    "id": 1586591817767,
+    "imageId": "1587862813430"
+  },
+  {
+    "value": "Le cheval",
+    "isCorrect": false,
+    "questionId": 1586591670358,
+    "id": 1586591828102,
+    "imageId": "1587877928346"
+  },
+  {
+    "value": "Le coq",
+    "isCorrect": false,
+    "questionId": 1586591670358,
+    "id": 1586591833878,
+    "imageId": "1587912225061"
+  },
+  {
+    "value": "Le lapin",
+    "isCorrect": true,
+    "questionId": 1586591670358,
+    "id": 1586591839759,
+    "imageId": "1587863031533"
+  },
+  {
     "isCorrect": false,
     "value": "le rhum",
     "questionId": 1587803400627,
