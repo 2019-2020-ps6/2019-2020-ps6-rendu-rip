@@ -54,6 +54,8 @@ export class StatisticsComponent implements OnInit {
 
   deleteAttempt(attempt : Attempt){
     this.attemptService.deleteAttempt(attempt);
+    this.playerAttempts = [];
+    this.attemptService.getPlayerAttempts(this.player.id, this.playerAttempts);
   }
 
   switchOrder(){
