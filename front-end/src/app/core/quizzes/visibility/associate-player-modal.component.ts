@@ -61,6 +61,6 @@ import { Quiz } from 'src/models/quiz.model';
     }
 
     reset(){
-        this.playersSelected = [];
+      this.playersSelected = [];
     }
 }

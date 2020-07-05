@@ -35,9 +35,9 @@ export class PasswordComponent implements OnInit {
       return;
     }
     this.isCorrect = false;
-    if (this.counter === 3) { // if entered password 3 times wrong that means it's a user who want to acces and not a staff !!
+    if (this.counter === 3) { // if entered password 3 times wrong that means it's a user who wants to acces and not a staff !!
       this.counter = 0; // reset on 0
       this.router.navigate(['home']); // redirect to home page
-    }//bootstrap modal error
+    }
   }
 }

@@ -34,33 +34,5 @@
     "creationDate": "2020-04-27T16:20:01.566Z",
     "id": 1586262193906,
     "imageId": "1588004401585"
-  },
-  {
-    "name": "Delete",
-    "theme": "Cuisine",
-    "random": false,
-    "creationDate": "2020-07-05T15:15:47.856Z",
-    "id": 1593962147867
-  },
-  {
-    "name": "Delet2",
-    "theme": "Musique",
-    "random": false,
-    "creationDate": "2020-07-05T15:15:56.937Z",
-    "id": 1593962156944
-  },
-  {
-    "name": "Delet3",
-    "theme": "AUTRE",
-    "random": false,
-    "creationDate": "2020-07-05T15:16:06.586Z",
-    "id": 1593962166594
-  },
-  {
-    "name": "delte4",
-    "theme": "Animaux",
-    "random": false,
-    "creationDate": "2020-07-05T15:16:15.282Z",
-    "id": 1593962175289
   }
 ]

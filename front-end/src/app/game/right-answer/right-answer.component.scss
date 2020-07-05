@@ -3,7 +3,6 @@
 @import '../../../styles/layout.scss';
 
 .box {
-    //background-color: rgb(250, 153, 153);
     display: flex;
     justify-content: center; /*horizontal centering*/
     align-items:center;     /*vertical centering*/
@@ -19,7 +18,6 @@
     right: 5%;
     height: 45%; 
     width: 90%; 
-    //background-color: #563d7c; 
     text-align: center;
     display: flex;
     justify-content: center; /*horizontal centering*/
@@ -43,15 +41,6 @@
     flex-direction: row;
 }
 
-/*
-.label-for-recap{
-    font-size: larger;
-    font-weight: bold;
-    margin-bottom: 10px;
-    text-align: center;
-}*/
-
-
 .thumbnailItem {
     width: 20rem;
     height: 15rem;
@@ -65,11 +54,6 @@ img {
     display: block;      /* remove extra space below image */
     @extend .thumbnailItem;
 }
-/*
-.imgBigger {
-    width: 20rem;
-    height: 18rem;
-}*/
 
 .bigImg {
     @extend img;

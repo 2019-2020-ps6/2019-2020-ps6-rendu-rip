@@ -54,7 +54,7 @@ export class QuestionViewComponent implements OnInit {
     this.globalService.loadQuestionAndImage(quizId, questionId, this.headerTitle, this.question, this.image)//pas d'image par défaut et -1 si image supprimée
   }
 
-  allIsLoaded() {//si il n'y a pas de question ou qu'elle est chargée
+  allIsLoaded() {//si aucune question ou qu'elle est chargée
     return this.quiz.id && this.question.id && (this.image.url ||
       (!this.question.imageId || this.question.imageId===this.globalService.imageRemovedId));
   }

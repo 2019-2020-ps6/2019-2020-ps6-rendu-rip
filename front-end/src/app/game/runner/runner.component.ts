@@ -57,16 +57,14 @@ export class RunnerComponent implements OnInit {
   initAttempt() {
     this.currentAttempt = {} as Attempt;
     this.currentAttempt.playerId = this.route.snapshot.paramMap.get('id');
-    //this.currentAttempt.quizId = this.quiz.id;
     this.currentAttempt.quiz = this.quiz;
     this.currentAttempt.date = new Date();
     this.currentAttempt.timeOuts = 0;
     this.currentAttempt.wrongAnswers = [];
-    //this.currentAttempt.questions = [];
   }
 
   onTimeOut() {
-    this.currentAttempt.timeOuts++;// += 1;
+    this.currentAttempt.timeOuts++;
   }
 
   onWrongAnswer(wrongAnswer: Answer) {
@@ -88,7 +86,6 @@ export class RunnerComponent implements OnInit {
 
   changeQuestion = () => {
     this.currentQuestion = this.questions.pop();
-    //this.currentAttempt.questions.push(this.currentQuestion);
     this.loadImage();
     if(!this.currentQuestion) {
       this.sendAttempt();
@@ -103,13 +100,3 @@ export class RunnerComponent implements OnInit {
     if(id) this.imageService.loadQuestionImage(this.image, id);
   }
 }
-
-/*
-playerId: Joi.number().required(),
-  quizId: Joi.number().required(),
-  date: Joi.string(),
-  timeOuts: Joi.number().required(),
-  quiz: Joi.any(),//Joi.object(Quiz.schema),//Quiz,//Joi.object(Quiz),
-  questions: Joi.array(),//.items(Question),
-  wrongAnswers: Joi.array()//.items(Answer) // .items(Joi.object(Answer))
-*/

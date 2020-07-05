@@ -1,14 +1,14 @@
 <app-question-form-modal [quiz] = "quiz" ></app-question-form-modal>
-  <div class="question-list" *ngIf = "quiz.questions && quiz.questions.length>0;else noQuestions">
-    <div *ngFor="let question of quiz.questions">
-      <button class="delete-button" (click)="checkQuestion(question); modalService.open(deleteModal)">
-        <i class="fas fa-times"></i>
-      </button>
-      <div class="question-card" routerLink= "./{{question.id}}">
-          <app-question [quiz]="quiz" [question]="question"></app-question>
-      </div>
+<div class="question-list" *ngIf = "quiz.questions && quiz.questions.length>0;else noQuestions">
+  <div *ngFor="let question of quiz.questions">
+    <button class="delete-button" (click)="checkQuestion(question); modalService.open(deleteModal)">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="question-card" routerLink= "./{{question.id}}">
+      <app-question [quiz]="quiz" [question]="question"></app-question>
     </div>
   </div>
+</div>
 
 <ng-template #noQuestions>
   <div class="center" id="redCenteredMsg"> Il n'y a pas de questions </div>

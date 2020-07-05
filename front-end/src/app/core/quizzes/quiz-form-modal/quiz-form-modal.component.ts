@@ -22,7 +22,6 @@ export class QuizFormModalComponent implements OnInit {
 
   quizForm: FormGroup;
   showThemeForm: boolean = false;
-  
   imageTmp: Img = {} as Img;
 
   @Output()

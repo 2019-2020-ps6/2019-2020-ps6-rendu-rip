@@ -1,28 +1,27 @@
 <div *ngIf="answer; else noAnswerYet" class="new-answer-form">
-    <form [formGroup]="answerForm">
-      <label for="name" style="margin-bottom: 0.5em;">Réponse: </label>
-      <input type="text" style="margin-left: 1em;" size = "{{sizeInput()}}" [formControlName]="'value'" id="name">
-      <div class = "imageAndButton" style="margin-bottom: 0.5em;">
+  <form [formGroup]="answerForm">
+    <label for="name" style="margin-bottom: 0.5em;">Réponse: </label>
+    <input type="text" style="margin-left: 1em;" size = "{{sizeInput()}}" [formControlName]="'value'" id="name">
+    <div class = "imageAndButton" style="margin-bottom: 0.5em;">
       <ng-template [ngTemplateOutlet] ="displayImageAns"></ng-template>
       <ng-template [ngTemplateOutlet]="buttonCharging0"></ng-template>
-      </div>
-      <!--Correcte : <input type="checkbox" [formControlName]="'isCorrect'">-->
-      <div *ngIf = "!answer.isCorrect && this.answerService.nbCorrectAnswers(this.question.answers)>0; else noRightAnswerYet" (click)= "showError=!showError">
-        <label for = "correct" class = "titre" style="margin-bottom: 0.5em;"> Correcte : </label> 
-        <input id = "correct" type="checkbox" disabled>
-        <div *ngIf = "showError" class="errorMessage">Une seule réponse correcte est autorisée - Veuillez décocher la réponse "Correcte" avant d'en cocher une autre</div>
-      </div>
-      <ng-template #noRightAnswerYet >
-      <div>
-        <label for = "correct" class = "titre" style="margin-bottom: 0.5em;"> Correcte : </label> 
-        <input id = "correct" type="checkbox" [formControlName]="'isCorrect'">
-      </div>
-      </ng-template>
-      <div class="buttons-bottom" *ngIf = "!answer || onChangeFile || removeImgisCalled">
-        <button type="submit" id="submitAnswer" class="btn btn-primary" type="submit" (click)="submitAnswer();">Enregistrer</button>
-        <button type="button" id="cancelAnswer" class="btn btn-outline-secondary" (click)="reset();">Annuler</button>
-      </div>
-    </form>
+    </div>
+    <div *ngIf = "!answer.isCorrect && this.answerService.nbCorrectAnswers(this.question.answers)>0; else noRightAnswerYet" (click)= "showError=!showError">
+      <label for = "correct" class = "titre" style="margin-bottom: 0.5em;"> Correcte : </label> 
+      <input id = "correct" type="checkbox" disabled>
+      <div *ngIf = "showError" class="errorMessage">Une seule réponse correcte est autorisée - Veuillez décocher la réponse "Correcte" avant d'en cocher une autre</div>
+    </div>
+    <ng-template #noRightAnswerYet >
+    <div>
+      <label for = "correct" class = "titre" style="margin-bottom: 0.5em;"> Correcte : </label> 
+      <input id = "correct" type="checkbox" [formControlName]="'isCorrect'">
+    </div>
+    </ng-template>
+    <div class="buttons-bottom" *ngIf = "!answer || onChangeFile || removeImgisCalled">
+      <button type="submit" id="submitAnswer" class="btn btn-primary" type="submit" (click)="submitAnswer();">Enregistrer</button>
+      <button type="button" id="cancelAnswer" class="btn btn-outline-secondary" (click)="reset();">Annuler</button>
+    </div>
+  </form>
 </div>
 
 <ng-template #noAnswerYet>

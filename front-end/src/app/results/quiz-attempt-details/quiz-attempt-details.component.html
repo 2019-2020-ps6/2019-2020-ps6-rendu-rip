@@ -20,7 +20,6 @@
     </div>
     <div class="flex-list"> 
         <div *ngFor="let question of attempt.quiz.questions"> 
-<!--TODO finish clickable or not-->
             <div *ngIf="isQuestionStillHere(question); else notClickable">
             <div class="attempt-card" *ngIf = "checkIfWrongQuestion(question)" (click)=seeQuestion(question.id)>
                 <div *ngIf="question.label">{{question.label}}</div>
@@ -29,20 +28,16 @@
                 </div>
                 <br>
                 Réponse :
-                <!--<ol>-->
                 <div *ngFor="let answer of attempt.wrongAnswers"> 
                     <div *ngIf="answerInQuestion(answer, question)">
-                    <!--<li>-->
                         <div class="card-wrong">
                         <div *ngIf="answer.imageId && answer.image">
                             <img class="frame-little thumbnail" [src]="globalService.getImgSrc1(answer.image)" alt="Image reponse">
                         </div>
                         <div *ngIf="answer.value">{{answer.value}}</div>
                         </div>
-                    <!--</li>-->
                     </div>
                 </div>
-                <!--</ol>-->
                 <br>
                 Au lieu de : <br>
                 <div class="card-right" *ngIf="setRightAnswer(question)">
@@ -62,20 +57,16 @@
                     </div>
                     <br>
                     Réponse :
-                    <!--<ol>-->
                     <div *ngFor="let answer of attempt.wrongAnswers"> 
                         <div *ngIf="answerInQuestion(answer, question)">
-                        <!--<li>-->
                             <div class="card-wrong">
                             <div *ngIf="answer.imageId && answer.image">
                                 <img class="frame-little thumbnail" [src]="globalService.getImgSrc1(answer.image)" alt="Image reponse">
                             </div>
                             <div *ngIf="answer.value">{{answer.value}}</div>
                             </div>
-                        <!--</li>-->
                         </div>
                     </div>
-                    <!--</ol>-->
                     <br>
                     Au lieu de : <br>
                     <div class="card-right" *ngIf="setRightAnswer(question)">

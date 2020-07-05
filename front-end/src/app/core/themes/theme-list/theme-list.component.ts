@@ -18,7 +18,7 @@ export class ThemeListComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.loadTheme();
+    this.loadTheme();
   }
 
   loadTheme() {
@@ -27,7 +27,7 @@ export class ThemeListComponent implements OnInit {
       for(var i =0 ; i<themes.length;i++) {
         this.THEME_LIST.push(themes[i])
       }
-     });
+    });
   }
 
   checkTheme(theme: Theme){

@@ -29,25 +29,24 @@ export class TimerFormModalComponent implements OnInit {
     this.globalService.getTimers();
   }
 
-
   initTimerForm(timers : TimerConfig){
     this.timerForm = this.formBuilder.group({
-        timerToAnswer: [timers.timerToAnswer/GlobalService.second],
-        timerComparison: [timers.timerComparison/GlobalService.second],
-        timerRightAnswer: [timers.timerRightAnswer/GlobalService.second]
-      });
+      timerToAnswer: [timers.timerToAnswer/GlobalService.second],
+      timerComparison: [timers.timerComparison/GlobalService.second],
+      timerRightAnswer: [timers.timerRightAnswer/GlobalService.second]
+    });
   }
   
   save(){
-      let timersToUpdate = this.timerForm.getRawValue() as TimerConfig;
-      timersToUpdate.timerToAnswer = timersToUpdate.timerToAnswer * GlobalService.second;
-      timersToUpdate.timerComparison = timersToUpdate.timerComparison * GlobalService.second;
-      timersToUpdate.timerRightAnswer = timersToUpdate.timerRightAnswer * GlobalService.second;
-      this.globalService.updateTimers(timersToUpdate);
+    let timersToUpdate = this.timerForm.getRawValue() as TimerConfig;
+    timersToUpdate.timerToAnswer = timersToUpdate.timerToAnswer * GlobalService.second;
+    timersToUpdate.timerComparison = timersToUpdate.timerComparison * GlobalService.second;
+    timersToUpdate.timerRightAnswer = timersToUpdate.timerRightAnswer * GlobalService.second;
+    this.globalService.updateTimers(timersToUpdate);
   }
 
   reset(){
-      this.timerForm.reset();
-      this.initTimerForm(this.timers);
+    this.timerForm.reset();
+    this.initTimerForm(this.timers);
   }
 }

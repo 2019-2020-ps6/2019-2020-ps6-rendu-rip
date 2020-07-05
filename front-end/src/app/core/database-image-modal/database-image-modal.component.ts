@@ -18,10 +18,7 @@ export class DatabaseImageModalComponent implements OnInit {
 
     @Output() onChangeFile_bis: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    //@Output()   //inutile car ImgTmp est modifiée car passée par référence
-    //imageSelected: EventEmitter<Img> = new EventEmitter<Img>();
     gallery : Img[] = [];
-
 
     constructor(private modalService: ModalService, public imageService : ImageService){}
     
@@ -33,6 +30,5 @@ export class DatabaseImageModalComponent implements OnInit {
     onImgClicked(modal, imageTmp : Img, image : Img){
         this.imageService.onImgClicked(modal, imageTmp,image);
         this.onChangeFile_bis.emit(true);
-        //this.imageSelected.emit(this.imageTmp);
     }
 }

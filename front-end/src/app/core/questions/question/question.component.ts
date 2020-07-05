@@ -16,6 +16,7 @@ export class QuestionComponent implements OnInit {
   @Input() quiz: Quiz;
   
   image: Img;
+  
   constructor(public globalService: GlobalService, public router: Router) {
   }
 

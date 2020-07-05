@@ -39,7 +39,7 @@ export class AnswerListWidgetComponent implements OnInit{
 
   answerSelected : Answer;
   display: number;
-  //Pour la demo BESOIN de timers assez rapide...
+  //timers initiaux mais vraies valeurs ensuite chargées via requete
   TIME_OUT_FOR_CHOSING_ANSWER: number = 200* GlobalService.second;
   TIME_OUT_DISPLAY_COMPARISON: number = 5* GlobalService.second;
   TIME_OUT_DISPLAY_NEXT_BUTTON: number = 3*GlobalService.second;

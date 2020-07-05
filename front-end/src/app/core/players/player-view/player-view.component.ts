@@ -39,7 +39,7 @@ export class PlayerViewComponent implements OnInit {
         this.quizzesVisible = [];
         this.quizzes = quizzes;
         quizzes.forEach((quiz) =>{
-          if(this.playerService.quizVisibleByPlayer(this.player, quiz.id)){
+          if(this.playerService.quizVisibleByPlayer(this.player, quiz.id)) {
             this.quizzesVisible.push(quiz);
           }
         })

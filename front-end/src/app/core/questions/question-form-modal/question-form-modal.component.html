@@ -46,26 +46,15 @@
 	    </span>
 	</div>
    </div>
-  </ng-template>
+</ng-template>
 
-  <ng-template #displayImage>  
+<ng-template #displayImage>  
 	<div>
 	<div class="fixed-container" *ngIf="imageTmp.url">
-	  <div class="quiz-card">
-		<button class="delete-button" (click)="globalService.removeImg(imageTmp)"><i class="fas fa-times"></i></button>
-		<img class="frame thumbnail" [src]="globalService.getImgSrc1(imageTmp)" alt="quiz image">
-	  </div>
-	</div>
-	</div>
-  </ng-template>
-  <!--
-<ng-template #displayImage>  
-	<div class="fixed-container" *ngIf="imageTmp.url">
-		<div class="delete-button" (click)="globalService.removeImg(imageTmp)">	
-			<i class="fas fa-times"></i>
+		<div class="quiz-card">
+			<button class="delete-button" (click)="globalService.removeImg(imageTmp)"><i class="fas fa-times"></i></button>
+			<img class="frame thumbnail" [src]="globalService.getImgSrc1(imageTmp)" alt="quiz image">
 	  	</div>
-	  	<div class="quiz-card">
-			<img class="frame thumbnail" [src]="globalService.getImgSrc1(imageTmp)" alt="question image">
-		</div>
 	</div>
-</ng-template>-->
+	</div>
+</ng-template>

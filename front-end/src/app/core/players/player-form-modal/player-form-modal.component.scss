@@ -7,11 +7,6 @@
     justify-content: center;
 }
 
-/*
-.image {
-    float: right;
-}*/
-
 .player{
     text-align: center;
 }
@@ -24,11 +19,6 @@
     display: grid;
     grid-template-columns: repeat(2, auto);
 }
-
-/*
-.frame{
-    margin-left: 1em;;
-}*/
 
 .delete-button {
     padding: 0.1rem 0.4rem;
@@ -64,14 +54,6 @@
 .new-button {
     position: unset;
 }
-
-/*
-.modal-larger {
-    height: calc(100vh - 143px);
-    min-height: 10em;
-    max-height: 15em;
-    overflow-y: auto; 
-}*/
 
 .titre {
     font-weight: bold;

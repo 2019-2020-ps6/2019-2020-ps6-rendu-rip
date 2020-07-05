@@ -29,6 +29,5 @@ export class PlayerListPlayerComponent implements OnInit {
     return null;
   }
 
-
   ngOnInit() {}
 }

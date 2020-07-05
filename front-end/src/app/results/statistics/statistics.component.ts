@@ -32,9 +32,7 @@ export class StatisticsComponent implements OnInit {
   ngOnInit() {
     const playerId = this.router.snapshot.paramMap.get('id');
     this.playerService.setSelectedPlayer(playerId);
-    
     this.chronologicalOrder = false;
-    //this.attemptService.attempts$.subscribe();
     this.playerService.playerSelected$.subscribe((player) => {
       this.player = player;
       this.playerAttempts = [];

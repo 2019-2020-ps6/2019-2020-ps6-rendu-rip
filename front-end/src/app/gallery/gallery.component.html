@@ -1,6 +1,6 @@
 <body>
 <app-header [type]="'general'"></app-header>
-<div class="image-list"><!--"responsive-list">-->
+<div class="image-list">
     <div *ngFor="let img of images">
         <div *ngIf="img.url" class="fixed-container">
             <div class="delete-button" (click)="checkIfImageIsUsed(img); modalService.open(deleteImageUsed)">
@@ -17,7 +17,7 @@
 <ng-template #deleteImageUsed let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Confirmation de suppression</h4>
-        <button type="button" class="close" aria-label="Close" (click)="reset();modal.dismiss('Cross click')">
+        <button type="button" class="close" aria-label="Close" (click)="reset(); modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-danger" (click)="deleteImg(imageSelected);modal.close();reset();">Supprimer</button>
-      <button class="btn btn-outline-secondary" (click)="reset();modal.close()">Annuler</button>
+      <button class="btn btn-danger" (click)="deleteImg(imageSelected); modal.close();reset();">Supprimer</button>
+      <button class="btn btn-outline-secondary" (click)="reset(); modal.close()">Annuler</button>
     </div>
 </ng-template>

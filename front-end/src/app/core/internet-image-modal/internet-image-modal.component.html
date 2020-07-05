@@ -1,20 +1,19 @@
 <label id="imgBtn" for="modal-imageWeb{{id}}" class="btn btn-sm btn-secondary" style="width: 9em;">Internet</label>
 <button type="button" class="hidden" id="modal-imageWeb{{id}}" (click)="modalService.open(weburlmodal)"></button>
 
-
 <ng-template #weburlmodal let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Coller l'adresse de l'image :</h4>
-      <button type="button" class="close" aria-label="Close" (click)="urlForm.reset();modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form class="url-form" [formGroup]="urlForm">
-        <input class="input-custom" type="text" id="url" [formControlName]="'url'">
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="onUrlClicked(modal)">Ok</button>
-    </div>
-  </ng-template>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Coller l'adresse de l'image :</h4>
+    <button type="button" class="close" aria-label="Close" (click)="urlForm.reset();modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="url-form" [formGroup]="urlForm">
+      <input class="input-custom" type="text" id="url" [formControlName]="'url'">
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="onUrlClicked(modal)">Ok</button>
+  </div>
+</ng-template>

@@ -15,7 +15,8 @@ export class RecapComponent implements OnInit {
   quiz : Quiz;
   questions: Question[] = [];
   currentQuestion : Question;
-  TIME_OUT_DISPLAY_RIGHT_ANSWER: number = 10000; 
+  TIME_OUT_DISPLAY_RIGHT_ANSWER: number = 8000;//8000ms = 8s
+  //ATTENTION: TIMER EN DUR ICI (eventuellement autoriser une modif??)
 
   image: Img;
 
@@ -47,7 +48,6 @@ export class RecapComponent implements OnInit {
     }
     else {//fin
       this.router.navigate(['../end'], { relativeTo: this.route });
-      //routerLink= "../end"
     }
   }
 

@@ -23,10 +23,7 @@ export class QuizAttemptDetailsComponent implements OnInit {
   player: Player = {} as Player;
   attempt: Attempt = {} as Attempt;
   currentRightAnswer: Answer
-
-  //wrongQuestions: Set<Question>;
   questionsStillHere: Question[];
-  //questionsStillHere: Set<Question>;
 
   constructor(public playerService: PlayerService, public globalService: GlobalService, 
     public route: ActivatedRoute, public attemptService: AttemptService,
@@ -40,7 +37,6 @@ export class QuizAttemptDetailsComponent implements OnInit {
     this.playerService.getPlayer(this.player, playerId);
     this.questionsStillHere = new Array<Question>();
     this.attemptService.getAllFromSpecificAttempt(this.globalService, playerId, attemptId, this.attempt, this.questionsStillHere);
-    //this.wrongQuestions = new Set<Question>();
   }
 
   loaded() {
@@ -52,19 +48,10 @@ export class QuizAttemptDetailsComponent implements OnInit {
   }
 
   isQuestionStillHere(question : Question){
-    /*this.attempt.quiz.questions.forEach(qu => {
-      if(this.checkIfWrongQuestion(qu)) {
-        this.wrongQuestions.add(qu);*/
-        //const qu = {} as Question;
-        //this.globalService.loadQuestion(qu, question.quizId, question.id);
-        //this.attemptService.addQuestionIfStillHere(qu, this.questionsStillHere);
-      /*}
-    });*/
     for (const q of this.questionsStillHere) {
       if(q.id == question.id) return true;
     }
     return false;
-    //return qu;//this.questionsStillHere.has(question);
   }
 
   checkIfWrongQuestion(question : Question){

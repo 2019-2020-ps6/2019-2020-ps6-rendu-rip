@@ -79,7 +79,7 @@ export class AnswerFormComponent implements OnInit {
   }
 
   allIsLoaded(){
-    return this.answer; //|| (this.image.url || (!this.answer.imageId || this.answer.imageId===this.imageService.imageRemovedId));
+    return this.answer;
   }
 
   submitAnswer() {

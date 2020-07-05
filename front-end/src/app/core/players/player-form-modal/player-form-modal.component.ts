@@ -53,7 +53,7 @@ export class PlayerFormModalComponent implements OnInit {
       playerToSave.quizVisible = this.player.quizVisible;
     } 
     else{
-      playerToSave.quizVisible = [];//par défaut il ne voit rien mais à changer
+      playerToSave.quizVisible = [];//par défaut: ne voit  rien/aucun quiz
     }
     if(this.imageService.isRemoved(this.imageTmp.id))playerToSave.imageId = this.imageTmp.id;
     if(this.imageTmp.url){

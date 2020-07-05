@@ -4,7 +4,6 @@ import { QuizService } from 'src/services/quiz.service';
 import { Quiz } from 'src/models/quiz.model';
 import { Img } from 'src/models/image.model';
 import { ImageService } from 'src/services/image.service';
-//import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalService } from 'src/services/modal.service';
 import { GlobalService } from 'src/services/global.service';
 import { Location } from '@angular/common';
@@ -20,8 +19,7 @@ export class QuizViewComponent implements OnInit {
   headerTitle: string;
   quiz: Quiz;
   image: Img = {} as Img;
-  hidden : boolean = true; // attention on a des erreurs value change after beeing checked dans certains cas et je sais pas trop comment les résoudre
-  
+  hidden : boolean = true;//"error" sometimes? dans console ("value changed after beeing checked") mais semble marcher en général/dernièrement plus de "error" donc OK
   private currentTab: string;
 
   constructor(private globalService : GlobalService, private modalService: ModalService, private location : Location, private route: ActivatedRoute, public imageService: ImageService, public quizService: QuizService) {
