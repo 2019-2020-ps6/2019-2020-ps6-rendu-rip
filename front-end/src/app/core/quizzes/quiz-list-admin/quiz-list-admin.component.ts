@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { GlobalService } from 'src/services/global.service';
 import { QuizService } from 'src/services/quiz.service';
 import { SortDatePipe } from 'src/services/sortDate.pipe';
+import { ModalService } from 'src/services/modal.service';
 
 @Component({
   selector: 'app-quiz-list-admin',
@@ -19,18 +20,18 @@ export class QuizListAdminComponent implements OnInit {
   public quizListFiltered: Quiz[];
   public THEME_LIST: string[] = [];
   private ALL_QUIZZES: string='TOUS';
-  private ordreChro : boolean; 
+  private ordreChro : boolean;
 
   themeForm: FormGroup;
+  selectedQuiz : Quiz;
 
-  constructor(private sortDate : SortDatePipe, public globalService: GlobalService,
+  constructor(private modalService : ModalService, private sortDate : SortDatePipe, public globalService: GlobalService,
     public quizService: QuizService, public formBuilder: FormBuilder, public themeService : ThemeService) {
       this.quizService.quizzes$.subscribe((quizzes) =>{
         this.quizList = [];
         this.quizList = quizzes;
         this.themeFilteringSetup();
     })
-    
   }
 
   ngOnInit() {}
@@ -48,10 +49,10 @@ export class QuizListAdminComponent implements OnInit {
           this.THEME_LIST.push(themes[i].name)
         }
       }
-     });
+    });
   }
 
-  hasSelectedTheme( quiz: Quiz ) {
+  hasSelectedTheme(quiz: Quiz ) {
     const selectedTheme = (this.themeForm.getRawValue() as {theme: string}).theme;
     return selectedTheme == this.ALL_QUIZZES || selectedTheme == quiz.theme;
   }
@@ -71,5 +72,9 @@ export class QuizListAdminComponent implements OnInit {
       this.sortDate.transform(this.quizListFiltered, "-creationDate")
   }
   
+  checkQuiz(quiz: Quiz){
+    this.selectedQuiz = quiz;
+  }
+
   deleteQuiz(quiz: Quiz) { this.globalService.deleteQuiz(quiz); }
 }

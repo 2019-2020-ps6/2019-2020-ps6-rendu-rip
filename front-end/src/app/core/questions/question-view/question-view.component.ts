@@ -23,9 +23,10 @@ export class QuestionViewComponent implements OnInit {
   question: Question = {} as Question;
   quiz: Quiz = {} as Quiz;
   image: Img = {} as Img;
-    
-  headerTitle: string;
+  
+  selectedAnswer: Answer;
 
+  headerTitle: string;
   private currentTab: string;
 
   constructor(private modalService : ModalService, private location: Location, 
@@ -68,6 +69,10 @@ export class QuestionViewComponent implements OnInit {
 
   invalid(){
     return this.globalService.answersInvalid(this.question.answers)
+  }
+
+  checkAnswer(answer: Answer){
+    this.selectedAnswer = answer;
   }
 
   deleteAnswer(answer: Answer) {

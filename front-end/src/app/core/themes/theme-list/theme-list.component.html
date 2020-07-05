@@ -2,7 +2,7 @@
 <body>
     <div class = "theme-list" *ngIf = "THEME_LIST">
         <div class="theme-card" *ngFor = "let theme of THEME_LIST">
-            <button class="delete-button" (click)="checkTheme(theme); modalService.open(deleteModal)"><!--"deleteTheme(theme)"-->
+            <button class="delete-button" (click)="checkTheme(theme); modalService.open(deleteModal)">
                 <i class="fas fa-times"></i>
             </button>
             <div>
@@ -33,7 +33,7 @@
     </div>
     <div class="modal-body">
         <div class="msg">
-            Voulez-vous vraiment supprimer ce thème de la liste ?
+            Supprimer le thème de façon permanente ?
         </div>
     </div>
     <div class="modal-footer">

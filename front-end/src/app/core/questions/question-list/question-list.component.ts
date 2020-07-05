@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Question } from '../../../../models/question.model';
 import { Quiz } from 'src/models/quiz.model';
-import { QuizService } from 'src/services/quiz.service';
 import { ModalService } from 'src/services/modal.service';
 import { GlobalService } from 'src/services/global.service';
 
@@ -14,10 +13,16 @@ export class QuestionListComponent implements OnInit {
   @Input()
   quiz: Quiz;
 
-  constructor(public globalService: GlobalService) {
+  selectedQuestion: Question;
+
+  constructor(private modalService : ModalService, public globalService: GlobalService) {
   }
   
   ngOnInit() {
+  }
+
+  checkQuestion(question: Question){
+    this.selectedQuestion = question;
   }
 
   deleteQuestion(question: Question) {

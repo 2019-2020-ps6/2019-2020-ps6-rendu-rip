@@ -3,7 +3,7 @@
 <div class="image-list"><!--"responsive-list">-->
     <div *ngFor="let img of images">
         <div *ngIf="img.url" class="fixed-container">
-            <div class="delete-button" (click)="checkIfImageIsUsed(img);modalService.open(deleteImageUsed)">
+            <div class="delete-button" (click)="checkIfImageIsUsed(img); modalService.open(deleteImageUsed)">
                 <i class="fas fa-times" aria-hidden="true"></i>
             </div>
             <div class="image-card">
@@ -16,21 +16,18 @@
 
 <ng-template #deleteImageUsed let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" *ngIf="used(); else notUsed" id="modal-basic-title"><i class="fas fa-exclamation-triangle"></i> Attention image utilisée</h4>
-        <ng-template #notUsed><h4 class="modal-title" id="modal-basic-title">Confirmation de suppression</h4></ng-template>
+        <h4 class="modal-title" id="modal-basic-title">Confirmation de suppression</h4>
         <button type="button" class="close" aria-label="Close" (click)="reset();modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        <div *ngIf = "used(); else notUsedBody" class = "errorMessage">
-                Attention cette image est utilisée dans au moins un quiz. Voulez-vous vraiment la supprimer de façon permanente ?
+        <div class = "errorMessage">
+            Supprimer l'image de façon permanente ?
         </div>
-        <ng-template #notUsedBody>
-            <div class = "errorMessage">
-                Voulez-vous vraiment supprimer cette image de façon permanente ?
-            </div>
-        </ng-template>
+        <div *ngIf = "used()" class = "errorMessage">
+            <span style="font-style: italic; font-size: smaller;"><i class="fas fa-exclamation-triangle"></i> Attention cette image est utilisée dans au moins un quiz <i class="fas fa-exclamation-triangle"></i></span>
+        </div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-danger" (click)="deleteImg(imageSelected);modal.close();reset();">Supprimer</button>

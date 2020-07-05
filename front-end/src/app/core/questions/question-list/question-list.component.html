@@ -1,7 +1,7 @@
 <app-question-form-modal [quiz] = "quiz" ></app-question-form-modal>
   <div class="question-list" *ngIf = "quiz.questions && quiz.questions.length>0;else noQuestions">
     <div *ngFor="let question of quiz.questions">
-      <button class="delete-button" (click)="deleteQuestion(question)">
+      <button class="delete-button" (click)="checkQuestion(question); modalService.open(deleteModal)">
         <i class="fas fa-times"></i>
       </button>
       <div class="question-card" routerLink= "./{{question.id}}">
@@ -12,4 +12,22 @@
 
 <ng-template #noQuestions>
   <div class="center" id="redCenteredMsg"> Il n'y a pas de questions </div>
+</ng-template>
+
+<ng-template #deleteModal let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Confirmation de suppression</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body">
+      <div class="msg">
+        Supprimer la question de façon permanente ?
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" (click)="deleteQuestion(selectedQuestion); modal.close()">Supprimer</button>
+    <button class="btn btn-outline-secondary" (click)="modal.close()">Annuler</button>
+  </div>
 </ng-template>
