@@ -16,15 +16,15 @@
 
 <ng-template #deleteModal let-modal>
   <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Confirmation de suppression</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
+    <h4 class="modal-title" id="modal-basic-title">Confirmation de suppression</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
   <div class="modal-body">
-      <div class="msg">
-        Supprimer la question de façon permanente ?
-      </div>
+    <div class="msg">
+      Supprimer la question de façon permanente ?
+    </div>
   </div>
   <div class="modal-footer">
     <button class="btn btn-danger" (click)="deleteQuestion(selectedQuestion); modal.close()">Supprimer</button>

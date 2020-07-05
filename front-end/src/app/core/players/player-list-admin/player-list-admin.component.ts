@@ -14,6 +14,7 @@ export class PlayerListAdminComponent implements OnInit {
   headerTitle = "Liste des Accueillis";
 
   public playerList: Player[];
+  selectedPlayer: Player;
 
   constructor(private modalService: ModalService, public globalService: GlobalService,
     public playerService: PlayerService) {
@@ -23,6 +24,10 @@ export class PlayerListAdminComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  checkPlayer(player: Player){
+    this.selectedPlayer = player;
   }
 
   deletePlayer(player: Player) { 

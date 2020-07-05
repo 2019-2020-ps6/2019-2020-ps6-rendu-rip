@@ -8,6 +8,7 @@ import { Img } from 'src/models/image.model';
 import { Attempt } from 'src/models/attempt.model';
 import { Location } from '@angular/common';
 import { SortDatePipe } from 'src/services/sortDate.pipe';
+import { ModalService } from 'src/services/modal.service';
 
 @Component({
   selector: 'app-statistics',
@@ -22,8 +23,9 @@ export class StatisticsComponent implements OnInit {
   playerImage: Img = {} as Img;
   playerAttempts: Attempt[];
   chronologicalOrder : boolean;
+  selectedAttempt: Attempt;
 
-  constructor(private sortDate : SortDatePipe, public playerService: PlayerService, public imageService: ImageService, 
+  constructor(private modalService: ModalService, private sortDate : SortDatePipe, public playerService: PlayerService, public imageService: ImageService, 
     public router: ActivatedRoute, public attemptService: AttemptService,
     private location: Location) {}
 
@@ -40,13 +42,14 @@ export class StatisticsComponent implements OnInit {
       if(this.player.imageId) this.imageService.loadPlayerImage(this.playerImage, this.player.imageId);
       this.attemptService.getPlayerAttempts(player.id, this.playerAttempts);
     });
-    
-    /*const playerId = this.router.snapshot.paramMap.get('id');
-    this.playerService.setSelectedPlayer(playerId);*/
   }
 
   goBack() {
     this.location.back(); // <-- go back to previous location
+  }
+
+  checkAttempt(attempt: Attempt){
+    this.selectedAttempt = attempt;
   }
 
   deleteAttempt(attempt : Attempt){

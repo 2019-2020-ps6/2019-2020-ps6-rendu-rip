@@ -3,7 +3,7 @@
     <div class="new-player"><app-player-form-modal></app-player-form-modal></div>
     <div class="player-list">
         <div class="fixed-container-bigger" *ngFor="let player of playerList">
-            <button class="delete-button" (click)="deletePlayer(player)">
+            <button class="delete-button" (click)="checkPlayer(player); modalService.open(deleteModal)">
                 <i class="fas fa-times"></i>
             </button>
             <div class="quiz-card" routerLink= "./{{player.id}}">
@@ -12,3 +12,21 @@
         </div>
     </div>
 </body>
+
+<ng-template #deleteModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Confirmation de suppression</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="msg">
+        Supprimer le compte de façon permanente ?
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" (click)="deletePlayer(selectedPlayer); modal.close()">Supprimer</button>
+      <button class="btn btn-outline-secondary" (click)="modal.close()">Annuler</button>
+    </div>
+</ng-template>
