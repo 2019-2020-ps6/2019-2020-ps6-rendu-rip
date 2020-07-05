@@ -11,8 +11,8 @@ import { ModalService } from 'src/services/modal.service';
 export class ThemeListComponent implements OnInit {
 
   headerTitle = "Liste des thèmes"
-
   THEME_LIST : Theme[];
+  selectedTheme : Theme;
 
   constructor(private modalService : ModalService, public themeService : ThemeService) {
   }
@@ -30,6 +30,10 @@ export class ThemeListComponent implements OnInit {
      });
   }
 
+  checkTheme(theme: Theme){
+    this.selectedTheme = theme;
+  }
+  
   deleteTheme(theme : Theme){
     this.themeService.deleteTheme(theme);
   }

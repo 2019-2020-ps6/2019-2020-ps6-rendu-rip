@@ -41,7 +41,6 @@ export class GalleryComponent implements OnInit {
     this.imageSelected = img;
     this.globalService.checkIfImageIsUsed(img.id, this.quizToDeleteImage, this.questionToDeleteImage, this.answerToDeleteImage,this.quizToAnswer);
     this.isUsed = this.used();
-    //this.used();
   }
 
   reset(){

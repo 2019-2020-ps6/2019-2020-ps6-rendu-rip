@@ -2,7 +2,7 @@
 <body>
     <div class = "theme-list" *ngIf = "THEME_LIST">
         <div class="theme-card" *ngFor = "let theme of THEME_LIST">
-            <button class="delete-button" (click)="deleteTheme(theme)">
+            <button class="delete-button" (click)="checkTheme(theme); modalService.open(deleteModal)"><!--"deleteTheme(theme)"-->
                 <i class="fas fa-times"></i>
             </button>
             <div>
@@ -21,5 +21,23 @@
     </div>
     <div class="modal-body">
         <app-theme-form (themeAdded) = "modal.close()"></app-theme-form>
+    </div>
+</ng-template>
+
+<ng-template #deleteModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Confirmation de suppression</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="msg">
+            Voulez-vous vraiment supprimer ce thème de la liste ?
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" (click)="deleteTheme(selectedTheme); modal.close()">Supprimer</button>
+      <button class="btn btn-outline-secondary" (click)="modal.close()">Annuler</button>
     </div>
 </ng-template>
