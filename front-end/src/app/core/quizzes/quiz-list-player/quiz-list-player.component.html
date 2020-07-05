@@ -4,7 +4,7 @@
         <div class="btn btn-secondary" style="border: dotted; color: blue; background-color: #ffffff00; float: right;">
             <form [formGroup]="themeForm">
                 Thème:
-                <select name="Thème" id="selectTheme" [formControlName]="'theme'" (change)="filteredQuizList()">
+                <select name="Thème" id="selectTheme" [formControlName]="'theme'" (change)="filterQuizList()">
                     <option *ngFor = "let current_theme of THEME_LIST" [value] = "current_theme">
                     {{current_theme}}
                     </option>

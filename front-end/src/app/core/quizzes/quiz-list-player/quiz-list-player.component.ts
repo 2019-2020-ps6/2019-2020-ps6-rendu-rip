@@ -85,12 +85,7 @@ export class QuizListPlayerComponent implements OnInit {
 
   filterQuizList() {
     if(!this.quizList) return;
-    this.quizListFiltered = []
-    for(let quiz of this.quizList) {
-      if(this.hasSelectedTheme(quiz) && this.globalService.isValid(quiz) && (this.playerService.quizVisibleByPlayer(this.player,quiz.id) || this.player.id=="1")) {
-        this.quizListFiltered.push(quiz);
-      }
-    }
+    this.quizListFiltered = this.quizList.filter((quiz) => this.hasSelectedTheme(quiz) && this.globalService.isValid(quiz) && (this.playerService.quizVisibleByPlayer(this.player, quiz.id) || this.player.id == "1"));
     //ordering chrono inverse
     this.timeOrderQuizList();
   }

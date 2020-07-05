@@ -57,18 +57,18 @@ export class QuizListAdminComponent implements OnInit {
   }
 
   filteredQuizList() : Quiz[] {
-    if(!this.quizList) return;
+    if(!this.quizList) return null;
     this.quizListFiltered = this.quizList.filter((quiz) => this.hasSelectedTheme(quiz));
     this.ordreChro = false;
-    this.sortDate.transform(this.quizListFiltered,"-creationDate")
+    this.sortDate.transform(this.quizListFiltered, "-creationDate")
   }
 
   switchOrder(){
     this.ordreChro = !this.ordreChro;
     if(this.ordreChro)
-      this.sortDate.transform(this.quizListFiltered,"creationDate")
+      this.sortDate.transform(this.quizListFiltered, "creationDate")
     else
-      this.sortDate.transform(this.quizListFiltered,"-creationDate")
+      this.sortDate.transform(this.quizListFiltered, "-creationDate")
   }
   
   deleteQuiz(quiz: Quiz) { this.globalService.deleteQuiz(quiz); }
